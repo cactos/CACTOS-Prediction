@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated usagesequence -->
+      <package
+            uri="http://www.cactosfp7.eu/CactoSim/UsageSequence/1.1"
+            class="eu.cactosfp7.cactosim.usagesequence.UsagesequencePackage"
+            genModel="model/usagesequence.genmodel"/>
+   </extension>
+
+</plugin>

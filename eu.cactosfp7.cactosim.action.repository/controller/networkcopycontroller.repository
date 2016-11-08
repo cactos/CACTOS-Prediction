@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.1" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.1" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" id="_ekZc4PEfEeW24e2jO-Tyeg" entityName="NetworkCopyControllerRepository">
+  <components__Repository xsi:type="repository:BasicComponent" id="_g6P58PEfEeW24e2jO-Tyeg" entityName="TransferDataSource">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_Z7lpQPEgEeW24e2jO-Tyeg" entityName="Provided_ITransferDataToTarget_TransferDataSource" providedInterface__OperationProvidedRole="_h_7Il_EfEeW24e2jO-Tyeg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_a5D-IPEgEeW24e2jO-Tyeg" entityName="Required_IDataTransferTarget_TransferDataSource" requiredInterface__OperationRequiredRole="_16QwF_EfEeW24e2jO-Tyeg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_Z7mQUPEgEeW24e2jO-Tyeg" describedService__SEFF="_oSRQYPEfEeW24e2jO-Tyeg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_Z7m3YPEgEeW24e2jO-Tyeg" entityName="start" successor_AbstractAction="_cMhFUA4EEeavzNf6FhjogQ"/>
+      <steps_Behaviour xsi:type="seff:ForkAction" id="_cMhFUA4EEeavzNf6FhjogQ" entityName="ParallelExecution" predecessor_AbstractAction="_Z7m3YPEgEeW24e2jO-Tyeg" successor_AbstractAction="_Z7m3YfEgEeW24e2jO-Tyeg">
+        <synchronisingBehaviours_ForkAction id="_hHdVUA4EEeavzNf6FhjogQ">
+          <synchronousForkedBehaviours_SynchronisationPoint id="_mBke4w4EEeavzNf6FhjogQ">
+            <steps_Behaviour xsi:type="seff:StartAction" id="_qQGU0g4EEeavzNf6FhjogQ" successor_AbstractAction="_PaBqQA4EEeavzNf6FhjogQ"/>
+            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_PaBqQA4EEeavzNf6FhjogQ" predecessor_AbstractAction="_qQGU0g4EEeavzNf6FhjogQ" successor_AbstractAction="_q5w84A4EEeavzNf6FhjogQ" calledService_ExternalService="_4iOQ0PEfEeW24e2jO-Tyeg" role_ExternalService="_a5D-IPEgEeW24e2jO-Tyeg">
+              <inputVariableUsages__CallAction>
+                <variableCharacterisation_VariableUsage type="BYTESIZE">
+                  <specification_VariableCharacterisation specification="bytesize.VALUE"/>
+                </variableCharacterisation_VariableUsage>
+                <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="serializedData"/>
+              </inputVariableUsages__CallAction>
+            </steps_Behaviour>
+            <steps_Behaviour xsi:type="seff:StopAction" id="_q5w84A4EEeavzNf6FhjogQ" predecessor_AbstractAction="_PaBqQA4EEeavzNf6FhjogQ"/>
+          </synchronousForkedBehaviours_SynchronisationPoint>
+          <synchronousForkedBehaviours_SynchronisationPoint id="_lQLeMA4EEeavzNf6FhjogQ">
+            <steps_Behaviour xsi:type="seff:StartAction" id="_oEagYg4EEeavzNf6FhjogQ" successor_AbstractAction="_XXmk0A4EEeavzNf6FhjogQ"/>
+            <steps_Behaviour xsi:type="seff:InternalAction" id="_XXmk0A4EEeavzNf6FhjogQ" entityName="StorageDemand" predecessor_AbstractAction="_oEagYg4EEeavzNf6FhjogQ" successor_AbstractAction="_pA6k4A4EEeavzNf6FhjogQ">
+              <resourceDemand_Action>
+                <specification_ParametericResourceDemand specification="bytesize.VALUE"/>
+                <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_BIjHoQ3KEdyouMqirZIhzQ"/>
+              </resourceDemand_Action>
+            </steps_Behaviour>
+            <steps_Behaviour xsi:type="seff:StopAction" id="_pA6k4A4EEeavzNf6FhjogQ" predecessor_AbstractAction="_XXmk0A4EEeavzNf6FhjogQ"/>
+          </synchronousForkedBehaviours_SynchronisationPoint>
+        </synchronisingBehaviours_ForkAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_Z7m3YfEgEeW24e2jO-Tyeg" entityName="stop" predecessor_AbstractAction="_cMhFUA4EEeavzNf6FhjogQ"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_ysxgYPEfEeW24e2jO-Tyeg" entityName="DataTransferTarget">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_YOLFMPEgEeW24e2jO-Tyeg" entityName="Provided_IDataTransferTarget_DataTransferTarget" providedInterface__OperationProvidedRole="_16QwF_EfEeW24e2jO-Tyeg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_YOWEUPEgEeW24e2jO-Tyeg" describedService__SEFF="_4iOQ0PEfEeW24e2jO-Tyeg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_YOXScPEgEeW24e2jO-Tyeg" entityName="start" successor_AbstractAction="_MsAIUA4FEeavzNf6FhjogQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_YOXScfEgEeW24e2jO-Tyeg" entityName="stop" predecessor_AbstractAction="_MsAIUA4FEeavzNf6FhjogQ"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_MsAIUA4FEeavzNf6FhjogQ" entityName="StorageDemand" predecessor_AbstractAction="_YOXScPEgEeW24e2jO-Tyeg" successor_AbstractAction="_YOXScfEgEeW24e2jO-Tyeg">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="serializedData.BYTESIZE"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_BIjHoQ3KEdyouMqirZIhzQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_h_7Il_EfEeW24e2jO-Tyeg" entityName="ITransferDataToTarget">
+    <signatures__OperationInterface id="_oSRQYPEfEeW24e2jO-Tyeg" entityName="transfer">
+      <parameters__OperationSignature parameterName="bytesize">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+      </parameters__OperationSignature>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_16QwF_EfEeW24e2jO-Tyeg" entityName="IDataTransferTarget">
+    <signatures__OperationInterface id="_4iOQ0PEfEeW24e2jO-Tyeg" entityName="receive">
+      <parameters__OperationSignature parameterName="serializedData">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+      </parameters__OperationSignature>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+</repository:Repository>

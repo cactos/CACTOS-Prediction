@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Transformation of CACTOS Infrastructure models to Palladio models
+Bundle-SymbolicName: eu.cactosfp7.cactosim.infrastructuremodelstopcm;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: 
+ CACTOS Consortium
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.m2m.qvt.oml,
+ org.eclipse.m2m.qvt.oml.project,
+ org.eclipse.m2m.qvt.oml.jscience,
+ eu.cactosfp7.cactosim.optimisationconnector,
+ org.eclipse.m2m.qvt.oml.runtime;bundle-version="3.5.0"
+Bundle-ClassPath: bin/
+Bundle-ActivationPolicy: lazy

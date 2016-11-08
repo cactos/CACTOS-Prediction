@@ -1,0 +1,257 @@
+import logicalDCModelHelper;
+import m2m.qvt.oml.JScience;
+import pcmHelper;
+
+modeltype _physicaldc uses "http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0";
+modeltype _physicaldc_architecturetype uses "http://www.cactosfp7.eu/PhysicalDCModel/ArchitectureType/1.0";
+modeltype _physicaldc_util uses "http://www.cactosfp7.eu/PhysicalDCModel/Util/1.0";
+modeltype _logicaldc uses "http://www.cactosfp7.eu/LogicalDCModel/Core/1.0";
+modeltype _logicaldc_application uses "http://www.cactosfp7.eu/LogicalDCModel/Application/1.0";
+modeltype _lcorrespondence uses 'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype _pcorrespondence uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype _mcorrespondence uses 'http://www.cactosfp7.eu/Correspondence/Measurement/1.1';
+modeltype _pcmcore uses "http://palladiosimulator.org/PalladioComponentModel/Core/5.1";
+modeltype _pcmrepository uses "http://palladiosimulator.org/PalladioComponentModel/Repository/5.1";
+modeltype _pcmresourcetype uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.1';
+modeltype _pcmsystem uses 'http://palladiosimulator.org/PalladioComponentModel/System/5.1';
+modeltype _pcmcomposition uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.1';
+modeltype _pcm_seff uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/5.1';
+modeltype _pcm_seff_performance uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/SEFF_Performance/5.1';
+modeltype _pcm_parameter uses 'http://palladiosimulator.org/PalladioComponentModel/Parameter/5.1';
+modeltype _pcmusage uses 'http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.1';
+modeltype _pcmallocation uses 'http://palladiosimulator.org/PalladioComponentModel/Allocation/5.1';
+modeltype _pcmresourceenvironment uses "http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1";
+modeltype _pcm_stoex uses "http://sdq.ipd.uka.de/StochasticExpressions/2.2";
+modeltype _monitorrepository uses "http://palladiosimulator.org/MonitorRepository/1.0";
+modeltype _measuringpoint uses "http://palladiosimulator.org/PCM/MeasuringPoint/1.0";
+modeltype _metricspec uses "http://palladiosimulator.org/MetricSpec/1.0";
+modeltype _usageevolution uses "http://usageevolution/1.0";
+modeltype _loadmodel_logical uses "http://www.cactosfp7.eu/CactosLoadModel/Logical/1.0";
+modeltype _loadmodel_physical uses "http://www.cactosfp7.eu/CactosLoadModel/Physical/1.0";
+modeltype _usagesequencerepository uses "http://www.cactosfp7.eu/CactoSim/UsageSequence/1.1";
+modeltype _cactospowermodel uses 'http://www.cactosfp7.eu/PhysicalDCModel/Power/1.0';
+modeltype _cactospowerbinding uses 'http://www.cactosfp7.eu/PhysicalDCModel/Power/Binding/1.0';
+modeltype _cactospowerinfrastructure uses 'http://www.cactosfp7.eu/PhysicalDCModel/Power/Specification/1.0'; 
+modeltype _cactospowerspecification uses 'http://www.cactosfp7.eu/PhysicalDCModel/Power/Specification/1.0';
+modeltype _powerutil uses 'http://www.fzi.de/Power/Util/1.0';
+modeltype _powerbinding uses 'http://www.fzi.de/Power/Binding/1.0';
+modeltype _powerspecification uses 'http://www.fzi.de/Power/Specification/1.0';
+modeltype _powerinfrastructure uses 'http://www.fzi.de/Power/Infrastructure/1.0';
+modeltype _dlim uses "http://descartes.tools/dlim/0.1";
+modeltype _measuringpointEDP2 uses "http://palladiosimulator.org/EDP2/MeasuringPoint/1.0";
+
+transformation cactos2PCMShared(out pcorrespondence : _pcorrespondence,
+								out lcorrespondence : _lcorrespondence,	
+								in primitiveresourcetyperepo : _pcmrepository,
+								inout usagesequence: _usagesequencerepository,
+								in resourcetypepcm : _pcmresourcetype,
+								in metricspec : _metricspec,
+								inout measuringpoint: _measuringpoint,
+								inout monitorrepository :_monitorrepository) {
+								
+	/** Default update rate in simulation time (typically seconds) for sampling BlackBoxWorkloads. */
+	
+	property BLACK_BOX_APPLICATION_WORKLOAD_UPDATE_INTERVAL = createDurationAmountFromSeconds(1.0);
+	property BLACK_BOX_USAGE_EVOLUTION_UPDATE_INTERVAL = createDurationAmountFromSeconds(1.0);
+	
+	property BLACK_BOX_VM_INTERFACE_NAME = "Black-Box VM Interface";
+	
+	property SIMULATION_STEP_DURATION_AMOUNT : Amount = createDurationAmountFromSeconds(1.0);
+	
+	/** Default resource demand value for BlackBoxWorkloads contained in Black-Box Application model elements. */
+	property BLACK_BOX_APPLICATION_WORKLOADS_DEFAULT_RESOURCE_DEMAND = "1";		
+	
+	/** Default update rate for measurement of grey-box application run times during the simulation. All information is available after
+	 *  the simulation regarless of this setting (affect only simulation time itself).
+	 */
+	property GREY_BOX_APPLICATION_MEASUREMENTS_DEFAULT_UPDATE_RATE = 1000000.0;		
+	property WHITE_BOX_APPLICATION_MEASUREMENTS_DEFAULT_UPDATE_RATE = 1000000.0;
+	
+	property ARRIVAL_RATE_WINDOW_LENGTH = createDurationAmountFromSeconds(10.0);
+	property ARRIVAL_RATE_WINDOW_INCREMENT = createDurationAmountFromSeconds(10.0);
+	
+	
+	query ServiceEffect::getServiceInterface(): ServiceInterface {
+		return self.forServiceOperation.serviceInterface;
+	}
+	
+	mapping inout Repository::getOrCreateWhiteBoxDataType() : repository::CompositeDataType {
+		init {
+			var existing = self.dataTypes__Repository[CompositeDataType]->any(type | type.entityName = "WhiteBoxApplicationDataType");
+			if (existing <> null) {
+				result := existing;
+			}
+		}
+		if (entityName <> "WhiteBoxApplicationDataType") {
+			entityName := "WhiteBoxApplicationDataType";
+			innerDeclaration_CompositeDataType += object InnerDeclaration {
+				entityName := "HASH";
+				datatype_InnerDeclaration := getPrimitiveDataTypeInteger();
+			}
+		}
+		end {
+			if (not self.dataTypes__Repository->includes(result)) {
+				self.dataTypes__Repository += result;
+			};
+		}
+	}
+	
+	mapping inout Repository::getOrCreateGreyBoxApplicationInterface() : OperationInterface {
+		init {
+			var existing = self.interfaces__Repository[OperationInterface]->any(iface | iface.entityName = "Grey-Box VM Interface");
+			if (existing <> null) {
+				result := existing;
+			}
+		}
+		if (entityName <> "Grey-Box VM Interface") {
+			entityName := "Grey-Box VM Interface";
+			signatures__OperationInterface += object OperationSignature {
+				entityName := "start";	
+			};
+		}
+		end {
+			if (not self.interfaces__Repository->includes(result)) {
+				self.interfaces__Repository += result;
+			}
+		}
+	}
+	
+	mapping inout Repository::getOrCreateGenericApplicationInterface() : OperationInterface {
+		init {
+			var existing = self.interfaces__Repository[OperationInterface]->any(iface | iface.entityName = "Generic VM Interface");
+			if (existing <> null) {
+				result := existing;
+			}
+		}
+		
+		if (entityName <> "Generic VM Interface") {
+			entityName := "Generic VM Interface";
+			signatures__OperationInterface += object OperationSignature {
+				entityName := "interact";	
+			};
+		}
+		end {
+			if (not self.interfaces__Repository->includes(result)) {
+				self.interfaces__Repository += result;
+			}
+		}
+	}
+	
+	mapping inout Repository::getOrCreateStorageAccessInterface() : InfrastructureInterface {
+		init {
+			var existing = self.interfaces__Repository[InfrastructureInterface]->any(iface | iface.entityName = "Storage Access Interface");
+			if (existing <> null) {
+				result := existing;
+			}
+		}
+		
+		if (entityName <> "Storage Access Interface") {
+			entityName := "Storage Access Interface";
+			infrastructureSignatures__InfrastructureInterface += object InfrastructureSignature {
+				entityName := "access";
+				parameters__InfrastructureSignature += object Parameter {
+					dataType__Parameter := getPrimitiveDataTypeDouble();
+					parameterName := "dataAccess";
+				}
+			}
+		}
+		end {
+			if (not self.interfaces__Repository->includes(result)) {
+				self.interfaces__Repository += result;
+			}
+		}
+	}
+	
+	helper getOrCreateUsageSequenceRepository(): UsageSequenceRepository {
+		var repo := usagesequence.rootObjects()[UsageSequenceRepository]->any(true);
+		if (repo <> null and not repo.oclIsInvalid()) {
+			return repo
+		};
+		return object UsageSequenceRepository @ usagesequence {};
+	}
+	
+	helper getOrCreateMonitorRepository(): MonitorRepository {
+		var repo := monitorrepository.rootObjects()[MonitorRepository]->any(true);
+		if (repo <> null and not repo.oclIsInvalid()) {
+			return repo
+		};
+		return object MonitorRepository @ monitorrepository{};
+	}
+	
+	helper getOrCreateMeasuringPointRepository(): MeasuringPointRepository {
+		var repo := measuringpoint.rootObjects()[MeasuringPointRepository]->any(true);
+		if (repo <> null and not repo.oclIsInvalid()) {
+			return repo
+		};
+		return object MeasuringPointRepository @ measuringpoint {};
+	}
+	
+	helper createInputVariableUsagesFromDict(in vars: Dict(ControlFlowVariable, String), forward: Boolean): Set(VariableUsage) {
+		var res : Bag(VariableUsage) =  Bag {};
+		res += object VariableUsage {				
+			variableCharacterisation_VariableUsage += object VariableCharacterisation {
+				type := VariableCharacterisationType::VALUE;
+				if (vars->keys()->includes(ControlFlowVariable::REQUESTVALUE)) {
+					specification_VariableCharacterisation := createPcmRandomVariable(vars->get(ControlFlowVariable::REQUESTVALUE));
+				} else if (forward) {
+					specification_VariableCharacterisation := createPcmRandomVariable("REQUEST.VALUE");
+				} else {
+					specification_VariableCharacterisation := createPcmRandomVariable("0");
+				}
+			};
+			
+			variableCharacterisation_VariableUsage += object VariableCharacterisation {
+				type := VariableCharacterisationType::BYTESIZE;
+				if (vars->keys()->includes(ControlFlowVariable::REQUESTBYTESIZE)) {
+					specification_VariableCharacterisation := createPcmRandomVariable(vars->get(ControlFlowVariable::REQUESTBYTESIZE));
+				} else if (forward)  {
+					specification_VariableCharacterisation := createPcmRandomVariable("REQUEST.BYTESIZE");
+				}else {
+					specification_VariableCharacterisation := createPcmRandomVariable("0");
+				}
+			};
+			namedReference__VariableUsage := object VariableReference {
+				referenceName := "REQUEST";
+			}
+		};		
+		res += object VariableUsage {
+			variableCharacterisation_VariableUsage += object VariableCharacterisation {
+				type := VariableCharacterisationType::VALUE;
+				if (vars->keys()->includes(ControlFlowVariable::REQUESTHASH)) {
+					specification_VariableCharacterisation := createPcmRandomVariable(vars->get(ControlFlowVariable::REQUESTHASH));
+				} else if (forward)  {
+					specification_VariableCharacterisation := createPcmRandomVariable("REQUEST.HASH.VALUE");
+				} else {
+					specification_VariableCharacterisation := createPcmRandomVariable("0");
+				}
+			};
+		
+			namedReference__VariableUsage := object VariableReference {
+				referenceName := "REQUEST.HASH";
+			}
+		};
+		return res->asSet();
+	}
+	
+	helper createResultVariableUsageFromDict(in vars: Dict(ControlFlowVariable, String)): VariableUsage {
+		return object VariableUsage {
+			if (vars->keys()->includes(ControlFlowVariable::RESPONSEVALUE)) {
+				variableCharacterisation_VariableUsage += object VariableCharacterisation {
+					type := VariableCharacterisationType::VALUE;
+					specification_VariableCharacterisation := createPcmRandomVariable(vars->get(ControlFlowVariable::RESPONSEVALUE));
+				};
+			};
+			if (vars->keys()->includes(ControlFlowVariable::RESPONSEBYTESIZE)) {
+				variableCharacterisation_VariableUsage += object VariableCharacterisation {
+					type := VariableCharacterisationType::BYTESIZE;
+					specification_VariableCharacterisation := createPcmRandomVariable(vars->get(ControlFlowVariable::RESPONSEBYTESIZE));
+				};
+			};
+			namedReference__VariableUsage := object VariableReference {
+				referenceName := "RESULT";
+			}
+		};		
+		
+	}
+	 
+}

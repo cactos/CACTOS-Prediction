@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:PhysicalDCModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0" id="_5HPOEBadEeaTmo5sTYWMsQ">
+  <switches id="_5JLHwRadEeaTmo5sTYWMsQ" name="Single Switch Layout" networkInterconnects="_5JLHwBadEeaTmo5sTYWMsQ"/>
+  <racks id="_5HPOFRadEeaTmo5sTYWMsQ" name="FCO rack A5" powerSupplies="_5HPOEhadEeaTmo5sTYWMsQ">
+    <nodes xsi:type="core:ComputeNode" id="_5Iub0RadEeaTmo5sTYWMsQ" name="10.157.128.31" powerProvidingEntities="_5HPOEhadEeaTmo5sTYWMsQ" networkInterconnects="_5JLHwBadEeaTmo5sTYWMsQ">
+      <cpuSpecifications id="_5Iub0hadEeaTmo5sTYWMsQ" name="AMD Opteron&#x2122; Processor 6212" frequency="2.5999999999999996GHz" numberOfCores="8" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_5G8TIBadEeaTmo5sTYWMsQ"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <memorySpecifications id="_5Iub0xadEeaTmo5sTYWMsQ" name="64GB DDR3-RAM" size="64.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_5JU4zRadEeaTmo5sTYWMsQ"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_5Iub1BadEeaTmo5sTYWMsQ" name="10.157.128.32" powerProvidingEntities="_5HPOEhadEeaTmo5sTYWMsQ" networkInterconnects="_5JLHwBadEeaTmo5sTYWMsQ">
+      <cpuSpecifications id="_5Iub1RadEeaTmo5sTYWMsQ" name="Quad-Core AMD Opteron&#x2122; Processor 8356" frequency="1.7999999999999998GHz" numberOfCores="32" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_5G8TIBadEeaTmo5sTYWMsQ"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <memorySpecifications id="_5Iub1hadEeaTmo5sTYWMsQ" name="128GB DDR3-RAM" size="128.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_5JeCsBadEeaTmo5sTYWMsQ"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_5Iub1xadEeaTmo5sTYWMsQ" name="10.158.128.11" powerProvidingEntities="_5HPOEhadEeaTmo5sTYWMsQ" networkInterconnects="_5JLHwBadEeaTmo5sTYWMsQ">
+      <cpuSpecifications id="_5Iub2BadEeaTmo5sTYWMsQ" name="AMD Opteron&#x2122; Processor 6212" frequency="2.5999999999999996GHz" numberOfCores="8" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_5G8TIBadEeaTmo5sTYWMsQ"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <memorySpecifications id="_5Iub2RadEeaTmo5sTYWMsQ" name="64GB DDR3-RAM" size="64.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_5JeCshadEeaTmo5sTYWMsQ"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_5Iub4xadEeaTmo5sTYWMsQ" name="10.158.128.15" powerProvidingEntities="_5HPOEhadEeaTmo5sTYWMsQ" networkInterconnects="_5JLHwBadEeaTmo5sTYWMsQ">
+      <cpuSpecifications id="_5Iub5BadEeaTmo5sTYWMsQ" name="AMD Opteron&#x2122; Processor 6212" frequency="2.5999999999999996GHz" numberOfCores="8" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_5G8TIBadEeaTmo5sTYWMsQ"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <memorySpecifications id="_5Iub5RadEeaTmo5sTYWMsQ" name="64GB DDR3-RAM" size="64.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_5JeCtBadEeaTmo5sTYWMsQ"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_5Iub5hadEeaTmo5sTYWMsQ" name="10.158.128.16" powerProvidingEntities="_5HPOEhadEeaTmo5sTYWMsQ" networkInterconnects="_5JLHwBadEeaTmo5sTYWMsQ">
+      <cpuSpecifications id="_5Iub5xadEeaTmo5sTYWMsQ" name="AMD Opteron&#x2122; Processor 6212" frequency="2.5999999999999996GHz" numberOfCores="8" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_5G8TIBadEeaTmo5sTYWMsQ"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <memorySpecifications id="_5Iub6BadEeaTmo5sTYWMsQ" name="64GB DDR3-RAM" size="64.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_5JeCthadEeaTmo5sTYWMsQ"/>
+    </nodes>
+    <nodes xsi:type="core:NetworkAttachedStorage" id="_5I4M0BadEeaTmo5sTYWMsQ" name="CEPH Cluster 1" powerProvidingEntities="_5HPOEhadEeaTmo5sTYWMsQ" networkInterconnects="_5JLHwBadEeaTmo5sTYWMsQ">
+      <storageSpecifications id="_5I4M0RadEeaTmo5sTYWMsQ" name=" Virtual Storage on Cluster CEPH Cluster 1" size="500.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="960.0(bit/s)*1000000"/>
+        <writeBandwidth value="960.0(bit/s)*1000000"/>
+      </storageSpecifications>
+    </nodes>
+  </racks>
+  <racks id="_5HPOFhadEeaTmo5sTYWMsQ" name="FCO rack A6" powerSupplies="_5HPOExadEeaTmo5sTYWMsQ">
+    <nodes xsi:type="core:ComputeNode" id="_5IlR4BadEeaTmo5sTYWMsQ" name="10.157.128.30" powerProvidingEntities="_5HPOExadEeaTmo5sTYWMsQ">
+      <cpuSpecifications id="_5IlR4RadEeaTmo5sTYWMsQ" name="Quad-Core AMD Opteron&#x2122; Processor 8356" frequency="1.7999999999999998GHz" numberOfCores="32" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_5G8TIBadEeaTmo5sTYWMsQ"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <memorySpecifications id="_5Iub0BadEeaTmo5sTYWMsQ" name="128GB DDR3-RAM" size="128.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_5JeCuBadEeaTmo5sTYWMsQ"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_5Iub6RadEeaTmo5sTYWMsQ" name="10.158.128.17" powerProvidingEntities="_5HPOExadEeaTmo5sTYWMsQ">
+      <cpuSpecifications id="_5Iub6hadEeaTmo5sTYWMsQ" name="Quad-Core AMD Opteron&#x2122; Processor 8356" frequency="1.7999999999999998GHz" numberOfCores="32" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_5G8TIBadEeaTmo5sTYWMsQ"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <memorySpecifications id="_5Iub6xadEeaTmo5sTYWMsQ" name="128GB DDR3-RAM" size="128.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_5JeCuhadEeaTmo5sTYWMsQ"/>
+    </nodes>
+    <nodes xsi:type="core:NetworkAttachedStorage" id="_5I4M0hadEeaTmo5sTYWMsQ" name="CEPH Cluster 2" powerProvidingEntities="_5HPOExadEeaTmo5sTYWMsQ">
+      <storageSpecifications id="_5I4M0xadEeaTmo5sTYWMsQ" name=" Virtual Storage on Cluster CEPH Cluster 2" size="500.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="960.0(bit/s)*1000000"/>
+        <writeBandwidth value="960.0(bit/s)*1000000"/>
+      </storageSpecifications>
+    </nodes>
+  </racks>
+  <racks id="_5HPOFxadEeaTmo5sTYWMsQ" name="FCO rack A7" powerSupplies="_5HPOFBadEeaTmo5sTYWMsQ">
+    <nodes xsi:type="core:ComputeNode" id="_5Iub2hadEeaTmo5sTYWMsQ" name="10.158.128.12" powerProvidingEntities="_5HPOFBadEeaTmo5sTYWMsQ">
+      <cpuSpecifications id="_5Iub2xadEeaTmo5sTYWMsQ" name="AMD Opteron&#x2122; Processor 6320" frequency="1.4GHz" numberOfCores="4" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_5G8TIBadEeaTmo5sTYWMsQ"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <memorySpecifications id="_5Iub3BadEeaTmo5sTYWMsQ" name="32GB DDR3-RAM" size="220.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_5JeCvBadEeaTmo5sTYWMsQ"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_5Iub3RadEeaTmo5sTYWMsQ" name="10.158.128.13" powerProvidingEntities="_5HPOFBadEeaTmo5sTYWMsQ">
+      <cpuSpecifications id="_5Iub3hadEeaTmo5sTYWMsQ" name="AMD Opteron&#x2122; Processor 6320" frequency="1.4GHz" numberOfCores="4" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_5G8TIBadEeaTmo5sTYWMsQ"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <memorySpecifications id="_5Iub3xadEeaTmo5sTYWMsQ" name="32GB DDR3-RAM" size="220.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_5JeCvhadEeaTmo5sTYWMsQ"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_5Iub4BadEeaTmo5sTYWMsQ" name="10.158.128.14" powerProvidingEntities="_5HPOFBadEeaTmo5sTYWMsQ">
+      <cpuSpecifications id="_5Iub4RadEeaTmo5sTYWMsQ" name="AMD Opteron&#x2122; Processor 6212" frequency="2.5999999999999996GHz" numberOfCores="8" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_5G8TIBadEeaTmo5sTYWMsQ"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <memorySpecifications id="_5Iub4hadEeaTmo5sTYWMsQ" name="64GB DDR3-RAM" size="64.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_5JeCwBadEeaTmo5sTYWMsQ"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_5Iub7BadEeaTmo5sTYWMsQ" name="10.158.128.18" powerProvidingEntities="_5HPOFBadEeaTmo5sTYWMsQ">
+      <cpuSpecifications id="_5Iub7RadEeaTmo5sTYWMsQ" name="Quad-Core AMD Opteron&#x2122; Processor 8356" frequency="1.7999999999999998GHz" numberOfCores="32" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_5G8TIBadEeaTmo5sTYWMsQ"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <memorySpecifications id="_5Iub7hadEeaTmo5sTYWMsQ" name="128GB DDR3-RAM" size="128.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_5JeCwhadEeaTmo5sTYWMsQ"/>
+    </nodes>
+  </racks>
+  <powerSupplies id="_5HPOERadEeaTmo5sTYWMsQ" name="Main PDU" powerCap="3.0kW" powerConsumingEntities="_5HPOEhadEeaTmo5sTYWMsQ _5HPOExadEeaTmo5sTYWMsQ _5HPOFBadEeaTmo5sTYWMsQ" suppliablePeakPower="3.2kW"/>
+  <powerSupplies id="_5HPOEhadEeaTmo5sTYWMsQ" name="Rack 1 PDU" powerProvidingEntities="_5HPOERadEeaTmo5sTYWMsQ" powerCap="2.0kW" powerConsumingEntities="_5Iub0RadEeaTmo5sTYWMsQ _5Iub1BadEeaTmo5sTYWMsQ _5Iub1xadEeaTmo5sTYWMsQ _5Iub4xadEeaTmo5sTYWMsQ _5Iub5hadEeaTmo5sTYWMsQ _5I4M0BadEeaTmo5sTYWMsQ" suppliablePeakPower="2.0kW" hostedIn="_5HPOFRadEeaTmo5sTYWMsQ"/>
+  <powerSupplies id="_5HPOExadEeaTmo5sTYWMsQ" name="Rack 2 PDU" powerProvidingEntities="_5HPOERadEeaTmo5sTYWMsQ" powerCap="2.0kW" powerConsumingEntities="_5IlR4BadEeaTmo5sTYWMsQ _5Iub6RadEeaTmo5sTYWMsQ _5I4M0hadEeaTmo5sTYWMsQ" suppliablePeakPower="2.0kW" hostedIn="_5HPOFhadEeaTmo5sTYWMsQ"/>
+  <powerSupplies id="_5HPOFBadEeaTmo5sTYWMsQ" name="Rack 3 PDU" powerProvidingEntities="_5HPOERadEeaTmo5sTYWMsQ" powerCap="2.0kW" powerConsumingEntities="_5Iub2hadEeaTmo5sTYWMsQ _5Iub3RadEeaTmo5sTYWMsQ _5Iub4BadEeaTmo5sTYWMsQ _5Iub7BadEeaTmo5sTYWMsQ" suppliablePeakPower="2.0kW" hostedIn="_5HPOFxadEeaTmo5sTYWMsQ"/>
+  <clusters id="_5JLHwhadEeaTmo5sTYWMsQ" name="Single Cluster Layout" clusterId="1" containedNodes="_5Iub0RadEeaTmo5sTYWMsQ _5Iub1BadEeaTmo5sTYWMsQ _5Iub1xadEeaTmo5sTYWMsQ _5Iub4xadEeaTmo5sTYWMsQ _5Iub5hadEeaTmo5sTYWMsQ _5I4M0BadEeaTmo5sTYWMsQ _5IlR4BadEeaTmo5sTYWMsQ _5Iub6RadEeaTmo5sTYWMsQ _5I4M0hadEeaTmo5sTYWMsQ _5Iub2hadEeaTmo5sTYWMsQ _5Iub3RadEeaTmo5sTYWMsQ _5Iub4BadEeaTmo5sTYWMsQ _5Iub7BadEeaTmo5sTYWMsQ"/>
+  <networkInterconnects id="_5JLHwBadEeaTmo5sTYWMsQ" name="Single NIC Layout" connectedEntities="_5Iub0RadEeaTmo5sTYWMsQ _5Iub1BadEeaTmo5sTYWMsQ _5Iub1xadEeaTmo5sTYWMsQ _5Iub4xadEeaTmo5sTYWMsQ _5Iub5hadEeaTmo5sTYWMsQ _5I4M0BadEeaTmo5sTYWMsQ _5JLHwRadEeaTmo5sTYWMsQ">
+    <bandwidth value="1.0(bit/s)*1000000000"/>
+  </networkInterconnects>
+</core:PhysicalDCModel>

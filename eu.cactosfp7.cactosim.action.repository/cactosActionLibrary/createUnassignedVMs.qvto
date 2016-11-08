@@ -1,0 +1,196 @@
+import transforms.pcmHelperCore;
+import transforms.localstorage;
+import transforms.cactosAdaptationBehaviorHelper;
+import simulizar_qvto_helper.logHelper;
+import eu.cactosfp7.cactosim.placementconnector.PlacementConnectorUnit;
+import transforms.updateRuntimeCorrespondence;
+import eu.cactosfp7.infrastructuremodels.util.blackboxunit.InfrastructureModelUtilsBlackBoxUnit;
+
+
+modeltype CACT_LCORE uses 'http://www.cactosfp7.eu/LogicalDCModel/Core/1.0';
+modeltype CACT_LAPP uses 'http://www.cactosfp7.eu/LogicalDCModel/Application/1.0';
+modeltype CACT_PCORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype CACT_PCORR uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype CACT_LCORR uses 'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype CACT_PUTIL uses 'http://www.cactosfp7.eu/PhysicalDCModel/Util/1.0';
+modeltype PCM_COMP uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.1';
+modeltype PCM_ALLOC uses 'http://palladiosimulator.org/PalladioComponentModel/Allocation/5.1';
+modeltype PCM_STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+modeltype PCM_PARAM uses 'http://palladiosimulator.org/PalladioComponentModel/Parameter/5.1';
+modeltype PCM_REP uses 'http://palladiosimulator.org/PalladioComponentModel/Repository/5.1';
+modeltype PCM_SEFF uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/5.1';
+modeltype PCM_SYS uses 'http://palladiosimulator.org/PalladioComponentModel/System/5.1';
+modeltype PCM_RES_ENV uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1';
+modeltype PCM_RES_TYPE uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.1';
+modeltype PCM_CORE uses 'http://palladiosimulator.org/PalladioComponentModel/Core/5.1';
+modeltype ACTION_MAPPING uses 'http://simulizar.palladiosimulator.org/Actions/Mapping/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_PARAM uses 'http://simulizar.palladiosimulator.org/Actions/Parameter/1.1';
+modeltype ECORE uses 'http://www.eclipse.org/emf/2002/Ecore';
+modeltype STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+modeltype PLM uses 'http://www.cactosfp7.eu/CactosLoadModel/Physical/1.0';
+modeltype LLM uses 'http://www.cactosfp7.eu/CactosLoadModel/Logical/1.0';
+modeltype OPTIMISATION_PLAN uses 'http://www.cactosfp7.eu/OptimisationPlan/1.0';
+modeltype RUNTIMEMEASUREMENT uses 'http://simulizar.palladiosimulator.org/RuntimeMeasurement/1.0';
+modeltype MONITOR_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/Measurement/1.1';
+
+transformation createUnassignedVM(	inout logicalCorrespondence: CACT_LCORR,
+									inout physicalCorrespondence : CACT_PCORR, 
+									in logicaldc: CACT_LCORE,
+									in physicaldc: CACT_PCORE,
+									in measurementCorrespondence : MONITOR_CORRESPONDENCE,
+									in runtimeMeasurement : RUNTIMEMEASUREMENT, 
+									in actionStep : ACTION_CORE,
+									inout actionRoleSet : ACTION_INSTANCE) {
+	
+	mapping inout ApplicationInstance::createUnassignedVirtualMachines(flavour: Flavour, inputParameters: Set(EStringToEStringObjectMapEntry)) {
+		assert fatal(false) with log("Unknown ApplicationInstance: This should not have been called.")
+	}
+	
+	mapping inout BlackBoxApplicationInstance::createUnassignedVirtualMachines(flavour: Flavour, inputParameters: Set(EStringToEStringObjectMapEntry)) {
+		self.virtualMachine := self.applicationTemplate.createUnassignedVirtualMachine(flavour, inputParameters);
+		self.logicalDCModel.unassignedVms += self.virtualMachine;
+	}
+	
+	mapping inout GreyBoxApplicationInstance::createUnassignedVirtualMachines(flavour: Flavour, inputParameters: Set(EStringToEStringObjectMapEntry)) {
+		self.virtualMachine := self.applicationTemplate.createUnassignedVirtualMachine(flavour, inputParameters);
+		self.logicalDCModel.unassignedVms += self.virtualMachine;
+	}
+	
+	mapping inout WhiteBoxApplicationInstance::createUnassignedVirtualMachines(flavour: Flavour, inputParameters: Set(EStringToEStringObjectMapEntry)) {
+		if (inputParameters <> null and inputParameters->size() > 0) {
+			logWarn("It is currently not supported to specify input parameters for White Box applications");
+		};
+		var template := self.applicationTemplate.oclAsType(WhiteBoxApplicationTemplate); 
+		self.composedVMs := template.userFacingServices.interfaceProvidingEntity[ComposedVMImage].createUnassignedVirtualMachine(flavour, 1);
+		template.vmImageConnectors->forEach(connector) {
+			if (connector.oclIsKindOf(ScalableVMImageConnector)) {
+				var amount := connector.oclAsType(ScalableVMImageConnector).defaultInstances;
+				var count := 0;
+				while (count < amount) {
+					count := count + 1;
+					self.composedVMs += connector.serviceProvidedRole
+						.interfaceProvidingEntity.oclAsType(ComposedVMImage)
+							.createUnassignedVirtualMachine(flavour, count);
+				}
+			} else {
+				self.composedVMs += connector.serviceProvidedRole
+					.interfaceProvidingEntity.oclAsType(ComposedVMImage)
+						.createUnassignedVirtualMachine(flavour, 1);
+			}
+		};
+	}
+	
+	helper ApplicationTemplate::createUnassignedVirtualMachine(flavour: Flavour, inputParameters: Set(EStringToEStringObjectMapEntry)): VirtualMachine {
+		assert fatal(false) with log("Unknown ApplicationTemplate: This should not have been called.");
+		return null;
+	}
+	
+	helper BlackBoxApplicationTemplate::createUnassignedVirtualMachine(flavour: Flavour, inputParameters: Set(EStringToEStringObjectMapEntry)): VirtualMachine {
+		var res := self.blackBoxVMImageBehaviour.getFlavourOrDefault(flavour).createNewVirtualMachine(inputParameters);
+		res.name := self.name + "-" + res.id.toString();
+		res.vMImageInstance := self.blackBoxVMImageBehaviour.createPreliminaryVMImageInstance(flavour);
+		res.runtimeApplicationModel := self.blackBoxVMImageBehaviour.createRuntimeApplicationModel();
+		
+		return res;
+	}
+	
+	helper GreyBoxApplicationTemplate::createUnassignedVirtualMachine(flavour: Flavour, inputParameters: Set(EStringToEStringObjectMapEntry)): VirtualMachine {
+		var res := self.greyBoxVMImageBehaviour.getFlavourOrDefault(flavour).createNewVirtualMachine(inputParameters);
+		res.name := self.name + "-" + res.id.toString();
+		res.vMImageInstance := self.greyBoxVMImageBehaviour.createPreliminaryVMImageInstance(flavour);
+		res.runtimeApplicationModel := self.greyBoxVMImageBehaviour.createRuntimeApplicationModel();
+		return res;
+	}
+	
+	helper ComposedVMImage::createUnassignedVirtualMachine(flavour: Flavour, instanceNumber: Integer): ComposedVM {
+		var flav := self.vmImageBehaviour.getFlavourOrDefault(flavour);
+		var res := flav.createNewVirtualMachine(null);
+		res.name := self.applicationTemplate.name + "-" + self.name + "-I" + instanceNumber.toString();
+		
+		res.vMImageInstance := self.vmImageBehaviour.createPreliminaryVMImageInstance(flav);
+		res.runtimeApplicationModel := self.vmImageBehaviour.createRuntimeApplicationModel();
+		return object ComposedVM {
+			composedVMImage := self;
+			virtualMachine := res; 
+		}
+	}	
+	
+	helper ComposedVMImage::determineNextInstanceNumber(application: WhiteBoxApplicationInstance, connector: ScalableVMImageConnector): Integer {
+		var correspondence := logicalCorrespondence.rootObjects()[LogicalCorrespondenceRepository].scalableConnectorCorrespondences
+			->any(cactosApplicationInstance = application and cactosConnector = connector);
+		var maxNumber := correspondence.maximumInstanceNumber;
+		correspondence.maximumInstanceNumber := maxNumber + 1;
+		return maxNumber + 1;
+	}
+	
+	helper Flavour::createNewVirtualMachine(inputParams: Set(EStringToEStringObjectMapEntry)): VirtualMachine {
+		return object VirtualMachine {
+			virtualProcessingUnits  += self.createVCPU();
+			virtualMemoryUnits += self.createVMem();
+			state := VM_State::UNASSIGNED;
+			if (inputParams <> null) {
+				inputParameters += inputParams.oclAsType(EObject).nonIdDeepClone().oclAsType(EStringToEStringObjectMapEntry);
+			}
+		};
+	}
+	
+	helper Flavour::createVCPU(): VirtualProcessingUnit {
+		return object VirtualProcessingUnit {
+			architectureType := self.architectureType;
+			virtualCores := self.numberVirtualCores;
+		}
+	}
+	
+	helper Flavour::createVMem(): VirtualMemory {
+		return object VirtualMemory {
+			provisioned := self.sizeRam;
+		}
+	}
+	
+	helper VMImageBehaviour::createPreliminaryVMImageInstance(flavour: Flavour): VMImageInstance {
+		return object VMImageInstance {
+			rootDisk := object VMImage {
+				parent := self.vmImage;
+				if (flavour <> null) {
+					capacity := flavour.sizeStorage;
+				} else {
+					capacity := self.vmImage.capacity;
+				}
+			};
+			self.vmImage.logicalDCModel.volumesAndImages += rootDisk;
+		}
+	}
+	
+	helper BlackBoxVMImageBehaviour::createRuntimeApplicationModel(): BlackBoxVMBehaviour {
+		return object BlackBoxVMBehaviour {
+			vmImageBehaviour := self;
+			patternIsRepeating := self.patternIsRepeating;
+			
+			blackBoxWorkloads += self.blackBoxWorkloads.oclAsType(EObject).nonIdDeepClone().oclAsType(BlackBoxWorkload);
+		}
+	}
+	
+	helper GreyBoxVMImageBehaviour::createRuntimeApplicationModel(): GreyBoxVMBehaviour {
+		return object GreyBoxVMBehaviour {
+			vmImageBehaviour := self;
+			patternIsRepeating := self.patternIsRepeating;
+			
+			workloadPhases += self.workloadPhases.oclAsType(EObject).nonIdDeepClone().oclAsType(WorkloadPhase);
+		}
+	}
+	
+	helper WhiteBoxVMImageBehaviour::createRuntimeApplicationModel(): WhiteBoxVMBehaviour {
+		return object WhiteBoxVMBehaviour {
+			serviceEffects += self.serviceEffects.oclAsType(EObject).nonIdDeepClone().oclAsType(ServiceEffect);
+			vmImageBehaviour := self;
+		}
+	}
+	
+	query VMImageBehaviour::getFlavourOrDefault(flavour: Flavour): Flavour {
+		if (flavour <> null) return flavour;
+		return self.defaultFlavour;
+	}
+							
+}

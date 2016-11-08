@@ -1,0 +1,73 @@
+import transforms.pcmHelperCore;
+import transforms.localstorage;
+import transforms.cactosAdaptationBehaviorHelper;
+import simulizar_qvto_helper.logHelper;
+import eu.cactosfp7.cactosim.action.repository.black.CactosActionBlackboxUnit;
+
+modeltype CACT_LCORE uses 'http://www.cactosfp7.eu/LogicalDCModel/Core/1.0';
+modeltype CACT_PCORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype CACT_PCORR uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype CACT_LCORR uses 'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype PCM_COMP uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.1';
+modeltype PCM_ALLOC uses 'http://palladiosimulator.org/PalladioComponentModel/Allocation/5.1';
+modeltype PCM_STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+modeltype PCM_PARAM uses 'http://palladiosimulator.org/PalladioComponentModel/Parameter/5.1';
+modeltype PCM_REP uses 'http://palladiosimulator.org/PalladioComponentModel/Repository/5.1';
+modeltype PCM_SEFF uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/5.1';
+modeltype PCM_SYS uses 'http://palladiosimulator.org/PalladioComponentModel/System/5.1';
+modeltype PCM_RES_ENV uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1';
+modeltype PCM_RES_TYPE uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.1';
+modeltype PCM_CORE uses 'http://palladiosimulator.org/PalladioComponentModel/Core/5.1';
+modeltype ACTION_MAPPING uses 'http://simulizar.palladiosimulator.org/Actions/Mapping/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_PARAM uses 'http://simulizar.palladiosimulator.org/Actions/Parameter/1.1';
+modeltype ECORE uses 'http://www.eclipse.org/emf/2002/Ecore';
+modeltype STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+modeltype XMLTYPE uses 'http://www.eclipse.org/emf/2003/XMLType';
+
+transformation adaptPhysicalState(inout physicalCorrespondence : CACT_PCORR,
+							inout logicalCorrespondence : CACT_LCORR,  
+							inout actionCore : ACTION_CORE,
+							in actionRoleSet : ACTION_INSTANCE) {
+							
+	property OPTIMISATION_IN_PROGRESS_STEREOTYPE_NAME = "CactosEntityInOptimisation";						
+								
+	/**
+	 * The main transformation.
+	 * This is the entry point to the overall transformation.
+	 */
+	main() {	
+		var physicalCorrespondenceRepository : PhysicalCorrespondenceRepository = physicalCorrespondence.rootObjects()[PhysicalCorrespondenceRepository]->any(true);
+		
+		var roleSet : RoleSet :=  actionRoleSet.rootObjects()[RoleSet]->any(true);
+		
+		roleSet.map adaptPhysicalNodeState(physicalCorrespondenceRepository);
+	}
+	
+	mapping RoleSet::adaptPhysicalNodeState(inout physicalCorrespondenceRepository : PhysicalCorrespondenceRepository) {
+		var targetNodeCorr := self.roles->any(role | role.roleType.id = NSC_TARGET_NODE_CORRESPONDENCE_TYPE_ID).value.oclAsType(AbstractNodeCorrespondence);
+		var targetState := self.roles->any(role | role.roleType.id = NSC_TARGET_NODE_STATE_TYPE_ID).value.oclAsType(SimpleAnyType).value.oclAsType(NodeState);
+		logDebug("Setting state to targetState: " + targetState.toString());
+		var targetNode := targetNodeCorr.cactos;
+		var oldState = targetNode.state;
+		targetNode.state := targetState;
+		if (targetState = NodeState::OFF) {
+			// switch state of power consuming entity
+			var powerConsumingResourceCors := physicalCorrespondenceRepository.powerConsumingResourceCorrespondences->
+				select(s | s.cactos.powerProvidingEntities.id->includes(targetNode.id));
+			powerConsumingResourceCors->forEach(it) {
+				var powerBinding := it.palladio.statefulResourcePowerBinding;
+				if(powerBinding <> null) {
+					it.palladio.powerState := powerBinding.powerStates->any(s | s.name = "OFF");
+				};
+			};
+			// Set values to zero. Power and Utilization measurements are only committed to CACTOS if the state of the node is not off. 
+			physicalCorrespondenceRepository.powerConsumingEntityMeasurementCorrespondences->any(pc | pc.cactos.powerConsumingEntity = targetNode)
+				.cactos.currentConsumption := createConsumptionAmount(0.0);
+			physicalCorrespondenceRepository.puMeasurementCorrespondences->select(pc | pc.cactos.observedPu.node = targetNode)
+				->forEach(it) {it.cactos.utilization.value := createUtilAmount(0.0)}
+		};
+		targetNode.removeStereotypeApplications(OPTIMISATION_IN_PROGRESS_STEREOTYPE_NAME);
+	}
+} 

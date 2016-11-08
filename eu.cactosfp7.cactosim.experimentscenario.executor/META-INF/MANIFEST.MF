@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Experiment Scenario Executor
+Bundle-SymbolicName: eu.cactosfp7.cactosim.experimentscenario.executor;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: eu.cactosfp7.cactosim.experimentscenario.executor.Activator
+Require-Bundle: org.eclipse.ui,
+ eu.cactosfp7.cactosim.experimentscenario,
+ org.eclipse.core.runtime,
+ org.palladiosimulator.simulizar,
+ org.palladiosimulator.monitorrepository,
+ org.palladiosimulator.simulizar.runtimemeasurement,
+ de.uka.ipd.sdq.workflow.mdsd,
+ eu.cactosfp7.cactosim,
+ de.uka.ipd.sdq.workflow,
+ de.uka.ipd.sdq.simucomframework,
+ de.uka.ipd.sdq.simulation.abstractsimengine,
+ de.uka.ipd.sdq.scheduler;bundle-version="1.0.0",
+ org.palladiosimulator.simulizar.simulationtime,
+ org.palladiosimulator.analyzer.workflow
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy

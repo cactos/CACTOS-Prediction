@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="correspondence" nsURI="http://www.cactosfp7.eu/Correspondence/1.1"
+    nsPrefix="correspondence">
+  <eClassifiers xsi:type="ecore:EClass" name="LoadCorrespondence" abstract="true"
+      eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="palladio" lowerBound="1"
+        eType="ecore:EClass ../../org.palladiosimulator.simulizar.runtimemeasurement/model/runtimemeasurement.ecore#//RuntimeMeasurement"/>
+  </eClassifiers>
+  <eSubpackages name="physicalcorrespondence" nsURI="http://www.cactosfp7.eu/Correspondence/Physical/1.1"
+      nsPrefix="physicalcorrespondence">
+    <eClassifiers xsi:type="ecore:EClass" name="PuMeasurementCorrespondence" eSuperTypes="#//LoadCorrespondence">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/loadmodel.ecore#//physical/PuMeasurement"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="physicalCorrespondenceRepository"
+          lowerBound="1" eType="#//physicalcorrespondence/PhysicalCorrespondenceRepository"
+          eOpposite="#//physicalcorrespondence/PhysicalCorrespondenceRepository/puMeasurementCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="MemoryMeasurementCorrespondence" eSuperTypes="#//LoadCorrespondence">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/loadmodel.ecore#//physical/MemoryMeasurement"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="physicalCorrespondenceRepository"
+          lowerBound="1" eType="#//physicalcorrespondence/PhysicalCorrespondenceRepository"
+          eOpposite="#//physicalcorrespondence/PhysicalCorrespondenceRepository/memoryMeasurementCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="StorageMeasurementCorrespondence"
+        eSuperTypes="#//LoadCorrespondence">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/loadmodel.ecore#//physical/StorageMeasurement"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="physicalCorrespondenceRepository"
+          lowerBound="1" eType="#//physicalcorrespondence/PhysicalCorrespondenceRepository"
+          eOpposite="#//physicalcorrespondence/PhysicalCorrespondenceRepository/storageMeasurementCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="InterconnectMeasurementCorrespondence"
+        eSuperTypes="#//LoadCorrespondence">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/loadmodel.ecore#//physical/InterconnectMeasurement"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="physicalCorrespondenceRepository"
+          lowerBound="1" eType="#//physicalcorrespondence/PhysicalCorrespondenceRepository"
+          eOpposite="#//physicalcorrespondence/PhysicalCorrespondenceRepository/interconnectMeasurementCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PhysicalCorrespondenceRepository"
+        eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="correspondenceEstablished"
+          lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+          defaultValueLiteral="false"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="puMeasurementCorrespondences"
+          upperBound="-1" eType="#//physicalcorrespondence/PuMeasurementCorrespondence"
+          containment="true" eOpposite="#//physicalcorrespondence/PuMeasurementCorrespondence/physicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="memoryMeasurementCorrespondences"
+          upperBound="-1" eType="#//physicalcorrespondence/MemoryMeasurementCorrespondence"
+          containment="true" eOpposite="#//physicalcorrespondence/MemoryMeasurementCorrespondence/physicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="storageMeasurementCorrespondences"
+          upperBound="-1" eType="#//physicalcorrespondence/StorageMeasurementCorrespondence"
+          containment="true" eOpposite="#//physicalcorrespondence/StorageMeasurementCorrespondence/physicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="interconnectMeasurementCorrespondences"
+          upperBound="-1" eType="#//physicalcorrespondence/InterconnectMeasurementCorrespondence"
+          containment="true" eOpposite="#//physicalcorrespondence/InterconnectMeasurementCorrespondence/physicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="switchCorrespondences"
+          ordered="false" upperBound="-1" eType="#//physicalcorrespondence/SwitchCorrespondence"
+          containment="true" eOpposite="#//physicalcorrespondence/SwitchCorrespondence/physicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="rackCorrespondences"
+          ordered="false" upperBound="-1" eType="#//physicalcorrespondence/RackCorrespondence"
+          containment="true" eOpposite="#//physicalcorrespondence/RackCorrespondence/physicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="abstractNodeCorrespondences"
+          ordered="false" upperBound="-1" eType="#//physicalcorrespondence/AbstractNodeCorrespondence"
+          containment="true" eOpposite="#//physicalcorrespondence/AbstractNodeCorrespondence/physicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="memorySpecificationCorrespondences"
+          ordered="false" upperBound="-1" eType="#//physicalcorrespondence/MemorySpecificationCorrespondence"
+          containment="true" eOpposite="#//physicalcorrespondence/MemorySpecificationCorrespondence/physicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="storageSpecificationCorrespondences"
+          ordered="false" upperBound="-1" eType="#//physicalcorrespondence/StorageSpecificationCorrespondence"
+          containment="true" eOpposite="#//physicalcorrespondence/StorageSpecificationCorrespondence/physicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="networkInterconnectCorrespondences"
+          ordered="false" upperBound="-1" eType="#//physicalcorrespondence/NetworkInterconnectCorrespondence"
+          containment="true" eOpposite="#//physicalcorrespondence/NetworkInterconnectCorrespondence/physicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="processingUnitSpecificationCorrespondences"
+          ordered="false" upperBound="-1" eType="#//physicalcorrespondence/ProcessingUnitSpecificationCorrespondence"
+          containment="true" eOpposite="#//physicalcorrespondence/ProcessingUnitSpecificationCorrespondence/physicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="physicalDcModel" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//core/PhysicalDCModel"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="physicalLoadModel" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/loadmodel.ecore#//physical/PhysicalLoadModel"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="powerConsumingEntityMeasurementCorrespondences"
+          upperBound="-1" eType="#//physicalcorrespondence/PowerConsumingEntityMeasurementCorrespondence"
+          containment="true" eOpposite="#//physicalcorrespondence/PowerConsumingEntityMeasurementCorrespondence/physicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="powerProvidingEntityCorrespondences"
+          upperBound="-1" eType="#//physicalcorrespondence/PowerProvidingEntityCorrespondence"
+          containment="true" eOpposite="#//physicalcorrespondence/PowerProvidingEntityCorrespondence/physicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="powerConsumingResourceCorrespondences"
+          upperBound="-1" eType="#//physicalcorrespondence/PowerConsumingResourceCorrespondence"
+          containment="true" eOpposite="#//physicalcorrespondence/PowerConsumingResourceCorrespondence/physicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="architectureTypeCorrespondences"
+          upperBound="-1" eType="#//physicalcorrespondence/ArchitectureTypeCorrespondence"
+          containment="true" eOpposite="#//physicalcorrespondence/ArchitectureTypeCorrespondence/physicalCorrespondenceRepository"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="SwitchCorrespondence" eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//core/Switch"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladio" lowerBound="1"
+          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//resourceenvironment/LinkingResource"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="physicalCorrespondenceRepository"
+          lowerBound="1" eType="#//physicalcorrespondence/PhysicalCorrespondenceRepository"
+          eOpposite="#//physicalcorrespondence/PhysicalCorrespondenceRepository/switchCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="RackCorrespondence" eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//core/Rack"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladio" lowerBound="1"
+          upperBound="-1" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//resourceenvironment/ResourceContainer"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="physicalCorrespondenceRepository"
+          lowerBound="1" eType="#//physicalcorrespondence/PhysicalCorrespondenceRepository"
+          eOpposite="#//physicalcorrespondence/PhysicalCorrespondenceRepository/rackCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="AbstractNodeCorrespondence" eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//core/AbstractNode"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladio" lowerBound="1"
+          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//resourceenvironment/ResourceContainer"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="physicalCorrespondenceRepository"
+          lowerBound="1" eType="#//physicalcorrespondence/PhysicalCorrespondenceRepository"
+          eOpposite="#//physicalcorrespondence/PhysicalCorrespondenceRepository/abstractNodeCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="MemorySpecificationCorrespondence"
+        eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//core/MemorySpecification"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladio" lowerBound="1"
+          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//resourceenvironment/ProcessingResourceSpecification"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="physicalCorrespondenceRepository"
+          lowerBound="1" eType="#//physicalcorrespondence/PhysicalCorrespondenceRepository"
+          eOpposite="#//physicalcorrespondence/PhysicalCorrespondenceRepository/memorySpecificationCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="StorageSpecificationCorrespondence"
+        eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//core/StorageSpecification"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladio" lowerBound="1"
+          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//resourceenvironment/ProcessingResourceSpecification"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="physicalCorrespondenceRepository"
+          lowerBound="1" eType="#//physicalcorrespondence/PhysicalCorrespondenceRepository"
+          eOpposite="#//physicalcorrespondence/PhysicalCorrespondenceRepository/storageSpecificationCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="NetworkInterconnectCorrespondence"
+        eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          upperBound="-1" eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//core/NetworkInterconnect"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladio" lowerBound="1"
+          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//resourceenvironment/LinkingResource"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="physicalCorrespondenceRepository"
+          lowerBound="1" eType="#//physicalcorrespondence/PhysicalCorrespondenceRepository"
+          eOpposite="#//physicalcorrespondence/PhysicalCorrespondenceRepository/networkInterconnectCorrespondences"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="reconfigurationController"
+          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//resourceenvironment/ResourceContainer"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ProcessingUnitSpecificationCorrespondence"
+        eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//core/ProcessingUnitSpecification"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladio" lowerBound="1"
+          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//resourceenvironment/ProcessingResourceSpecification"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="physicalCorrespondenceRepository"
+          lowerBound="1" eType="#//physicalcorrespondence/PhysicalCorrespondenceRepository"
+          eOpposite="#//physicalcorrespondence/PhysicalCorrespondenceRepository/processingUnitSpecificationCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PowerConsumingEntityMeasurementCorrespondence"
+        eSuperTypes="#//LoadCorrespondence">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/loadmodel.ecore#//physical/PowerConsumingEntityMeasurement"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="physicalCorrespondenceRepository"
+          lowerBound="1" eType="#//physicalcorrespondence/PhysicalCorrespondenceRepository"
+          eOpposite="#//physicalcorrespondence/PhysicalCorrespondenceRepository/powerConsumingEntityMeasurementCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PowerProvidingEntityCorrespondence"
+        eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//power/PowerProvidingEntity"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladio" lowerBound="1"
+          eType="ecore:EClass ../../de.fzi.power/model/power.ecore#//infrastructure/PowerProvidingEntity"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="physicalCorrespondenceRepository"
+          lowerBound="1" eType="#//physicalcorrespondence/PhysicalCorrespondenceRepository"
+          eOpposite="#//physicalcorrespondence/PhysicalCorrespondenceRepository/powerProvidingEntityCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PowerConsumingResourceCorrespondence"
+        eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//power/PowerConsumingEntity"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladio" lowerBound="1"
+          eType="ecore:EClass ../../de.fzi.power/model/power.ecore#//infrastructure/StatefulPowerConsumingResource"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="physicalCorrespondenceRepository"
+          lowerBound="1" eType="#//physicalcorrespondence/PhysicalCorrespondenceRepository"
+          eOpposite="#//physicalcorrespondence/PhysicalCorrespondenceRepository/powerConsumingResourceCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ArchitectureTypeCorrespondence" eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//architecturetype/ArchitectureType"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladio" lowerBound="1"
+          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//resourcetype/ProcessingResourceType"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="physicalCorrespondenceRepository"
+          lowerBound="1" eType="#//physicalcorrespondence/PhysicalCorrespondenceRepository"
+          eOpposite="#//physicalcorrespondence/PhysicalCorrespondenceRepository/architectureTypeCorrespondences"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="logicalcorrespondence" nsURI="http://www.cactosfp7.eu/Correspondence/Logical/1.1"
+      nsPrefix="logicalcorrespondence">
+    <eClassifiers xsi:type="ecore:EClass" name="VirtualMemoryMeasurementCorrespondence"
+        eSuperTypes="#//LoadCorrespondence">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/loadmodel.ecore#//logical/VirtualMemoryMeasurement"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="logicalCorrespondenceRepository"
+          lowerBound="1" eType="#//logicalcorrespondence/LogicalCorrespondenceRepository"
+          eOpposite="#//logicalcorrespondence/LogicalCorrespondenceRepository/virtualMemoryMeasurementCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="VirtualNetworkInterconnectMeasurementCorrespondence"
+        eSuperTypes="#//LoadCorrespondence">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/loadmodel.ecore#//logical/VirtualNetworkInterconnectMeasurement"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="logicalCorrespondenceRepository"
+          lowerBound="1" eType="#//logicalcorrespondence/LogicalCorrespondenceRepository"
+          eOpposite="#//logicalcorrespondence/LogicalCorrespondenceRepository/virtualNetworkInterconnectMeasurementCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="VirtualProcessingUnitMeasurementCorrespondence"
+        eSuperTypes="#//LoadCorrespondence">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/loadmodel.ecore#//logical/VirtualProcessingUnitsMeasurement"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="logicalCorrespondenceRepository"
+          lowerBound="1" eType="#//logicalcorrespondence/LogicalCorrespondenceRepository"
+          eOpposite="#//logicalcorrespondence/LogicalCorrespondenceRepository/virtualProcessingUnitMeasurementCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="LogicalDiskReadMeasurementCorrespondence"
+        eSuperTypes="#//LoadCorrespondence">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/loadmodel.ecore#//logical/VirtualDiskMeasurement"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="logicalCorrespondenceRepository"
+          lowerBound="1" eType="#//logicalcorrespondence/LogicalCorrespondenceRepository"
+          eOpposite="#//logicalcorrespondence/LogicalCorrespondenceRepository/volumeMeasurementCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="LogicalDiskWriteMeasurementCorrespondence"
+        eSuperTypes="#//LoadCorrespondence">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/loadmodel.ecore#//logical/VirtualDiskMeasurement"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="logicalCorrespondenceRepository"
+          lowerBound="1" eType="#//logicalcorrespondence/LogicalCorrespondenceRepository"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="LogicalCorrespondenceRepository" eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="virtualMemoryMeasurementCorrespondences"
+          upperBound="-1" eType="#//logicalcorrespondence/VirtualMemoryMeasurementCorrespondence"
+          containment="true" eOpposite="#//logicalcorrespondence/VirtualMemoryMeasurementCorrespondence/logicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="virtualNetworkInterconnectMeasurementCorrespondences"
+          upperBound="-1" eType="#//logicalcorrespondence/VirtualNetworkInterconnectMeasurementCorrespondence"
+          containment="true" eOpposite="#//logicalcorrespondence/VirtualNetworkInterconnectMeasurementCorrespondence/logicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="virtualProcessingUnitMeasurementCorrespondences"
+          upperBound="-1" eType="#//logicalcorrespondence/VirtualProcessingUnitMeasurementCorrespondence"
+          containment="true" eOpposite="#//logicalcorrespondence/VirtualProcessingUnitMeasurementCorrespondence/logicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="volumeMeasurementCorrespondences"
+          upperBound="-1" eType="#//logicalcorrespondence/LogicalDiskReadMeasurementCorrespondence"
+          containment="true" eOpposite="#//logicalcorrespondence/LogicalDiskReadMeasurementCorrespondence/logicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="virtualNetworkInterconnects"
+          ordered="false" upperBound="-1" eType="#//logicalcorrespondence/VirtualNetworkInterconnectCorrespondence"
+          containment="true" eOpposite="#//logicalcorrespondence/VirtualNetworkInterconnectCorrespondence/logicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="vmImageCorrespondences"
+          ordered="false" upperBound="-1" eType="#//logicalcorrespondence/VMImageCorrespondence"
+          containment="true" eOpposite="#//logicalcorrespondence/VMImageCorrespondence/logicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="vmImageInstanceCorrespondences"
+          upperBound="-1" eType="#//logicalcorrespondence/VMImageInstanceCorrespondence"
+          containment="true" eOpposite="#//logicalcorrespondence/VMImageInstanceCorrespondence/logicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="virtualMachineCorrespondences"
+          upperBound="-1" eType="#//logicalcorrespondence/VirtualMachineCorrespondence"
+          containment="true" eOpposite="#//logicalcorrespondence/VirtualMachineCorrespondence/logicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="hypervisorCorrespondences"
+          upperBound="-1" eType="#//logicalcorrespondence/HypervisorCorrespondence"
+          containment="true" eOpposite="#//logicalcorrespondence/HypervisorCorrespondence/logicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="networkAttachedStorageCorrespondences"
+          upperBound="-1" eType="#//logicalcorrespondence/NetworkAttachedStorageCorrespondence"
+          eOpposite="#//logicalcorrespondence/NetworkAttachedStorageCorrespondence/logicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="logicalDcModel" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//core/LogicalDCModel"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="logicalLoadModel" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/loadmodel.ecore#//logical/LogicalLoadModel"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="correspondenceEstablished"
+          lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+          defaultValueLiteral="false"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="optimisationPlanCorrespondence"
+          eType="#//logicalcorrespondence/OptimisationPlanCorrespondence" containment="true"
+          eOpposite="#//logicalcorrespondence/OptimisationPlanCorrespondence/logicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="providedServiceCorrespondences"
+          upperBound="-1" eType="#//logicalcorrespondence/ProvidedServiceCorrespondence"
+          containment="true" eOpposite="#//logicalcorrespondence/ProvidedServiceCorrespondence/logicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="requiredServiceCorrespondences"
+          upperBound="-1" eType="#//logicalcorrespondence/RequiredServiceCorrespondence"
+          containment="true" eOpposite="#//logicalcorrespondence/RequiredServiceCorrespondence/logicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="scalableConnectorCorrespondences"
+          upperBound="-1" eType="#//logicalcorrespondence/ScalableVMImageConnectorCorrespondence"
+          containment="true" eOpposite="#//logicalcorrespondence/ScalableVMImageConnectorCorrespondence/logicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="userBehaviourCorrespondences"
+          upperBound="-1" eType="#//logicalcorrespondence/UserBehaviourCorrespondence"
+          containment="true" eOpposite="#//logicalcorrespondence/UserBehaviourCorrespondence/logicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="arrivalRateMeasurementCorrespondences"
+          upperBound="-1" eType="#//logicalcorrespondence/ArrivalRateMeasurementCorrespondence"
+          containment="true" eOpposite="#//logicalcorrespondence/ArrivalRateMeasurementCorrespondence/logicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="serviceOperationCorrespondences"
+          upperBound="-1" eType="#//logicalcorrespondence/ServiceOperationCorrespondence"
+          containment="true" eOpposite="#//logicalcorrespondence/ServiceOperationCorrespondence/logicalCorrespondenceRepository"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="applicationProvidedServiceCorrespondences"
+          upperBound="-1" eType="#//logicalcorrespondence/ApplicationProvidedServiceCorrespondence"
+          containment="true" eOpposite="#//logicalcorrespondence/ApplicationProvidedServiceCorrespondence/logicalCorrespondenceRepository"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="VMImageInstanceCorrespondence" eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//core/VMImageInstance"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladio" lowerBound="1"
+          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/AssemblyContext"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="logicalCorrespondenceRepository"
+          lowerBound="1" eType="#//logicalcorrespondence/LogicalCorrespondenceRepository"
+          eOpposite="#//logicalcorrespondence/LogicalCorrespondenceRepository/vmImageInstanceCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="VMImageCorrespondence" eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" ordered="false"
+          lowerBound="1" eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//core/VMImage"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladio" lowerBound="1"
+          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/BasicComponent"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="logicalCorrespondenceRepository"
+          lowerBound="1" eType="#//logicalcorrespondence/LogicalCorrespondenceRepository"
+          eOpposite="#//logicalcorrespondence/LogicalCorrespondenceRepository/vmImageCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="VirtualNetworkInterconnectCorrespondence"
+        eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//core/VirtualNetworkInterconnect"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladio" lowerBound="1"
+          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//resourceenvironment/LinkingResource"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="logicalCorrespondenceRepository"
+          lowerBound="1" eType="#//logicalcorrespondence/LogicalCorrespondenceRepository"
+          eOpposite="#//logicalcorrespondence/LogicalCorrespondenceRepository/virtualNetworkInterconnects"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="VirtualMachineCorrespondence" eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//core/VirtualMachine"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladio" lowerBound="1"
+          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//allocation/AllocationContext"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="logicalCorrespondenceRepository"
+          lowerBound="1" eType="#//logicalcorrespondence/LogicalCorrespondenceRepository"
+          eOpposite="#//logicalcorrespondence/LogicalCorrespondenceRepository/virtualMachineCorrespondences"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladioStorageConnector"
+          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/AssemblyInfrastructureConnector"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladioUsage" eType="ecore:EClass ../../org.scaledl.usageevolution/model/usageevolution.ecore#//Usage"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="HypervisorCorrespondence" eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//core/Hypervisor"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladio" lowerBound="1"
+          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//allocation/AllocationContext"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="logicalCorrespondenceRepository"
+          eType="#//logicalcorrespondence/LogicalCorrespondenceRepository" eOpposite="#//logicalcorrespondence/LogicalCorrespondenceRepository/hypervisorCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="NetworkAttachedStorageCorrespondence"
+        eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//core/NetworkAttachedStorage"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladio" lowerBound="1"
+          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//allocation/AllocationContext"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="logicalCorrespondenceRepository"
+          eType="#//logicalcorrespondence/LogicalCorrespondenceRepository" eOpposite="#//logicalcorrespondence/LogicalCorrespondenceRepository/networkAttachedStorageCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="OptimisationPlanCorrespondence" eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="lastOptimisationPlan"
+          lowerBound="1" eType="ecore:EClass ../../eu.cactosfp7.optimisationplan/model/optimisationplan.ecore#//OptimisationPlan"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="logicalCorrespondenceRepository"
+          lowerBound="1" eType="#//logicalcorrespondence/LogicalCorrespondenceRepository"
+          eOpposite="#//logicalcorrespondence/LogicalCorrespondenceRepository/optimisationPlanCorrespondence"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ProvidedServiceCorrespondence" eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactosRole" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/ServiceProvidedRole"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactosVM" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//core/VirtualMachine"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladioRole" lowerBound="1"
+          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/OperationProvidedRole"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="logicalCorrespondenceRepository"
+          eType="#//logicalcorrespondence/LogicalCorrespondenceRepository" eOpposite="#//logicalcorrespondence/LogicalCorrespondenceRepository/providedServiceCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="RequiredServiceCorrespondence" eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactosRole" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/ServiceRequiredRole"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactosVM" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//core/VirtualMachine"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladioRole" lowerBound="1"
+          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/OperationRequiredRole"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="logicalCorrespondenceRepository"
+          eType="#//logicalcorrespondence/LogicalCorrespondenceRepository" eOpposite="#//logicalcorrespondence/LogicalCorrespondenceRepository/requiredServiceCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ScalableVMImageConnectorCorrespondence"
+        eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactosApplicationInstance"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/WhiteBoxApplicationInstance"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactosConnector" eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/ScalableVMImageConnector"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladio" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/BasicComponent"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="logicalCorrespondenceRepository"
+          eType="#//logicalcorrespondence/LogicalCorrespondenceRepository" eOpposite="#//logicalcorrespondence/LogicalCorrespondenceRepository/scalableConnectorCorrespondences"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="maximumInstanceNumber"
+          lowerBound="1" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"
+          defaultValueLiteral="0"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="UserBehaviourCorrespondence" eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="logicalCorrespondenceRepository"
+          eType="#//logicalcorrespondence/LogicalCorrespondenceRepository" eOpposite="#//logicalcorrespondence/LogicalCorrespondenceRepository/userBehaviourCorrespondences"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactosUserBehaviour"
+          lowerBound="1" eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/UserBehaviour"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladioUsage" lowerBound="1"
+          eType="ecore:EClass ../../org.scaledl.usageevolution/model/usageevolution.ecore#//Usage"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="RequestArrivalRateMeasurementCorrespondence"
+        eSuperTypes="#//logicalcorrespondence/ArrivalRateMeasurementCorrespondence">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="requestArrivalRateMeasurement"
+          eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/loadmodel.ecore#//logical/RequestArrivalRateMeasurement"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ResponseArrivalRateMeasurementCorrespondence"
+        eSuperTypes="#//logicalcorrespondence/ArrivalRateMeasurementCorrespondence">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="responseArrivalRateMeasurement"
+          lowerBound="1" eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/loadmodel.ecore#//logical/ResponseArrivalRateMeasurement"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ServiceInstanceArrivalRateMeasurementCorrespondence"
+        eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="arrivalRateMeasurementCorrespondence"
+          eType="#//logicalcorrespondence/ArrivalRateMeasurementCorrespondence" eOpposite="#//logicalcorrespondence/ArrivalRateMeasurementCorrespondence/serviceInstanceMeasurementCorrespondences"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactosServiceCorrespondence"
+          lowerBound="1" eType="#//logicalcorrespondence/ProvidedServiceCorrespondence"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="serviceOperationInstanceCorrespondence"
+          upperBound="-1" eType="#//logicalcorrespondence/ServiceOperationInstanceArrivalRateMeasurementCorrespondence"
+          containment="true" eOpposite="#//logicalcorrespondence/ServiceOperationInstanceArrivalRateMeasurementCorrespondence/serviceInstanceArrivalRateMeasurementCorrespondence"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ServiceOperationInstanceArrivalRateMeasurementCorrespondence"
+        eSuperTypes="#//LoadCorrespondence">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="serviceInstanceArrivalRateMeasurementCorrespondence"
+          eType="#//logicalcorrespondence/ServiceInstanceArrivalRateMeasurementCorrespondence"
+          eOpposite="#//logicalcorrespondence/ServiceInstanceArrivalRateMeasurementCorrespondence/serviceOperationInstanceCorrespondence"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactosServiceOperation"
+          lowerBound="1" eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/ServiceOperation"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ArrivalRateMeasurementCorrespondence"
+        abstract="true" eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="serviceInstanceMeasurementCorrespondences"
+          upperBound="-1" eType="#//logicalcorrespondence/ServiceInstanceArrivalRateMeasurementCorrespondence"
+          containment="true" eOpposite="#//logicalcorrespondence/ServiceInstanceArrivalRateMeasurementCorrespondence/arrivalRateMeasurementCorrespondence"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="logicalCorrespondenceRepository"
+          eType="#//logicalcorrespondence/LogicalCorrespondenceRepository" eOpposite="#//logicalcorrespondence/LogicalCorrespondenceRepository/arrivalRateMeasurementCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ServiceOperationCorrespondence" eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="logicalCorrespondenceRepository"
+          eType="#//logicalcorrespondence/LogicalCorrespondenceRepository" eOpposite="#//logicalcorrespondence/LogicalCorrespondenceRepository/serviceOperationCorrespondences"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/ServiceOperation"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladio" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/OperationSignature"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ApplicationProvidedServiceCorrespondence"
+        eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactosApplication" eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/ApplicationInstance"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladioSystemRole" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/OperationProvidedRole"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactosRole" eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/ServiceProvidedRole"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="logicalCorrespondenceRepository"
+          eType="#//logicalcorrespondence/LogicalCorrespondenceRepository" eOpposite="#//logicalcorrespondence/LogicalCorrespondenceRepository/applicationProvidedServiceCorrespondences"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="measurementcorrespondence" nsURI="http://www.cactosfp7.eu/Correspondence/Measurement/1.1"
+      nsPrefix="measurementcorrespondence">
+    <eClassifiers xsi:type="ecore:EClass" name="MonitoredCactosEntityToMonitorCorrespondence"
+        eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cactos" lowerBound="1"
+          eType="ecore:EClass ../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="palladio" lowerBound="1"
+          eType="ecore:EClass ../../org.palladiosimulator.monitorrepository/model/monitorrepository.ecore#//MeasurementSpecification"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="monitorCorrespondenceRepository"
+          eType="#//measurementcorrespondence/MonitorCorrespondenceRepository" eOpposite="#//measurementcorrespondence/MonitorCorrespondenceRepository/monitoredCactosEntityToMonitorCorrespondences"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="MonitorCorrespondenceRepository" eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="monitoredCactosEntityToMonitorCorrespondences"
+          upperBound="-1" eType="#//measurementcorrespondence/MonitoredCactosEntityToMonitorCorrespondence"
+          containment="true" eOpposite="#//measurementcorrespondence/MonitoredCactosEntityToMonitorCorrespondence/monitorCorrespondenceRepository"/>
+    </eClassifiers>
+  </eSubpackages>
+</ecore:EPackage>

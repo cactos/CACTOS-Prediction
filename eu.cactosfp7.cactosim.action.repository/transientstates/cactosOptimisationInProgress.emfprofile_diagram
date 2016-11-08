@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:emfprofile="http://www.modelversioning.org/emfprofile/1.1" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation">
+  <emfprofile:Profile xmi:id="_horSUPh-EeSxfcKkGEX99A" name="CactosAdaptationBehaviourProfile" nsURI="eu.cactosfp7.cactosim.action.repository.transientstates.cactosadaptationbehaviourprofile" nsPrefix="eu.cactosfp7.cactosim.action">
+    <eClassifiers xmi:type="emfprofile:Stereotype" xmi:id="_qp-CMCGHEeWO5-Sv6naeJg" name="CactosEntityInOptimisation">
+      <eSuperTypes xmi:type="ecore:EClass" href="http://www.modelversioning.org/emfprofile/application/1.1#//StereotypeApplication"/>
+      <extensions xmi:type="emfprofile:Extension" xmi:id="_M1ddsPsqEeWTvImUJ-sHXg">
+        <target xmi:type="ecore:EClass" href="http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0#//AbstractNode"/>
+      </extensions>
+      <extensions xmi:type="emfprofile:Extension" xmi:id="_NOfBsPsqEeWTvImUJ-sHXg">
+        <target xmi:type="ecore:EClass" href="http://www.cactosfp7.eu/LogicalDCModel/Core/1.0#//VirtualMachine"/>
+      </extensions>
+    </eClassifiers>
+  </emfprofile:Profile>
+  <notation:Diagram xmi:id="_hor5YPh-EeSxfcKkGEX99A" type="EMFProfile" element="_horSUPh-EeSxfcKkGEX99A" name="componentmigration.emfprofile_diagram" measurementUnit="Pixel">
+    <children xmi:type="notation:Node" xmi:id="_qqHzMCGHEeWO5-Sv6naeJg" type="2006" element="_qp-CMCGHEeWO5-Sv6naeJg">
+      <children xmi:type="notation:DecorationNode" xmi:id="_qqHzNCGHEeWO5-Sv6naeJg" type="5008"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_qqHzNSGHEeWO5-Sv6naeJg" type="7008">
+        <styles xmi:type="notation:SortingStyle" xmi:id="_qqHzNiGHEeWO5-Sv6naeJg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_qqHzNyGHEeWO5-Sv6naeJg"/>
+      </children>
+      <styles xmi:type="notation:DescriptionStyle" xmi:id="_qqHzMSGHEeWO5-Sv6naeJg"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_qqHzMiGHEeWO5-Sv6naeJg" fontName="Segoe UI"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_qqHzMyGHEeWO5-Sv6naeJg" x="306" y="305"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_HW7YcPsqEeWTvImUJ-sHXg" type="2002">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_HW90svsqEeWTvImUJ-sHXg" source="Shortcut">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_HW-bwPsqEeWTvImUJ-sHXg" key="modelID" value="EMFProfile"/>
+      </eAnnotations>
+      <children xmi:type="notation:DecorationNode" xmi:id="_HW9NoPsqEeWTvImUJ-sHXg" type="5002"/>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_HW9NofsqEeWTvImUJ-sHXg" type="7004">
+        <styles xmi:type="notation:SortingStyle" xmi:id="_HW9NovsqEeWTvImUJ-sHXg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_HW9No_sqEeWTvImUJ-sHXg"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_HW9NpPsqEeWTvImUJ-sHXg" type="7005">
+        <styles xmi:type="notation:SortingStyle" xmi:id="_HW90sPsqEeWTvImUJ-sHXg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_HW90sfsqEeWTvImUJ-sHXg"/>
+      </children>
+      <styles xmi:type="notation:DescriptionStyle" xmi:id="_HW7YcfsqEeWTvImUJ-sHXg"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_HW7YcvsqEeWTvImUJ-sHXg" fontName="Segoe UI"/>
+      <element xmi:type="ecore:EClass" href="http://www.cactosfp7.eu/LogicalDCModel/Core/1.0#//VirtualMachine"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HW7Yc_sqEeWTvImUJ-sHXg" x="235" y="165"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_LRrWwPsqEeWTvImUJ-sHXg" type="2002">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_LRsk5_sqEeWTvImUJ-sHXg" source="Shortcut">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_LRsk6PsqEeWTvImUJ-sHXg" key="modelID" value="EMFProfile"/>
+      </eAnnotations>
+      <children xmi:type="notation:DecorationNode" xmi:id="_LRsk4PsqEeWTvImUJ-sHXg" type="5002"/>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_LRsk4fsqEeWTvImUJ-sHXg" type="7004">
+        <styles xmi:type="notation:SortingStyle" xmi:id="_LRsk4vsqEeWTvImUJ-sHXg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_LRsk4_sqEeWTvImUJ-sHXg"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_LRsk5PsqEeWTvImUJ-sHXg" type="7005">
+        <styles xmi:type="notation:SortingStyle" xmi:id="_LRsk5fsqEeWTvImUJ-sHXg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_LRsk5vsqEeWTvImUJ-sHXg"/>
+      </children>
+      <styles xmi:type="notation:DescriptionStyle" xmi:id="_LRrWwfsqEeWTvImUJ-sHXg"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_LRrWwvsqEeWTvImUJ-sHXg" fontName="Segoe UI"/>
+      <element xmi:type="ecore:EClass" href="http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0#//AbstractNode"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_LRrWw_sqEeWTvImUJ-sHXg" x="445" y="175"/>
+    </children>
+    <edges xmi:type="notation:Edge" xmi:id="_M1fS4PsqEeWTvImUJ-sHXg" type="4005" element="_M1ddsPsqEeWTvImUJ-sHXg" source="_qqHzMCGHEeWO5-Sv6naeJg" target="_LRrWwPsqEeWTvImUJ-sHXg">
+      <children xmi:type="notation:DecorationNode" xmi:id="_M1fS5PsqEeWTvImUJ-sHXg" type="6004">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_M1fS5fsqEeWTvImUJ-sHXg" x="10" y="10"/>
+      </children>
+      <styles xmi:type="notation:RoutingStyle" xmi:id="_M1fS4fsqEeWTvImUJ-sHXg"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_M1fS4vsqEeWTvImUJ-sHXg" fontName="Segoe UI"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_M1fS4_sqEeWTvImUJ-sHXg" points="[15, -21, -92, 110]$[57, -132, -50, -1]"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_NOfBsfsqEeWTvImUJ-sHXg" type="4005" element="_NOfBsPsqEeWTvImUJ-sHXg" source="_qqHzMCGHEeWO5-Sv6naeJg" target="_HW7YcPsqEeWTvImUJ-sHXg">
+      <children xmi:type="notation:DecorationNode" xmi:id="_NOfowPsqEeWTvImUJ-sHXg" type="6004">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_NOfowfsqEeWTvImUJ-sHXg" x="10" y="10"/>
+      </children>
+      <styles xmi:type="notation:RoutingStyle" xmi:id="_NOfBsvsqEeWTvImUJ-sHXg"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_NOfBs_sqEeWTvImUJ-sHXg" fontName="Segoe UI"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_NOfBtPsqEeWTvImUJ-sHXg" points="[-16, -21, 87, 120]$[-109, -161, -6, -20]"/>
+    </edges>
+  </notation:Diagram>
+</xmi:XMI>

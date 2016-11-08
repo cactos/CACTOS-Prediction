@@ -1,0 +1,986 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:LogicalDCModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.cactosfp7.eu/LogicalDCModel/Application/1.0" xmlns:core="http://www.cactosfp7.eu/LogicalDCModel/Core/1.0" xmlns:core_1="http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0" id="_ZlCtgNGPEeW0d7ty1btHsw" cyclicOptimizationInterval="60.0s">
+  <hypervisors id="_ZlL3cNGPEeW0d7ty1btHsw" rootVolume="_ZlNFkNGPEeW0d7ty1btHsw">
+    <virtualMachines id="_ZlwfMNGPEeW0d7ty1btHsw" name="GBA VM #0-0" virtualNetworkInterconnects="_ZmbNkNGPEeW0d7ty1btHsw" state="RUNNING">
+      <virtualMemoryUnits id="_Zl3M4NGPEeW0d7ty1btHsw" provisioned="64.0bit*1000000000"/>
+      <vMImageInstance id="_Zl1XsNGPEeW0d7ty1btHsw" rootDisk="_Zls00dGPEeW0d7ty1btHsw"/>
+      <virtualProcessingUnits id="_ZlzigNGPEeW0d7ty1btHsw" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxVMBehaviour" id="_Zl5pINGPEeW0d7ty1btHsw" name="CCSD Behaviour #0-0" vmImageBehaviour="_Zln8UNGPEeW0d7ty1btHsw">
+        <workloadPhases id="_Zl-hoNGPEeW0d7ty1btHsw" name="CCSD Phase 1">
+          <resourceDemands id="_Zl-hodGPEeW0d7ty1btHsw" amount="35374.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkGSUNGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_Zl_IsNGPEeW0d7ty1btHsw" amount="189.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkMY8NGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_Zl_IsdGPEeW0d7ty1btHsw" name="CCSD Phase 2">
+          <resourceDemands id="_Zl_IstGPEeW0d7ty1btHsw" amount="115.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkGSUNGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_Zl_Is9GPEeW0d7ty1btHsw" amount="234.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkMY8NGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_Zl_ItNGPEeW0d7ty1btHsw" name="CCSD Phase 3">
+          <resourceDemands id="_Zl_ItdGPEeW0d7ty1btHsw" amount="28259.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkGSUNGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_Zl_vwNGPEeW0d7ty1btHsw" amount="172.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkMY8NGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmAW0NGPEeW0d7ty1btHsw" name="CCSD Phase 4">
+          <resourceDemands id="_ZmAW0dGPEeW0d7ty1btHsw" amount="2212.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkGSUNGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmAW0tGPEeW0d7ty1btHsw" amount="422.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkMY8NGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_Zg2KANGPEeW0d7ty1btHsw"/>
+    <node href="demoModel.physical#_ZkDPANGPEeW0d7ty1btHsw"/>
+  </hypervisors>
+  <hypervisors id="_ZlRXAdGPEeW0d7ty1btHsw" rootVolume="_ZlRXAtGPEeW0d7ty1btHsw">
+    <virtualMachines id="_ZmGdcdGPEeW0d7ty1btHsw" name="GBA VM #1-0" virtualNetworkInterconnects="_ZmbNkNGPEeW0d7ty1btHsw" state="RUNNING">
+      <virtualMemoryUnits id="_ZmGddNGPEeW0d7ty1btHsw" provisioned="64.0bit*1000000000"/>
+      <vMImageInstance id="_ZmGdc9GPEeW0d7ty1btHsw" rootDisk="_ZmGdcNGPEeW0d7ty1btHsw"/>
+      <virtualProcessingUnits id="_ZmGdctGPEeW0d7ty1btHsw" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxVMBehaviour" id="_ZmHrkNGPEeW0d7ty1btHsw" name="CCSD Behaviour #1-0" vmImageBehaviour="_Zln8UNGPEeW0d7ty1btHsw">
+        <workloadPhases id="_ZmHrkdGPEeW0d7ty1btHsw" name="CCSD Phase 1">
+          <resourceDemands id="_ZmHrktGPEeW0d7ty1btHsw" amount="35374.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkTtsdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmHrk9GPEeW0d7ty1btHsw" amount="189.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkUUwNGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmHrlNGPEeW0d7ty1btHsw" name="CCSD Phase 2">
+          <resourceDemands id="_ZmHrldGPEeW0d7ty1btHsw" amount="115.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkTtsdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmHrltGPEeW0d7ty1btHsw" amount="234.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkUUwNGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmHrl9GPEeW0d7ty1btHsw" name="CCSD Phase 3">
+          <resourceDemands id="_ZmHrmNGPEeW0d7ty1btHsw" amount="28259.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkTtsdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmHrmdGPEeW0d7ty1btHsw" amount="172.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkUUwNGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmHrmtGPEeW0d7ty1btHsw" name="CCSD Phase 4">
+          <resourceDemands id="_ZmHrm9GPEeW0d7ty1btHsw" amount="2212.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkTtsdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmHrnNGPEeW0d7ty1btHsw" amount="422.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkUUwNGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_Zg2KANGPEeW0d7ty1btHsw"/>
+    <node href="demoModel.physical#_ZkTtsNGPEeW0d7ty1btHsw"/>
+  </hypervisors>
+  <hypervisors id="_ZlR-ENGPEeW0d7ty1btHsw" rootVolume="_ZlR-EdGPEeW0d7ty1btHsw">
+    <virtualMachines id="_ZmISo9GPEeW0d7ty1btHsw" name="GBA VM #2-0" virtualNetworkInterconnects="_ZmbNkNGPEeW0d7ty1btHsw" state="RUNNING">
+      <virtualMemoryUnits id="_ZmI5stGPEeW0d7ty1btHsw" provisioned="64.0bit*1000000000"/>
+      <vMImageInstance id="_ZmI5sdGPEeW0d7ty1btHsw" rootDisk="_ZmISotGPEeW0d7ty1btHsw"/>
+      <virtualProcessingUnits id="_ZmI5sNGPEeW0d7ty1btHsw" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxVMBehaviour" id="_ZmI5s9GPEeW0d7ty1btHsw" name="CCSD Behaviour #2-0" vmImageBehaviour="_Zln8UNGPEeW0d7ty1btHsw">
+        <workloadPhases id="_ZmI5tNGPEeW0d7ty1btHsw" name="CCSD Phase 1">
+          <resourceDemands id="_ZmI5tdGPEeW0d7ty1btHsw" amount="35374.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkU70NGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmJgwNGPEeW0d7ty1btHsw" amount="189.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkU70dGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmKH0NGPEeW0d7ty1btHsw" name="CCSD Phase 2">
+          <resourceDemands id="_ZmKH0dGPEeW0d7ty1btHsw" amount="115.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkU70NGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmKu4NGPEeW0d7ty1btHsw" amount="234.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkU70dGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmKu4dGPEeW0d7ty1btHsw" name="CCSD Phase 3">
+          <resourceDemands id="_ZmKu4tGPEeW0d7ty1btHsw" amount="28259.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkU70NGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmKu49GPEeW0d7ty1btHsw" amount="172.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkU70dGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmKu5NGPEeW0d7ty1btHsw" name="CCSD Phase 4">
+          <resourceDemands id="_ZmKu5dGPEeW0d7ty1btHsw" amount="2212.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkU70NGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmKu5tGPEeW0d7ty1btHsw" amount="422.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkU70dGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_Zg2KANGPEeW0d7ty1btHsw"/>
+    <node href="demoModel.physical#_ZkUUwtGPEeW0d7ty1btHsw"/>
+  </hypervisors>
+  <hypervisors id="_ZlR-E9GPEeW0d7ty1btHsw" rootVolume="_ZlR-FNGPEeW0d7ty1btHsw">
+    <virtualMachines id="_ZmLV8NGPEeW0d7ty1btHsw" name="GBA VM #3-0" virtualNetworkInterconnects="_ZmbNkNGPEeW0d7ty1btHsw" state="RUNNING">
+      <virtualMemoryUnits id="_ZmLV89GPEeW0d7ty1btHsw" provisioned="64.0bit*1000000000"/>
+      <vMImageInstance id="_ZmLV8tGPEeW0d7ty1btHsw" rootDisk="_ZmKu6dGPEeW0d7ty1btHsw"/>
+      <virtualProcessingUnits id="_ZmLV8dGPEeW0d7ty1btHsw" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxVMBehaviour" id="_ZmLV9NGPEeW0d7ty1btHsw" name="CCSD Behaviour #3-0" vmImageBehaviour="_Zln8UNGPEeW0d7ty1btHsw">
+        <workloadPhases id="_ZmLV9dGPEeW0d7ty1btHsw" name="CCSD Phase 1">
+          <resourceDemands id="_ZmLV9tGPEeW0d7ty1btHsw" amount="35374.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkU71NGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmLV99GPEeW0d7ty1btHsw" amount="189.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkU71dGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmLV-NGPEeW0d7ty1btHsw" name="CCSD Phase 2">
+          <resourceDemands id="_ZmLV-dGPEeW0d7ty1btHsw" amount="115.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkU71NGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmLV-tGPEeW0d7ty1btHsw" amount="234.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkU71dGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmLV-9GPEeW0d7ty1btHsw" name="CCSD Phase 3">
+          <resourceDemands id="_ZmLV_NGPEeW0d7ty1btHsw" amount="28259.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkU71NGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmLV_dGPEeW0d7ty1btHsw" amount="172.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkU71dGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmLV_tGPEeW0d7ty1btHsw" name="CCSD Phase 4">
+          <resourceDemands id="_ZmLV_9GPEeW0d7ty1btHsw" amount="2212.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkU71NGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmLWANGPEeW0d7ty1btHsw" amount="422.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkU71dGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_Zg2KANGPEeW0d7ty1btHsw"/>
+    <node href="demoModel.physical#_ZkU709GPEeW0d7ty1btHsw"/>
+  </hypervisors>
+  <hypervisors id="_ZlR-FtGPEeW0d7ty1btHsw" rootVolume="_ZlR-F9GPEeW0d7ty1btHsw">
+    <virtualMachines id="_ZmL9AtGPEeW0d7ty1btHsw" name="GBA VM #4-0" virtualNetworkInterconnects="_ZmbNkNGPEeW0d7ty1btHsw" state="RUNNING">
+      <virtualMemoryUnits id="_ZmL9BdGPEeW0d7ty1btHsw" provisioned="64.0bit*1000000000"/>
+      <vMImageInstance id="_ZmL9BNGPEeW0d7ty1btHsw" rootDisk="_ZmL9AdGPEeW0d7ty1btHsw"/>
+      <virtualProcessingUnits id="_ZmL9A9GPEeW0d7ty1btHsw" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxVMBehaviour" id="_ZmL9BtGPEeW0d7ty1btHsw" name="CCSD Behaviour #4-0" vmImageBehaviour="_Zln8UNGPEeW0d7ty1btHsw">
+        <workloadPhases id="_ZmL9B9GPEeW0d7ty1btHsw" name="CCSD Phase 1">
+          <resourceDemands id="_ZmL9CNGPEeW0d7ty1btHsw" amount="35374.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkVi4tGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmL9CdGPEeW0d7ty1btHsw" amount="189.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkVi49GPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmL9CtGPEeW0d7ty1btHsw" name="CCSD Phase 2">
+          <resourceDemands id="_ZmL9C9GPEeW0d7ty1btHsw" amount="115.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkVi4tGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmL9DNGPEeW0d7ty1btHsw" amount="234.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkVi49GPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmL9DdGPEeW0d7ty1btHsw" name="CCSD Phase 3">
+          <resourceDemands id="_ZmL9DtGPEeW0d7ty1btHsw" amount="28259.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkVi4tGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmL9D9GPEeW0d7ty1btHsw" amount="172.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkVi49GPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmL9ENGPEeW0d7ty1btHsw" name="CCSD Phase 4">
+          <resourceDemands id="_ZmL9EdGPEeW0d7ty1btHsw" amount="2212.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkVi4tGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmL9EtGPEeW0d7ty1btHsw" amount="422.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkVi49GPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_Zg2KANGPEeW0d7ty1btHsw"/>
+    <node href="demoModel.physical#_ZkVi4dGPEeW0d7ty1btHsw"/>
+  </hypervisors>
+  <hypervisors id="_ZlR-GdGPEeW0d7ty1btHsw" rootVolume="_ZlR-GtGPEeW0d7ty1btHsw">
+    <virtualMachines id="_ZmMkE9GPEeW0d7ty1btHsw" name="GBA VM #5-0" virtualNetworkInterconnects="_ZmbNkNGPEeW0d7ty1btHsw" state="RUNNING">
+      <virtualMemoryUnits id="_ZmMkFtGPEeW0d7ty1btHsw" provisioned="64.0bit*1000000000"/>
+      <vMImageInstance id="_ZmMkFdGPEeW0d7ty1btHsw" rootDisk="_ZmMkEtGPEeW0d7ty1btHsw"/>
+      <virtualProcessingUnits id="_ZmMkFNGPEeW0d7ty1btHsw" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxVMBehaviour" id="_ZmMkF9GPEeW0d7ty1btHsw" name="CCSD Behaviour #5-0" vmImageBehaviour="_Zln8UNGPEeW0d7ty1btHsw">
+        <workloadPhases id="_ZmMkGNGPEeW0d7ty1btHsw" name="CCSD Phase 1">
+          <resourceDemands id="_ZmMkGdGPEeW0d7ty1btHsw" amount="35374.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkWxAdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmMkGtGPEeW0d7ty1btHsw" amount="189.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkWxAtGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmMkG9GPEeW0d7ty1btHsw" name="CCSD Phase 2">
+          <resourceDemands id="_ZmMkHNGPEeW0d7ty1btHsw" amount="115.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkWxAdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmMkHdGPEeW0d7ty1btHsw" amount="234.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkWxAtGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmMkHtGPEeW0d7ty1btHsw" name="CCSD Phase 3">
+          <resourceDemands id="_ZmMkH9GPEeW0d7ty1btHsw" amount="28259.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkWxAdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmMkINGPEeW0d7ty1btHsw" amount="172.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkWxAtGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmMkIdGPEeW0d7ty1btHsw" name="CCSD Phase 4">
+          <resourceDemands id="_ZmMkItGPEeW0d7ty1btHsw" amount="2212.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkWxAdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmNLINGPEeW0d7ty1btHsw" amount="422.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkWxAtGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_Zg2KANGPEeW0d7ty1btHsw"/>
+    <node href="demoModel.physical#_ZkWxANGPEeW0d7ty1btHsw"/>
+  </hypervisors>
+  <hypervisors id="_ZlR-HNGPEeW0d7ty1btHsw" rootVolume="_ZlSlINGPEeW0d7ty1btHsw">
+    <virtualMachines id="_ZmNLJNGPEeW0d7ty1btHsw" name="GBA VM #6-0" virtualNetworkInterconnects="_ZmbNkNGPEeW0d7ty1btHsw" state="RUNNING">
+      <virtualMemoryUnits id="_ZmNLJ9GPEeW0d7ty1btHsw" provisioned="64.0bit*1000000000"/>
+      <vMImageInstance id="_ZmNLJtGPEeW0d7ty1btHsw" rootDisk="_ZmNLI9GPEeW0d7ty1btHsw"/>
+      <virtualProcessingUnits id="_ZmNLJdGPEeW0d7ty1btHsw" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxVMBehaviour" id="_ZmNLKNGPEeW0d7ty1btHsw" name="CCSD Behaviour #6-0" vmImageBehaviour="_Zln8UNGPEeW0d7ty1btHsw">
+        <workloadPhases id="_ZmNLKdGPEeW0d7ty1btHsw" name="CCSD Phase 1">
+          <resourceDemands id="_ZmNLKtGPEeW0d7ty1btHsw" amount="35374.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkWxBdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmNLK9GPEeW0d7ty1btHsw" amount="189.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkXYENGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmNLLNGPEeW0d7ty1btHsw" name="CCSD Phase 2">
+          <resourceDemands id="_ZmNLLdGPEeW0d7ty1btHsw" amount="115.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkWxBdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmNLLtGPEeW0d7ty1btHsw" amount="234.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkXYENGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmNLL9GPEeW0d7ty1btHsw" name="CCSD Phase 3">
+          <resourceDemands id="_ZmNLMNGPEeW0d7ty1btHsw" amount="28259.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkWxBdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmNyMNGPEeW0d7ty1btHsw" amount="172.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkXYENGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmNyMdGPEeW0d7ty1btHsw" name="CCSD Phase 4">
+          <resourceDemands id="_ZmNyMtGPEeW0d7ty1btHsw" amount="2212.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkWxBdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmNyM9GPEeW0d7ty1btHsw" amount="422.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkXYENGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_Zg2KANGPEeW0d7ty1btHsw"/>
+    <node href="demoModel.physical#_ZkWxBNGPEeW0d7ty1btHsw"/>
+  </hypervisors>
+  <hypervisors id="_ZlSlItGPEeW0d7ty1btHsw" rootVolume="_ZlSlI9GPEeW0d7ty1btHsw">
+    <virtualMachines id="_ZmNyN9GPEeW0d7ty1btHsw" name="GBA VM #7-0" virtualNetworkInterconnects="_ZmbNkNGPEeW0d7ty1btHsw" state="RUNNING">
+      <virtualMemoryUnits id="_ZmNyOtGPEeW0d7ty1btHsw" provisioned="64.0bit*1000000000"/>
+      <vMImageInstance id="_ZmNyOdGPEeW0d7ty1btHsw" rootDisk="_ZmNyNtGPEeW0d7ty1btHsw"/>
+      <virtualProcessingUnits id="_ZmNyONGPEeW0d7ty1btHsw" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxVMBehaviour" id="_ZmNyO9GPEeW0d7ty1btHsw" name="CCSD Behaviour #7-0" vmImageBehaviour="_Zln8UNGPEeW0d7ty1btHsw">
+        <workloadPhases id="_ZmNyPNGPEeW0d7ty1btHsw" name="CCSD Phase 1">
+          <resourceDemands id="_ZmNyPdGPEeW0d7ty1btHsw" amount="35374.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkX_INGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmNyPtGPEeW0d7ty1btHsw" amount="189.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkX_IdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmNyP9GPEeW0d7ty1btHsw" name="CCSD Phase 2">
+          <resourceDemands id="_ZmNyQNGPEeW0d7ty1btHsw" amount="115.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkX_INGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmOZQNGPEeW0d7ty1btHsw" amount="234.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkX_IdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmOZQdGPEeW0d7ty1btHsw" name="CCSD Phase 3">
+          <resourceDemands id="_ZmOZQtGPEeW0d7ty1btHsw" amount="28259.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkX_INGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmOZQ9GPEeW0d7ty1btHsw" amount="172.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkX_IdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmOZRNGPEeW0d7ty1btHsw" name="CCSD Phase 4">
+          <resourceDemands id="_ZmOZRdGPEeW0d7ty1btHsw" amount="2212.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkX_INGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmOZRtGPEeW0d7ty1btHsw" amount="422.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkX_IdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_Zg2KANGPEeW0d7ty1btHsw"/>
+    <node href="demoModel.physical#_ZkXYEtGPEeW0d7ty1btHsw"/>
+  </hypervisors>
+  <hypervisors id="_ZlSlJdGPEeW0d7ty1btHsw" rootVolume="_ZlSlJtGPEeW0d7ty1btHsw">
+    <virtualMachines id="_ZmSqsNGPEeW0d7ty1btHsw" name="GBA VM #8-0" virtualNetworkInterconnects="_ZmbNkNGPEeW0d7ty1btHsw" state="RUNNING">
+      <virtualMemoryUnits id="_ZmTRwdGPEeW0d7ty1btHsw" provisioned="64.0bit*1000000000"/>
+      <vMImageInstance id="_ZmTRwNGPEeW0d7ty1btHsw" rootDisk="_ZmRckNGPEeW0d7ty1btHsw"/>
+      <virtualProcessingUnits id="_ZmSqsdGPEeW0d7ty1btHsw" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxVMBehaviour" id="_ZmTRwtGPEeW0d7ty1btHsw" name="CCSD Behaviour #8-0" vmImageBehaviour="_Zln8UNGPEeW0d7ty1btHsw">
+        <workloadPhases id="_ZmTRw9GPEeW0d7ty1btHsw" name="CCSD Phase 1">
+          <resourceDemands id="_ZmTRxNGPEeW0d7ty1btHsw" amount="35374.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkX_JNGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmTRxdGPEeW0d7ty1btHsw" amount="189.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkYmMNGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmTRxtGPEeW0d7ty1btHsw" name="CCSD Phase 2">
+          <resourceDemands id="_ZmTRx9GPEeW0d7ty1btHsw" amount="115.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkX_JNGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmT40NGPEeW0d7ty1btHsw" amount="234.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkYmMNGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmT40dGPEeW0d7ty1btHsw" name="CCSD Phase 3">
+          <resourceDemands id="_ZmT40tGPEeW0d7ty1btHsw" amount="28259.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkX_JNGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmT409GPEeW0d7ty1btHsw" amount="172.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkYmMNGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmUf4NGPEeW0d7ty1btHsw" name="CCSD Phase 4">
+          <resourceDemands id="_ZmUf4dGPEeW0d7ty1btHsw" amount="2212.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkX_JNGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmUf4tGPEeW0d7ty1btHsw" amount="422.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkYmMNGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_Zg2KANGPEeW0d7ty1btHsw"/>
+    <node href="demoModel.physical#_ZkX_I9GPEeW0d7ty1btHsw"/>
+  </hypervisors>
+  <hypervisors id="_ZlSlKNGPEeW0d7ty1btHsw" rootVolume="_ZlSlKdGPEeW0d7ty1btHsw">
+    <virtualMachines id="_ZmUf5tGPEeW0d7ty1btHsw" name="GBA VM #9-0" virtualNetworkInterconnects="_ZmbNkNGPEeW0d7ty1btHsw" state="RUNNING">
+      <virtualMemoryUnits id="_ZmVG8tGPEeW0d7ty1btHsw" provisioned="64.0bit*1000000000"/>
+      <vMImageInstance id="_ZmVG8dGPEeW0d7ty1btHsw" rootDisk="_ZmUf5dGPEeW0d7ty1btHsw"/>
+      <virtualProcessingUnits id="_ZmVG8NGPEeW0d7ty1btHsw" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxVMBehaviour" id="_ZmVG89GPEeW0d7ty1btHsw" name="CCSD Behaviour #9-0" vmImageBehaviour="_Zln8UNGPEeW0d7ty1btHsw">
+        <workloadPhases id="_ZmVG9NGPEeW0d7ty1btHsw" name="CCSD Phase 1">
+          <resourceDemands id="_ZmVG9dGPEeW0d7ty1btHsw" amount="35374.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkbCcdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmVG9tGPEeW0d7ty1btHsw" amount="189.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkbCctGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmVG99GPEeW0d7ty1btHsw" name="CCSD Phase 2">
+          <resourceDemands id="_ZmVG-NGPEeW0d7ty1btHsw" amount="115.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkbCcdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmVG-dGPEeW0d7ty1btHsw" amount="234.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkbCctGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmVG-tGPEeW0d7ty1btHsw" name="CCSD Phase 3">
+          <resourceDemands id="_ZmVG-9GPEeW0d7ty1btHsw" amount="28259.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkbCcdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmVG_NGPEeW0d7ty1btHsw" amount="172.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkbCctGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmVG_dGPEeW0d7ty1btHsw" name="CCSD Phase 4">
+          <resourceDemands id="_ZmVG_tGPEeW0d7ty1btHsw" amount="2212.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkbCcdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmVG_9GPEeW0d7ty1btHsw" amount="422.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkbCctGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_Zg2KANGPEeW0d7ty1btHsw"/>
+    <node href="demoModel.physical#_ZkbCcNGPEeW0d7ty1btHsw"/>
+  </hypervisors>
+  <hypervisors id="_ZlSlK9GPEeW0d7ty1btHsw" rootVolume="_ZlSlLNGPEeW0d7ty1btHsw">
+    <virtualMachines id="_ZmVuAdGPEeW0d7ty1btHsw" name="GBA VM #10-0" virtualNetworkInterconnects="_ZmbNkNGPEeW0d7ty1btHsw" state="RUNNING">
+      <virtualMemoryUnits id="_ZmWVEdGPEeW0d7ty1btHsw" provisioned="64.0bit*1000000000"/>
+      <vMImageInstance id="_ZmWVENGPEeW0d7ty1btHsw" rootDisk="_ZmVuANGPEeW0d7ty1btHsw"/>
+      <virtualProcessingUnits id="_ZmVuAtGPEeW0d7ty1btHsw" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxVMBehaviour" id="_ZmWVEtGPEeW0d7ty1btHsw" name="CCSD Behaviour #10-0" vmImageBehaviour="_Zln8UNGPEeW0d7ty1btHsw">
+        <workloadPhases id="_ZmWVE9GPEeW0d7ty1btHsw" name="CCSD Phase 1">
+          <resourceDemands id="_ZmWVFNGPEeW0d7ty1btHsw" amount="35374.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkbpgtGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmWVFdGPEeW0d7ty1btHsw" amount="189.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_Zkbpg9GPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmWVFtGPEeW0d7ty1btHsw" name="CCSD Phase 2">
+          <resourceDemands id="_ZmWVF9GPEeW0d7ty1btHsw" amount="115.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkbpgtGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmWVGNGPEeW0d7ty1btHsw" amount="234.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_Zkbpg9GPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmWVGdGPEeW0d7ty1btHsw" name="CCSD Phase 3">
+          <resourceDemands id="_ZmW8INGPEeW0d7ty1btHsw" amount="28259.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkbpgtGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmW8IdGPEeW0d7ty1btHsw" amount="172.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_Zkbpg9GPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmW8ItGPEeW0d7ty1btHsw" name="CCSD Phase 4">
+          <resourceDemands id="_ZmW8I9GPEeW0d7ty1btHsw" amount="2212.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkbpgtGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmW8JNGPEeW0d7ty1btHsw" amount="422.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_Zkbpg9GPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_Zg2KANGPEeW0d7ty1btHsw"/>
+    <node href="demoModel.physical#_ZkbpgdGPEeW0d7ty1btHsw"/>
+  </hypervisors>
+  <hypervisors id="_ZlTMMNGPEeW0d7ty1btHsw" rootVolume="_ZlTMMdGPEeW0d7ty1btHsw">
+    <virtualMachines id="_ZmW8KNGPEeW0d7ty1btHsw" name="GBA VM #11-0" virtualNetworkInterconnects="_ZmbNkNGPEeW0d7ty1btHsw" state="RUNNING">
+      <virtualMemoryUnits id="_ZmW8K9GPEeW0d7ty1btHsw" provisioned="64.0bit*1000000000"/>
+      <vMImageInstance id="_ZmW8KtGPEeW0d7ty1btHsw" rootDisk="_ZmW8J9GPEeW0d7ty1btHsw"/>
+      <virtualProcessingUnits id="_ZmW8KdGPEeW0d7ty1btHsw" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxVMBehaviour" id="_ZmW8LNGPEeW0d7ty1btHsw" name="CCSD Behaviour #11-0" vmImageBehaviour="_Zln8UNGPEeW0d7ty1btHsw">
+        <workloadPhases id="_ZmW8LdGPEeW0d7ty1btHsw" name="CCSD Phase 1">
+          <resourceDemands id="_ZmW8LtGPEeW0d7ty1btHsw" amount="35374.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_Zkc3odGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmW8L9GPEeW0d7ty1btHsw" amount="189.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_Zkc3otGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmW8MNGPEeW0d7ty1btHsw" name="CCSD Phase 2">
+          <resourceDemands id="_ZmXjMNGPEeW0d7ty1btHsw" amount="115.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_Zkc3odGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmXjMdGPEeW0d7ty1btHsw" amount="234.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_Zkc3otGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmXjMtGPEeW0d7ty1btHsw" name="CCSD Phase 3">
+          <resourceDemands id="_ZmXjM9GPEeW0d7ty1btHsw" amount="28259.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_Zkc3odGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmXjNNGPEeW0d7ty1btHsw" amount="172.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_Zkc3otGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmXjNdGPEeW0d7ty1btHsw" name="CCSD Phase 4">
+          <resourceDemands id="_ZmXjNtGPEeW0d7ty1btHsw" amount="2212.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_Zkc3odGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmXjN9GPEeW0d7ty1btHsw" amount="422.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_Zkc3otGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_Zg2KANGPEeW0d7ty1btHsw"/>
+    <node href="demoModel.physical#_Zkc3oNGPEeW0d7ty1btHsw"/>
+  </hypervisors>
+  <hypervisors id="_ZlVocNGPEeW0d7ty1btHsw" rootVolume="_ZlVocdGPEeW0d7ty1btHsw">
+    <virtualMachines id="_ZmXjO9GPEeW0d7ty1btHsw" name="GBA VM #12-0" virtualNetworkInterconnects="_ZmbNkNGPEeW0d7ty1btHsw" state="RUNNING">
+      <virtualMemoryUnits id="_ZmXjPtGPEeW0d7ty1btHsw" provisioned="64.0bit*1000000000"/>
+      <vMImageInstance id="_ZmXjPdGPEeW0d7ty1btHsw" rootDisk="_ZmXjOtGPEeW0d7ty1btHsw"/>
+      <virtualProcessingUnits id="_ZmXjPNGPEeW0d7ty1btHsw" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxVMBehaviour" id="_ZmXjP9GPEeW0d7ty1btHsw" name="CCSD Behaviour #12-0" vmImageBehaviour="_Zln8UNGPEeW0d7ty1btHsw">
+        <workloadPhases id="_ZmXjQNGPEeW0d7ty1btHsw" name="CCSD Phase 1">
+          <resourceDemands id="_ZmXjQdGPEeW0d7ty1btHsw" amount="35374.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkdesdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmXjQtGPEeW0d7ty1btHsw" amount="189.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkdestGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmYKQNGPEeW0d7ty1btHsw" name="CCSD Phase 2">
+          <resourceDemands id="_ZmYKQdGPEeW0d7ty1btHsw" amount="115.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkdesdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmYKQtGPEeW0d7ty1btHsw" amount="234.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkdestGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmYKQ9GPEeW0d7ty1btHsw" name="CCSD Phase 3">
+          <resourceDemands id="_ZmYKRNGPEeW0d7ty1btHsw" amount="28259.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkdesdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmYKRdGPEeW0d7ty1btHsw" amount="172.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkdestGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmYKRtGPEeW0d7ty1btHsw" name="CCSD Phase 4">
+          <resourceDemands id="_ZmYKR9GPEeW0d7ty1btHsw" amount="2212.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkdesdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmYKSNGPEeW0d7ty1btHsw" amount="422.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkdestGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_Zg2KANGPEeW0d7ty1btHsw"/>
+    <node href="demoModel.physical#_ZkdesNGPEeW0d7ty1btHsw"/>
+  </hypervisors>
+  <hypervisors id="_ZlW2kNGPEeW0d7ty1btHsw" rootVolume="_ZlW2kdGPEeW0d7ty1btHsw">
+    <virtualMachines id="_ZmYKTNGPEeW0d7ty1btHsw" name="GBA VM #13-0" virtualNetworkInterconnects="_ZmbNkNGPEeW0d7ty1btHsw" state="RUNNING">
+      <virtualMemoryUnits id="_ZmYKT9GPEeW0d7ty1btHsw" provisioned="64.0bit*1000000000"/>
+      <vMImageInstance id="_ZmYKTtGPEeW0d7ty1btHsw" rootDisk="_ZmYKS9GPEeW0d7ty1btHsw"/>
+      <virtualProcessingUnits id="_ZmYKTdGPEeW0d7ty1btHsw" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxVMBehaviour" id="_ZmYKUNGPEeW0d7ty1btHsw" name="CCSD Behaviour #13-0" vmImageBehaviour="_Zln8UNGPEeW0d7ty1btHsw">
+        <workloadPhases id="_ZmYKUdGPEeW0d7ty1btHsw" name="CCSD Phase 1">
+          <resourceDemands id="_ZmYKUtGPEeW0d7ty1btHsw" amount="35374.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkeFwdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmYKU9GPEeW0d7ty1btHsw" amount="189.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkeFwtGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmYKVNGPEeW0d7ty1btHsw" name="CCSD Phase 2">
+          <resourceDemands id="_ZmYxUNGPEeW0d7ty1btHsw" amount="115.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkeFwdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmYxUdGPEeW0d7ty1btHsw" amount="234.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkeFwtGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmYxUtGPEeW0d7ty1btHsw" name="CCSD Phase 3">
+          <resourceDemands id="_ZmYxU9GPEeW0d7ty1btHsw" amount="28259.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkeFwdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmYxVNGPEeW0d7ty1btHsw" amount="172.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkeFwtGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmYxVdGPEeW0d7ty1btHsw" name="CCSD Phase 4">
+          <resourceDemands id="_ZmYxVtGPEeW0d7ty1btHsw" amount="2212.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkeFwdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmYxV9GPEeW0d7ty1btHsw" amount="422.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkeFwtGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_Zg2KANGPEeW0d7ty1btHsw"/>
+    <node href="demoModel.physical#_ZkeFwNGPEeW0d7ty1btHsw"/>
+  </hypervisors>
+  <hypervisors id="_ZlXdodGPEeW0d7ty1btHsw" rootVolume="_ZlXdotGPEeW0d7ty1btHsw">
+    <virtualMachines id="_ZmYxW9GPEeW0d7ty1btHsw" name="GBA VM #14-0" virtualNetworkInterconnects="_ZmbNkNGPEeW0d7ty1btHsw" state="RUNNING">
+      <virtualMemoryUnits id="_ZmYxXtGPEeW0d7ty1btHsw" provisioned="64.0bit*1000000000"/>
+      <vMImageInstance id="_ZmYxXdGPEeW0d7ty1btHsw" rootDisk="_ZmYxWtGPEeW0d7ty1btHsw"/>
+      <virtualProcessingUnits id="_ZmYxXNGPEeW0d7ty1btHsw" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxVMBehaviour" id="_ZmYxX9GPEeW0d7ty1btHsw" name="CCSD Behaviour #14-0" vmImageBehaviour="_Zln8UNGPEeW0d7ty1btHsw">
+        <workloadPhases id="_ZmYxYNGPEeW0d7ty1btHsw" name="CCSD Phase 1">
+          <resourceDemands id="_ZmYxYdGPEeW0d7ty1btHsw" amount="35374.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkeFxdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmYxYtGPEeW0d7ty1btHsw" amount="189.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkeFxtGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmZYYNGPEeW0d7ty1btHsw" name="CCSD Phase 2">
+          <resourceDemands id="_ZmZYYdGPEeW0d7ty1btHsw" amount="115.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkeFxdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmZYYtGPEeW0d7ty1btHsw" amount="234.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkeFxtGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmZYY9GPEeW0d7ty1btHsw" name="CCSD Phase 3">
+          <resourceDemands id="_ZmZYZNGPEeW0d7ty1btHsw" amount="28259.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkeFxdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmZYZdGPEeW0d7ty1btHsw" amount="172.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkeFxtGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmZYZtGPEeW0d7ty1btHsw" name="CCSD Phase 4">
+          <resourceDemands id="_ZmZYZ9GPEeW0d7ty1btHsw" amount="2212.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_ZkeFxdGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmZYaNGPEeW0d7ty1btHsw" amount="422.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_ZkeFxtGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_Zg2KANGPEeW0d7ty1btHsw"/>
+    <node href="demoModel.physical#_ZkeFxNGPEeW0d7ty1btHsw"/>
+  </hypervisors>
+  <hypervisors id="_ZlYEsNGPEeW0d7ty1btHsw" rootVolume="_ZlYEsdGPEeW0d7ty1btHsw">
+    <virtualMachines id="_ZmZYbNGPEeW0d7ty1btHsw" name="GBA VM #15-0" virtualNetworkInterconnects="_ZmbNkNGPEeW0d7ty1btHsw" state="RUNNING">
+      <virtualMemoryUnits id="_ZmZ_cNGPEeW0d7ty1btHsw" provisioned="64.0bit*1000000000"/>
+      <vMImageInstance id="_ZmZYbtGPEeW0d7ty1btHsw" rootDisk="_ZmZYa9GPEeW0d7ty1btHsw"/>
+      <virtualProcessingUnits id="_ZmZYbdGPEeW0d7ty1btHsw" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxVMBehaviour" id="_ZmZ_cdGPEeW0d7ty1btHsw" name="CCSD Behaviour #15-0" vmImageBehaviour="_Zln8UNGPEeW0d7ty1btHsw">
+        <workloadPhases id="_ZmZ_ctGPEeW0d7ty1btHsw" name="CCSD Phase 1">
+          <resourceDemands id="_ZmZ_c9GPEeW0d7ty1btHsw" amount="35374.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_Zkes0tGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmZ_dNGPEeW0d7ty1btHsw" amount="189.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_Zkes09GPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmZ_ddGPEeW0d7ty1btHsw" name="CCSD Phase 2">
+          <resourceDemands id="_ZmZ_dtGPEeW0d7ty1btHsw" amount="115.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_Zkes0tGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmZ_d9GPEeW0d7ty1btHsw" amount="234.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_Zkes09GPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmZ_eNGPEeW0d7ty1btHsw" name="CCSD Phase 3">
+          <resourceDemands id="_ZmZ_edGPEeW0d7ty1btHsw" amount="28259.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_Zkes0tGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmZ_etGPEeW0d7ty1btHsw" amount="172.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_Zkes09GPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_ZmZ_e9GPEeW0d7ty1btHsw" name="CCSD Phase 4">
+          <resourceDemands id="_ZmZ_fNGPEeW0d7ty1btHsw" amount="2212.0*1000000000">
+            <onResource xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_Zkes0tGPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+          <resourceDemands id="_ZmZ_fdGPEeW0d7ty1btHsw" amount="422.0GB">
+            <onResource xsi:type="core_1:StorageSpecification" href="demoModel.physical#_Zkes09GPEeW0d7ty1btHsw"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_Zg2KANGPEeW0d7ty1btHsw"/>
+    <node href="demoModel.physical#_Zkes0dGPEeW0d7ty1btHsw"/>
+  </hypervisors>
+  <virtualNetworks id="_ZlINENGPEeW0d7ty1btHsw" name="Single virtual Network Layout" virtualNetworkInterconnects="_ZmbNkNGPEeW0d7ty1btHsw"/>
+  <volumesAndImages id="_ZlEisNGPEeW0d7ty1btHsw" name="Virtual Disk storing VMImages, e.g. Grey-Box Applications Image(s)." capacity="5.0TB">
+    <storageLocation href="demoModel.physical#_ZkhJENGPEeW0d7ty1btHsw"/>
+    <deltaOverlay xsi:type="core:VMImage" id="_ZlFw0NGPEeW0d7ty1btHsw" name="Molpro VM Image" capacity="12.0GB" usedCapacity="5.0GB">
+      <storageLocation href="demoModel.physical#_ZkhJENGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+    <deltaOverlay xsi:type="core:VMImage" id="_ZlG-8NGPEeW0d7ty1btHsw" name="KvmHypervisor" capacity="4.0TB" usedCapacity="3.0GB">
+      <storageLocation href="demoModel.physical#_ZkhJENGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZlJbMNGPEeW0d7ty1btHsw" name="KvmHypervisor" capacity="4.0TB" usedCapacity="3.0GB">
+    <storageLocation href="demoModel.physical#_ZkMY8NGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZlNFkNGPEeW0d7ty1btHsw" name="Overlay for KVM Hypervisor #0" capacity="0.5GB" usedCapacity="0.2GB">
+      <storageLocation href="demoModel.physical#_ZkMY8NGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZlRXANGPEeW0d7ty1btHsw" name="KvmHypervisor" capacity="4.0TB" usedCapacity="3.0GB">
+    <storageLocation href="demoModel.physical#_ZkUUwNGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZlRXAtGPEeW0d7ty1btHsw" name="Overlay for KVM Hypervisor #1" capacity="0.5GB" usedCapacity="0.2GB">
+      <storageLocation href="demoModel.physical#_ZkUUwNGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZlRXA9GPEeW0d7ty1btHsw" name="KvmHypervisor" capacity="4.0TB" usedCapacity="3.0GB">
+    <storageLocation href="demoModel.physical#_ZkU70dGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZlR-EdGPEeW0d7ty1btHsw" name="Overlay for KVM Hypervisor #2" capacity="0.5GB" usedCapacity="0.2GB">
+      <storageLocation href="demoModel.physical#_ZkU70dGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZlR-EtGPEeW0d7ty1btHsw" name="KvmHypervisor" capacity="4.0TB" usedCapacity="3.0GB">
+    <storageLocation href="demoModel.physical#_ZkU71dGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZlR-FNGPEeW0d7ty1btHsw" name="Overlay for KVM Hypervisor #3" capacity="0.5GB" usedCapacity="0.2GB">
+      <storageLocation href="demoModel.physical#_ZkU71dGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZlR-FdGPEeW0d7ty1btHsw" name="KvmHypervisor" capacity="4.0TB" usedCapacity="3.0GB">
+    <storageLocation href="demoModel.physical#_ZkVi49GPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZlR-F9GPEeW0d7ty1btHsw" name="Overlay for KVM Hypervisor #4" capacity="0.5GB" usedCapacity="0.2GB">
+      <storageLocation href="demoModel.physical#_ZkVi49GPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZlR-GNGPEeW0d7ty1btHsw" name="KvmHypervisor" capacity="4.0TB" usedCapacity="3.0GB">
+    <storageLocation href="demoModel.physical#_ZkWxAtGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZlR-GtGPEeW0d7ty1btHsw" name="Overlay for KVM Hypervisor #5" capacity="0.5GB" usedCapacity="0.2GB">
+      <storageLocation href="demoModel.physical#_ZkWxAtGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZlR-G9GPEeW0d7ty1btHsw" name="KvmHypervisor" capacity="4.0TB" usedCapacity="3.0GB">
+    <storageLocation href="demoModel.physical#_ZkXYENGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZlSlINGPEeW0d7ty1btHsw" name="Overlay for KVM Hypervisor #6" capacity="0.5GB" usedCapacity="0.2GB">
+      <storageLocation href="demoModel.physical#_ZkXYENGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZlSlIdGPEeW0d7ty1btHsw" name="KvmHypervisor" capacity="4.0TB" usedCapacity="3.0GB">
+    <storageLocation href="demoModel.physical#_ZkX_IdGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZlSlI9GPEeW0d7ty1btHsw" name="Overlay for KVM Hypervisor #7" capacity="0.5GB" usedCapacity="0.2GB">
+      <storageLocation href="demoModel.physical#_ZkX_IdGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZlSlJNGPEeW0d7ty1btHsw" name="KvmHypervisor" capacity="4.0TB" usedCapacity="3.0GB">
+    <storageLocation href="demoModel.physical#_ZkYmMNGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZlSlJtGPEeW0d7ty1btHsw" name="Overlay for KVM Hypervisor #8" capacity="0.5GB" usedCapacity="0.2GB">
+      <storageLocation href="demoModel.physical#_ZkYmMNGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZlSlJ9GPEeW0d7ty1btHsw" name="KvmHypervisor" capacity="4.0TB" usedCapacity="3.0GB">
+    <storageLocation href="demoModel.physical#_ZkbCctGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZlSlKdGPEeW0d7ty1btHsw" name="Overlay for KVM Hypervisor #9" capacity="0.5GB" usedCapacity="0.2GB">
+      <storageLocation href="demoModel.physical#_ZkbCctGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZlSlKtGPEeW0d7ty1btHsw" name="KvmHypervisor" capacity="4.0TB" usedCapacity="3.0GB">
+    <storageLocation href="demoModel.physical#_Zkbpg9GPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZlSlLNGPEeW0d7ty1btHsw" name="Overlay for KVM Hypervisor #10" capacity="0.5GB" usedCapacity="0.2GB">
+      <storageLocation href="demoModel.physical#_Zkbpg9GPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZlSlLdGPEeW0d7ty1btHsw" name="KvmHypervisor" capacity="4.0TB" usedCapacity="3.0GB">
+    <storageLocation href="demoModel.physical#_Zkc3otGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZlTMMdGPEeW0d7ty1btHsw" name="Overlay for KVM Hypervisor #11" capacity="0.5GB" usedCapacity="0.2GB">
+      <storageLocation href="demoModel.physical#_Zkc3otGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZlUaUNGPEeW0d7ty1btHsw" name="KvmHypervisor" capacity="4.0TB" usedCapacity="3.0GB">
+    <storageLocation href="demoModel.physical#_ZkdestGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZlVocdGPEeW0d7ty1btHsw" name="Overlay for KVM Hypervisor #12" capacity="0.5GB" usedCapacity="0.2GB">
+      <storageLocation href="demoModel.physical#_ZkdestGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZlWPgNGPEeW0d7ty1btHsw" name="KvmHypervisor" capacity="4.0TB" usedCapacity="3.0GB">
+    <storageLocation href="demoModel.physical#_ZkeFwtGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZlW2kdGPEeW0d7ty1btHsw" name="Overlay for KVM Hypervisor #13" capacity="0.5GB" usedCapacity="0.2GB">
+      <storageLocation href="demoModel.physical#_ZkeFwtGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZlXdoNGPEeW0d7ty1btHsw" name="KvmHypervisor" capacity="4.0TB" usedCapacity="3.0GB">
+    <storageLocation href="demoModel.physical#_ZkeFxtGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZlXdotGPEeW0d7ty1btHsw" name="Overlay for KVM Hypervisor #14" capacity="0.5GB" usedCapacity="0.2GB">
+      <storageLocation href="demoModel.physical#_ZkeFxtGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZlXdo9GPEeW0d7ty1btHsw" name="KvmHypervisor" capacity="4.0TB" usedCapacity="3.0GB">
+    <storageLocation href="demoModel.physical#_Zkes09GPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZlYEsdGPEeW0d7ty1btHsw" name="Overlay for KVM Hypervisor #15" capacity="0.5GB" usedCapacity="0.2GB">
+      <storageLocation href="demoModel.physical#_Zkes09GPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_Zls00NGPEeW0d7ty1btHsw" name="Molpro VM Image" capacity="12.0GB" usedCapacity="5.0GB">
+    <storageLocation href="demoModel.physical#_ZkMY8NGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_Zls00dGPEeW0d7ty1btHsw" name="Overlay for VM #0-0" capacity="40.0GB" usedCapacity="20.4GB">
+      <storageLocation href="demoModel.physical#_ZkMY8NGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZmF2YNGPEeW0d7ty1btHsw" name="Molpro VM Image" capacity="12.0GB" usedCapacity="5.0GB">
+    <storageLocation href="demoModel.physical#_ZkUUwNGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZmGdcNGPEeW0d7ty1btHsw" name="Overlay for VM #1-0" capacity="40.0GB" usedCapacity="20.4GB">
+      <storageLocation href="demoModel.physical#_ZkUUwNGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZmISodGPEeW0d7ty1btHsw" name="Molpro VM Image" capacity="12.0GB" usedCapacity="5.0GB">
+    <storageLocation href="demoModel.physical#_ZkU70dGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZmISotGPEeW0d7ty1btHsw" name="Overlay for VM #2-0" capacity="40.0GB" usedCapacity="20.4GB">
+      <storageLocation href="demoModel.physical#_ZkU70dGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZmKu6NGPEeW0d7ty1btHsw" name="Molpro VM Image" capacity="12.0GB" usedCapacity="5.0GB">
+    <storageLocation href="demoModel.physical#_ZkU71dGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZmKu6dGPEeW0d7ty1btHsw" name="Overlay for VM #3-0" capacity="40.0GB" usedCapacity="20.4GB">
+      <storageLocation href="demoModel.physical#_ZkU71dGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZmL9ANGPEeW0d7ty1btHsw" name="Molpro VM Image" capacity="12.0GB" usedCapacity="5.0GB">
+    <storageLocation href="demoModel.physical#_ZkVi49GPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZmL9AdGPEeW0d7ty1btHsw" name="Overlay for VM #4-0" capacity="40.0GB" usedCapacity="20.4GB">
+      <storageLocation href="demoModel.physical#_ZkVi49GPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZmMkEdGPEeW0d7ty1btHsw" name="Molpro VM Image" capacity="12.0GB" usedCapacity="5.0GB">
+    <storageLocation href="demoModel.physical#_ZkWxAtGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZmMkEtGPEeW0d7ty1btHsw" name="Overlay for VM #5-0" capacity="40.0GB" usedCapacity="20.4GB">
+      <storageLocation href="demoModel.physical#_ZkWxAtGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZmNLItGPEeW0d7ty1btHsw" name="Molpro VM Image" capacity="12.0GB" usedCapacity="5.0GB">
+    <storageLocation href="demoModel.physical#_ZkXYENGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZmNLI9GPEeW0d7ty1btHsw" name="Overlay for VM #6-0" capacity="40.0GB" usedCapacity="20.4GB">
+      <storageLocation href="demoModel.physical#_ZkXYENGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZmNyNdGPEeW0d7ty1btHsw" name="Molpro VM Image" capacity="12.0GB" usedCapacity="5.0GB">
+    <storageLocation href="demoModel.physical#_ZkX_IdGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZmNyNtGPEeW0d7ty1btHsw" name="Overlay for VM #7-0" capacity="40.0GB" usedCapacity="20.4GB">
+      <storageLocation href="demoModel.physical#_ZkX_IdGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZmPnYNGPEeW0d7ty1btHsw" name="Molpro VM Image" capacity="12.0GB" usedCapacity="5.0GB">
+    <storageLocation href="demoModel.physical#_ZkYmMNGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZmRckNGPEeW0d7ty1btHsw" name="Overlay for VM #8-0" capacity="40.0GB" usedCapacity="20.4GB">
+      <storageLocation href="demoModel.physical#_ZkYmMNGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZmUf5NGPEeW0d7ty1btHsw" name="Molpro VM Image" capacity="12.0GB" usedCapacity="5.0GB">
+    <storageLocation href="demoModel.physical#_ZkbCctGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZmUf5dGPEeW0d7ty1btHsw" name="Overlay for VM #9-0" capacity="40.0GB" usedCapacity="20.4GB">
+      <storageLocation href="demoModel.physical#_ZkbCctGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZmVHAdGPEeW0d7ty1btHsw" name="Molpro VM Image" capacity="12.0GB" usedCapacity="5.0GB">
+    <storageLocation href="demoModel.physical#_Zkbpg9GPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZmVuANGPEeW0d7ty1btHsw" name="Overlay for VM #10-0" capacity="40.0GB" usedCapacity="20.4GB">
+      <storageLocation href="demoModel.physical#_Zkbpg9GPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZmW8JtGPEeW0d7ty1btHsw" name="Molpro VM Image" capacity="12.0GB" usedCapacity="5.0GB">
+    <storageLocation href="demoModel.physical#_Zkc3otGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZmW8J9GPEeW0d7ty1btHsw" name="Overlay for VM #11-0" capacity="40.0GB" usedCapacity="20.4GB">
+      <storageLocation href="demoModel.physical#_Zkc3otGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZmXjOdGPEeW0d7ty1btHsw" name="Molpro VM Image" capacity="12.0GB" usedCapacity="5.0GB">
+    <storageLocation href="demoModel.physical#_ZkdestGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZmXjOtGPEeW0d7ty1btHsw" name="Overlay for VM #12-0" capacity="40.0GB" usedCapacity="20.4GB">
+      <storageLocation href="demoModel.physical#_ZkdestGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZmYKStGPEeW0d7ty1btHsw" name="Molpro VM Image" capacity="12.0GB" usedCapacity="5.0GB">
+    <storageLocation href="demoModel.physical#_ZkeFwtGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZmYKS9GPEeW0d7ty1btHsw" name="Overlay for VM #13-0" capacity="40.0GB" usedCapacity="20.4GB">
+      <storageLocation href="demoModel.physical#_ZkeFwtGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZmYxWdGPEeW0d7ty1btHsw" name="Molpro VM Image" capacity="12.0GB" usedCapacity="5.0GB">
+    <storageLocation href="demoModel.physical#_ZkeFxtGPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZmYxWtGPEeW0d7ty1btHsw" name="Overlay for VM #14-0" capacity="40.0GB" usedCapacity="20.4GB">
+      <storageLocation href="demoModel.physical#_ZkeFxtGPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <volumesAndImages xsi:type="core:VMImage" id="_ZmZYatGPEeW0d7ty1btHsw" name="Molpro VM Image" capacity="12.0GB" usedCapacity="5.0GB">
+    <storageLocation href="demoModel.physical#_Zkes09GPEeW0d7ty1btHsw"/>
+    <deltaOverlay id="_ZmZYa9GPEeW0d7ty1btHsw" name="Overlay for VM #15-0" capacity="40.0GB" usedCapacity="20.4GB">
+      <storageLocation href="demoModel.physical#_Zkes09GPEeW0d7ty1btHsw"/>
+    </deltaOverlay>
+  </volumesAndImages>
+  <applicationTemplates xsi:type="application:GreyBoxApplicationTemplate" id="_ZlcWINGPEeW0d7ty1btHsw" name="Molpro DFT Template (Demonstration Purpose only)">
+    <greyBoxVMImageBehaviour id="_ZlgAgNGPEeW0d7ty1btHsw" vmImage="_ZlFw0NGPEeW0d7ty1btHsw">
+      <workloadPhases id="_ZljD0NGPEeW0d7ty1btHsw" name="DFT Single Phase">
+        <resourceDemands id="_ZlmHINGPEeW0d7ty1btHsw" amount="9999.0*1000000000" onResource="_ZlgnkNGPEeW0d7ty1btHsw"/>
+        <resourceDemands id="_ZlmuMNGPEeW0d7ty1btHsw" amount="99.0GB" onResource="_ZlhOoNGPEeW0d7ty1btHsw"/>
+      </workloadPhases>
+      <referenceResourceSpecifications xsi:type="core_1:ProcessingUnitSpecification" id="_ZlgnkNGPEeW0d7ty1btHsw" name="Intel(R) Core(TM) i5-3470" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_Zg_T8NGPEeW0d7ty1btHsw"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </referenceResourceSpecifications>
+      <referenceResourceSpecifications xsi:type="core_1:StorageSpecification" id="_ZlhOoNGPEeW0d7ty1btHsw" name="Local SSD" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="960.0(bit/s)*1000000"/>
+        <writeBandwidth value="960.0(bit/s)*1000000"/>
+      </referenceResourceSpecifications>
+    </greyBoxVMImageBehaviour>
+  </applicationTemplates>
+  <applicationTemplates xsi:type="application:GreyBoxApplicationTemplate" id="_ZlnVQNGPEeW0d7ty1btHsw" name="Molpro CCSD Template">
+    <greyBoxVMImageBehaviour id="_Zln8UNGPEeW0d7ty1btHsw" vmImage="_ZlFw0NGPEeW0d7ty1btHsw">
+      <workloadPhases id="_ZlojYdGPEeW0d7ty1btHsw" name="CCSD Phase 1">
+        <resourceDemands id="_ZlojYtGPEeW0d7ty1btHsw" amount="35374.0*1000000000" onResource="_Zln8UdGPEeW0d7ty1btHsw"/>
+        <resourceDemands id="_ZlpKcNGPEeW0d7ty1btHsw" amount="189.0GB" onResource="_ZlojYNGPEeW0d7ty1btHsw"/>
+      </workloadPhases>
+      <workloadPhases id="_ZlpKcdGPEeW0d7ty1btHsw" name="CCSD Phase 2">
+        <resourceDemands id="_ZlpxgNGPEeW0d7ty1btHsw" amount="115.0*1000000000" onResource="_Zln8UdGPEeW0d7ty1btHsw"/>
+        <resourceDemands id="_ZlpxgdGPEeW0d7ty1btHsw" amount="234.0GB" onResource="_ZlojYNGPEeW0d7ty1btHsw"/>
+      </workloadPhases>
+      <workloadPhases id="_ZlqYkNGPEeW0d7ty1btHsw" name="CCSD Phase 3">
+        <resourceDemands id="_Zlq_oNGPEeW0d7ty1btHsw" amount="28259.0*1000000000" onResource="_Zln8UdGPEeW0d7ty1btHsw"/>
+        <resourceDemands id="_Zlq_odGPEeW0d7ty1btHsw" amount="172.0GB" onResource="_ZlojYNGPEeW0d7ty1btHsw"/>
+      </workloadPhases>
+      <workloadPhases id="_ZlrmsNGPEeW0d7ty1btHsw" name="CCSD Phase 4">
+        <resourceDemands id="_ZlrmsdGPEeW0d7ty1btHsw" amount="2212.0*1000000000" onResource="_Zln8UdGPEeW0d7ty1btHsw"/>
+        <resourceDemands id="_ZlsNwNGPEeW0d7ty1btHsw" amount="422.0GB" onResource="_ZlojYNGPEeW0d7ty1btHsw"/>
+      </workloadPhases>
+      <referenceResourceSpecifications xsi:type="core_1:ProcessingUnitSpecification" id="_Zln8UdGPEeW0d7ty1btHsw" name="Intel(R) Core(TM) i5-3470" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_Zg_T8NGPEeW0d7ty1btHsw"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </referenceResourceSpecifications>
+      <referenceResourceSpecifications xsi:type="core_1:StorageSpecification" id="_ZlojYNGPEeW0d7ty1btHsw" name="Local SSD" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="960.0(bit/s)*1000000"/>
+        <writeBandwidth value="960.0(bit/s)*1000000"/>
+      </referenceResourceSpecifications>
+    </greyBoxVMImageBehaviour>
+  </applicationTemplates>
+  <applicationInstances xsi:type="application:GreyBoxApplicationInstance" id="_ZmFPUNGPEeW0d7ty1btHsw" applicationTemplate="_ZlnVQNGPEeW0d7ty1btHsw" virtualMachine="_ZlwfMNGPEeW0d7ty1btHsw"/>
+  <applicationInstances xsi:type="application:GreyBoxApplicationInstance" id="_ZmISoNGPEeW0d7ty1btHsw" applicationTemplate="_ZlnVQNGPEeW0d7ty1btHsw" virtualMachine="_ZmGdcdGPEeW0d7ty1btHsw"/>
+  <applicationInstances xsi:type="application:GreyBoxApplicationInstance" id="_ZmKu59GPEeW0d7ty1btHsw" applicationTemplate="_ZlnVQNGPEeW0d7ty1btHsw" virtualMachine="_ZmISo9GPEeW0d7ty1btHsw"/>
+  <applicationInstances xsi:type="application:GreyBoxApplicationInstance" id="_ZmLWAdGPEeW0d7ty1btHsw" applicationTemplate="_ZlnVQNGPEeW0d7ty1btHsw" virtualMachine="_ZmLV8NGPEeW0d7ty1btHsw"/>
+  <applicationInstances xsi:type="application:GreyBoxApplicationInstance" id="_ZmMkENGPEeW0d7ty1btHsw" applicationTemplate="_ZlnVQNGPEeW0d7ty1btHsw" virtualMachine="_ZmL9AtGPEeW0d7ty1btHsw"/>
+  <applicationInstances xsi:type="application:GreyBoxApplicationInstance" id="_ZmNLIdGPEeW0d7ty1btHsw" applicationTemplate="_ZlnVQNGPEeW0d7ty1btHsw" virtualMachine="_ZmMkE9GPEeW0d7ty1btHsw"/>
+  <applicationInstances xsi:type="application:GreyBoxApplicationInstance" id="_ZmNyNNGPEeW0d7ty1btHsw" applicationTemplate="_ZlnVQNGPEeW0d7ty1btHsw" virtualMachine="_ZmNLJNGPEeW0d7ty1btHsw"/>
+  <applicationInstances xsi:type="application:GreyBoxApplicationInstance" id="_ZmOZR9GPEeW0d7ty1btHsw" applicationTemplate="_ZlnVQNGPEeW0d7ty1btHsw" virtualMachine="_ZmNyN9GPEeW0d7ty1btHsw"/>
+  <applicationInstances xsi:type="application:GreyBoxApplicationInstance" id="_ZmUf49GPEeW0d7ty1btHsw" applicationTemplate="_ZlnVQNGPEeW0d7ty1btHsw" virtualMachine="_ZmSqsNGPEeW0d7ty1btHsw"/>
+  <applicationInstances xsi:type="application:GreyBoxApplicationInstance" id="_ZmVHANGPEeW0d7ty1btHsw" applicationTemplate="_ZlnVQNGPEeW0d7ty1btHsw" virtualMachine="_ZmUf5tGPEeW0d7ty1btHsw"/>
+  <applicationInstances xsi:type="application:GreyBoxApplicationInstance" id="_ZmW8JdGPEeW0d7ty1btHsw" applicationTemplate="_ZlnVQNGPEeW0d7ty1btHsw" virtualMachine="_ZmVuAdGPEeW0d7ty1btHsw"/>
+  <applicationInstances xsi:type="application:GreyBoxApplicationInstance" id="_ZmXjONGPEeW0d7ty1btHsw" applicationTemplate="_ZlnVQNGPEeW0d7ty1btHsw" virtualMachine="_ZmW8KNGPEeW0d7ty1btHsw"/>
+  <applicationInstances xsi:type="application:GreyBoxApplicationInstance" id="_ZmYKSdGPEeW0d7ty1btHsw" applicationTemplate="_ZlnVQNGPEeW0d7ty1btHsw" virtualMachine="_ZmXjO9GPEeW0d7ty1btHsw"/>
+  <applicationInstances xsi:type="application:GreyBoxApplicationInstance" id="_ZmYxWNGPEeW0d7ty1btHsw" applicationTemplate="_ZlnVQNGPEeW0d7ty1btHsw" virtualMachine="_ZmYKTNGPEeW0d7ty1btHsw"/>
+  <applicationInstances xsi:type="application:GreyBoxApplicationInstance" id="_ZmZYadGPEeW0d7ty1btHsw" applicationTemplate="_ZlnVQNGPEeW0d7ty1btHsw" virtualMachine="_ZmYxW9GPEeW0d7ty1btHsw"/>
+  <applicationInstances xsi:type="application:GreyBoxApplicationInstance" id="_ZmZ_ftGPEeW0d7ty1btHsw" applicationTemplate="_ZlnVQNGPEeW0d7ty1btHsw" virtualMachine="_ZmZYbNGPEeW0d7ty1btHsw"/>
+  <virtualNetworkInterconnects id="_ZmbNkNGPEeW0d7ty1btHsw" name="Single vNIC Layout" connectedVirtualEntity="_ZlINENGPEeW0d7ty1btHsw _ZlwfMNGPEeW0d7ty1btHsw _ZmGdcdGPEeW0d7ty1btHsw _ZmISo9GPEeW0d7ty1btHsw _ZmLV8NGPEeW0d7ty1btHsw _ZmL9AtGPEeW0d7ty1btHsw _ZmMkE9GPEeW0d7ty1btHsw _ZmNLJNGPEeW0d7ty1btHsw _ZmNyN9GPEeW0d7ty1btHsw _ZmSqsNGPEeW0d7ty1btHsw _ZmUf5tGPEeW0d7ty1btHsw _ZmVuAdGPEeW0d7ty1btHsw _ZmW8KNGPEeW0d7ty1btHsw _ZmXjO9GPEeW0d7ty1btHsw _ZmYKTNGPEeW0d7ty1btHsw _ZmYxW9GPEeW0d7ty1btHsw _ZmZYbNGPEeW0d7ty1btHsw"/>
+</core:LogicalDCModel>

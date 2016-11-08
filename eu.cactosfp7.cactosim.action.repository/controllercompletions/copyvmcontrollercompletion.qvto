@@ -1,0 +1,166 @@
+/*
+ * This simple QVTO SimuLizar reconfiguration rule migrates the application to another
+ * server node as defined by the OptimizationPlan
+ *
+ */
+
+/*
+ * Two modeltypes are declared. The http NS URIs correspond to those used to register the 
+ * Ecore models in the environment. Alternatively, a workspace metamodel may be used 
+ * in conjunction with mappings defined in the project properties.
+ */
+import simulizar_qvto_helper.logHelper;
+import transforms.cactosAdaptationBehaviorHelper;
+
+modeltype PCM_ALLOC uses 'http://palladiosimulator.org/PalladioComponentModel/Allocation/5.1';
+modeltype PCM_REP uses 'http://palladiosimulator.org/PalladioComponentModel/Repository/5.1';
+modeltype PCM_SYS uses 'http://palladiosimulator.org/PalladioComponentModel/System/5.1';
+modeltype PCM_RES_ENV uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1';
+modeltype PCM_COMP uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.1';
+modeltype ACTION_MAPPING uses 'http://simulizar.palladiosimulator.org/Actions/Mapping/1.1';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype PHYSICAL_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype PHYSICAL_CORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype LOGICAL_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype LOGICAL_CORE uses 'http://www.cactosfp7.eu/LogicalDCModel/Core/1.0';
+modeltype LOGICAL_APPLICATION uses 'http://www.cactosfp7.eu/LogicalDCModel/Application/1.0';
+modeltype OPTIMISATION_PLAN uses 'http://www.cactosfp7.eu/OptimisationPlan/1.0';
+
+transformation copyVmAdaptation(
+							inout pcmAllocation : PCM_ALLOC,
+							inout pcmSystem : PCM_SYS,
+							in pcmRepository : PCM_REP,
+							in physicalCorrespondence : PHYSICAL_CORRESPONDENCE,
+							in logicalCorrespondence : LOGICAL_CORRESPONDENCE,
+							in actionRoleSet : ACTION_INSTANCE,
+							in actionCore : ACTION_CORE,
+							out actionMapping : ACTION_MAPPING
+							) {
+							
+	property SOURCE_CONTROLLER_COMPONENT_ID = "_g6P58PEfEeW24e2jO-Tyeg";
+	property SOURCE_CONTROLLER_PROVIDED_ROLE_ID = "_Z7lpQPEgEeW24e2jO-Tyeg";
+	property SOURCE_CONTROLLER_REQUIRED_ROLE_ID = "_a5D-IPEgEeW24e2jO-Tyeg";
+	
+	property TARGET_CONTROLLER_COMPONENT_ID = "_ysxgYPEfEeW24e2jO-Tyeg";
+	property TARGET_CONTROLLER_PROVIDED_ROLE_ID = "_YOLFMPEgEeW24e2jO-Tyeg";								
+							
+	/**
+	 * The main transformation.
+	 * This is the entry point to the overall transformation.
+	 */
+	main() {	
+		assert fatal(pcmAllocation.rootObjects()[Allocation]->size() > 0)
+			with log ("Allocation Model is empty!");
+
+		actionCore.rootObjects()[ResourceDemandingAction].map createControllerMappings();
+	}
+	
+	
+	mapping ResourceDemandingAction::createControllerMappings(): Mapping {
+		var vmplacements := actionRoleSet.rootObjects()[RoleSet].roles->any(roleType.id=CVMP_VM_PLACEMENT_ACTION_ROLE_TYPE_ID).value.oclAsType(SequentialSteps);
+		vmplacements.optimisationSteps[VmPlacementAction]->forEach(step) {
+			var sourceContainer := step.getSourceResourceContainer();
+			var targetContainer := step.getTargetResourceContainer();
+			logDebug("completion: for source container: " + sourceContainer.entityName);
+			logDebug("completion: for target container: " + targetContainer.entityName);
+			controllerMappings += self.controllerCalls->map lookUpOrCreateController(sourceContainer, targetContainer);
+		} 
+	}
+	
+	mapping ControllerCall::lookUpOrCreateController(in sourceContainer: ResourceContainer, in targetContainer: ResourceContainer) : ControllerMapping {
+		var assembly := sourceContainer.getControllerAssembly(targetContainer);
+		
+		mappedCall := self; 
+		entityName := 'mapped' + mappedCall.entityName;
+		
+		if (not assembly.oclIsInvalid() and assembly <> null) {
+			controllerRole := assembly.parentStructure__AssemblyContext[System].providedRoles_InterfaceProvidingEntity[OperationProvidedRole]
+				->any(providedInterface__OperationProvidedRole.id = self.calledSignature.interface__OperationSignature.id);
+		} else {
+			var system : System := pcmSystem.rootObjects()[System]->any(true);
+			var allocation : Allocation := pcmAllocation.rootObjects()[Allocation]->any(system_Allocation.id = system.id);
+			
+			var sourceComponent := 
+				pcmRepository.rootObjects()[Repository].components__Repository[BasicComponent]->any(id = SOURCE_CONTROLLER_COMPONENT_ID);
+				
+			var targetComponent := 
+				pcmRepository.rootObjects()[Repository].components__Repository[BasicComponent]->any(id = TARGET_CONTROLLER_COMPONENT_ID);
+			
+			var sourceAssembly := sourceComponent.map createAssembly(sourceContainer);
+			var targetAssembly := targetComponent.map createAssembly(targetContainer);
+			system.assemblyContexts__ComposedStructure += sourceAssembly; 
+			system.assemblyContexts__ComposedStructure += targetAssembly;
+			
+			var sourceAllocation := sourceAssembly.map allocateAt(sourceContainer);
+			var targetAllocation := targetAssembly.map allocateAt(targetContainer);
+			allocation.allocationContexts_Allocation += sourceAllocation; 
+			allocation.allocationContexts_Allocation += targetAllocation;
+			
+			// add system interface to controller component
+			var controllerProvidedRole := object OperationProvidedRole {
+				entityName := 'SystemProvided' + sourceAllocation.entityName;
+				providingEntity_ProvidedRole := sourceComponent;
+				providedInterface__OperationProvidedRole := self.calledSignature.interface__OperationSignature;			
+			};
+			system.providedRoles_InterfaceProvidingEntity += controllerProvidedRole;
+			
+			system.connectors__ComposedStructure += object AssemblyConnector {
+				entityName := "AssemblyConnector " + sourceAssembly.toString() + " --> " + targetAssembly.toString(); 
+				requiringAssemblyContext_AssemblyConnector := sourceAssembly;
+				providingAssemblyContext_AssemblyConnector := targetAssembly;
+				providedRole_AssemblyConnector := targetComponent.providedRoles_InterfaceProvidingEntity[OperationProvidedRole]
+						->any(id = TARGET_CONTROLLER_PROVIDED_ROLE_ID);
+				requiredRole_AssemblyConnector := sourceComponent.requiredRoles_InterfaceRequiringEntity[OperationRequiredRole]
+						->any(id = SOURCE_CONTROLLER_REQUIRED_ROLE_ID);
+			};
+			
+			system.connectors__ComposedStructure += object ProvidedDelegationConnector {
+				innerProvidedRole_ProvidedDelegationConnector := 
+					self.component.providedRoles_InterfaceProvidingEntity[OperationProvidedRole]->any(
+						providedInterface__OperationProvidedRole.signatures__OperationInterface->exists(id = self.calledSignature.id));
+				outerProvidedRole_ProvidedDelegationConnector := controllerProvidedRole;
+				assemblyContext_ProvidedDelegationConnector := sourceAssembly;
+			};
+			
+			controllerRole := controllerProvidedRole;
+		}
+	}
+	
+	mapping AssemblyContext::allocateAt(container : ResourceContainer): AllocationContext {
+		entityName := self.entityName + 'At' + container.entityName;
+		resourceContainer_AllocationContext := container;
+		assemblyContext_AllocationContext := self;
+	}
+	
+	mapping BasicComponent::createAssembly(inout container : ResourceContainer) : AssemblyContext {	
+		entityName :=  self.entityName + "AssemblyCtxOn" + container.entityName;
+		encapsulatedComponent__AssemblyContext := self;
+	}
+	
+	query VmPlacementAction::getSourceResourceContainer() : ResourceContainer {
+		var vmstorage := self.unassignedVirtualMachine.vMImageInstance.rootDisk.storageLocation;
+		return physicalCorrespondence.rootObjects()[PhysicalCorrespondenceRepository].abstractNodeCorrespondences
+			->any(cactos.oclAsType(AbstractNode).storageSpecifications->exists(id = vmstorage.id)).palladio;
+	}
+	
+	query VmPlacementAction::getTargetResourceContainer() : ResourceContainer {
+		return physicalCorrespondence.rootObjects()[PhysicalCorrespondenceRepository].abstractNodeCorrespondences
+			->any(cactos.id = self.targetHost.rootVolume.storageLocation.node.id).palladio;
+	}
+	
+	query ResourceContainer::getControllerAssembly(targetContainer: ResourceContainer) : AssemblyContext {
+		var allocationContexts := pcmAllocation.rootObjects()[Allocation].allocationContexts_Allocation;
+		var candidates := pcmSystem.rootObjects()[System].connectors__ComposedStructure[AssemblyConnector]
+			->select(con | 
+				con.requiredRole_AssemblyConnector.id = SOURCE_CONTROLLER_REQUIRED_ROLE_ID and 
+				con.providedRole_AssemblyConnector.id = TARGET_CONTROLLER_PROVIDED_ROLE_ID);
+		return candidates->any(con |
+				allocationContexts->exists(resourceContainer_AllocationContext.id = self.id and
+										   assemblyContext_AllocationContext.id = con.requiringAssemblyContext_AssemblyConnector.id) and
+				allocationContexts->exists(resourceContainer_AllocationContext.id = targetContainer.id and
+										   assemblyContext_AllocationContext.id = con.providingAssemblyContext_AssemblyConnector.id)
+			).requiringAssemblyContext_AssemblyConnector;
+
+	}
+}

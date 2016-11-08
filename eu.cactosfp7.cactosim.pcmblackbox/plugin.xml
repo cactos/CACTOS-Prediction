@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.m2m.qvt.oml.javaBlackboxUnits">
+      <unit
+            name="JScienceLibPalladio"
+            namespace="eu.cactosfp7.cactosim.pcmblackbox">
+         <library
+               class="eu.cactosfp7.cactosim.pcmblackbox.JScienceLibPalladio"
+               name="JScienceLibPalladio">
+            <metamodel
+                  nsURI="http://palladiosimulator.org/MetricSpec/1.0">
+            </metamodel>
+            <metamodel
+                  nsURI="http://palladiosimulator.org/EDP2/ExperimentData/1.0">
+            </metamodel>
+            <metamodel
+                  nsURI="http://www.eclipse.org/emf/2002/Ecore">
+            </metamodel>
+         </library>
+      </unit>
+   </extension>
+</plugin>
+

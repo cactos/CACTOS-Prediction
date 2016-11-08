@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ASCII"?>
+<experimentscenario:ExperimentScenarioTimeLine xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.cactosfp7.eu/LogicalDCModel/Application/1.0" xmlns:core="http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0" xmlns:experimentscenario="http://www.cactosfp7.eu/ExperimentScenarioModel/1.0" xmlns:request="http://www.cactosfp7.eu/ExperimentScenarioModel/Request/1.0" xmlns:selector="http://www.cactosfp7.eu/ExperimentScenarioModel/Selector/1.0" id="_TZIM4E8aEea91_JDf85RTg">
+  <timeLineEvents xsi:type="experimentscenario:AbsoluteTimeEvent" id="_TZJbAE8aEea91_JDf85RTg" simulationTime="520.0s">
+    <experimentScenarioRequest xsi:type="request:StartApplicationRequest" id="_TZLQME8aEea91_JDf85RTg">
+      <applicationTemplate xsi:type="application:BlackBoxApplicationTemplate" href="demoModel.logical#_TYiXAE8aEea91_JDf85RTg"/>
+      <vmFlavour href="demoModel.logical#_TYrg8E8aEea91_JDf85RTg"/>
+    </experimentScenarioRequest>
+  </timeLineEvents>
+  <timeLineEvents xsi:type="experimentscenario:AbsoluteTimeEvent" id="_TZMeUE8aEea91_JDf85RTg" simulationTime="640.0s">
+    <experimentScenarioRequest xsi:type="request:SetPhysicalNodeStateRequest" id="_TZNscE8aEea91_JDf85RTg" targetState="RUNNING">
+      <targetNode xsi:type="core:ComputeNode" href="demoModel.physical#_TYLKok8aEea91_JDf85RTg"/>
+    </experimentScenarioRequest>
+  </timeLineEvents>
+  <timeLineEvents xsi:type="experimentscenario:AbsoluteTimeEvent" id="_TZNscU8aEea91_JDf85RTg" simulationTime="880.0s">
+    <experimentScenarioRequest xsi:type="request:MigrateApplicationRequest" id="_TZO6kE8aEea91_JDf85RTg">
+      <targetPhysicalNode href="demoModel.physical#_TYLKok8aEea91_JDf85RTg"/>
+      <applicationInstanceSelector xsi:type="selector:PreviouslyStartedBlackBoxApplicationSelector" id="_TZQvwE8aEea91_JDf85RTg" startApplicationRequest="_TZLQME8aEea91_JDf85RTg"/>
+    </experimentScenarioRequest>
+  </timeLineEvents>
+</experimentscenario:ExperimentScenarioTimeLine>

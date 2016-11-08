@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Infrastructure Model Utils QVTo Blackbox
+Bundle-SymbolicName: eu.cactosfp7.infrastructuremodels.util.blackbox;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: eu.cactosfp7.infrastructuremodels.util.blackboxunit.Activator
+Bundle-Vendor: CACTOS Consortium
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.emf;bundle-version="2.6.0",
+ eu.cactosfp7.infrastructuremodels;bundle-version="1.0.0",
+ org.eclipse.m2m.qvt.oml;bundle-version="3.5.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy

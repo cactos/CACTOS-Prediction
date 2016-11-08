@@ -1,0 +1,397 @@
+import transforms.pcmHelperCore;
+import transforms.localstorage;
+import transforms.cactosAdaptationBehaviorHelper;
+import simulizar_qvto_helper.logHelper;
+import eu.cactosfp7.cactosim.placementconnector.PlacementConnectorUnit;
+import transforms.updateRuntimeCorrespondence;
+
+
+modeltype CACT_LCORE uses 'http://www.cactosfp7.eu/LogicalDCModel/Core/1.0';
+modeltype CACT_LAPP uses 'http://www.cactosfp7.eu/LogicalDCModel/Application/1.0';
+modeltype CACT_PCORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype CACT_PCORR uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype CACT_LCORR uses 'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype PCM_COMP uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.1';
+modeltype PCM_ALLOC uses 'http://palladiosimulator.org/PalladioComponentModel/Allocation/5.1';
+modeltype PCM_STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+modeltype PCM_PARAM uses 'http://palladiosimulator.org/PalladioComponentModel/Parameter/5.1';
+modeltype PCM_REP uses 'http://palladiosimulator.org/PalladioComponentModel/Repository/5.1';
+modeltype PCM_SEFF uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/5.1';
+modeltype PCM_SYS uses 'http://palladiosimulator.org/PalladioComponentModel/System/5.1';
+modeltype PCM_RES_ENV uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1';
+modeltype PCM_RES_TYPE uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.1';
+modeltype PCM_CORE uses 'http://palladiosimulator.org/PalladioComponentModel/Core/5.1';
+modeltype PCM_CORE_ENTITY uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Entity/5.1';
+modeltype PCM_USAGE uses 'http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.1';
+modeltype ACTION_MAPPING uses 'http://simulizar.palladiosimulator.org/Actions/Mapping/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_PARAM uses 'http://simulizar.palladiosimulator.org/Actions/Parameter/1.1';
+modeltype ECORE uses 'http://www.eclipse.org/emf/2002/Ecore';
+modeltype STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+modeltype PLM uses 'http://www.cactosfp7.eu/CactosLoadModel/Physical/1.0';
+modeltype LLM uses 'http://www.cactosfp7.eu/CactosLoadModel/Logical/1.0';
+modeltype OPTIMISATION_PLAN uses 'http://www.cactosfp7.eu/OptimisationPlan/1.0';
+modeltype RUNTIMEMEASUREMENT uses 'http://simulizar.palladiosimulator.org/RuntimeMeasurement/1.0';
+modeltype MONITOR_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/Measurement/1.1';
+modeltype USAGEEVOLUTION uses "http://usageevolution/1.0";
+modeltype USAGESEQUENCE uses "http://www.cactosfp7.eu/CactoSim/UsageSequence/1.1";
+modeltype MONITORREPOSITORY uses "http://palladiosimulator.org/MonitorRepository/1.0";
+modeltype MEASURINGPOINT uses "http://palladiosimulator.org/EDP2/MeasuringPoint/1.0";
+modeltype PCMMEASURINGPOINT uses "http://palladiosimulator.org/PCM/MeasuringPoint/1.0";
+modeltype MONITOR_REPOSITORY uses "http://palladiosimulator.org/MonitorRepository/1.0";
+
+transformation stopApplicationAdaption(inout logicalCorrespondence: CACT_LCORR,
+									inout physicalCorrespondence : CACT_PCORR, 
+									inout logicaldc: CACT_LCORE,
+									in actionRoleSet : ACTION_INSTANCE,
+									inout repositories: PCM_REP,
+									inout systems: PCM_SYS,
+									inout allocations: PCM_ALLOC,
+									inout usagemodels: PCM_USAGE,
+									inout usageevolutions: USAGEEVOLUTION,
+									inout usagesequences: USAGESEQUENCE,
+									inout monitorrepository: MONITORREPOSITORY,
+									inout logicalload : LLM,
+									inout measurementcorrespondence : MONITOR_CORRESPONDENCE) {
+									
+											
+	main() {
+		var physicalCorrespondenceRepository : PhysicalCorrespondenceRepository = physicalCorrespondence.rootObjects()[PhysicalCorrespondenceRepository]->any(true);
+		var logicalCorrespondenceRepository : LogicalCorrespondenceRepository = logicalCorrespondence.rootObjects()[LogicalCorrespondenceRepository]->any(true);
+		
+		assert error (physicalCorrespondenceRepository != null) with log('Physical correspondence model must contain one Physical Correspondence Repository');
+		assert error (logicalCorrespondenceRepository != null) with log('Logical correspondence model must contain one Logical Correspondence Repository');
+		
+		var roleSet := actionRoleSet.rootObjects()[RoleSet]->any(true);
+		var applicationInstance := roleSet.roles->any(roleType.id=TAA_APPLICATION_INSTANCE_ROLE_TYPE_ID).value.oclAsType(ApplicationInstance);
+
+		applicationInstance.map deleteAndClean(logicalCorrespondenceRepository, physicalCorrespondenceRepository);
+	}
+	
+	mapping in ApplicationInstance::deleteAndClean(inout logiCorr: LogicalCorrespondenceRepository, inout physiCorr: PhysicalCorrespondenceRepository) {
+		assert fatal(false) with log("deleteAndClean mapping for abstract supertype called - element probably not processed", null, LOG_LEVEL_ERROR);
+	} 
+	
+	mapping BlackBoxApplicationInstance::deleteAndClean(inout logiCorr: LogicalCorrespondenceRepository, inout physiCorr: PhysicalCorrespondenceRepository) {
+		logDebug("BlackBoxApplicationInstace::deleteAndClean for virtual machine: " + self.virtualMachine.toString());
+		self.map cleanUpPalladioUsage(logiCorr);
+		self.map cleanUpRuntimeBehaviour(logiCorr);
+		self.virtualMachine.map deleteAndCleanVirtualMachine(logiCorr, physiCorr);
+		logicaldc.removeElement(self);
+	}
+	
+	mapping GreyBoxApplicationInstance::deleteAndClean(inout logiCorr: LogicalCorrespondenceRepository, inout physiCorr: PhysicalCorrespondenceRepository) {
+		logDebug("GreyBoxApplicationInstace::deleteAndClean for virtual machine: " + self.virtualMachine.toString());
+		self.map cleanUpPalladioUsage(logiCorr);
+		self.map cleanUpRuntimeBehaviour(logiCorr);
+		self.virtualMachine.map deleteAndCleanVirtualMachine(logiCorr, physiCorr);
+		logicaldc.removeElement(self);
+	}
+	
+	mapping WhiteBoxApplicationInstance::deleteAndClean(inout logiCorr: LogicalCorrespondenceRepository, inout physiCorr: PhysicalCorrespondenceRepository) {
+		logDebug("WhiteBoxApplicationInstance::deleteAndClean for virtual machine: " + self.toString());
+		self.map cleanUpPalladioUsage(logiCorr);
+		self.map cleanUpLoadBalancers(logiCorr);
+		self.map cleanUpRuntimeBehaviour(logiCorr);
+		self.composedVMs.virtualMachine.map deleteAndCleanVirtualMachine(logiCorr, physiCorr);
+		self.applicationTemplate.oclAsType(WhiteBoxApplicationTemplate).vmImageConnectors
+			->map cleanUpMeasurementCorrespondences(self, logiCorr);
+		logicaldc.removeElement(self);
+	}
+	
+	mapping inout VirtualMachine::deleteAndCleanVirtualMachine(inout logiCorr: LogicalCorrespondenceRepository, inout physiCorr: PhysicalCorrespondenceRepository) {
+		logDebug("VirtualMachine::deleteAndCleanVirtualMachine");
+		self.map cleanUpPalladioVMModels(logiCorr);
+		
+		logicalCorrespondence.rootObjects()[LogicalCorrespondenceRepository].providedServiceCorrespondences
+			->select(cactosVM = self)
+			->forEach(psc) {
+				logiCorr.arrivalRateMeasurementCorrespondences.serviceInstanceMeasurementCorrespondences
+					->select(cactosServiceCorrespondence = psc)
+					->forEach(simc) {
+						simc.serviceOperationInstanceCorrespondence
+							->forEach(soic) {
+								var measurementSpecs := measurementcorrespondence.rootObjects()[MonitorCorrespondenceRepository]
+									.monitoredCactosEntityToMonitorCorrespondences->select(cactos = soic);
+								measurementSpecs.palladio.monitor->asSet()->forEach(monitor) {
+									monitorrepository.removeElement(monitor);
+								};								
+								measurementSpecs->forEach(spec) {
+									measurementcorrespondence.removeElement(spec);
+								};
+								logicalCorrespondence.removeElement(soic);
+							};
+						logicalCorrespondence.removeElement(simc);
+					};
+				
+				logicalCorrespondence.removeElement(psc);
+			};
+		logicalCorrespondence.rootObjects()[LogicalCorrespondenceRepository].requiredServiceCorrespondences
+			->select(cactosVM = self)
+			->forEach(vm) {
+				logicalCorrespondence.removeElement(vm);
+			};
+		
+		var vmCorrs := logiCorr.virtualMachineCorrespondences->select(cactos.id = self.id);
+		var vmImageInstCorrs := logiCorr.vmImageInstanceCorrespondences->select(cactos.id = self.vMImageInstance.id);
+		
+		
+		var oldHypervisorCorr := logiCorr.hypervisorCorrespondences->any(cactos.virtualMachines->exists(id = self.id));
+		var oldStorageLocationCorr := physiCorr.storageSpecificationCorrespondences->any(cactos.id = self.vMImageInstance.rootDisk.storageLocation.id);
+		
+		var rootDisk :VirtualDisk = self.vMImageInstance.rootDisk;
+		
+		logicaldc.removeElement(self);
+		
+		rootDisk.map cleanUpVirtualStorage();
+		
+		// Adapt the old hypervisors' storage access if necessary
+		oldHypervisorCorr.map updateOldStorage(logiCorr, physiCorr, oldStorageLocationCorr);
+		
+		vmCorrs->forEach(vmc) {logicalCorrespondence.removeElement(vmc)};
+		vmImageInstCorrs->forEach(vmic) {logicalCorrespondence.removeElement(vmic)};
+	}
+	
+	
+	mapping ApplicationInstance::cleanUpPalladioUsage(inout logiCorr: LogicalCorrespondenceRepository) {
+		
+	}
+	
+	mapping BlackBoxApplicationInstance::cleanUpPalladioUsage(inout logiCorr: LogicalCorrespondenceRepository) {
+		var vmCorr := logiCorr.virtualMachineCorrespondences->any(cactos.id = self.virtualMachine.id);
+		// Clean up usage
+		var vmUsage := vmCorr.palladioUsage;
+		logDebug("Remove Black Box Usage Sequence: " + vmUsage.loadEvolution.toString());
+		usagesequences.removeElement(vmUsage.loadEvolution);
+		logInfo("Remove Black Box Usage Scenario: " + vmUsage.scenario.entityName.toString());
+		usagemodels.removeElement(vmUsage.scenario);
+		logDebug("Remove Black Box Usage Evolution: " + vmUsage.toString());
+		usageevolutions.removeElement(vmUsage);	
+	}
+	
+	mapping GreyBoxApplicationInstance::cleanUpPalladioUsage(inout logiCorr: LogicalCorrespondenceRepository) {
+		var vmCorr := logiCorr.virtualMachineCorrespondences->any(cactos.id = self.virtualMachine.id);
+		// Clean up usage
+		var vmUsage := vmCorr.palladioUsage;
+		logInfo("Remove Grey Box Usage Scenario: " + vmUsage.scenario.entityName.toString());
+		usagemodels.removeElement(vmUsage.scenario);
+		logDebug("Remove Grey Box Usage Evolution: " + vmUsage.toString());
+		usageevolutions.removeElement(vmUsage);	
+	}
+	
+	mapping WhiteBoxApplicationInstance::cleanUpPalladioUsage(inout logiCorr: LogicalCorrespondenceRepository) {
+		self.whiteBoxUserBehaviourInstance->map cleanUpPalladioUsage(logiCorr); 	
+	}
+	
+	mapping WhiteBoxUserBehaviourInstance::cleanUpPalladioUsage(inout logiCorr: LogicalCorrespondenceRepository) {
+		self.userBehaviours->map cleanUpPalladioUsage(logiCorr);
+	}
+	
+	mapping UserBehaviour::cleanUpPalladioUsage(inout logiCorr: LogicalCorrespondenceRepository) {
+		var usageCorr := logiCorr.userBehaviourCorrespondences->any(cactosUserBehaviour.id = self.id);
+		// Clean up usage
+		var vmUsage := usageCorr.palladioUsage;
+		logDebug("Remove Black Box Usage Sequence: " + vmUsage.loadEvolution.toString());
+		usagesequences.removeElement(vmUsage.loadEvolution);
+		logInfo("Remove Black Box Usage Scenario: " + vmUsage.scenario.entityName.toString());
+		usagemodels.removeElement(vmUsage.scenario);
+		logDebug("Remove Black Box Usage Evolution: " + vmUsage.toString());
+		usageevolutions.removeElement(vmUsage);
+		
+		logicalCorrespondence.removeElement(usageCorr);
+	}
+	
+	/**
+	* Palladio-specific placement of virtual machines
+	*/
+	
+	mapping VirtualMachine::cleanUpPalladioVMModels( inout logiCorr: LogicalCorrespondenceRepository) {
+		logDebug("VirtualMachine::cleanUpPalladioModels");
+		var vmCorr := logiCorr.virtualMachineCorrespondences->any(cactos.id = self.id);
+		
+		logDebug("Remove Storage Connector: " + vmCorr.palladioStorageConnector.toString());
+		systems.removeElement(vmCorr.palladioStorageConnector);
+		
+		var assemblyContext: AssemblyContext := vmCorr.palladio.assemblyContext_AllocationContext;
+		var repoComponent: BasicComponent := assemblyContext.encapsulatedComponent__AssemblyContext.oclAsType(BasicComponent);
+		
+		logDebug("Remove Allocation Context: " + vmCorr.palladio.toString());
+		allocations.removeElement(vmCorr.palladio);
+		
+		logDebug("Remove Assembly Context: " + assemblyContext.toString());
+		systems.removeElement(assemblyContext);
+		logDebug("Remove Component: " + repoComponent.toString());
+		repositories.removeElement(repoComponent);
+	} 
+	
+	mapping ApplicationInstance::cleanUpRuntimeBehaviour( inout logiCorr: LogicalCorrespondenceRepository) {
+		
+	}
+	
+	mapping BlackBoxApplicationInstance::cleanUpRuntimeBehaviour( inout logiCorr: LogicalCorrespondenceRepository) {
+		self.virtualMachine.runtimeApplicationModel->map cleanUp(
+			logiCorr.virtualMachineCorrespondences->any(cactos.id = self.id));
+	}
+	
+	mapping GreyBoxApplicationInstance::cleanUpRuntimeBehaviour( inout logiCorr: LogicalCorrespondenceRepository) {
+		self.virtualMachine.runtimeApplicationModel->map cleanUp(
+			logiCorr.virtualMachineCorrespondences->any(cactos.id = self.id));
+	}
+	
+	mapping WhiteBoxApplicationInstance::cleanUpRuntimeBehaviour( inout logiCorr: LogicalCorrespondenceRepository) {
+		var provRoles := logiCorr.providedServiceCorrespondences
+			->select(self.applicationTemplate.oclAsType(WhiteBoxApplicationTemplate).userFacingServices->includes(cactosRole)
+					and self.composedVMs.virtualMachine->includes(cactosVM));
+		var applicationAssemblies := logiCorr.virtualMachineCorrespondences
+			->select(provRoles.cactosVM->includes(cactos)).palladio.assemblyContext_AllocationContext;
+		systems.rootObjects()[System].connectors__ComposedStructure[ProvidedDelegationConnector]
+			->select(applicationAssemblies->includes(assemblyContext_ProvidedDelegationConnector)
+				and provRoles.palladioRole->includes(innerProvidedRole_ProvidedDelegationConnector))
+			->forEach(connector) {
+				systems.removeElement(connector.outerProvidedRole_ProvidedDelegationConnector);
+				systems.removeElement(connector);	
+			}
+	}
+	
+	mapping VMBehaviour::cleanUp(in vmCorr: VirtualMachineCorrespondence) {
+		assert fatal(false) with log("cleanUp mapping for abstract supertype VMBehaviour called - element probably not processed", null, LOG_LEVEL_ERROR);
+	}
+	
+	mapping WhiteBoxApplicationInstance::cleanUpLoadBalancers(inout logiCorr: LogicalCorrespondenceRepository) {
+		self.applicationTemplate.oclAsType(WhiteBoxApplicationTemplate).vmImageConnectors->map cleanUpVMConnectors(self, logiCorr);
+	}
+	
+	mapping VMImageConnector::cleanUpVMConnectors(in instance: WhiteBoxApplicationInstance, inout logiCorr: LogicalCorrespondenceRepository) {
+		var provRoles := logiCorr.providedServiceCorrespondences
+			->select(cactosRole.id = self.serviceProvidedRole.id and instance.composedVMs.virtualMachine->includes(cactosVM)).palladioRole;
+		var reqRoles := logiCorr.requiredServiceCorrespondences
+			->select(cactosRole.id = self.serviceRequiredRole.id and instance.composedVMs.virtualMachine->includes(cactosVM)).palladioRole;
+		systems.rootObjects()[System].connectors__ComposedStructure[AssemblyConnector]
+			->select(provRoles->includes(providedRole_AssemblyConnector)
+					or reqRoles->includes(requiredRole_AssemblyConnector))
+			->forEach(connector) {
+				systems.removeElement(connector);
+			};
+	}
+	
+	mapping ScalableVMImageConnector::cleanUpVMConnectors(in instance: WhiteBoxApplicationInstance, inout logiCorr: LogicalCorrespondenceRepository) {
+		var connCorr := logiCorr.scalableConnectorCorrespondences->any(cactosApplicationInstance.id = instance.id);
+		
+		allocations.rootObjects()[Allocation].allocationContexts_Allocation
+			->select(assemblyContext_AllocationContext.encapsulatedComponent__AssemblyContext = connCorr.palladio)
+			->forEach(allocContext) {
+				systems.rootObjects()[System].connectors__ComposedStructure[AssemblyConnector]
+					->select(providingAssemblyContext_AssemblyConnector = allocContext.assemblyContext_AllocationContext
+							or requiringAssemblyContext_AssemblyConnector = allocContext.assemblyContext_AllocationContext)
+					->forEach(assemblyConnector) {
+						systems.removeElement(assemblyConnector);
+					};
+				repositories.removeElement(allocContext.assemblyContext_AllocationContext.encapsulatedComponent__AssemblyContext);
+				systems.removeElement(allocContext.assemblyContext_AllocationContext);
+				allocations.removeElement(allocContext);				
+			};
+		logicalCorrespondence.removeElement(connCorr);
+	}
+	
+	mapping VMImageConnector::cleanUpMeasurementCorrespondences(instance: WhiteBoxApplicationInstance, logiCorr: LogicalCorrespondenceRepository) {
+		logicalload.rootObjects()[LogicalLoadModel].requestArrivalRateMeasurement
+			->select(observedVmImageConnector = self and observedWhiteBoxApplicationInstance = instance)
+			->forEach(measurement) {
+				logiCorr.arrivalRateMeasurementCorrespondences[RequestArrivalRateMeasurementCorrespondence]
+					->select(requestArrivalRateMeasurement = measurement)
+					->forEach(armc) {
+						logicalCorrespondence.removeElement(armc);
+					};
+				logicalload.removeElement(measurement);		
+			};
+		logicalload.rootObjects()[LogicalLoadModel].responseArrivalRateMeasurement
+			->select(observedVmImageConnector = self and observedWhiteBoxApplicationInstance = instance)
+			->forEach(measurement) {
+				logiCorr.arrivalRateMeasurementCorrespondences[ResponseArrivalRateMeasurementCorrespondence]
+					->select(responseArrivalRateMeasurement = measurement)
+					->forEach(armc) {
+						logicalCorrespondence.removeElement(armc);
+					};
+				logicalload.removeElement(measurement);		
+			}
+	}
+	
+	mapping BlackBoxVMBehaviour::cleanUp(in vmCorr: VirtualMachineCorrespondence) {
+		logDebug("BlackBoxVMBehaviour::cleanUp");
+		var repoComponent := vmCorr.palladio.assemblyContext_AllocationContext.encapsulatedComponent__AssemblyContext.oclAsType(InterfaceProvidingEntity);
+		
+		repoComponent.providedRoles_InterfaceProvidingEntity[OperationProvidedRole]->forEach (role) {
+			systems.rootObjects()[System].providedRoles_InterfaceProvidingEntity[OperationProvidedRole]
+					->select(providedInterface__OperationProvidedRole.id = role.providedInterface__OperationProvidedRole.id)
+					->forEach(sysRole) {
+				systems.rootObjects()[System].connectors__ComposedStructure[ProvidedDelegationConnector]
+						-> select(innerProvidedRole_ProvidedDelegationConnector.id = role.id
+							and outerProvidedRole_ProvidedDelegationConnector.id = sysRole.id)
+						-> forEach (connector) {
+					logDebug("Remove Connector: " + connector.toString());		
+					systems.removeElement(connector);
+				};
+				logDebug("Remove System Role: " + sysRole.toString());	
+				systems.removeElement(sysRole);
+			};
+			logDebug("Remove Operation Interface: " + role.providedInterface__OperationProvidedRole.toString());	
+			repositories.removeElement(role.providedInterface__OperationProvidedRole);
+		}
+	}
+	
+	mapping GreyBoxVMBehaviour::cleanUp(in vmCorr: VirtualMachineCorrespondence) {
+		logDebug("GreyBoxVMBehaviour::cleanUp");
+		var repoComponent := vmCorr.palladio.assemblyContext_AllocationContext.encapsulatedComponent__AssemblyContext.oclAsType(InterfaceProvidingEntity);
+		
+		repoComponent.providedRoles_InterfaceProvidingEntity[OperationProvidedRole]->forEach (role) {
+			systems.rootObjects()[System].providedRoles_InterfaceProvidingEntity[OperationProvidedRole]
+					->select(providedInterface__OperationProvidedRole.id = role.providedInterface__OperationProvidedRole.id)
+					->forEach(sysRole) {
+				systems.rootObjects()[System].connectors__ComposedStructure[ProvidedDelegationConnector]
+						-> select(innerProvidedRole_ProvidedDelegationConnector.id = role.id
+							and outerProvidedRole_ProvidedDelegationConnector.id = sysRole.id)
+						-> forEach (connector) {
+					logDebug("Remove Connector: " + connector.toString());		
+					systems.removeElement(connector);
+				};
+				logDebug("Remove System Role: " + sysRole.toString());	
+				systems.removeElement(sysRole);
+			};
+		}
+	} 
+	
+	mapping VirtualDisk::cleanUpVirtualStorage() {
+		logDebug("VirtualDisk::cleanUpVirtualStorage");
+		//TODO allign with RuntimeManagement as soon as disk management is supported
+		if (not self.referencedByVMOrTemplate()) {
+			logicalCorrespondence.rootObjects()[LogicalCorrespondenceRepository].vmImageCorrespondences
+					->select(cactos.id = self.id)
+					->forEach(corr) {
+				logDebug("Remove Virtual Disk: " + corr.toString());	
+				logicalCorrespondence.removeElement(corr);	
+			};
+			
+			if (self.parent <> null 
+				and not self.parentContainsOtherOverlays()
+				and not self.parent.referencedByVMOrTemplate()) {
+				
+				self.parent.map cleanUpVirtualStorage();
+				
+				
+			} else {
+				logDebug("Remove Virtual Disk: " + self.toString());
+				logicaldc.removeElement(self);
+			}
+		}
+	}
+	
+	query VirtualDisk::parentContainsOtherOverlays(): Boolean {
+		return self.parent.deltaOverlay->exists(id <> self.id);
+	}
+	
+	query VirtualDisk::referencedByVMOrTemplate() : Boolean {
+		return logicaldc[LogicalDCModel].allSubobjectsOfType(VMImageBehaviour).oclAsType(VMImageBehaviour)->exists(vmImage.id = self.id)
+			or logicaldc[LogicalDCModel].allSubobjectsOfType(VMImageInstance).oclAsType(VMImageInstance)->exists(rootDisk.id = self.id);
+	}
+}

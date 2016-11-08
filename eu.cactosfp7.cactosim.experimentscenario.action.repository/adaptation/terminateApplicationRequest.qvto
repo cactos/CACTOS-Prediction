@@ -1,0 +1,46 @@
+import transforms.cactosAdaptationBehaviorHelper;
+import simulizar_qvto_helper.logHelper;
+
+modeltype CACT_LCORE uses 'http://www.cactosfp7.eu/LogicalDCModel/Core/1.0';
+modeltype CACT_APP uses 'http://www.cactosfp7.eu/LogicalDCModel/Application/1.0';
+modeltype CACT_PCORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype EXPERIMENT_SCENARIO uses 'http://www.cactosfp7.eu/ExperimentScenarioModel/1.0';
+modeltype EXPERIMENT_SCENARIO_REQUEST uses 'http://www.cactosfp7.eu/ExperimentScenarioModel/Request/1.0';
+modeltype EXPERIMENT_SCENARIO_SELECTOR uses 'http://www.cactosfp7.eu/ExperimentScenarioModel/Selector/1.0';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype ACTION_PARAM uses 'http://simulizar.palladiosimulator.org/Actions/Parameter/1.1';
+modeltype ACTION_CONTEXT uses 'http://simulizar.palladiosimulator.org/Actions/Context/1.1';
+
+transformation terminateApplicationAction(
+							inout logicalDC: CACT_LCORE,
+							inout actions : ACTION_CORE,
+							in actionContext : ACTION_CONTEXT,
+							inout actionRoleSet : ACTION_INSTANCE) {
+	
+	property TERMINATE_APPLICATION_REQUEST_ROLE_TYPE_ID = "_VirydO0GEeWwk45MX11cig";
+	
+	main() {
+		var requestRole : instance::Role := actionRoleSet.rootObjects()[RoleSet].roles->any(role | role.roleType.id = TERMINATE_APPLICATION_REQUEST_ROLE_TYPE_ID);
+		var terminateRequest := requestRole.value.oclAsType(TerminateApplicationRequest);
+		terminateRequest.timelineEvent.eventStatus := EventStatus::IN_EXECUTION;
+		
+		var action := selectTerminateApplicationAction();
+		
+		var applicationInstance := terminateRequest.runningApplicationSelector.retrieveApplicationInstance();
+		var roleSet : RoleSet;
+		if (applicationInstance <> null and not applicationInstance.oclIsInvalid()) {
+			roleSet := action.createTerminateApplicationRoleSet(terminateRequest.runningApplicationSelector.retrieveApplicationInstance());
+		};
+		
+		if (roleSet <> null and action.execute(roleSet, actionContext.rootObjects()[ExecutionContext]->any(true))) then {
+			logInfo("Terminate request was executed properly");	
+			terminateRequest.timelineEvent.eventStatus := EventStatus::PROCESSED_SUCCESS;
+		} else {
+			logWarn("Terminate request was not executed properly");
+			terminateRequest.timelineEvent.eventStatus := EventStatus::PROCESSED_FAILURE;
+		} endif;
+	};
+		
+}
+								

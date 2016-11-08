@@ -1,0 +1,653 @@
+import m2m.qvt.oml.JScience;
+import pcmHelper;
+import cactos2PCMShared;
+
+modeltype _identifier uses "http://www.cactosfp7.eu/Identifier/1.0";
+modeltype _pcmresourceenvironment uses "http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1";
+modeltype _physicaldc_architecturetype uses "http://www.cactosfp7.eu/PhysicalDCModel/ArchitectureType/1.0";
+modeltype _physicaldc uses "http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0";
+modeltype _physicaldcutil uses "http://www.cactosfp7.eu/PhysicalDCModel/Util/1.0";
+modeltype _pcmcore uses "http://palladiosimulator.org/PalladioComponentModel/Core/5.1";
+modeltype _pcmcore_entity uses "http://palladiosimulator.org/PalladioComponentModel/Core/Entity/5.1";
+modeltype _pcmresourcetype uses "http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.1";
+modeltype _pcorrespondence uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype _measuringpointEDP2 uses "http://palladiosimulator.org/EDP2/MeasuringPoint/1.0";
+modeltype _measuringpoint uses "http://palladiosimulator.org/PCM/MeasuringPoint/1.0";
+modeltype _monitorrepository uses "http://palladiosimulator.org/MonitorRepository/1.0";
+modeltype _loadmodel_physical uses "http://www.cactosfp7.eu/CactosLoadModel/Physical/1.0";
+modeltype _metricspec uses "http://palladiosimulator.org/MetricSpec/1.0";
+modeltype _cactospowermodel uses 'http://www.cactosfp7.eu/PhysicalDCModel/Power/1.0';
+modeltype _cactospowerbinding uses 'http://www.cactosfp7.eu/PhysicalDCModel/Power/Binding/1.0';
+modeltype _cactospowerinfrastructure uses 'http://www.cactosfp7.eu/PhysicalDCModel/Power/Specification/1.0'; 
+modeltype _cactospowerspecification uses 'http://www.cactosfp7.eu/PhysicalDCModel/Power/Specification/1.0';
+modeltype _powerutil uses 'http://www.fzi.de/Power/Util/1.0';
+modeltype _powerbinding uses 'http://www.fzi.de/Power/Binding/1.0';
+modeltype _powerspecification uses 'http://www.fzi.de/Power/Specification/1.0';
+modeltype _powerinfrastructure uses 'http://www.fzi.de/Power/Infrastructure/1.0';
+modeltype _edp2experimentdata uses 'http://palladiosimulator.org/EDP2/ExperimentData/1.0';
+modeltype _ecore uses 'http://www.eclipse.org/emf/2002/Ecore';
+modeltype _mcorrespondence uses 'http://www.cactosfp7.eu/Correspondence/Measurement/1.1';
+
+transformation physicaldcmodel2resourceenvironment(
+		in physicaldc : _physicaldc,
+		in resourcetypepcm : _pcmresourcetype,
+		out monitorrepository :_monitorrepository,
+		out resourcetyperepository : _pcmresourcetype,
+		out resourceenvironment : _pcmresourceenvironment,
+		out measuringpoint: _measuringpoint,
+		in metricspec : _metricspec,
+		in architectureType : _physicaldc_architecturetype,
+		out physicalload : _loadmodel_physical,
+		out pcorrespondence : _pcorrespondence,
+		in cactospowerbinding : _cactospowerbinding,
+		in cactospowerspecification : _cactospowerspecification,
+		out powerspecification : _powerspecification,
+		out powerbinding : _powerbinding,
+		out powerinfrastructure : _powerinfrastructure,
+		out monitorcorrespondence : _mcorrespondence);
+
+/** Default latency for LAN resources. */
+property PALLADIO_RESOURCE_TYPE_LAN_DEFAULT_LATENCY = "0.0";
+
+/** The Interval in which CPU utilization is recorded. */
+property UTILIZATION_INTERVAL = 10.0;
+/** The Interval in which power is recorded. */
+property POWER_INTERVAL = 10.0;
+
+/** The processing rate of the delay resource */
+property DELAY_SIMULATION_TIME_UNITS_PER_SECOND = 1;
+
+property DISTRIBUTION_MODEL_NAME = "Consumers";
+
+property LOSSLESS_ID = "_XzXYRWAfaaEwQ2";
+
+property ADAPTATION_CONTROLLER_CONTAINER_ID = "_5bYNQNxhEeW0n43xbPk5ig";
+
+property STANDBY_EXPRESSION = "standbyConsumption";
+
+property STANDBY_LOAD = 0;
+
+property STANDBY_UNIT = "W";
+
+main() {
+	log("Transforming Physical Data Centre Model.");
+	/* Note: Correspondences for Measurements are created at the first call to the 
+		cyclic optimizer, when Palladio measurements are available, and CACTOS
+		measurements are required.
+	*/ 
+	
+	var pLoadModel : PhysicalLoadModel := object PhysicalLoadModel {};
+	var monitorCorrespondenceRepo : MonitorCorrespondenceRepository := object MonitorCorrespondenceRepository @ monitorcorrespondence {};
+	var physicalDCModel := physicaldc.rootObjects()[PhysicalDCModel]->any(true);
+	var physicalCorrespondenceRepo : PhysicalCorrespondenceRepository := object PhysicalCorrespondenceRepository @ pcorrespondence {
+		physicalLoadModel := pLoadModel;
+		physicalDcModel := physicalDCModel;
+	};
+	
+	architectureType.rootObjects()[ArchitectureTypeRepository].map architectureTypeRepositoryToResourceRepository(physicalCorrespondenceRepo);
+	physicalDCModel->map physicalDCtoResourceEnvironment(pLoadModel, monitorCorrespondenceRepo, physicalCorrespondenceRepo);
+	cactospowerspecification.rootObjects()[_cactospowerspecification::PowerModelRepository]->map powerModelRepositoryToPowerModelRepository();
+	cactospowerbinding.rootObjects()[_cactospowerbinding::PowerModelBindingRepository]->any(true).map powerBindingRepositoryToPowerBindingRepository();
+	
+	
+	var pCorRepository : PhysicalCorrespondenceRepository := pcorrespondence.rootObjects()[PhysicalCorrespondenceRepository]->any(true);
+	var powerInfrastructure : PowerInfrastructureRepository := physicaldc.rootObjects()[PhysicalDCModel]->any(true).map physicalDCtoPowerInfrastructure(pCorRepository, pLoadModel, monitorCorrespondenceRepo);
+	log("Transformation of Physical Data Centre Model finished.");
+}
+
+/// Architecture Type
+
+mapping ArchitectureTypeRepository::architectureTypeRepositoryToResourceRepository(inout phdccor: PhysicalCorrespondenceRepository) : ResourceRepository @ resourcetyperepository {
+	availableResourceTypes_ResourceRepository += self.architectureTypes.map architectureTypeToProcessingResourceType(phdccor);	
+	
+}
+
+mapping ArchitectureType::architectureTypeToProcessingResourceType(inout phdccor: PhysicalCorrespondenceRepository) : ProcessingResourceType {
+	entityName := self.name;
+	resourceProvidedRoles__ResourceInterfaceProvidingEntity += object ResourceProvidedRole {
+		entityName := "ResourceProvidedRole_CpuInterface_" + self.name; 
+		providedResourceInterface__ResourceProvidedRole := getResourceInterfaceCPU();
+	};
+	
+	phdccor.architectureTypeCorrespondences += object ArchitectureTypeCorrespondence {
+		cactos := self;
+		palladio := result;
+	};
+}
+
+/// Physical DC Model
+
+mapping in PhysicalDCModel::physicalDCtoResourceEnvironment(inout pload : PhysicalLoadModel, 
+															inout mCorRepository : MonitorCorrespondenceRepository, 
+															inout phdccor: PhysicalCorrespondenceRepository) : ResourceEnvironment @ resourceenvironment {
+	var measuringpointrepo : MeasuringPointRepository := getOrCreateMeasuringPointRepository();
+	
+	// TODO : Add MemoryMeasurement template once this aspect is included in optimization and simulation.
+	// TODO : Add StorageMeasurement template once this aspect is included in optimization and simulation.
+	
+	entityName := "Resource Environment for CACTOS Physical Data Centre Model with id: " + self.id + ".";
+
+	// Network Interconnect
+	if (self.networkInterconnects->notEmpty()) {
+		linkingResources__ResourceEnvironment += self.networkInterconnects.map niToLinkingResource(pload, phdccor);
+		resourceContainer_ResourceEnvironment += self.networkInterconnects.map createReconfigurationControllerContainer();
+	};
+	self.racks.map rackToResourceContainers(pload, phdccor, measuringpointrepo, result);
+	
+	// Measuring Points and Mointor Repository
+	var systemMeasuringPoint : ResourceEnvironmentMeasuringPoint;
+	measuringpointrepo.measuringPoints += systemMeasuringPoint := object ResourceEnvironmentMeasuringPoint {
+		stringRepresentation := "Simulation Time Measuring Point";
+		resourceEnvironment := result;
+	};
+	var monitorrepo : MonitorRepository := getOrCreateMonitorRepository(); 
+	monitorrepo.entityName := "Monitor Set created by CACTOS to Palladio transformation";
+	monitorrepo.monitors += object Monitor {
+		measuringPoint := systemMeasuringPoint;
+		measurementSpecifications += object MeasurementSpecification {
+			metricDescription := getMetricDescriptionOptimisationTimeOverTime();
+		}
+	};
+	monitorrepo.monitors += object Monitor {
+		measuringPoint := systemMeasuringPoint;
+		measurementSpecifications += object MeasurementSpecification {
+			metricDescription := getMetricDescriptionExperimentScenarioEventStart();
+		}
+	};
+	monitorrepo.monitors += result.resourceContainer_ResourceEnvironment.activeResourceSpecifications_ResourceContainer.map 
+		processingResourceSpecificationToMonitorAndMeasuringPoint(mCorRepository, pload, phdccor);
+}
+
+mapping ProcessingResourceSpecification::processingResourceSpecificationToMonitorAndMeasuringPoint(inout mCorRepository : MonitorCorrespondenceRepository, inout pload : PhysicalLoadModel, inout physicalCorrespondence : PhysicalCorrespondenceRepository) : Monitor {
+	entityName := self.resourceContainer_ProcessingResourceSpecification.entityName + self.activeResourceType_ActiveResourceSpecification.entityName;
+	
+	var utilizationMeasurementSpecification: MeasurementSpecification;
+	measurementSpecifications += utilizationMeasurementSpecification := object MeasurementSpecification {
+		metricDescription := getMetricDescriptionStateOfActiveResource();
+		processingType := object FeedThrough {
+		};
+		triggersSelfAdaptations := false;
+	};
+	measurementSpecifications += utilizationMeasurementSpecification := object MeasurementSpecification {
+		metricDescription := getMetricDescriptionUtilizationTuple();
+		processingType := object TimeDriven {
+			windowLength := UTILIZATION_INTERVAL;
+			windowIncrement := UTILIZATION_INTERVAL
+		};
+	};
+	
+	var cactosEntity: Identifier;
+	cactosEntity := self.invresolveoneIn(ProcessingUnitSpecification::puSpecificationToCpu, ProcessingUnitSpecification);
+	if(cactosEntity <> null) {
+		var puMeasurement := object PuMeasurement {
+			observedPu := cactosEntity.oclAsType(ProcessingUnitSpecification);
+			utilization := object Utilization {
+				value := createUtilAmount(0.0);
+			};
+		};
+		pload.cpuMeasurement += puMeasurement;
+		physicalCorrespondence.puMeasurementCorrespondences += object PuMeasurementCorrespondence {
+			cactos := puMeasurement;
+		};
+		getOrCreateMeasuringPointRepository().measuringPoints += measuringPoint := object ActiveResourceMeasuringPoint {
+			activeResource := self;
+			replicaID := 0;
+		};
+	} else {
+		cactosEntity:= self.invresolveoneIn(StorageSpecification::storageSpecificationToHdd);
+		if(cactosEntity <> null) {
+			var storageMeasurement := object StorageMeasurement {
+				storageUtilization := object Utilization {
+					value := createUtilAmount(0.0);
+				};
+				observedStorage := cactosEntity.oclAsType(StorageSpecification);
+				readThroughput := createDataRateAmount(0.0);
+				writeThroughput := createDataRateAmount(0.0);
+			};
+			pload.storageMeasurement += storageMeasurement;
+			physicalCorrespondence.storageMeasurementCorrespondences += object StorageMeasurementCorrespondence {
+				cactos := storageMeasurement;
+			};
+		} else {
+			cactosEntity:= self.invresolveoneIn(AbstractNode::createGenericCPU);
+			if(cactosEntity = null) {
+				cactosEntity:= self.invresolveoneIn(AbstractNode::createGenericHDD);					
+			}				
+		};
+	};
+	if (measuringPoint = null) {
+		getOrCreateMeasuringPointRepository().measuringPoints += measuringPoint := object ActiveResourceMeasuringPoint {
+			activeResource := self;
+		};
+	};
+	mCorRepository.monitoredCactosEntityToMonitorCorrespondences += object MonitoredCactosEntityToMonitorCorrespondence {
+		palladio := utilizationMeasurementSpecification;
+		cactos := cactosEntity;
+	};
+}
+
+mapping AbstractNode::nodeToMonitorAndMeasuringPoint(inout measuringpointrepo : MeasuringPointRepository, inout mCorRepository : MonitorCorrespondenceRepository) : Monitor {
+	var monitorrepo : MonitorRepository := monitorrepository.rootObjects()[MonitorRepository]->any(true);
+	var pdu : MountedPowerDistributionUnit := self.resolveone(MountedPowerDistributionUnit);
+	var containerName := pdu.name;
+	var newMeasuringPoint := object ResourceURIMeasuringPoint {
+		measuringPoint := self.name;
+		// TODO fix this
+		resourceURI := "platform:/resource/org.palladiosimulator.temporary/cactosmodels/powerinfrastructure.infrastructure#" + pdu.id;
+	};
+	monitorRepository := monitorrepo;
+	measuringpointrepo.measuringPoints += newMeasuringPoint;
+	entityName := containerName;
+	var spec : MeasurementSpecification;
+	measurementSpecifications += spec := object MeasurementSpecification {
+		metricDescription := getMetricDescriptionTimePowerTuple();
+		processingType := object TimeDriven {
+			windowLength := POWER_INTERVAL;
+			windowIncrement := POWER_INTERVAL;
+		};
+	};
+	
+	measuringPoint := newMeasuringPoint;
+	entityName := containerName;
+	
+	mCorRepository.monitoredCactosEntityToMonitorCorrespondences += object MonitoredCactosEntityToMonitorCorrespondence {
+		cactos := self;
+		palladio := spec;
+	};
+}
+
+mapping NetworkInterconnect::niToLinkingResource(
+			inout pload : PhysicalLoadModel,
+			inout corrRepo : PhysicalCorrespondenceRepository) 
+			: LinkingResource {
+	entityName := self.name;
+	communicationLinkResourceSpecifications_LinkingResource := object CommunicationLinkResourceSpecification {
+		failureProbability := 0.0;
+		communicationLinkResourceType_CommunicationLinkResourceSpecification := getResourceTypeLAN(); 
+		latency_CommunicationLinkResourceSpecification := createPcmRandomVariable(PALLADIO_RESOURCE_TYPE_LAN_DEFAULT_LATENCY);
+		throughput_CommunicationLinkResourceSpecification := createPcmRandomVariable(getSpecificationInMegaBitsPerSecond(self.bandwidth.value));
+	};
+	assert warning (self.connectedEntities[Switch]->isEmpty()) with log("The mapping of NI to LinkingResource should not contain Switches as entities. They are not supported on the Palladio side. The simulation might lead to wrong results.");
+	assert warning (self.connectedEntities[Rack]->isEmpty()) with log("The mapping of NI to LinkingResource should not contain Racks as entities. They are not supported on the Palladio side. The simulation might lead to wrong results.");
+	connectedResourceContainers_LinkingResource += self.connectedEntities.late resolve(ResourceContainer);
+	connectedResourceContainers_LinkingResource += self.late resolveone(ResourceContainer);
+	// SingleNI correspondence
+	corrRepo.networkInterconnectCorrespondences += object NetworkInterconnectCorrespondence {
+		cactos := self;
+		palladio := result;
+		reconfigurationController := self.late resolveone(ResourceContainer);
+	};
+	// Load model
+	pload.interconnectMeasurement += object InterconnectMeasurement {
+		observedInterconnect := self;
+		measuredThroughput := createDataRateAmount(0.0);
+	};
+}
+
+mapping Rack::rackToResourceContainers(
+			inout pload : PhysicalLoadModel,
+			inout phdccor : PhysicalCorrespondenceRepository,
+			inout measuringpointrepo : MeasuringPointRepository, 
+			inout environment : ResourceEnvironment) {
+	log("Mapping Rack to ResourceContainers.");
+	var containers : Bag(ResourceContainer) := self.nodes.map nodeToResourceContainer(pload, phdccor, measuringpointrepo);
+	environment.resourceContainer_ResourceEnvironment += containers;
+	
+	phdccor.rackCorrespondences += object RackCorrespondence {
+		cactos := self;
+		palladio += containers;
+	};
+}
+
+mapping AbstractNode::nodeToResourceContainer(
+			inout pload : PhysicalLoadModel,
+			inout phdccor : PhysicalCorrespondenceRepository,
+			inout measuringpointrepo : MeasuringPointRepository) 
+			: ResourceContainer {
+	log("Mapping AbstractNode to ResourceContainer.");
+	entityName := "Rack " + self.rack.name + '::Node ' + self.name;
+	// Memory Specification : Not required on Palladio side
+	// Storage Specification
+	activeResourceSpecifications_ResourceContainer += self.storageSpecifications.map storageSpecificationToHdd(phdccor, measuringpointrepo, pload);
+	// Processing Unit Specification
+	activeResourceSpecifications_ResourceContainer += self.cpuSpecifications.map puSpecificationToCpu(phdccor, measuringpointrepo);
+	// Correspondence	
+	phdccor.abstractNodeCorrespondences += object AbstractNodeCorrespondence {
+		 cactos := self;
+		 palladio := result;
+	};
+}
+
+mapping NetworkInterconnect::createReconfigurationControllerContainer(): ResourceContainer {
+	entityName := "ReconfigurationController for CACTOS NetworkInterconnect with ID " + self.id;
+	
+	activeResourceSpecifications_ResourceContainer += object ProcessingResourceSpecification {
+		schedulingPolicy := getSchedulingPolicyDelay();
+		activeResourceType_ActiveResourceSpecification := getResourceTypeDelay();
+		numberOfReplicas := 1;
+		processingRate_ProcessingResourceSpecification := createPcmRandomVariable(DELAY_SIMULATION_TIME_UNITS_PER_SECOND.toString());
+	};
+	
+	activeResourceSpecifications_ResourceContainer += object ProcessingResourceSpecification {
+		schedulingPolicy := getSchedulingPolicyProcessorSharing();
+		activeResourceType_ActiveResourceSpecification := getProcessingResourceTypeForCurrentArchitecture(); 
+		numberOfReplicas := 1;
+		processingRate_ProcessingResourceSpecification := createPcmRandomVariable("100000");
+	};
+}
+
+query getProcessingResourceTypeForCurrentArchitecture(): ProcessingResourceType {
+	return architectureType.rootObjects()[ArchitectureTypeRepository].architectureTypes.resolveone(ProcessingResourceType);	
+}
+
+mapping AbstractNode::createGenericCPU() : ProcessingResourceSpecification {
+	schedulingPolicy := getSchedulingPolicyProcessorSharing();
+	activeResourceType_ActiveResourceSpecification := getResourceTypeCPU();
+	numberOfReplicas := 1;
+	processingRate_ProcessingResourceSpecification := createPcmRandomVariable("100000");
+}
+
+mapping AbstractNode::createGenericHDD() : ProcessingResourceSpecification {
+	schedulingPolicy := getSchedulingPolicyFCFS();
+	activeResourceType_ActiveResourceSpecification := getResourceTypeHDD();
+	numberOfReplicas := 1;
+	processingRate_ProcessingResourceSpecification := createPcmRandomVariable("5000");
+}
+
+mapping StorageSpecification::storageSpecificationToHdd(
+			inout phdccor : PhysicalCorrespondenceRepository,
+			inout measuringpointrepo : MeasuringPointRepository, inout pload : PhysicalLoadModel) 
+			: ProcessingResourceSpecification {
+	/* Assumptions / Limitations
+		read/write delay is assumed to be zero.
+		read/write bandwith are assumed to be equal. The write bandwith is used for accesses.
+	*/
+	schedulingPolicy := getSchedulingPolicyFCFS();
+	activeResourceType_ActiveResourceSpecification := getResourceTypeHDD();
+	processingRate_ProcessingResourceSpecification := object PCMRandomVariable { 
+		/* temporary fix for preventing HDD congestion due to faulty load models*/
+		specification := getSpecificationInMegaBytesPerSecond(self.writeBandwidth.value) + "*100.0";
+	};
+	numberOfReplicas := 1;
+	// correspondence
+	phdccor.storageSpecificationCorrespondences += object StorageSpecificationCorrespondence {
+		cactos := self;
+		palladio := result;
+	};
+}
+
+mapping ProcessingUnitSpecification::puSpecificationToCpu(
+			inout phdccor : PhysicalCorrespondenceRepository,
+			inout measuringpointrepo : MeasuringPointRepository) 
+			: ProcessingResourceSpecification {
+	/* Assumptions / Limitations for prior version in SVN:
+		No explicit resource interfaces are used for now but one generic CPU interface. This means that
+		one single ProcessingResourceSpecification for CPUs is used per ResourceContainer (with 
+		potentially multiple cores/instances). 
+		
+		This text remains here until QA has shown that the new version works well.
+	*/
+	schedulingPolicy := getSchedulingPolicyProcessorSharing();
+	activeResourceType_ActiveResourceSpecification := self.architectureType.resolveone(ProcessingResourceType);
+	
+	/* This should be the way it is done - however we use a simplification for now to better support the simulation
+	 * platform.
+	 */
+	processingRate_ProcessingResourceSpecification := createPcmRandomVariable(getSpecificationInMegaHertz(self.frequency));
+	numberOfReplicas := self.numberOfCores;
+	/*processingRate_ProcessingResourceSpecification := createPcmRandomVariable(getSpecificationInMegaHertz(multiply(self.frequency,self.numberOfCores)));
+	numberOfReplicas := 1;*/
+	
+	// correspondence
+	phdccor.processingUnitSpecificationCorrespondences += object ProcessingUnitSpecificationCorrespondence {
+		cactos := self;
+		palladio := result;
+	};
+}
+
+mapping _cactospowerspecification::PowerModelRepository::powerModelRepositoryToPowerModelRepository() : _powerspecification::PowerModelRepository @ powerspecification {
+	powerModelSpecifications := self.powerModels.map powerModelToPowerModelSpecification();
+	powerModelSpecifications += map createLosslessDistributionModel();
+	powerModelSpecifications += map standbyPowerModelSpecification();
+}
+
+mapping createLosslessDistributionModel() : _powerspecification::DeclarativePowerModelSpecification {
+	name := "Lossless Distribution Model";
+	id := LOSSLESS_ID;
+	functionalExpression := "SUM(" + DISTRIBUTION_MODEL_NAME + ")";
+	consumptionFactors += object _powerspecification::MeasuredFactor {
+		name := DISTRIBUTION_MODEL_NAME;
+		metricType := getMetricDescriptionPower();
+	};
+}
+
+mapping DeclarativePowerModelSpecification::standbyPowerBinding() : _powerbinding::ResourcePowerBinding {
+	name := self.name;
+	resourcePowerModelSpecification := self;
+	fixedFactorValues += object _powerbinding::FixedFactorValuePower {
+		boundFactor := self.consumptionFactors[_powerspecification::FixedFactor]->select(s |  s.name = STANDBY_EXPRESSION)->any(true);
+		value := createEJSMeasureFromDoubleAndUnit(STANDBY_LOAD,STANDBY_UNIT);
+	};
+}
+
+mapping standbyPowerModelSpecification() : DeclarativePowerModelSpecification {
+	name := "Standby Power Model";
+	functionalExpression := STANDBY_EXPRESSION;
+	consumptionFactors += object _powerspecification::FixedFactor {
+		name := STANDBY_EXPRESSION;
+	}
+}
+
+mapping _cactospowerspecification::PowerModel::powerModelToPowerModelSpecification() : DeclarativePowerModelSpecification {
+	name := self.name;
+	functionalExpression := self.expression;
+	consumptionFactors := self.consumptionFactors.map consumptionFactorToConsumptionFactor();
+}
+
+mapping _cactospowerspecification::ConsumptionFactor::consumptionFactorToConsumptionFactor() : _powerspecification::ConsumptionFactor {
+		// here to pass static checks
+	init {
+		result := object _powerspecification::FixedFactor {
+		 }
+	}
+	assert error (true) with log ('Unknown Consumption Factor encountered.');
+}
+
+mapping _cactospowerspecification::FixedFactor::consumptionFactorToConsumptionFactor() : _powerspecification::ConsumptionFactor {
+	init {
+		result := object _powerspecification::FixedFactor {
+			name := self.name;
+		 }
+	}	
+}
+
+mapping _cactospowerspecification::MeasuredFactor::consumptionFactorToConsumptionFactor() : _powerspecification::ConsumptionFactor {
+	init {
+		result := object _powerspecification::MeasuredFactor {
+			name := self.name;
+			metricType := getMetricTypeForUnitString(metricspec.rootObjects()[MetricDescriptionRepository]->any(true), self.unitString);
+		}
+	}
+}
+
+mapping _cactospowerbinding::PowerModelBindingRepository::powerBindingRepositoryToPowerBindingRepository() : _powerbinding::PowerBindingRepository {
+	powerBindings += map createLosslessBinding();
+	var standbyBinding := powerspecification.rootObjects()[_powerspecification::PowerModelRepository].
+		powerModelSpecifications[_powerspecification::DeclarativePowerModelSpecification]->any(s | s.functionalExpression = STANDBY_EXPRESSION).map standbyPowerBinding();
+	powerBindings += standbyBinding;
+	powerBindings += self.powerModelBindings.map powerBindingToPowerBinding(result, standbyBinding);
+}
+
+mapping createLosslessBinding() : _powerbinding::DistributionPowerBinding @ powerbinding {
+	var powerModel := powerspecification.rootObjects()[_powerspecification::PowerModelRepository].powerModelSpecifications
+		[DeclarativePowerModelSpecification]->any(s | s.id = LOSSLESS_ID);
+	name := powerModel.name;
+	distributionPowerModel := powerModel;
+}
+
+mapping _cactospowerbinding::PowerModelBinding::powerBindingToPowerBinding(inout powerBindingRepo : _powerbinding::PowerBindingRepository, standbyBinding : ResourcePowerBinding) : _powerbinding::StatefulResourcePowerBinding {
+	name := self.name;
+	powerStates += object PowerState {
+		name := "OFF";
+		binding := standbyBinding;
+	};
+	powerStates += object PowerState {
+		name := "ON";
+		var powerBinding := self.map powerBindingToPowerBinding();
+		powerBindingRepo.powerBindings += powerBinding;
+		binding := powerBinding;
+	};
+}
+
+mapping _cactospowerbinding::PowerModelBinding::powerBindingToPowerBinding() : _powerbinding::ResourcePowerBinding {
+	name := self.name;
+	fixedFactorValues := self.fixedFactorValues.map fixedFactorValueToFixedFactorValue();
+	resourcePowerModelSpecification := self.powerModel.resolveone(DeclarativePowerModelSpecification);
+}
+
+mapping _cactospowerbinding::FixedFactorValue::fixedFactorValueToFixedFactorValue() : _powerbinding::FixedFactorValuePower {
+	value := createEJSMeasureFromDoubleAndUnit(getAmountValueAsDouble(self.value),getAmountUnitName(self.value));
+	boundFactor := self.boundFactor.resolveone(_powerspecification::FixedFactor);
+}
+
+mapping PhysicalDCModel::physicalDCtoPowerInfrastructure(inout pcoreRepository : PhysicalCorrespondenceRepository, inout pload : PhysicalLoadModel, inout mCorRepository : MonitorCorrespondenceRepository) : _powerinfrastructure::PowerInfrastructureRepository @ powerinfrastructure {
+	containedPowerProvidingEntities += self.racks.nodes.map nodeToPdu(pcoreRepository, pload, mCorRepository);
+	containedPowerProvidingEntities += self.powerSupplies.map powerDistributionUnitToPDU(pcoreRepository, pload);
+}
+
+mapping AbstractNode::nodeToPdu(inout pcoreRepository : PhysicalCorrespondenceRepository, inout pload : PhysicalLoadModel, inout mCorRepository : MonitorCorrespondenceRepository) : MountedPowerDistributionUnit {
+	name := self.name;
+	if(self.storageSpecifications.powerProvidingEntities <> null) {
+		nestedPowerConsumingEntities := self.storageSpecifications.map storageToPowerConsumer(pcoreRepository);
+	};
+	if(self.cpuSpecifications.powerProvidingEntities <> null) {
+		nestedPowerConsumingEntities := self.cpuSpecifications.map puToPowerConsumer(pcoreRepository);
+	};
+	resourceContainer := self.resolveone(ResourceContainer);
+	if(self.powerCap != null) {
+		suppliablePeakPower := createEJSMeasureFromDoubleAndUnit(getAmountValueAsDouble(self.powerCap),getAmountUnitName(self.powerCap));		
+	};
+	distributionPowerAssemblyContext := getPassthroughBinding();
+	var monitorRepository := monitorrepository.rootObjects()[MonitorRepository]->any(true);
+	var measuringpointrepo := measuringpoint.rootObjects()[MeasuringPointRepository]->any(true);
+	monitorRepository.monitors += self.map nodeToMonitorAndMeasuringPoint(measuringpointrepo, mCorRepository);
+	pcoreRepository.powerProvidingEntityCorrespondences += object PowerProvidingEntityCorrespondence {
+		cactos := self;
+		palladio := result;
+	};
+	var powerMeasurement := object PowerConsumingEntityMeasurement {
+		powerConsumingEntity := self;
+		// TODO make this multiple entities in the models?
+		powerDrawnFrom := self.powerProvidingEntities->any(true);
+	};
+	pload.powerConsumingEntityMeasurements += powerMeasurement;
+	pcoreRepository.powerConsumingEntityMeasurementCorrespondences += object PowerConsumingEntityMeasurementCorrespondence {
+		cactos := powerMeasurement;
+	}
+}
+
+mapping PowerDistributionUnit::powerDistributionUnitToPDU(inout pcoreRepository : PhysicalCorrespondenceRepository, 
+	inout pload : PhysicalLoadModel) : _powerinfrastructure::PowerDistributionUnit {
+	name := self.name;
+	nestedPowerConsumingEntities += self.powerConsumingEntities.late resolve(_powerinfrastructure::PowerConsumingEntity);
+	if(self.powerCap != null) {
+		suppliablePeakPower := createEJSMeasureFromDoubleAndUnit(getAmountValueAsDouble(self.powerCap),getAmountUnitName(self.powerCap));		
+	};
+	distributionPowerAssemblyContext := getPassthroughBinding();
+	pcoreRepository.powerProvidingEntityCorrespondences += object PowerProvidingEntityCorrespondence {
+		cactos := self;
+		palladio := result;
+	};
+	
+	
+	var powerMeasurement := object PowerConsumingEntityMeasurement {
+		powerConsumingEntity := self;
+		// TODO allow that these are multiple power-providing entities in the models
+		powerDrawnFrom := self.powerProvidingEntities->any(true);
+	};
+	
+	pload.powerConsumingEntityMeasurements += powerMeasurement;
+	
+	pcoreRepository.powerConsumingEntityMeasurementCorrespondences += object PowerConsumingEntityMeasurementCorrespondence {
+		cactos := powerMeasurement;
+	};
+	
+	var monitorRepository := monitorrepository.rootObjects()[MonitorRepository]->any(true);
+	var mCorRepository := monitorcorrespondence.rootObjects()[MonitorCorrespondenceRepository]->any(true);
+	monitorRepository.monitors += result.map createMonitorAndMeasuringPointForPDU(monitorRepository, mCorRepository);
+}
+
+mapping _infrastructure::PowerDistributionUnit::createMonitorAndMeasuringPointForPDU(inout monitorRepository : MonitorRepository, inout mCorRepository : MonitorCorrespondenceRepository) : Monitor {
+	var monitorrepo : MonitorRepository := monitorrepository.rootObjects()[MonitorRepository]->any(true);
+	var measuringpointrepo : MeasuringPointRepository := measuringpoint.rootObjects()[MeasuringPointRepository]->any(true);
+	var newMeasuringPoint := object ResourceURIMeasuringPoint {
+		measuringPoint := self.name;
+		// TODO fix this
+		resourceURI := "platform:/resource/org.palladiosimulator.temporary/cactosmodels/powerinfrastructure.infrastructure#" + self.id;
+	};
+	measuringpointrepo.measuringPoints += newMeasuringPoint;
+	entityName := self.name;
+	var measurementSpec : MeasurementSpecification;
+	measurementSpecifications += measurementSpec := object MeasurementSpecification {
+		metricDescription := getMetricDescriptionTimePowerTuple();
+		processingType := object TimeDriven {
+			windowLength := POWER_INTERVAL;
+			windowIncrement := POWER_INTERVAL;
+		};
+	};	
+	
+	measuringpointrepo.measuringPoints += newMeasuringPoint;
+	measuringPoint := newMeasuringPoint;
+	
+	mCorRepository.monitoredCactosEntityToMonitorCorrespondences += object MonitoredCactosEntityToMonitorCorrespondence {
+		cactos := self.invresolveone(_physicaldc::PowerDistributionUnit);
+		palladio := measurementSpec;
+	};
+}
+
+mapping _powerbinding::PowerBindingRepository::passThroughModelToBinding(specification : _powerspecification::DistributionPowerModelSpecification) : _powerbinding::DistributionPowerBinding {
+	name := specification.name;
+	distributionPowerModel := specification;
+	powerBindingRepository := self;
+}
+
+mapping StorageSpecification::storageToPowerConsumer(inout pcoreRepository : PhysicalCorrespondenceRepository) : StatefulPowerConsumingResource {
+	name := self.name;
+	processingResourceSpecification := self.resolveone(ProcessingResourceSpecification);
+	var binding : _powerbinding::StatefulResourcePowerBinding := self.powerModelBinding.resolveone(_powerbinding::StatefulResourcePowerBinding);
+	statefulResourcePowerBinding := binding;
+	if(self.powerProvidingEntities <> null and self.powerModelBinding <> null) {
+		pcoreRepository.powerConsumingResourceCorrespondences += object PowerConsumingResourceCorrespondence {
+			cactos := self;
+			palladio := result;
+		};
+	};
+	
+	powerState := binding.powerStates->any(s | s.binding.resourcePowerModelSpecification[DeclarativePowerModelSpecification]->exists(functionalExpression <> STANDBY_EXPRESSION));
+	if (self.node.state = NodeState::OFF) {
+		powerState := binding.powerStates->any(s | s.binding.resourcePowerModelSpecification[DeclarativePowerModelSpecification]->exists(functionalExpression = STANDBY_EXPRESSION));
+	}
+}
+
+mapping ProcessingUnitSpecification::puToPowerConsumer(inout pcoreRepository : PhysicalCorrespondenceRepository) : StatefulPowerConsumingResource {
+	name := self.name;
+	processingResourceSpecification := self.resolveone(ProcessingResourceSpecification);
+	var binding : _powerbinding::StatefulResourcePowerBinding := self.powerModelBinding.resolveone(_powerbinding::StatefulResourcePowerBinding);
+	statefulResourcePowerBinding := binding;
+	if(self.powerProvidingEntities <> null and self.powerModelBinding <> null) {
+		pcoreRepository.powerConsumingResourceCorrespondences += object PowerConsumingResourceCorrespondence {
+			cactos := self;
+			palladio := result;
+		};
+	};
+	
+	powerState := binding.powerStates->any(s | s.binding.resourcePowerModelSpecification[DeclarativePowerModelSpecification]->exists(functionalExpression <> STANDBY_EXPRESSION));
+	if (self.node.state = NodeState::OFF) {
+		powerState := binding.powerStates->any(s | s.binding.resourcePowerModelSpecification[DeclarativePowerModelSpecification]->exists(functionalExpression = STANDBY_EXPRESSION));
+	}
+}
+
+query getPassthroughBinding() : _powerbinding::DistributionPowerBinding {
+	return powerbinding.objects()[_powerbinding::DistributionPowerBinding]->any(s | s.distributionPowerModel.consumptionFactors->size() = 1 
+		and s.distributionPowerModel.consumptionFactors.name->forAll(p | p = DISTRIBUTION_MODEL_NAME));
+}

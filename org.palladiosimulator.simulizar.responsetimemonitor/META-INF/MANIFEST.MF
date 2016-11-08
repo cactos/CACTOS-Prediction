@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Response Time Monitor
+Bundle-SymbolicName: org.palladiosimulator.simulizar.responsetimemonitor;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.palladiosimulator.simulizar.responsetimemonitor.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ org.palladiosimulator.simulizar,
+ org.palladiosimulator.monitorrepository,
+ org.palladiosimulator.pcm.edp2.measuringpoint,
+ org.palladiosimulator.edp2.util,
+ org.apache.log4j;bundle-version="1.2.15",
+ org.palladiosimulator.probeframework,
+ org.palladiosimulator.recorderframework,
+ de.uka.ipd.sdq.simucomframework,
+ de.uka.ipd.sdq.simulation.abstractsimengine,
+ org.palladiosimulator.simulizar.runtimemeasurement
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Import-Package: de.uka.ipd.sdq.simucomframework,
+ de.uka.ipd.sdq.simucomframework.model,
+ org.palladiosimulator.recorderframework

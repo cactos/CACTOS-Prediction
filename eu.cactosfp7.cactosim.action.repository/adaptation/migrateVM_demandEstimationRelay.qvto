@@ -1,0 +1,138 @@
+import transforms.cactosAdaptationBehaviorHelper;
+import simulizar_qvto_helper.logHelper;
+import m2m.qvt.oml.JScience;
+
+modeltype CACT_LCORE uses 'http://www.cactosfp7.eu/LogicalDCModel/Core/1.0';
+modeltype CACT_APP uses 'http://www.cactosfp7.eu/LogicalDCModel/Application/1.0';
+modeltype CACT_PCORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype CACT_PUTIL uses 'http://www.cactosfp7.eu/PhysicalDCModel/Util/1.0';
+modeltype PHYSICAL_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype LOGICAL_CORRESPONDENCE uses  'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype EXPERIMENT_SCENARIO uses 'http://www.cactosfp7.eu/ExperimentScenarioModel/1.0';
+modeltype EXPERIMENT_SCENARIO_REQUEST uses 'http://www.cactosfp7.eu/ExperimentScenarioModel/Request/1.0';
+modeltype EXPERIMENT_SCENARIO_SELECTOR uses 'http://www.cactosfp7.eu/ExperimentScenarioModel/Selector/1.0';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype ACTION_PARAM uses 'http://simulizar.palladiosimulator.org/Actions/Parameter/1.1';
+modeltype PCM_CORE uses 'http://palladiosimulator.org/PalladioComponentModel/Core/5.1';
+modeltype PCM_PARAM uses 'http://palladiosimulator.org/PalladioComponentModel/Parameter/5.1';
+modeltype PCM_STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+modeltype ACTION_CONTEXT uses 'http://simulizar.palladiosimulator.org/Actions/Context/1.1';
+
+transformation estimateMigrateVMDemandAndRelay(
+							inout logicalDC: CACT_LCORE,
+							inout actions : ACTION_CORE,
+							inout actionRoleSet : ACTION_INSTANCE,
+							in actionContext : ACTION_CONTEXT,
+							in physicalcorrespondence: PHYSICAL_CORRESPONDENCE,
+							in logicalcorrespondence: LOGICAL_CORRESPONDENCE) {
+	
+	main() {
+		var targetNode := actionRoleSet.rootObjects()[RoleSet].roles->any(role | role.roleType.id = MVA_TARGET_NODE_ROLE_TYPE_ID).value.oclAsType(ComputeNode);
+		var migratedVM := actionRoleSet.rootObjects()[RoleSet].roles->any(role | role.roleType.id = MVA_MIGRATED_VM_ROLE_TYPE_ID).value.oclAsType(VirtualMachine);
+		
+		var action := selectMigrateVMInternalAction();
+		assert fatal(action.id = "_7x-SQMp7EeW4EYpxKkq5Gw") with log("Failure during demand estimation for migration.", null, LOG_LEVEL_ERROR);
+		
+		var roleSet := action.createMigrateVMInternalRoleSet(targetNode, migratedVM);
+		var inputCollection := migratedVM.map createVariableUsageCollectionForMigrationTo(targetNode);
+		
+		assert fatal(not inputCollection.oclIsInvalid()) with log("Failure during demand estimation for migration. Please check your models particularly for correct specifications of VM images and their storage location.", null, LOG_LEVEL_ERROR);
+		assert fatal(action.execute(roleSet, inputCollection, actionContext.rootObjects()[ExecutionContext]->any(true)))
+			 with log("Migrate request was not executed properly", null, LOG_LEVEL_WARN);
+			 
+		logInfo("Migrate request was executed properly");
+	};
+	
+	mapping in VirtualMachine::createVariableUsageCollectionForMigrationTo(targetNode: ComputeNode): ControllerCallInputVariableUsageCollection {
+		controllerCallInputVariableUsages += object ControllerCallInputVariableUsage {
+			correspondingControllerCall := actions.objectsOfType(ControllerCall)->any(id = MVI_MIGRATION_CONTROLLER_CALL_ID);
+			variableUsage := object VariableUsage {
+				variableCharacterisation_VariableUsage := object VariableCharacterisation {
+					type := VariableCharacterisationType::VALUE;
+					specification_VariableCharacterisation := object PCMRandomVariable {
+						specification := "0.0";
+					};
+					namedReference__VariableUsage := object VariableReference {
+						referenceName := MVI_MIGRATION_CONTROLLER_CALL_DELAY_PARAMETER_ID;
+					}
+				};
+			};
+		};
+		controllerCallInputVariableUsages += object ControllerCallInputVariableUsage {
+			correspondingControllerCall := actions.objectsOfType(ControllerCall)->any(id = MVI_MIGRATION_CONTROLLER_CALL_ID);
+			variableUsage := object VariableUsage {
+					variableCharacterisation_VariableUsage := object VariableCharacterisation {
+						type := VariableCharacterisationType::VALUE;
+					specification_VariableCharacterisation := object PCMRandomVariable {
+						specification := "0.0";
+					};
+					namedReference__VariableUsage := object VariableReference {
+						referenceName := MVI_MIGRATION_CONTROLLER_CALL_CPU_PARAMETER_ID;
+					}
+				};
+			};
+		};
+		
+		controllerCallInputVariableUsages += self.vMImageInstance.rootDisk.map createVariableUsageForCopyTo(
+			logicalDC.rootObjects()[LogicalDCModel].hypervisors->any(node = targetNode));
+		
+		if (controllerCallInputVariableUsages->size() <> 3) {
+			assert fatal(controllerCallInputVariableUsages->exists(usage | usage.variableUsage.namedReference__VariableUsage.referenceName = MVI_MIGRATION_CONTROLLER_CALL_DELAY_PARAMETER_ID))
+				with log("Migrate VM transient effect demand could not correctly be estimated.", null, LOG_LEVEL_ERROR);
+			assert fatal(controllerCallInputVariableUsages->exists(usage | usage.variableUsage.namedReference__VariableUsage.referenceName = MVI_MIGRATION_CONTROLLER_CALL_CPU_PARAMETER_ID))
+				with log("Migrate VM transient effect demand could not correctly be estimated.", null, LOG_LEVEL_ERROR);
+			assert fatal(controllerCallInputVariableUsages->exists(usage | usage.variableUsage.namedReference__VariableUsage.referenceName = MVI_MIGRATION_CONTROLLER_CALL_BYTESIZE_PARAMETER_ID))
+				with log("Migration Failure: Please make sure that the vm image instance of the VM to migrate has a root disk set.", null, LOG_LEVEL_ERROR);
+		}
+	}
+	
+	mapping VirtualDisk::createVariableUsageForCopyTo(hypervisor: Hypervisor): ControllerCallInputVariableUsage {
+		var targetLocation := hypervisor.rootVolume.storageLocation;
+		if (targetLocation = null or targetLocation.oclIsInvalid()) {
+			targetLocation := hypervisor.node.storageSpecifications->any(true);
+		};
+
+		variableUsage := object VariableUsage {
+			variableCharacterisation_VariableUsage := object VariableCharacterisation {
+				type := VariableCharacterisationType::VALUE;
+				specification_VariableCharacterisation := object PCMRandomVariable {
+					specification := getSpecificationInMegaByte(targetLocation.determineMegaBytesTyCopy(self));
+				};
+			};
+			namedReference__VariableUsage := object VariableReference {
+				referenceName := MVI_MIGRATION_CONTROLLER_CALL_BYTESIZE_PARAMETER_ID;
+			}
+		};
+		correspondingControllerCall := actions.objectsOfType(ControllerCall)->any(id = MVI_MIGRATION_CONTROLLER_CALL_ID);
+	}
+	
+	
+	query StorageSpecification::determineMegaBytesTyCopy(disk: VirtualDisk): Amount {
+		var tempDisk := disk;
+		
+		var matchingSequence := Sequence {tempDisk};
+		
+		while (tempDisk.parent <> null or not tempDisk.oclIsKindOf(VMImage)) {
+			tempDisk := tempDisk.parent;
+			var tempSequence := Sequence {tempDisk};
+			tempSequence += matchingSequence;
+			matchingSequence := tempSequence;
+		};
+		
+
+		var cand := logicalDC.rootObjects()[LogicalDCModel].volumesAndImages.allSubobjectsOfKind(VMImage);
+		var amountToCopy := createDataAmountAmount(0.0);
+		var candidates := cand.oclAsType(VirtualDisk);
+		matchingSequence->forEach(image) {
+			candidates := candidates.deltaOverlay->select(o | o.name = image.name)->flatten();
+			if (candidates->isEmpty()) {
+				if (image.usedCapacity <> null) {
+					amountToCopy := add(amountToCopy, image.usedCapacity);
+				}
+			}
+		};
+		return amountToCopy;
+	}
+}
+								

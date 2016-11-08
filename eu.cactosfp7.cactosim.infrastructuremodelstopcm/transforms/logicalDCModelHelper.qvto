@@ -1,0 +1,96 @@
+import m2m.qvt.oml.JScience;
+import pcmHelper;
+import eu.cactosfp7.cactosim.optimisationconnector.SimulationStateUnit;
+
+modeltype _pcmresourceenvironment uses "http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1";
+modeltype _physicaldc uses "http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0";
+modeltype _physicaldc_architecturetype uses "http://www.cactosfp7.eu/PhysicalDCModel/ArchitectureType/1.0";
+modeltype _logicaldc uses "http://www.cactosfp7.eu/LogicalDCModel/Core/1.0";
+modeltype _logicaldc_application uses "http://www.cactosfp7.eu/LogicalDCModel/Application/1.0";
+modeltype _pcmcore uses "http://palladiosimulator.org/PalladioComponentModel/Core/5.1";
+modeltype _pcmrepository uses "http://palladiosimulator.org/PalladioComponentModel/Repository/5.1";
+modeltype _pcmresourcetype uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.1';
+modeltype _pcmsystem uses 'http://palladiosimulator.org/PalladioComponentModel/System/5.1';
+modeltype _pcmcomposition uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.1';
+modeltype _pcm_seff uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/5.1';
+modeltype _pcm_seff_performance uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/SEFF_Performance/5.1';
+modeltype _pcmusage uses 'http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.1';
+modeltype _pcmallocation uses 'http://palladiosimulator.org/PalladioComponentModel/Allocation/5.1';
+modeltype _lcorrespondence uses 'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype _pcorrespondence uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype _monitorrepository uses "http://palladiosimulator.org/MonitorRepository/1.0";
+modeltype _measuringpoint uses "http://palladiosimulator.org/PCM/MeasuringPoint/1.0";
+modeltype _metricspec uses "http://palladiosimulator.org/MetricSpec/1.0";
+
+transformation logicalDCModelHelper(in physicalCorrespondences: _pcorrespondence,
+									in resourcetypepcm : _pcmresourcetype,
+									in metricspec : _metricspec,									
+									out repository : _pcmrepository,
+									in primitiveresourcetyperepo : _pcmrepository) {
+
+	helper getName(res : MonitorableResource) : String {
+		if (res.oclIsKindOf(MemorySpecification)) {
+			return "Memory_" + convertToASCII((res.oclAsType(MemorySpecification)).name);
+		};
+		if (res.oclIsKindOf(NetworkInterconnect)) {
+			return "NetworkInterconnect_" + convertToASCII(res.oclAsType(NetworkInterconnect).name);
+		};
+		if (res.oclIsKindOf(ProcessingUnitSpecification)) {
+			return "ProcessingUnit_" + convertToASCII(res.oclAsType(ProcessingUnitSpecification).name) + "_" + convertToASCII(res.oclAsType(ProcessingUnitSpecification).architectureType.name + "_ID" + convertToASCII(res.id));
+		};
+		if (res.oclIsKindOf(StorageSpecification)) {
+			return "Storage_" + convertToASCII(res.oclAsType(StorageSpecification).name);
+		};
+		if (res.oclIsKindOf(VirtualDisk)) {
+			var ret := "Volume_" + res.id;
+			return ret;
+		};
+		return "UnkownType_" + convertToASCII(res.metaClassName());
+	}
+	
+	helper getSpecificationResourceDemand(res : MonitorableResource, resourceDemand : ResourceDemand) : String {
+		if (res.oclIsKindOf(NetworkInterconnect)) {
+			return getSpecificationInMegaBit(resourceDemand.amount);
+		};
+		if (res.oclIsKindOf(MemorySpecification)  
+				or res.oclIsKindOf(StorageSpecification) or res.oclIsKindOf(VirtualDisk)) {
+			return getSpecificationInMegaByte(resourceDemand.amount);
+		};
+		if (res.oclIsKindOf(ProcessingUnitSpecification)) {
+			return getSpecificationInMegaHertz(resourceDemand.amount);
+		};
+		assert warning (false) with log('Unkown Type: '+ res.metaClassName() + '. "0" is used for requests to this monitorable resource. Simulation can be wrong.');
+		return "0";
+	}
+	
+	helper VariableResourceDemand::getSpecificationVariableResourceDemand() : String {
+		if (self.onResource.oclIsKindOf(NetworkInterconnect)) {
+			return getSpecificationInTargetUnit(self.amount, self.unit, getUnitMegaBit());
+		};
+		if (self.onResource.oclIsKindOf(MemorySpecification)  
+				or self.onResource.oclIsKindOf(StorageSpecification) or self.onResource.oclIsKindOf(VirtualDisk)) {
+			return getSpecificationInTargetUnit(self.amount, self.unit, getUnitMegaByte());
+		};
+		if (self.onResource.oclIsKindOf(ProcessingUnitSpecification)) {
+			return getSpecificationInTargetUnit(self.amount, self.unit, getUnitMegaHertz());
+		};
+		assert warning (false) with log('Unkown Type: '+ self.onResource.metaClassName() + '. "0" is used for requests to this monitorable resource. Simulation can be wrong.');
+		return "0";
+	}
+	
+	helper getProcessingResourceTypeSpecification(res : MonitorableResource) : ProcessingResourceType {
+		if (res.oclIsKindOf(ProcessingUnitSpecification)) {
+			var arch_type := physicalCorrespondences.rootObjects()[PhysicalCorrespondenceRepository].architectureTypeCorrespondences
+				->any(cactos.id = res.oclAsType(ProcessingUnitSpecification).architectureType.id);
+			assert fatal(arch_type <> null) with log("Architecture type for resource " + res.id + " not set!");
+			return arch_type.palladio;
+			// replaced the following for reusability during runtime transformations where the tracing info is not available
+			// return res.resolveone(ProcessingResourceSpecification).activeResourceType_ActiveResourceSpecification;
+		};
+		if (res.oclIsKindOf(StorageSpecification)) {
+			return getResourceTypeHDD(); 	
+		};
+		assert error (false) with log('Provided monitorable resource of type ' + res.metaClassName() + " cannot be mapped to a ProcessingResourceType. Extend the transformation or fix the model.");
+		return null;
+	}
+}

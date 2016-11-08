@@ -1,0 +1,66 @@
+import m2m.qvt.oml.JScience;
+import transforms.cactosAdaptationBehaviorHelper;
+import simulizar_qvto_helper.logHelper;
+
+modeltype CACT_LCORE uses 'http://www.cactosfp7.eu/LogicalDCModel/Core/1.0';
+modeltype CACT_APP uses 'http://www.cactosfp7.eu/LogicalDCModel/Application/1.0';
+modeltype CACT_PCORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype PHYSICAL_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype EXPERIMENT_SCENARIO uses 'http://www.cactosfp7.eu/ExperimentScenarioModel/1.0';
+modeltype EXPERIMENT_SCENARIO_REQUEST uses 'http://www.cactosfp7.eu/ExperimentScenarioModel/Request/1.0';
+modeltype EXPERIMENT_SCENARIO_SELECTOR uses 'http://www.cactosfp7.eu/ExperimentScenarioModel/Selector/1.0';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype ACTION_PARAM uses 'http://simulizar.palladiosimulator.org/Actions/Parameter/1.1';
+modeltype PCM_CORE uses 'http://palladiosimulator.org/PalladioComponentModel/Core/5.1';
+modeltype PCM_PARAM uses 'http://palladiosimulator.org/PalladioComponentModel/Parameter/5.1';
+modeltype PCM_STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+modeltype ACTION_CONTEXT uses 'http://simulizar.palladiosimulator.org/Actions/Context/1.1';
+modeltype XMLTYPE uses 'http://www.eclipse.org/emf/2003/XMLType';
+
+transformation estimateDemandAndExecuteAction(
+							inout logicalDC: CACT_LCORE,
+							inout actions : ACTION_CORE,
+							inout actionRoleSet : ACTION_INSTANCE,
+							in actionContext : ACTION_CONTEXT,
+							in physicalcorrespondence: PHYSICAL_CORRESPONDENCE) {
+	
+	main() {
+		var targetNode := actionRoleSet.rootObjects()[RoleSet].roles->any(role | role.roleType.id = SPNS_TARGET_NODE_ROLE_TYPE_ID).value.oclAsType(AbstractNode);
+		var targetState := actionRoleSet.rootObjects()[RoleSet].roles->any(role | role.roleType.id = SPNS_TARGET_NODE_STATE_ROLE_TYPE_ID).value.oclAsType(SimpleAnyType).value.oclAsType(NodeState);
+		
+		var action := selectChangeNodeStateAction();
+		
+		var roleSet := action.createNodeStateChangeRoleSet(targetNode, targetState);
+		
+		if (not action.execute(roleSet, 
+							   targetNode.map createVariableUsageCollectionForAction(), 
+							   actionContext.rootObjects()[ExecutionContext]->any(true))) {
+			assert fatal(false) with log("Node state change request not executed properly", null, LOG_LEVEL_WARN);
+		};
+	};
+	
+	mapping in AbstractNode::createVariableUsageCollectionForAction(): ControllerCallInputVariableUsageCollection {
+		var spec := self.getStartUpSpecification();
+	
+		controllerCallInputVariableUsages += object ControllerCallInputVariableUsage {
+			correspondingControllerCall := actions.objectsOfType(ControllerCall)->any(id = NSC_NODE_STATE_CHANGE_CALL_ID);
+			variableUsage := object VariableUsage {
+				variableCharacterisation_VariableUsage := object VariableCharacterisation {
+					type := VariableCharacterisationType::VALUE;
+				specification_VariableCharacterisation := object PCMRandomVariable {
+					if (not spec.oclIsInvalid() and spec <> null) {
+						specification := spec.duration;						
+					} else {
+						specification := "0";
+					}
+				};
+				};
+				namedReference__VariableUsage := object VariableReference {
+					referenceName := NSC_NODE_STATE_CHANGE_CALL_PARAMETER_ID;
+				}
+			};
+		};
+	}
+}
+								

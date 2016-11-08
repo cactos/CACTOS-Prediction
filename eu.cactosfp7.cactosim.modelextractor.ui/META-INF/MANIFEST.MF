@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: CactoSim Model Extractor UI
+Bundle-SymbolicName: eu.cactosfp7.cactosim.modelextractor.ui;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: eu.cactosfp7.cactosim.modelextractor.ui.Activator
+Bundle-Vendor: CACTOS Consortium
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ eu.cactosfp7.cactosim.modelextractor;bundle-version="1.0.0",
+ HBaseClient,
+ org.eclipse.jface.databinding,
+ org.eclipse.core.databinding.property;bundle-version="1.5.0",
+ org.eclipse.core.databinding.observable;bundle-version="1.5.0",
+ org.eclipse.core.databinding,
+ org.eclipse.core.databinding.beans,
+ eu.cactosfp7.cactosim.experimentscenario,
+ de.uka.ipd.sdq.workflow.launchconfig,
+ eu.cactosfp7.cactosim.ui.launcher;bundle-version="1.0.0",
+ eu.cactosfp7.cactosim;bundle-version="1.0.0",
+ org.eclipse.emf.ecore,
+ eu.cactosfp7.cactosim.regression;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy

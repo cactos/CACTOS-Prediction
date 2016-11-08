@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="experimentscenario" nsURI="http://www.cactosfp7.eu/ExperimentScenarioModel/1.0"
+    nsPrefix="experimentscenario">
+  <eClassifiers xsi:type="ecore:EClass" name="AbsoluteTimeEvent" eSuperTypes="#//TimeLineEvent">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="simulationTime" ordered="false"
+        lowerBound="1">
+      <eGenericType eClassifier="ecore:EDataType ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//util/Amount">
+        <eTypeArguments eClassifier="ecore:EDataType ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//util/Duration"/>
+      </eGenericType>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TimeLineEvent" abstract="true" eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="experimentScenarioRequest"
+        ordered="false" lowerBound="1" eType="#//request/ExperimentScenarioRequest"
+        containment="true" eOpposite="#//request/ExperimentScenarioRequest/timelineEvent"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="eventStatus" ordered="false"
+        lowerBound="1" eType="#//EventStatus" defaultValueLiteral="PENDING"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="experimentScenarioTimeline"
+        ordered="false" lowerBound="1" eType="#//ExperimentScenarioTimeLine" eOpposite="#//ExperimentScenarioTimeLine/timeLineEvents"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relativeTimeEvents" ordered="false"
+        upperBound="-1" eType="#//RelativeTimeEvent" eOpposite="#//RelativeTimeEvent/referenceEvent"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EventStatus">
+    <eLiterals name="PROCESSED_SUCCESS"/>
+    <eLiterals name="PROCESSED_FAILURE" value="1"/>
+    <eLiterals name="PENDING" value="2"/>
+    <eLiterals name="SCHEDULED" value="3"/>
+    <eLiterals name="IN_EXECUTION" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExperimentScenarioTimeLine" eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="simulationResolution" ordered="false"
+        lowerBound="1">
+      <eGenericType eClassifier="ecore:EDataType ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//util/Amount">
+        <eTypeArguments eClassifier="ecore:EDataType ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//util/Duration"/>
+      </eGenericType>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="placementCompatibilityMode"
+        ordered="false" lowerBound="1" eType="#//EPlacementCompatibilityMode" defaultValueLiteral="SimplePlacement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="timeLineEvents" upperBound="-1"
+        eType="#//TimeLineEvent" containment="true" eOpposite="#//TimeLineEvent/experimentScenarioTimeline"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EPlacementCompatibilityMode">
+    <eLiterals name="RepetitiveRetry"/>
+    <eLiterals name="SimplePlacement" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RelativeTimeEvent" eSuperTypes="#//TimeLineEvent">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="intervalSinceEvent" ordered="false"
+        lowerBound="1">
+      <eGenericType eClassifier="ecore:EDataType ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//util/Amount">
+        <eTypeArguments eClassifier="ecore:EDataType ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//util/Duration"/>
+      </eGenericType>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referenceEvent" ordered="false"
+        lowerBound="1" eType="#//TimeLineEvent" eOpposite="#//TimeLineEvent/relativeTimeEvents"/>
+  </eClassifiers>
+  <eSubpackages name="request" nsURI="http://www.cactosfp7.eu/ExperimentScenarioModel/Request/1.0"
+      nsPrefix="request">
+    <eClassifiers xsi:type="ecore:EClass" name="ReconfigureOptimizationAlgorithmRequest"
+        eSuperTypes="#//request/ExperimentScenarioRequest">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="algorithmName" ordered="false"
+          lowerBound="1" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="algorithmParameters"
+          ordered="false" upperBound="-1" eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//util/EStringToEStringObjectMapEntry"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="MigrateApplicationRequest" eSuperTypes="#//request/ExperimentScenarioRequest">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="targetPhysicalNode" ordered="false"
+          lowerBound="1" eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//core/ComputeNode"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="applicationInstanceSelector"
+          ordered="false" lowerBound="1" eType="#//selector/ApplicationInstanceSelector"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="StartApplicationRequest" eSuperTypes="#//request/ExperimentScenarioRequest">
+      <eOperations name="applicationInstanceMustBeOfTheRightTemplate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+        <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
+          <details key="body" value="self.applicationInstance.oclIsUndefined() or self.applicationTemplate = self.applicationInstance.applicationTemplate"/>
+        </eAnnotations>
+        <eParameters name="diagnostics" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain">
+          <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+            <details key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+          </eAnnotations>
+        </eParameters>
+        <eParameters name="context">
+          <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+            <details key="documentation" value="The cache of context-specific information."/>
+          </eAnnotations>
+          <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
+            <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+            <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+          </eGenericType>
+        </eParameters>
+      </eOperations>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="applicationTemplate"
+          ordered="false" lowerBound="1" eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/ApplicationTemplate"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="applicationInstance"
+          ordered="false" eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/ApplicationInstance"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="vmFlavour" ordered="false"
+          lowerBound="1" eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//core/Flavour"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="inputParameters" ordered="false"
+          upperBound="-1" eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//util/EStringToEStringObjectMapEntry"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="SuspendApplicationRequest" eSuperTypes="#//request/ExperimentScenarioRequest">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="runningApplicationSelector"
+          ordered="false" lowerBound="1" eType="#//selector/ApplicationInstanceSelector"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="TerminateApplicationRequest" eSuperTypes="#//request/ExperimentScenarioRequest">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="runningApplicationSelector"
+          ordered="false" lowerBound="1" eType="#//selector/ApplicationInstanceSelector"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ChangeOptimizationIntervalRequest"
+        eSuperTypes="#//request/ExperimentScenarioRequest">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="optimizationInterval"
+          ordered="false" lowerBound="1">
+        <eGenericType eClassifier="ecore:EDataType ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//util/Amount">
+          <eTypeArguments eClassifier="ecore:EDataType ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//util/Duration"/>
+        </eGenericType>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ReconfigureScalableImageConnectorRequest"
+        eSuperTypes="#//request/ExperimentScenarioRequest">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="whiteBoxApplicationInstanceSelector"
+          ordered="false" lowerBound="1" eType="#//selector/WhiteBoxApplicationInstanceSelector"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="loadBalancingPolicy"
+          ordered="false" lowerBound="1" eType="ecore:EEnum ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/LoadBalancingPolicy"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="autoscalingAnalysisInterval"
+          ordered="false" lowerBound="1">
+        <eGenericType eClassifier="ecore:EDataType ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//util/Amount">
+          <eTypeArguments eClassifier="ecore:EDataType ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//util/Duration"/>
+        </eGenericType>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="targetConnector" ordered="false"
+          lowerBound="1" eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/ScalableVMImageConnector"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="SetPhysicalNodeStateRequest" eSuperTypes="#//request/ExperimentScenarioRequest">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="targetNode" ordered="false"
+          lowerBound="1" eType="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//core/AbstractNode"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetState" ordered="false"
+          lowerBound="1" eType="ecore:EEnum ../../eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//core/NodeState"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ResumeApplicationRequest" eSuperTypes="#//request/ExperimentScenarioRequest">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="previouslySuspendedApplicationSelector"
+          ordered="false" lowerBound="1" eType="#//selector/PreviouslySuspendedApplicationSelector"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ExperimentScenarioRequest" abstract="true"
+        eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="timelineEvent" ordered="false"
+          lowerBound="1" eType="#//TimeLineEvent" eOpposite="#//TimeLineEvent/experimentScenarioRequest"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="selector" nsURI="http://www.cactosfp7.eu/ExperimentScenarioModel/Selector/1.0"
+      nsPrefix="selector">
+    <eClassifiers xsi:type="ecore:EClass" name="InitiallyRunningInstanceSelector"
+        abstract="true" eSuperTypes="#//selector/ApplicationInstanceSelector">
+      <eTypeParameters name="instanceTypeParameter">
+        <eBounds eClassifier="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/ApplicationInstance"/>
+      </eTypeParameters>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="applicationInstance"
+          ordered="false" lowerBound="1">
+        <eGenericType eTypeParameter="#//selector/InitiallyRunningInstanceSelector/instanceTypeParameter"/>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PreviouslyStartedApplicationSelector"
+        abstract="true" eSuperTypes="#//selector/ApplicationInstanceSelector">
+      <eTypeParameters name="instanceTypeParameter">
+        <eBounds eClassifier="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/ApplicationInstance"/>
+      </eTypeParameters>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="startApplicationRequest"
+          ordered="false" lowerBound="1" eType="#//request/StartApplicationRequest"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PreviouslySuspendedApplicationSelector">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="suspendRequest" ordered="false"
+          lowerBound="1" eType="#//request/SuspendApplicationRequest"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="SuspendedInstanceSelector"/>
+    <eClassifiers xsi:type="ecore:EClass" name="BlackBoxApplicationInstanceSelector"
+        abstract="true" eSuperTypes="#//selector/NonWhiteBoxApplicationInstanceSelector"/>
+    <eClassifiers xsi:type="ecore:EClass" name="NonWhiteBoxApplicationInstanceSelector"
+        abstract="true" eSuperTypes="#//selector/ApplicationInstanceSelector"/>
+    <eClassifiers xsi:type="ecore:EClass" name="GreyBoxApplicationInstanceSelector"
+        abstract="true" eSuperTypes="#//selector/NonWhiteBoxApplicationInstanceSelector"/>
+    <eClassifiers xsi:type="ecore:EClass" name="WhiteBoxApplicationInstanceSelector"
+        abstract="true" eSuperTypes="#//selector/ApplicationInstanceSelector"/>
+    <eClassifiers xsi:type="ecore:EClass" name="InitiallyRunningWhiteBoxApplicationInstanceSelector">
+      <eGenericSuperTypes eClassifier="#//selector/WhiteBoxApplicationInstanceSelector"/>
+      <eGenericSuperTypes eClassifier="#//selector/InitiallyRunningInstanceSelector">
+        <eTypeArguments eClassifier="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/WhiteBoxApplicationInstance"/>
+      </eGenericSuperTypes>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="InitiallyRunningGreyBoxApplicationInstanceSelector">
+      <eGenericSuperTypes eClassifier="#//selector/InitiallyRunningInstanceSelector">
+        <eTypeArguments eClassifier="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/GreyBoxApplicationInstance"/>
+      </eGenericSuperTypes>
+      <eGenericSuperTypes eClassifier="#//selector/GreyBoxApplicationInstanceSelector"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="InitiallyRunningBlackBoxApplicationInstanceSelector">
+      <eGenericSuperTypes eClassifier="#//selector/BlackBoxApplicationInstanceSelector"/>
+      <eGenericSuperTypes eClassifier="#//selector/InitiallyRunningInstanceSelector">
+        <eTypeArguments eClassifier="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/BlackBoxApplicationInstance"/>
+      </eGenericSuperTypes>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PreviouslyStartedWhiteBoxApplicationInstanceSelector">
+      <eGenericSuperTypes eClassifier="#//selector/WhiteBoxApplicationInstanceSelector"/>
+      <eGenericSuperTypes eClassifier="#//selector/PreviouslyStartedApplicationSelector">
+        <eTypeArguments eClassifier="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/WhiteBoxApplicationInstance"/>
+      </eGenericSuperTypes>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PreviouslyStartedBlackBoxApplicationSelector">
+      <eGenericSuperTypes eClassifier="#//selector/PreviouslyStartedApplicationSelector">
+        <eTypeArguments eClassifier="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/BlackBoxApplicationInstance"/>
+      </eGenericSuperTypes>
+      <eGenericSuperTypes eClassifier="#//selector/BlackBoxApplicationInstanceSelector"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PreviouslyStartedGreyBoxApplicationSelector">
+      <eGenericSuperTypes eClassifier="#//selector/PreviouslyStartedApplicationSelector">
+        <eTypeArguments eClassifier="ecore:EClass ../../eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/GreyBoxApplicationInstance"/>
+      </eGenericSuperTypes>
+      <eGenericSuperTypes eClassifier="#//selector/GreyBoxApplicationInstanceSelector"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ApplicationInstanceSelector" abstract="true"
+        eSuperTypes="../../eu.cactosfp7.identifier/model/identifier.ecore#//Identifier"/>
+  </eSubpackages>
+</ecore:EPackage>

@@ -1,0 +1,385 @@
+import cactos2PCMRepository;
+import cactos2PCMSystem;
+import cactos2PCMShared;
+import logicalDCModelHelper;
+import pcmHelper;
+import m2m.qvt.oml.JScience;
+
+
+modeltype _pcm_usagemodel uses "http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.1";
+modeltype _pcmseff uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/5.1';
+modeltype _pcmseffperformance uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/SEFF_Performance/5.1';
+modeltype _physicaldc uses "http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0";
+modeltype _physicaldc_architecturetype uses "http://www.cactosfp7.eu/PhysicalDCModel/ArchitectureType/1.0";
+modeltype _logicaldc uses "http://www.cactosfp7.eu/LogicalDCModel/Core/1.0";
+modeltype _logicaldc_application uses "http://www.cactosfp7.eu/LogicalDCModel/Application/1.0";
+modeltype _lcorrespondence uses 'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype _pcorrespondence uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype _mcorrespondence uses 'http://www.cactosfp7.eu/Correspondence/Measurement/1.1';
+modeltype _pcmcore uses "http://palladiosimulator.org/PalladioComponentModel/Core/5.1";
+modeltype _pcmrepository uses "http://palladiosimulator.org/PalladioComponentModel/Repository/5.1";
+modeltype _pcmresourcetype uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.1';
+modeltype _pcmsystem uses 'http://palladiosimulator.org/PalladioComponentModel/System/5.1';
+modeltype _pcmcomposition uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.1';
+modeltype _pcm_seff uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/5.1';
+modeltype _pcm_seff_performance uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/SEFF_Performance/5.1';
+modeltype _pcm_parameter uses 'http://palladiosimulator.org/PalladioComponentModel/Parameter/5.1';
+modeltype _pcmusage uses 'http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.1';
+modeltype _pcmallocation uses 'http://palladiosimulator.org/PalladioComponentModel/Allocation/5.1';
+modeltype _pcmresourceenvironment uses "http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1";
+modeltype _pcm_stoex uses "http://sdq.ipd.uka.de/StochasticExpressions/2.2";
+modeltype _monitorrepository uses "http://palladiosimulator.org/MonitorRepository/1.0";
+modeltype _measuringpoint uses "http://palladiosimulator.org/PCM/MeasuringPoint/1.0";
+modeltype _metricspec uses "http://palladiosimulator.org/MetricSpec/1.0";
+modeltype _usageevolution uses "http://usageevolution/1.0";
+modeltype _loadmodel_logical uses "http://www.cactosfp7.eu/CactosLoadModel/Logical/1.0";
+modeltype _loadmodel_physical uses "http://www.cactosfp7.eu/CactosLoadModel/Physical/1.0";
+modeltype _usagesequencerepository uses "http://www.cactosfp7.eu/CactoSim/UsageSequence/1.1";
+modeltype _cactospowermodel uses 'http://www.cactosfp7.eu/PhysicalDCModel/Power/1.0';
+modeltype _cactospowerbinding uses 'http://www.cactosfp7.eu/PhysicalDCModel/Power/Binding/1.0';
+modeltype _cactospowerinfrastructure uses 'http://www.cactosfp7.eu/PhysicalDCModel/Power/Specification/1.0'; 
+modeltype _cactospowerspecification uses 'http://www.cactosfp7.eu/PhysicalDCModel/Power/Specification/1.0';
+modeltype _powerutil uses 'http://www.fzi.de/Power/Util/1.0';
+modeltype _powerbinding uses 'http://www.fzi.de/Power/Binding/1.0';
+modeltype _powerspecification uses 'http://www.fzi.de/Power/Specification/1.0';
+modeltype _powerinfrastructure uses 'http://www.fzi.de/Power/Infrastructure/1.0';
+modeltype _dlim uses "http://descartes.tools/dlim/0.1";
+modeltype _measuringpointEDP2 uses "http://palladiosimulator.org/EDP2/MeasuringPoint/1.0";
+modeltype _resourceenvironment uses "http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1";
+modeltype _monitor_correspondence uses 'http://www.cactosfp7.eu/Correspondence/Measurement/1.1';
+
+transformation cactos2PCMUsage(in metricspec : _metricspec,
+								in resourcetypepcm : _pcmresourcetype,
+								in primitiveresourcetyperepo : _pcmrepository,
+								inout lcorrespondence : _lcorrespondence,
+								inout pcorrespondence : _pcorrespondence,
+								inout pcmrepository : _pcmrepository,
+								inout pcmsystem : _pcmsystem,
+								inout pcmallocation : _pcmallocation,
+								inout pcmusage: _pcmusage,
+								inout usagesequence: _usagesequencerepository,
+								inout measuringpoint: _measuringpoint,
+								inout monitorrepository :_monitorrepository,
+								inout logicalload : _loadmodel_logical,
+								inout measurementcorrespondence : _monitor_correspondence) {
+								
+	mapping LogicalDCModel::logicalDCModelToUsageModel() : UsageModel @ pcmusage {
+		usageScenario_UsageModel += self.applicationInstances->map toUsageScenarios()->flatten();
+	}
+									
+	mapping ApplicationInstance::toUsageScenarios(): Set(usagemodel::UsageScenario) {
+		assert error (false) with log('Unknown Application Behaviour experienced: ' + self.metaClassName() + '. Fix the model or extend the transformation.');
+	}
+	
+	mapping BlackBoxApplicationInstance::toUsageScenarios(): Set(usagemodel::UsageScenario) {
+		init {
+			result := Set {self.map toUsageScenario()};
+		}
+	}
+	
+	mapping BlackBoxApplicationInstance::toUsageScenario(): usagemodel::UsageScenario {
+		init {
+			if (self.virtualMachine.runtimeApplicationModel = null) {
+				result := self.createDummyUsageScenario();
+			}
+		}
+		if (self.virtualMachine.runtimeApplicationModel <> null) {
+			entityName := "Usage of BlackBoxApplication #" + self.id;
+			workload_UsageScenario := object usagemodel::OpenWorkload {
+				interArrivalTime_OpenWorkload := createPcmRandomVariable(getAmountInMultiplesOfReferenceAmount(BLACK_BOX_APPLICATION_WORKLOAD_UPDATE_INTERVAL, SIMULATION_STEP_DURATION_AMOUNT).toString());
+			};
+			var vmAssemblyContext := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].virtualMachineCorrespondences
+				->any(cactos.id = self.virtualMachine.id).palladio.assemblyContext_AllocationContext;
+			scenarioBehaviour_UsageScenario := createScaffoldedScenarioBehaviour(
+				object EntryLevelSystemCall {
+					entityName := "Call to component for VM #" + self.id;
+					providedRole_EntryLevelSystemCall := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].applicationProvidedServiceCorrespondences
+						->any(cactosApplication = self).palladioSystemRole;
+					
+					operationSignature__EntryLevelSystemCall := providedRole_EntryLevelSystemCall.providedInterface__OperationProvidedRole.signatures__OperationInterface->any(true);
+					inputParameterUsages_EntryLevelSystemCall += self.virtualMachine.runtimeApplicationModel[BlackBoxVMBehaviour].blackBoxWorkloads.map blackBoxWorkloadToEmptyInputParameterUsage();
+				}
+			);
+		}
+	}
+	
+	mapping GreyBoxApplicationInstance::toUsageScenarios(): Set(usagemodel::UsageScenario) {
+		init {
+			result := Set {self.map toUsageScenario()};
+		}
+	}
+	
+	mapping GreyBoxApplicationInstance::toUsageScenario(): usagemodel::UsageScenario {
+		init {
+			if (self.virtualMachine.runtimeApplicationModel = null) {
+				result := self.createDummyUsageScenario();
+			}
+		}
+		if (self.virtualMachine.runtimeApplicationModel <> null) {
+			entityName := "Usage of GreyBoxApplication #" + self.id;
+			workload_UsageScenario := object usagemodel::ClosedWorkload {
+				_population := 1;
+				thinkTime_ClosedWorkload := createPcmRandomVariable(createMaxInt());
+			};
+			
+			var vmAssemblyContext := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].virtualMachineCorrespondences
+				->any(cactos.id = self.virtualMachine.id).palladio.assemblyContext_AllocationContext;
+			scenarioBehaviour_UsageScenario := createScaffoldedScenarioBehaviour(
+				object EntryLevelSystemCall {
+					entityName := "Call to component for VM #" + self.id;
+					providedRole_EntryLevelSystemCall := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].applicationProvidedServiceCorrespondences
+						->any(cactosApplication = self).palladioSystemRole;
+					operationSignature__EntryLevelSystemCall := providedRole_EntryLevelSystemCall.providedInterface__OperationProvidedRole.signatures__OperationInterface->any(true);
+				}
+			);
+		}
+	}
+	
+	mapping WhiteBoxApplicationInstance::toUsageScenarios(): Set(usagemodel::UsageScenario) {
+		init {
+			result := self.whiteBoxUserBehaviourInstance->map toUsageScenarios()->flatten()->asSet();
+		}
+	}
+	
+	mapping application::UsageScenario::toUsageScenarios(): Set(usagemodel::UsageScenario) {
+		init {
+			result := self.userBehaviours->map toUsageScenario()->asSet();
+		}
+	}
+	
+	mapping UserBehaviour::toUsageScenario(): usagemodel::UsageScenario {
+		entityName := "Usage of WhiteBoxApplication #" + self.id;
+		workload_UsageScenario := self.arrivalRate.map toWorkload();
+			
+		scenarioBehaviour_UsageScenario := self.map toScenarioBehaviour();
+	}
+	
+	mapping UserBehaviour::toScenarioBehaviour(): usagemodel::ScenarioBehaviour {
+		var action := self.controlFlowActions[application::StartAction]->any(true).map toUserAction(Dict {});
+		
+		while (action <> null) {
+			actions_ScenarioBehaviour += action;
+			action := action.successor;	
+		}
+	}
+
+	mapping ControlFlowAction::toUserAction(inout variables: Dict (ControlFlowVariable, String)): AbstractUserAction {
+		init{
+			result := null;
+		}
+		assert fatal(false) with log("Mapping operation toUserAction called for abstract super type ControlFlowAction");
+	}
+		
+	mapping _logicaldc_application::StartAction::toUserAction(inout variables: Dict (ControlFlowVariable, String)): AbstractUserAction {
+		init{
+			result := object usagemodel::Start {};			
+		}		
+		successor := self.successingControlFlowAction.map toUserAction(variables);
+	}
+	
+	mapping _logicaldc_application::StopAction::toUserAction(inout variables: Dict (ControlFlowVariable, String)): AbstractUserAction  {
+		init{
+			result := object usagemodel::Stop {};
+		}
+	}
+	
+	mapping application::ApplicationCallAction::toUserAction(inout variables: Dict (ControlFlowVariable, String)): AbstractUserAction {
+		init{
+			result := object usagemodel::EntryLevelSystemCall {
+				inputParameterUsages_EntryLevelSystemCall += createInputVariableUsagesFromDict(variables, false);
+				
+				var application := self.userBehaviour.usageScenario.oclAsType(WhiteBoxUserBehaviourInstance).whiteBoxApplicationInstance;
+				var assemblyProvidedRole := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].providedServiceCorrespondences
+					->any(cactosRole.id = self.serviceProvidedRole.id
+							and application.composedVMs.virtualMachine.id->includes(cactosVM.id)).palladioRole;
+				providedRole_EntryLevelSystemCall := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].applicationProvidedServiceCorrespondences
+						->any(cactosApplication = application and cactosRole = self.serviceProvidedRole).palladioSystemRole;
+				operationSignature__EntryLevelSystemCall := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].serviceOperationCorrespondences
+					->any(cactos = self.serviceOperationOfProvidedRole).palladio;
+			};
+		}
+		successor := self.successingControlFlowAction.map toUserAction(variables);
+	}
+	
+	mapping _logicaldc_application::SetVariableAction::toUserAction(inout variables: Dict (ControlFlowVariable, String)): AbstractUserAction {
+		init { 
+			self.variableAssignments->forEach(assignment) {
+				variables->put(assignment.variable, assignment.value);
+			};
+			result := self.successingControlFlowAction.map toUserAction(variables);
+		}
+	}
+	
+	mapping ArrivalRate::toWorkload(): usagemodel::Workload {
+		init {
+			result := null;
+		}
+		assert error (false) with log('Unknown ArrivalRate experienced: ' + self.metaClassName() + '. Fix the model or extend the transformation.');
+	}
+	
+	mapping ConstantOpenWorkload::toWorkload(): usagemodel::Workload {
+		init {
+			result := object usagemodel::OpenWorkload {
+				interArrivalTime_OpenWorkload := createPcmRandomVariable(
+					getSpecificationInTargetUnit(self.interarrivalTime, self.timeUnit, getUnitSecond()));
+			};
+		}
+	}
+	
+	mapping VariableOpenWorkload::toWorkload(): usagemodel::Workload {
+		init {
+			result := object usagemodel::OpenWorkload {
+				interArrivalTime_OpenWorkload := createPcmRandomVariable("1.0");	
+			};
+		}
+	}
+	
+	mapping _logicaldc_application::ClosedWorkload::toWorkload(): usagemodel::Workload {
+		init {
+			result := object usagemodel::ClosedWorkload {
+				_'population' := self.userPopulation;
+				thinkTime_ClosedWorkload := createPcmRandomVariable(
+					getSpecificationInTargetUnit(self.thinkTime, self.timeUnit, getUnitSecond()));	
+			};
+		}
+	}
+									
+	helper ApplicationInstance::createDummyUsageScenario() : usagemodel::UsageScenario {
+		return object usagemodel::UsageScenario {
+			entityName := "Usage of Application #" + self.id;
+			workload_UsageScenario :=  object usagemodel::ClosedWorkload {
+				_population := 1;
+				thinkTime_ClosedWorkload := createPcmRandomVariable("0.0");
+			};
+			scenarioBehaviour_UsageScenario := createScaffoldedScenarioBehaviour(null);
+		}
+	}
+			 
+			
+	/// Measuring Point Model
+	
+	mapping ApplicationInstance::toMeasuringPoints() : Set(MeasuringPoint) {
+		init {
+			result := Set {};
+		}
+	}
+	
+	mapping GreyBoxApplicationInstance::toMeasuringPoints() : Set(MeasuringPoint) {
+		init {
+			result := Set {self.map toUsageScenarioMeasuringPoint()};
+		}
+	}
+	
+	mapping GreyBoxApplicationInstance::toUsageScenarioMeasuringPoint() : UsageScenarioMeasuringPoint {
+		usageScenario := self.resolveoneIn(GreyBoxApplicationInstance::toUsageScenario);
+	}
+	
+	mapping WhiteBoxApplicationInstance::toMeasuringPoints() : Set(MeasuringPoint) {
+		init {
+			result := self.whiteBoxUserBehaviourInstance.map toMeasuringPoints()->flatten()->asSet();
+		}
+	}
+	
+	mapping application::UsageScenario::toMeasuringPoints(): Set(MeasuringPoint) {
+		init {
+			result := self.userBehaviours->map toUsageScenarioMeasuringPoint()->asSet();
+		}
+	}
+	
+	mapping UserBehaviour::toUsageScenarioMeasuringPoint(): UsageScenarioMeasuringPoint {
+		usageScenario := self.map toUsageScenario();
+	}
+	
+	mapping ApplicationInstance::toMonitors() : Set(Monitor) {
+		init {
+			result := Set {};
+		}
+	}
+	
+	mapping GreyBoxApplicationInstance::toMonitors() : Set(Monitor) {
+		init {
+			result := Set {self.map toExecutionRuntimeMonitors()};
+		}
+	}
+	
+	mapping GreyBoxApplicationInstance::toExecutionRuntimeMonitors() : Monitor {
+		entityName := "Grey-Box Complete Execution Runtime";
+		measuringPoint := self.resolveoneIn(GreyBoxApplicationInstance::toUsageScenarioMeasuringPoint);
+		measurementSpecifications += object MeasurementSpecification {
+			metricDescription := getMetricDescriptionResponseTime();
+			processingType := object TimeDriven {
+				windowLength := GREY_BOX_APPLICATION_MEASUREMENTS_DEFAULT_UPDATE_RATE;
+				windowIncrement := GREY_BOX_APPLICATION_MEASUREMENTS_DEFAULT_UPDATE_RATE;
+			};
+			triggersSelfAdaptations := false;
+		}
+	}
+	
+	mapping WhiteBoxApplicationInstance::toMonitors() : Set(Monitor) {
+		init {
+			result := self.whiteBoxUserBehaviourInstance.map toMonitors()->flatten()->asSet();
+		}
+	}
+	
+	mapping application::UsageScenario::toMonitors(): Set(Monitor) {
+		init {
+			result := self.userBehaviours->map toMonitor()->asSet();
+		}
+	}
+	
+	mapping UserBehaviour::toMonitor(): Monitor {
+		entityName := "Usage of UserBehaviour #" + self.id + " of WhiteBoxApplication #" 
+			+ self.usageScenario.oclAsType(WhiteBoxUserBehaviourInstance).whiteBoxApplicationInstance.id;
+		measuringPoint := self.map toUsageScenarioMeasuringPoint();
+		measurementSpecifications += object MeasurementSpecification {
+			metricDescription := getMetricDescriptionResponseTime();
+			processingType := object TimeDriven {
+				windowLength := WHITE_BOX_APPLICATION_MEASUREMENTS_DEFAULT_UPDATE_RATE;
+				windowIncrement := WHITE_BOX_APPLICATION_MEASUREMENTS_DEFAULT_UPDATE_RATE;
+			};
+		}
+	}
+	
+	mapping BlackBoxWorkload::blackBoxWorkloadToEmptyInputParameterUsage() : VariableUsage {
+		variableCharacterisation_VariableUsage := object VariableCharacterisation {
+			if(self.onResource.oclIsTypeOf(StorageSpecification)) {
+				type := VariableCharacterisationType::BYTESIZE;
+			} else {
+				type := VariableCharacterisationType::VALUE;
+			};
+			specification_VariableCharacterisation := createPcmRandomVariable(BLACK_BOX_APPLICATION_WORKLOADS_DEFAULT_RESOURCE_DEMAND);
+		};
+		namedReference__VariableUsage := object VariableReference {
+			referenceName := self.retrieveParameter().parameterName;
+		};
+	}
+	helper createScaffoldedScenarioBehaviour(inout call : EntryLevelSystemCall) : ScenarioBehaviour {
+		return object ScenarioBehaviour {
+			entityName := "Scaffold-based usage model with injected EntryLevelSystemCall.";
+			var action : AbstractUserAction;
+			actions_ScenarioBehaviour += action := object Start {
+				entityName := "Start";
+			};
+			if (call <> null) {
+				call.predecessor := action;
+				actions_ScenarioBehaviour += action := call;
+			};
+			actions_ScenarioBehaviour += object Stop {
+				entityName := "Stop";
+				predecessor := action;
+			} 
+		}
+	}
+	
+	query BlackBoxWorkload::retrieveParameter(): Parameter {
+		var vmComponent := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].virtualMachineCorrespondences
+			->any(cactos = self.blackBoxBehaviour.oclAsType(BlackBoxVMBehaviour).virtualMachine).palladio
+				.assemblyContext_AllocationContext.encapsulatedComponent__AssemblyContext.oclAsType(BasicComponent);
+		var storageInterface := vmComponent.repository__RepositoryComponent.map getOrCreateStorageAccessInterface();
+		return vmComponent.providedRoles_InterfaceProvidingEntity[OperationProvidedRole].providedInterface__OperationProvidedRole
+			->select(entityName = BLACK_BOX_VM_INTERFACE_NAME).signatures__OperationInterface.parameters__OperationSignature
+			->any(parameterName = self.getBlackBoxWorkloadParameterName(storageInterface));
+	}
+	
+	
+}

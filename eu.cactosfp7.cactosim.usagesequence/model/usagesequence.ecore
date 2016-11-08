@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="usagesequence" nsURI="http://www.cactosfp7.eu/CactoSim/UsageSequence/1.1"
+    nsPrefix="usagesequence">
+  <eClassifiers xsi:type="ecore:EClass" name="UsageSequenceRepository">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sequences" upperBound="-1"
+        eType="ecore:EClass ../../tools.descartes.dlim.generator/src/tools/descartes/dlim/model/dlim.ecore#//Sequence"
+        containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

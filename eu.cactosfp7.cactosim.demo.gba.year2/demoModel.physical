@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:PhysicalDCModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0" id="_F_0ucHgLEeWo66R8YksaUA">
+  <switches id="_GBgwgHgLEeWo66R8YksaUA" name="Single Switch Layout" networkInterconnects="_GBUjQHgLEeWo66R8YksaUA"/>
+  <racks id="_GALTwHgLEeWo66R8YksaUA" name="Dell 08-15" powerSupplies="_F__GgHgLEeWo66R8YksaUA">
+    <nodes xsi:type="core:ComputeNode" id="_GAdAkHgLEeWo66R8YksaUA" name="Compute Node 0" powerProvidingEntities="_F__GgHgLEeWo66R8YksaUA" powerConsumingEntities="_GAn_sHgLEeWo66R8YksaUA _GAxJoHgLEeWo66R8YksaUA _GA66oHgLEeWo66R8YksaUA" networkInterconnects="_GBUjQHgLEeWo66R8YksaUA">
+      <cpuSpecifications id="_GAn_sHgLEeWo66R8YksaUA" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_GAdAkHgLEeWo66R8YksaUA" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_F-5hYHgLEeWo66R8YksaUA"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_GAxJoHgLEeWo66R8YksaUA" name="Local HDD" powerProvidingEntities="_GAdAkHgLEeWo66R8YksaUA" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="560.0(bit/s)*1000000"/>
+        <writeBandwidth value="560.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_GA66oHgLEeWo66R8YksaUA" name="DDR3-RAM" powerProvidingEntities="_GAdAkHgLEeWo66R8YksaUA" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_GCBt4HgLEeWo66R8YksaUA"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_GA8v0HgLEeWo66R8YksaUA" name="Compute Node 1" powerProvidingEntities="_F__GgHgLEeWo66R8YksaUA" powerConsumingEntities="_GA8v0XgLEeWo66R8YksaUA _GA8v0ngLEeWo66R8YksaUA _GA8v03gLEeWo66R8YksaUA" networkInterconnects="_GBUjQHgLEeWo66R8YksaUA">
+      <cpuSpecifications id="_GA8v0XgLEeWo66R8YksaUA" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_GA8v0HgLEeWo66R8YksaUA" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_F-5hYHgLEeWo66R8YksaUA"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_GA8v0ngLEeWo66R8YksaUA" name="Local HDD" powerProvidingEntities="_GA8v0HgLEeWo66R8YksaUA" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="560.0(bit/s)*1000000"/>
+        <writeBandwidth value="560.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_GA8v03gLEeWo66R8YksaUA" name="DDR3-RAM" powerProvidingEntities="_GA8v0HgLEeWo66R8YksaUA" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_GCC8AHgLEeWo66R8YksaUA"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_GA9W4HgLEeWo66R8YksaUA" name="Compute Node 2" powerProvidingEntities="_F__GgHgLEeWo66R8YksaUA" powerConsumingEntities="_GA9W4XgLEeWo66R8YksaUA _GA9W4ngLEeWo66R8YksaUA _GA9W43gLEeWo66R8YksaUA" networkInterconnects="_GBUjQHgLEeWo66R8YksaUA">
+      <cpuSpecifications id="_GA9W4XgLEeWo66R8YksaUA" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_GA9W4HgLEeWo66R8YksaUA" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_F-5hYHgLEeWo66R8YksaUA"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_GA9W4ngLEeWo66R8YksaUA" name="Local HDD" powerProvidingEntities="_GA9W4HgLEeWo66R8YksaUA" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="560.0(bit/s)*1000000"/>
+        <writeBandwidth value="560.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_GA9W43gLEeWo66R8YksaUA" name="DDR3-RAM" powerProvidingEntities="_GA9W4HgLEeWo66R8YksaUA" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_GCC8AXgLEeWo66R8YksaUA"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_GA9W5HgLEeWo66R8YksaUA" name="Compute Node 3" powerProvidingEntities="_F__GgHgLEeWo66R8YksaUA" powerConsumingEntities="_GA9W5XgLEeWo66R8YksaUA _GA998HgLEeWo66R8YksaUA _GA998XgLEeWo66R8YksaUA" networkInterconnects="_GBUjQHgLEeWo66R8YksaUA">
+      <cpuSpecifications id="_GA9W5XgLEeWo66R8YksaUA" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_GA9W5HgLEeWo66R8YksaUA" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_F-5hYHgLEeWo66R8YksaUA"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_GA998HgLEeWo66R8YksaUA" name="Local HDD" powerProvidingEntities="_GA9W5HgLEeWo66R8YksaUA" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="560.0(bit/s)*1000000"/>
+        <writeBandwidth value="560.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_GA998XgLEeWo66R8YksaUA" name="DDR3-RAM" powerProvidingEntities="_GA9W5HgLEeWo66R8YksaUA" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_GCDjEHgLEeWo66R8YksaUA"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_GA998ngLEeWo66R8YksaUA" name="Compute Node 4" powerProvidingEntities="_F__GgHgLEeWo66R8YksaUA" powerConsumingEntities="_GA9983gLEeWo66R8YksaUA _GA999HgLEeWo66R8YksaUA _GA-lAHgLEeWo66R8YksaUA" networkInterconnects="_GBUjQHgLEeWo66R8YksaUA">
+      <cpuSpecifications id="_GA9983gLEeWo66R8YksaUA" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_GA998ngLEeWo66R8YksaUA" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_F-5hYHgLEeWo66R8YksaUA"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_GA999HgLEeWo66R8YksaUA" name="Local HDD" powerProvidingEntities="_GA998ngLEeWo66R8YksaUA" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="560.0(bit/s)*1000000"/>
+        <writeBandwidth value="560.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_GA-lAHgLEeWo66R8YksaUA" name="DDR3-RAM" powerProvidingEntities="_GA998ngLEeWo66R8YksaUA" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_GCDjEXgLEeWo66R8YksaUA"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_GBAaMHgLEeWo66R8YksaUA" name="Compute Node 5" powerProvidingEntities="_F__GgHgLEeWo66R8YksaUA" powerConsumingEntities="_GBAaMXgLEeWo66R8YksaUA _GBAaMngLEeWo66R8YksaUA _GBAaM3gLEeWo66R8YksaUA" networkInterconnects="_GBUjQHgLEeWo66R8YksaUA">
+      <cpuSpecifications id="_GBAaMXgLEeWo66R8YksaUA" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_GBAaMHgLEeWo66R8YksaUA" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_F-5hYHgLEeWo66R8YksaUA"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_GBAaMngLEeWo66R8YksaUA" name="Local HDD" powerProvidingEntities="_GBAaMHgLEeWo66R8YksaUA" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="560.0(bit/s)*1000000"/>
+        <writeBandwidth value="560.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_GBAaM3gLEeWo66R8YksaUA" name="DDR3-RAM" powerProvidingEntities="_GBAaMHgLEeWo66R8YksaUA" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_GCDjEngLEeWo66R8YksaUA"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_GBEEkHgLEeWo66R8YksaUA" name="Compute Node 6" powerProvidingEntities="_F__GgHgLEeWo66R8YksaUA" powerConsumingEntities="_GBEEkXgLEeWo66R8YksaUA _GBEroHgLEeWo66R8YksaUA _GBEroXgLEeWo66R8YksaUA" networkInterconnects="_GBUjQHgLEeWo66R8YksaUA">
+      <cpuSpecifications id="_GBEEkXgLEeWo66R8YksaUA" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_GBEEkHgLEeWo66R8YksaUA" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_F-5hYHgLEeWo66R8YksaUA"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_GBEroHgLEeWo66R8YksaUA" name="Local HDD" powerProvidingEntities="_GBEEkHgLEeWo66R8YksaUA" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="560.0(bit/s)*1000000"/>
+        <writeBandwidth value="560.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_GBEroXgLEeWo66R8YksaUA" name="DDR3-RAM" powerProvidingEntities="_GBEEkHgLEeWo66R8YksaUA" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_GCDjE3gLEeWo66R8YksaUA"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_GBErongLEeWo66R8YksaUA" name="Compute Node 7" powerProvidingEntities="_F__GgHgLEeWo66R8YksaUA" powerConsumingEntities="_GBEro3gLEeWo66R8YksaUA _GBErpHgLEeWo66R8YksaUA _GBFSsHgLEeWo66R8YksaUA" networkInterconnects="_GBUjQHgLEeWo66R8YksaUA">
+      <cpuSpecifications id="_GBEro3gLEeWo66R8YksaUA" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_GBErongLEeWo66R8YksaUA" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_F-5hYHgLEeWo66R8YksaUA"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_GBErpHgLEeWo66R8YksaUA" name="Local HDD" powerProvidingEntities="_GBErongLEeWo66R8YksaUA" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="560.0(bit/s)*1000000"/>
+        <writeBandwidth value="560.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_GBFSsHgLEeWo66R8YksaUA" name="DDR3-RAM" powerProvidingEntities="_GBErongLEeWo66R8YksaUA" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_GCDjFHgLEeWo66R8YksaUA"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_GBFSsXgLEeWo66R8YksaUA" name="Compute Node 8" powerProvidingEntities="_F__GgHgLEeWo66R8YksaUA" powerConsumingEntities="_GBFSsngLEeWo66R8YksaUA _GBFSs3gLEeWo66R8YksaUA _GBGg0HgLEeWo66R8YksaUA" networkInterconnects="_GBUjQHgLEeWo66R8YksaUA">
+      <cpuSpecifications id="_GBFSsngLEeWo66R8YksaUA" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_GBFSsXgLEeWo66R8YksaUA" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_F-5hYHgLEeWo66R8YksaUA"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_GBFSs3gLEeWo66R8YksaUA" name="Local SSD" powerProvidingEntities="_GBFSsXgLEeWo66R8YksaUA" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="960.0(bit/s)*1000000"/>
+        <writeBandwidth value="960.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_GBGg0HgLEeWo66R8YksaUA" name="DDR3-RAM" powerProvidingEntities="_GBFSsXgLEeWo66R8YksaUA" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_GCDjFXgLEeWo66R8YksaUA"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_GBHH4HgLEeWo66R8YksaUA" name="Compute Node 9" powerProvidingEntities="_F__GgHgLEeWo66R8YksaUA" powerConsumingEntities="_GBHH4XgLEeWo66R8YksaUA _GBHH4ngLEeWo66R8YksaUA _GBHH43gLEeWo66R8YksaUA" networkInterconnects="_GBUjQHgLEeWo66R8YksaUA">
+      <cpuSpecifications id="_GBHH4XgLEeWo66R8YksaUA" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_GBHH4HgLEeWo66R8YksaUA" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_F-5hYHgLEeWo66R8YksaUA"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_GBHH4ngLEeWo66R8YksaUA" name="Local SSD" powerProvidingEntities="_GBHH4HgLEeWo66R8YksaUA" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="960.0(bit/s)*1000000"/>
+        <writeBandwidth value="960.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_GBHH43gLEeWo66R8YksaUA" name="DDR3-RAM" powerProvidingEntities="_GBHH4HgLEeWo66R8YksaUA" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_GCDjFngLEeWo66R8YksaUA"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_GBHH5HgLEeWo66R8YksaUA" name="Compute Node 10" powerProvidingEntities="_F__GgHgLEeWo66R8YksaUA" powerConsumingEntities="_GBHu8HgLEeWo66R8YksaUA _GBHu8XgLEeWo66R8YksaUA _GBHu8ngLEeWo66R8YksaUA" networkInterconnects="_GBUjQHgLEeWo66R8YksaUA">
+      <cpuSpecifications id="_GBHu8HgLEeWo66R8YksaUA" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_GBHH5HgLEeWo66R8YksaUA" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_F-5hYHgLEeWo66R8YksaUA"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_GBHu8XgLEeWo66R8YksaUA" name="Local SSD" powerProvidingEntities="_GBHH5HgLEeWo66R8YksaUA" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="960.0(bit/s)*1000000"/>
+        <writeBandwidth value="960.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_GBHu8ngLEeWo66R8YksaUA" name="DDR3-RAM" powerProvidingEntities="_GBHH5HgLEeWo66R8YksaUA" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_GCDjF3gLEeWo66R8YksaUA"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_GBHu83gLEeWo66R8YksaUA" name="Compute Node 11" powerProvidingEntities="_F__GgHgLEeWo66R8YksaUA" powerConsumingEntities="_GBHu9HgLEeWo66R8YksaUA _GBIWAHgLEeWo66R8YksaUA _GBIWAXgLEeWo66R8YksaUA" networkInterconnects="_GBUjQHgLEeWo66R8YksaUA">
+      <cpuSpecifications id="_GBHu9HgLEeWo66R8YksaUA" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_GBHu83gLEeWo66R8YksaUA" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_F-5hYHgLEeWo66R8YksaUA"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_GBIWAHgLEeWo66R8YksaUA" name="Local SSD" powerProvidingEntities="_GBHu83gLEeWo66R8YksaUA" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="960.0(bit/s)*1000000"/>
+        <writeBandwidth value="960.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_GBIWAXgLEeWo66R8YksaUA" name="DDR3-RAM" powerProvidingEntities="_GBHu83gLEeWo66R8YksaUA" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_GCDjGHgLEeWo66R8YksaUA"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_GBI9EHgLEeWo66R8YksaUA" name="Compute Node 12" powerProvidingEntities="_F__GgHgLEeWo66R8YksaUA" powerConsumingEntities="_GBI9EXgLEeWo66R8YksaUA _GBI9EngLEeWo66R8YksaUA _GBI9E3gLEeWo66R8YksaUA" networkInterconnects="_GBUjQHgLEeWo66R8YksaUA">
+      <cpuSpecifications id="_GBI9EXgLEeWo66R8YksaUA" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_GBI9EHgLEeWo66R8YksaUA" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_F-5hYHgLEeWo66R8YksaUA"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_GBI9EngLEeWo66R8YksaUA" name="Local SSD" powerProvidingEntities="_GBI9EHgLEeWo66R8YksaUA" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="960.0(bit/s)*1000000"/>
+        <writeBandwidth value="960.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_GBI9E3gLEeWo66R8YksaUA" name="DDR3-RAM" powerProvidingEntities="_GBI9EHgLEeWo66R8YksaUA" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_GCDjGXgLEeWo66R8YksaUA"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_GBI9FHgLEeWo66R8YksaUA" name="Compute Node 13" powerProvidingEntities="_F__GgHgLEeWo66R8YksaUA" powerConsumingEntities="_GBI9FXgLEeWo66R8YksaUA _GBI9FngLEeWo66R8YksaUA _GBJkIHgLEeWo66R8YksaUA" networkInterconnects="_GBUjQHgLEeWo66R8YksaUA">
+      <cpuSpecifications id="_GBI9FXgLEeWo66R8YksaUA" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_GBI9FHgLEeWo66R8YksaUA" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_F-5hYHgLEeWo66R8YksaUA"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_GBI9FngLEeWo66R8YksaUA" name="Local SSD" powerProvidingEntities="_GBI9FHgLEeWo66R8YksaUA" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="960.0(bit/s)*1000000"/>
+        <writeBandwidth value="960.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_GBJkIHgLEeWo66R8YksaUA" name="DDR3-RAM" powerProvidingEntities="_GBI9FHgLEeWo66R8YksaUA" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_GCDjGngLEeWo66R8YksaUA"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_GBJkIXgLEeWo66R8YksaUA" name="Compute Node 14" powerProvidingEntities="_F__GgHgLEeWo66R8YksaUA" powerConsumingEntities="_GBJkIngLEeWo66R8YksaUA _GBJkI3gLEeWo66R8YksaUA _GBJkJHgLEeWo66R8YksaUA" networkInterconnects="_GBUjQHgLEeWo66R8YksaUA">
+      <cpuSpecifications id="_GBJkIngLEeWo66R8YksaUA" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_GBJkIXgLEeWo66R8YksaUA" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_F-5hYHgLEeWo66R8YksaUA"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_GBJkI3gLEeWo66R8YksaUA" name="Local SSD" powerProvidingEntities="_GBJkIXgLEeWo66R8YksaUA" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="960.0(bit/s)*1000000"/>
+        <writeBandwidth value="960.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_GBJkJHgLEeWo66R8YksaUA" name="DDR3-RAM" powerProvidingEntities="_GBJkIXgLEeWo66R8YksaUA" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_GCDjG3gLEeWo66R8YksaUA"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_GBPqwHgLEeWo66R8YksaUA" name="Compute Node 15" powerProvidingEntities="_F__GgHgLEeWo66R8YksaUA" powerConsumingEntities="_GBPqwXgLEeWo66R8YksaUA _GBPqwngLEeWo66R8YksaUA _GBPqw3gLEeWo66R8YksaUA" networkInterconnects="_GBUjQHgLEeWo66R8YksaUA">
+      <cpuSpecifications id="_GBPqwXgLEeWo66R8YksaUA" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_GBPqwHgLEeWo66R8YksaUA" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_F-5hYHgLEeWo66R8YksaUA"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_GBPqwngLEeWo66R8YksaUA" name="Local SSD" powerProvidingEntities="_GBPqwHgLEeWo66R8YksaUA" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="960.0(bit/s)*1000000"/>
+        <writeBandwidth value="960.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_GBPqw3gLEeWo66R8YksaUA" name="DDR3-RAM" powerProvidingEntities="_GBPqwHgLEeWo66R8YksaUA" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_GCDjHHgLEeWo66R8YksaUA"/>
+    </nodes>
+  </racks>
+  <racks id="_GAMh4HgLEeWo66R8YksaUA" name="Dell 08-15" powerSupplies="_F__tkHgLEeWo66R8YksaUA"/>
+  <powerSupplies id="_F_94YHgLEeWo66R8YksaUA" name="Main PDU" powerCap="3.0kW" powerConsumingEntities="_F__GgHgLEeWo66R8YksaUA _F__tkHgLEeWo66R8YksaUA" suppliablePeakPower="3.2kW"/>
+  <powerSupplies id="_F__GgHgLEeWo66R8YksaUA" name="Rack 1 PDU" powerProvidingEntities="_F_94YHgLEeWo66R8YksaUA" powerCap="2.0kW" powerConsumingEntities="_GAdAkHgLEeWo66R8YksaUA _GA8v0HgLEeWo66R8YksaUA _GA9W4HgLEeWo66R8YksaUA _GA9W5HgLEeWo66R8YksaUA _GA998ngLEeWo66R8YksaUA _GBAaMHgLEeWo66R8YksaUA _GBEEkHgLEeWo66R8YksaUA _GBErongLEeWo66R8YksaUA _GBFSsXgLEeWo66R8YksaUA _GBHH4HgLEeWo66R8YksaUA _GBHH5HgLEeWo66R8YksaUA _GBHu83gLEeWo66R8YksaUA _GBI9EHgLEeWo66R8YksaUA _GBI9FHgLEeWo66R8YksaUA _GBJkIXgLEeWo66R8YksaUA _GBPqwHgLEeWo66R8YksaUA" suppliablePeakPower="2.0kW" hostedIn="_GALTwHgLEeWo66R8YksaUA"/>
+  <powerSupplies id="_F__tkHgLEeWo66R8YksaUA" name="Rack 2 PDU" powerProvidingEntities="_F_94YHgLEeWo66R8YksaUA" powerCap="2.0kW" suppliablePeakPower="2.0kW" hostedIn="_GAMh4HgLEeWo66R8YksaUA"/>
+  <clusters id="_GBlB8HgLEeWo66R8YksaUA" name="Single Cluster Layout" clusterId="1" containedNodes="_GAdAkHgLEeWo66R8YksaUA _GA8v0HgLEeWo66R8YksaUA _GA9W4HgLEeWo66R8YksaUA _GA9W5HgLEeWo66R8YksaUA _GA998ngLEeWo66R8YksaUA _GBAaMHgLEeWo66R8YksaUA _GBEEkHgLEeWo66R8YksaUA _GBErongLEeWo66R8YksaUA _GBFSsXgLEeWo66R8YksaUA _GBHH4HgLEeWo66R8YksaUA _GBHH5HgLEeWo66R8YksaUA _GBHu83gLEeWo66R8YksaUA _GBI9EHgLEeWo66R8YksaUA _GBI9FHgLEeWo66R8YksaUA _GBJkIXgLEeWo66R8YksaUA _GBPqwHgLEeWo66R8YksaUA"/>
+  <networkInterconnects id="_GBUjQHgLEeWo66R8YksaUA" name="Single NIC Layout" connectedEntities="_GAdAkHgLEeWo66R8YksaUA _GA8v0HgLEeWo66R8YksaUA _GA9W4HgLEeWo66R8YksaUA _GA9W5HgLEeWo66R8YksaUA _GA998ngLEeWo66R8YksaUA _GBAaMHgLEeWo66R8YksaUA _GBEEkHgLEeWo66R8YksaUA _GBErongLEeWo66R8YksaUA _GBFSsXgLEeWo66R8YksaUA _GBHH4HgLEeWo66R8YksaUA _GBHH5HgLEeWo66R8YksaUA _GBHu83gLEeWo66R8YksaUA _GBI9EHgLEeWo66R8YksaUA _GBI9FHgLEeWo66R8YksaUA _GBJkIXgLEeWo66R8YksaUA _GBPqwHgLEeWo66R8YksaUA _GBgwgHgLEeWo66R8YksaUA">
+    <bandwidth value="1.0(bit/s)*1000000000"/>
+  </networkInterconnects>
+</core:PhysicalDCModel>

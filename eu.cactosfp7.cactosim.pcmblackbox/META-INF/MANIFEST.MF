@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: PCM Blackbox Library
+Bundle-SymbolicName: eu.cactosfp7.cactosim.pcmblackbox;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: CACTOS Consortium
+Require-Bundle: org.eclipse.core.runtime,
+ org.jscience;bundle-version="4.3.1",
+ org.eclipse.m2m.qvt.oml
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Export-Package: eu.cactosfp7.cactosim.pcmblackbox

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            class="eu.cactosfp7.cactosim.ui.launcher.configuration.InterpreterConfigurationTab"
+            id="eu.cactosfp7.cactosim.ui.launcher.configuration.InterpreterConfigurationTab"
+            type="eu.cactosfp7.cactosim.ui.launcher.CactoSimLaunching">
+      </launchConfigurationTabGroup>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            delegate="eu.cactosfp7.cactosim.launcher.CactoSimLauncher"
+            id="eu.cactosfp7.cactosim.ui.launcher.CactoSimLaunching"
+            modes="run, debug"
+            name="CactoSim"
+            public="true">
+      </launchConfigurationType>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            configTypeID="eu.cactosfp7.cactosim.ui.launcher.CactoSimLaunching"
+            icon="icons/cactosim_16_alt.bmp"
+            id="eu.cactosfp7.cactosim.ui.launcher.launchConfigurationTypeImage">
+      </launchConfigurationTypeImage>
+   </extension>
+
+</plugin>

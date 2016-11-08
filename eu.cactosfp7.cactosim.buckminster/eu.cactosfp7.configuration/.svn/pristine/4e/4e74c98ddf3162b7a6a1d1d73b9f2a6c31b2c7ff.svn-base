@@ -1,0 +1,11 @@
+#Put here the Openstack Credentials
+openstackPassword = default
+openstackTenantName = default
+openstackCredentialUser = default
+openstackApi = default
+
+#Put here the Flexiant Credentials
+flexiantTenantUUID = default
+flexiantPassword = default
+flexiantEmail = default
+flexiantApi = default

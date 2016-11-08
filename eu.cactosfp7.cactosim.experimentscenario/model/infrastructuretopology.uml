@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/5" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Ecore/5 pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA">
+  <uml:Package xmi:id="_XxE38NBNEeO01fgRZH4hTg" name="physicaldc">
+    <packageImport xmi:id="_XxE389BNEeO01fgRZH4hTg">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Package" xmi:id="_kktVUNp7EeOgZ8iCG_cfdA" name="core">
+      <packagedElement xmi:type="uml:Class" xmi:id="_ICtFMNH7EeO1Z4Iu7NBTJw" name="Cluster">
+        <generalization xmi:id="_gsHr8OzLEeOrOLoJQ_bk1g">
+          <general xmi:type="uml:Class" href="identifier.uml#_IZ8_YcarEeWjVKFatxSPjg"/>
+        </generalization>
+        <generalization xmi:id="_fp6WIOzNEeOrOLoJQ_bk1g" general="_WnFqwOzNEeOrOLoJQ_bk1g"/>
+        <ownedAttribute xmi:id="_JfZssNH7EeO1Z4Iu7NBTJw" name="clusterId" visibility="public">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_tcaGkNH7EeO1Z4Iu7NBTJw" name="containedNodes" visibility="public" type="_gVQqENBOEeO4muSpLo4P7Q" association="_tcT_8NH7EeO1Z4Iu7NBTJw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tcaGktH7EeO1Z4Iu7NBTJw" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tcaGkdH7EeO1Z4Iu7NBTJw" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_3OH40NdMEeOWiv2w1JMBFw" name="physicalDCModel" visibility="public" type="_br9kUNdMEeOWiv2w1JMBFw" association="_3OByMNdMEeOWiv2w1JMBFw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_3OH40tdMEeOWiv2w1JMBFw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_3OH40ddMEeOWiv2w1JMBFw"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_br9kUNdMEeOWiv2w1JMBFw" name="PhysicalDCModel">
+        <generalization xmi:id="_yZ4HIOzLEeOrOLoJQ_bk1g">
+          <general xmi:type="uml:Class" href="identifier.uml#_IZ8_YcarEeWjVKFatxSPjg"/>
+        </generalization>
+        <ownedAttribute xmi:id="_e93Z8ddMEeOWiv2w1JMBFw" name="switches" visibility="public" type="_5JsBcOszEeO77KcDqiDtnw" aggregation="composite" association="_e93Z8NdMEeOWiv2w1JMBFw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1_2Qwes1EeO77KcDqiDtnw" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1_2QwOs1EeO77KcDqiDtnw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_iJF_0ddMEeOWiv2w1JMBFw" name="racks" visibility="public" type="_W_d_YNBOEeO4muSpLo4P7Q" aggregation="composite" association="_iJF_0NdMEeOWiv2w1JMBFw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iJMGcNdMEeOWiv2w1JMBFw" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iJF_0tdMEeOWiv2w1JMBFw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_3OByMddMEeOWiv2w1JMBFw" name="clusters" visibility="public" type="_ICtFMNH7EeO1Z4Iu7NBTJw" aggregation="composite" association="_3OByMNdMEeOWiv2w1JMBFw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_3OByM9dMEeOWiv2w1JMBFw" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_3OByMtdMEeOWiv2w1JMBFw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_UcO6ses2EeO77KcDqiDtnw" name="networkInterconnects" visibility="public" type="_DltmgNB8EeO4muSpLo4P7Q" aggregation="composite" association="_UcO6sOs2EeO77KcDqiDtnw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_UcVBUes2EeO77KcDqiDtnw" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_UcVBUOs2EeO77KcDqiDtnw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_vRahsEr4EeWDUt8a9isINA" name="powerSupplies" visibility="public" type="_n8AaYEr4EeWDUt8a9isINA" aggregation="composite" association="_vRZTkEr4EeWDUt8a9isINA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_vRbIwUr4EeWDUt8a9isINA" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_vRbIwEr4EeWDUt8a9isINA"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_JL8IoNBPEeO4muSpLo4P7Q" name="MemorySpecification">
+        <generalization xmi:id="_auS_EES6EeW2TPgc4TJ8CQ" general="_5uYocES5EeW2TPgc4TJ8CQ"/>
+        <generalization xmi:id="_TxH30EssEeWDUt8a9isINA" general="_oQN0MEsWEeWDUt8a9isINA"/>
+        <ownedAttribute xmi:id="_Q63jMNBPEeO4muSpLo4P7Q" name="size" visibility="public" type="_xwb54P0kEeOwQsUkAvd0gw"/>
+        <ownedAttribute xmi:id="_FmduktCCEeO4muSpLo4P7Q" name="node" visibility="public" type="_gVQqENBOEeO4muSpLo4P7Q" association="_FmXn8NCCEeO4muSpLo4P7Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Fmj1MdCCEeO4muSpLo4P7Q" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Fmj1MNCCEeO4muSpLo4P7Q"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_9qbR4ODkEeOoz6p-ll5D6Q" name="bandwidthRead" visibility="public" type="_1Dl-8ODkEeOoz6p-ll5D6Q" aggregation="composite" association="_9qVLQODkEeOoz6p-ll5D6Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9qhYgODkEeOoz6p-ll5D6Q" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9qbR4eDkEeOoz6p-ll5D6Q"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_wbZN0OvyEeOnWK4468fCwQ" name="bandwidthWrite" visibility="public" type="_1Dl-8ODkEeOoz6p-ll5D6Q" aggregation="composite" association="_wbTHMOvyEeOnWK4468fCwQ">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_wbZN0uvyEeOnWK4468fCwQ" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wbZN0evyEeOnWK4468fCwQ"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_SJM7oNIdEeO1Z4Iu7NBTJw" name="NetworkAttachedStorage">
+        <ownedRule xmi:id="_gyOvwMUUEeW6MJ9rKOdEvA" name="NetworkAttachedStorageMustHaveAtLeastOneStorageSpecification" constrainedElement="_SJM7oNIdEeO1Z4Iu7NBTJw">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="_gyPW0MUUEeW6MJ9rKOdEvA">
+            <language>OCL</language>
+            <body>storageSpecifications->size() > 0</body>
+          </specification>
+        </ownedRule>
+        <generalization xmi:id="_2Ls5gNIdEeO1Z4Iu7NBTJw" general="_gVQqENBOEeO4muSpLo4P7Q"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_DltmgNB8EeO4muSpLo4P7Q" name="NetworkInterconnect">
+        <generalization xmi:id="_GKIRcEIyEeSSzMWM_BprpQ" general="_WnFqwOzNEeOrOLoJQ_bk1g"/>
+        <generalization xmi:id="_sBNRUES6EeW2TPgc4TJ8CQ" general="_5uYocES5EeW2TPgc4TJ8CQ"/>
+        <ownedAttribute xmi:id="_yZSrsOszEeO77KcDqiDtnw" name="bandwidth" visibility="public" type="_1Dl-8ODkEeOoz6p-ll5D6Q" aggregation="composite" association="_yZMlEOszEeO77KcDqiDtnw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_yZSrsuszEeO77KcDqiDtnw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_yZSrseszEeO77KcDqiDtnw" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_UcVBUus2EeO77KcDqiDtnw" name="physicalDCModel" visibility="public" type="_br9kUNdMEeOWiv2w1JMBFw" association="_UcO6sOs2EeO77KcDqiDtnw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_UcbH8Os2EeO77KcDqiDtnw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_UcVBU-s2EeO77KcDqiDtnw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_GjhY8eyrEeOrOLoJQ_bk1g" name="connectedEntities" visibility="public" type="_7H6KwOu5EeOnWK4468fCwQ" association="_GjhY8OyrEeOrOLoJQ_bk1g">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_pv0dYDTSEeSxwsLmM0xSwQ" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_pvz2UDTSEeSxwsLmM0xSwQ" value="2"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_gVQqENBOEeO4muSpLo4P7Q" name="AbstractNode" isAbstract="true">
+        <generalization xmi:id="_mT8XIOu6EeOnWK4468fCwQ" general="_7H6KwOu5EeOnWK4468fCwQ"/>
+        <generalization xmi:id="_oYK4gEslEeWDUt8a9isINA" general="_oQN0MEsWEeWDUt8a9isINA"/>
+        <generalization xmi:id="_MDKxYGtcEeWC1Yh0Uvqcag" general="_0PAhcEsWEeWDUt8a9isINA"/>
+        <ownedAttribute xmi:id="_DcRH4NCCEeO4muSpLo4P7Q" name="cpuSpecifications" visibility="public" type="_1k7FwNBOEeO4muSpLo4P7Q" aggregation="composite" association="_DcLBQNCCEeO4muSpLo4P7Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DcRH4tCCEeO4muSpLo4P7Q" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DcRH4dCCEeO4muSpLo4P7Q"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_FmXn8dCCEeO4muSpLo4P7Q" name="memorySpecifications" visibility="public" type="_JL8IoNBPEeO4muSpLo4P7Q" aggregation="composite" association="_FmXn8NCCEeO4muSpLo4P7Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_FmdukdCCEeO4muSpLo4P7Q" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_FmdukNCCEeO4muSpLo4P7Q"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_LRJZcNCCEeO4muSpLo4P7Q" name="storageSpecifications" visibility="public" type="_U-QgINBPEeO4muSpLo4P7Q" aggregation="composite" association="_LQ9MMNCCEeO4muSpLo4P7Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_LRJZctCCEeO4muSpLo4P7Q" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_LRJZcdCCEeO4muSpLo4P7Q"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_8vefwNCBEeO4muSpLo4P7Q" name="rack" visibility="public" type="_W_d_YNBOEeO4muSpLo4P7Q" association="_8vSSgNCBEeO4muSpLo4P7Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_8vefwtCBEeO4muSpLo4P7Q" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_8vefwdCBEeO4muSpLo4P7Q"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_0TscAOzCEeSj6YflWRJe4Q" name="state" visibility="public" type="_2G-0AOzBEeSj6YflWRJe4Q">
+          <defaultValue xmi:type="uml:InstanceValue" xmi:id="_TnrwcOzQEeSj6YflWRJe4Q" name="RUNNING" type="_2G-0AOzBEeSj6YflWRJe4Q" instance="_nMbDwOzCEeSj6YflWRJe4Q"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_1k7FwNBOEeO4muSpLo4P7Q" name="ProcessingUnitSpecification">
+        <generalization xmi:id="_h9kCIES6EeW2TPgc4TJ8CQ" general="_5uYocES5EeW2TPgc4TJ8CQ"/>
+        <generalization xmi:id="_uW0BMEslEeWDUt8a9isINA" general="_oQN0MEsWEeWDUt8a9isINA"/>
+        <ownedAttribute xmi:id="_C7Sp8NBPEeO4muSpLo4P7Q" name="puId" visibility="public">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_7k-jsNBOEeO4muSpLo4P7Q" name="frequency" visibility="public" type="_ITrLYP0nEeOwQsUkAvd0gw"/>
+        <ownedAttribute xmi:id="_DcXOgNCCEeO4muSpLo4P7Q" name="node" visibility="public" type="_gVQqENBOEeO4muSpLo4P7Q" association="_DcLBQNCCEeO4muSpLo4P7Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DcXOgtCCEeO4muSpLo4P7Q" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DcXOgdCCEeO4muSpLo4P7Q"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_VKomQdp2EeOgZ8iCG_cfdA" name="architectureType" visibility="public" type="_RPZoINpoEeOgZ8iCG_cfdA" association="_VKomQNp2EeOgZ8iCG_cfdA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VKomQ9p2EeOgZ8iCG_cfdA" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VKomQtp2EeOgZ8iCG_cfdA" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_OyCW8AH-EeSX8rbcuCz2yw" name="numberOfCores" visibility="public">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
+          <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_VOBi8AH-EeSX8rbcuCz2yw" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_YPoSwAH-EeSX8rbcuCz2yw" name="supportsTurboMode" visibility="public">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBooleanObject"/>
+          <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_dNrhIAH-EeSX8rbcuCz2yw" value="true"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_W_d_YNBOEeO4muSpLo4P7Q" name="Rack">
+        <generalization xmi:id="_lfrooOu6EeOnWK4468fCwQ" general="_7H6KwOu5EeOnWK4468fCwQ"/>
+        <generalization xmi:id="_eo9PcOzNEeOrOLoJQ_bk1g" general="_WnFqwOzNEeOrOLoJQ_bk1g"/>
+        <ownedAttribute xmi:id="_8vYZINCBEeO4muSpLo4P7Q" name="nodes" visibility="public" type="_gVQqENBOEeO4muSpLo4P7Q" aggregation="composite" association="_8vSSgNCBEeO4muSpLo4P7Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_8vYZItCBEeO4muSpLo4P7Q" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_8vYZIdCBEeO4muSpLo4P7Q" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_iJMGcddMEeOWiv2w1JMBFw" name="physicalDCModel" visibility="public" type="_br9kUNdMEeOWiv2w1JMBFw" association="_iJF_0NdMEeOWiv2w1JMBFw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iJMGc9dMEeOWiv2w1JMBFw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iJMGctdMEeOWiv2w1JMBFw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_6sfd4Er4EeWDUt8a9isINA" name="powerSupplies" visibility="public" type="_n8AaYEr4EeWDUt8a9isINA" association="_6sdosEr4EeWDUt8a9isINA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6sgE8Ur4EeWDUt8a9isINA" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6sgE8Er4EeWDUt8a9isINA"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_U-QgINBPEeO4muSpLo4P7Q" name="StorageSpecification">
+        <generalization xmi:id="_ew3coES6EeW2TPgc4TJ8CQ" general="_5uYocES5EeW2TPgc4TJ8CQ"/>
+        <generalization xmi:id="_skkngEslEeWDUt8a9isINA" general="_oQN0MEsWEeWDUt8a9isINA"/>
+        <ownedAttribute xmi:id="_tSeN8NB7EeO4muSpLo4P7Q" name="size" visibility="public" type="_xwb54P0kEeOwQsUkAvd0gw"/>
+        <ownedAttribute xmi:id="_t1NfEN9XEeOGvMSgXCZ3bA" name="readDelay" visibility="public" type="_AM8C4P0pEeOwQsUkAvd0gw"/>
+        <ownedAttribute xmi:id="_z-OrwN9XEeOGvMSgXCZ3bA" name="writeDelay" visibility="public" type="_AM8C4P0pEeOwQsUkAvd0gw"/>
+        <ownedAttribute xmi:id="_LRJZc9CCEeO4muSpLo4P7Q" name="node" visibility="public" type="_gVQqENBOEeO4muSpLo4P7Q" association="_LQ9MMNCCEeO4muSpLo4P7Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_LRPgEdCCEeO4muSpLo4P7Q" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_LRPgENCCEeO4muSpLo4P7Q"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_k8Y1YeDlEeOoz6p-ll5D6Q" name="readBandwidth" visibility="public" type="_1Dl-8ODkEeOoz6p-ll5D6Q" aggregation="composite" association="_k8Y1YODlEeOoz6p-ll5D6Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_k8Y1Y-DlEeOoz6p-ll5D6Q" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_k8Y1YuDlEeOoz6p-ll5D6Q" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_4E5-YODlEeOoz6p-ll5D6Q" name="writeBandwidth" visibility="public" type="_1Dl-8ODkEeOoz6p-ll5D6Q" aggregation="composite" association="_4Ez3wODlEeOoz6p-ll5D6Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4E5-YuDlEeOoz6p-ll5D6Q" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4E5-YeDlEeOoz6p-ll5D6Q" value="1"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_8vSSgNCBEeO4muSpLo4P7Q" memberEnd="_8vYZINCBEeO4muSpLo4P7Q _8vefwNCBEeO4muSpLo4P7Q"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_VKomQNp2EeOgZ8iCG_cfdA" name="" memberEnd="_VKomQdp2EeOgZ8iCG_cfdA _VKomRNp2EeOgZ8iCG_cfdA">
+        <ownedEnd xmi:id="_VKomRNp2EeOgZ8iCG_cfdA" name="" visibility="private" type="_1k7FwNBOEeO4muSpLo4P7Q" association="_VKomQNp2EeOgZ8iCG_cfdA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VKomRtp2EeOgZ8iCG_cfdA" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VKomRdp2EeOgZ8iCG_cfdA"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_FmXn8NCCEeO4muSpLo4P7Q" memberEnd="_FmXn8dCCEeO4muSpLo4P7Q _FmduktCCEeO4muSpLo4P7Q"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_DcLBQNCCEeO4muSpLo4P7Q" memberEnd="_DcRH4NCCEeO4muSpLo4P7Q _DcXOgNCCEeO4muSpLo4P7Q"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_LQ9MMNCCEeO4muSpLo4P7Q" memberEnd="_LRJZcNCCEeO4muSpLo4P7Q _LRJZc9CCEeO4muSpLo4P7Q"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_3OByMNdMEeOWiv2w1JMBFw" memberEnd="_3OByMddMEeOWiv2w1JMBFw _3OH40NdMEeOWiv2w1JMBFw"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_e93Z8NdMEeOWiv2w1JMBFw" memberEnd="_e93Z8ddMEeOWiv2w1JMBFw _e93Z9NdMEeOWiv2w1JMBFw"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_iJF_0NdMEeOWiv2w1JMBFw" memberEnd="_iJF_0ddMEeOWiv2w1JMBFw _iJMGcddMEeOWiv2w1JMBFw"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_tcT_8NH7EeO1Z4Iu7NBTJw" memberEnd="_tcaGkNH7EeO1Z4Iu7NBTJw _tcaGk9H7EeO1Z4Iu7NBTJw">
+        <ownedEnd xmi:id="_tcaGk9H7EeO1Z4Iu7NBTJw" name="" visibility="private" type="_ICtFMNH7EeO1Z4Iu7NBTJw" association="_tcT_8NH7EeO1Z4Iu7NBTJw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tcgNMNH7EeO1Z4Iu7NBTJw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tcaGlNH7EeO1Z4Iu7NBTJw" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_9qVLQODkEeOoz6p-ll5D6Q" memberEnd="_9qbR4ODkEeOoz6p-ll5D6Q _9qhYgeDkEeOoz6p-ll5D6Q"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_k8Y1YODlEeOoz6p-ll5D6Q" memberEnd="_k8Y1YeDlEeOoz6p-ll5D6Q _k8e8AODlEeOoz6p-ll5D6Q"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_4Ez3wODlEeOoz6p-ll5D6Q" memberEnd="_4E5-YODlEeOoz6p-ll5D6Q _4E5-Y-DlEeOoz6p-ll5D6Q"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_yZMlEOszEeO77KcDqiDtnw" memberEnd="_yZSrsOszEeO77KcDqiDtnw _yZYyUOszEeO77KcDqiDtnw"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_5JsBcOszEeO77KcDqiDtnw" name="Switch">
+        <generalization xmi:id="_nB6QYOu6EeOnWK4468fCwQ" general="_7H6KwOu5EeOnWK4468fCwQ"/>
+        <generalization xmi:id="_Z0UwYEssEeWDUt8a9isINA" general="_oQN0MEsWEeWDUt8a9isINA"/>
+        <ownedAttribute xmi:id="_e93Z9NdMEeOWiv2w1JMBFw" name="physicalDCModel" visibility="public" type="_br9kUNdMEeOWiv2w1JMBFw" association="_e93Z8NdMEeOWiv2w1JMBFw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_e93Z9tdMEeOWiv2w1JMBFw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_e93Z9ddMEeOWiv2w1JMBFw"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_UcO6sOs2EeO77KcDqiDtnw" memberEnd="_UcO6ses2EeO77KcDqiDtnw _UcVBUus2EeO77KcDqiDtnw"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_7H6KwOu5EeOnWK4468fCwQ" name="ConnectedEntity" isAbstract="true">
+        <generalization xmi:id="_frv0EOzLEeOrOLoJQ_bk1g">
+          <general xmi:type="uml:Class" href="identifier.uml#_IZ8_YcarEeWjVKFatxSPjg"/>
+        </generalization>
+        <ownedAttribute xmi:id="_GjnfkuyrEeOrOLoJQ_bk1g" name="networkInterconnects" visibility="public" type="_DltmgNB8EeO4muSpLo4P7Q" association="_GjhY8OyrEeOrOLoJQ_bk1g">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_GjtmMeyrEeOrOLoJQ_bk1g" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_GjtmMOyrEeOrOLoJQ_bk1g"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_wbTHMOvyEeOnWK4468fCwQ" memberEnd="_wbZN0OvyEeOnWK4468fCwQ _wbZN0-vyEeOnWK4468fCwQ"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_GjhY8OyrEeOrOLoJQ_bk1g" memberEnd="_GjhY8eyrEeOrOLoJQ_bk1g _GjnfkuyrEeOrOLoJQ_bk1g"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_WwwVMOyuEeOrOLoJQ_bk1g" name="ComputeNode">
+        <ownedRule xmi:id="_GDVEMMUUEeW6MJ9rKOdEvA" name="ComputeNodesMustHaveAtLeastOneProcessingUnit" constrainedElement="_WwwVMOyuEeOrOLoJQ_bk1g">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="_GDYHgMUUEeW6MJ9rKOdEvA">
+            <language>OCL</language>
+            <body>cpuSpecifications->size() > 0</body>
+          </specification>
+        </ownedRule>
+        <ownedRule xmi:id="_TKgV0MUUEeW6MJ9rKOdEvA" name="ComputeNodesMustHaveAtLeastOneMemorySpecification" constrainedElement="_WwwVMOyuEeOrOLoJQ_bk1g">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="_TKg84MUUEeW6MJ9rKOdEvA">
+            <language>OCL</language>
+            <body>memorySpecifications->size() > 0</body>
+          </specification>
+        </ownedRule>
+        <generalization xmi:id="_buuEAOyuEeOrOLoJQ_bk1g" general="_gVQqENBOEeO4muSpLo4P7Q"/>
+        <ownedAttribute xmi:id="_M0wpUuyyEeOrOLoJQ_bk1g" name="hypervisor" visibility="public">
+          <type xmi:type="uml:Class" href="virtualmachinemodel.uml#_kWYYsNprEeOgZ8iCG_cfdA"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_M0wpVOyyEeOrOLoJQ_bk1g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_M0wpU-yyEeOrOLoJQ_bk1g"/>
+          <association href="virtualmachinemodel.uml#_M0qisOyyEeOrOLoJQ_bk1g"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Enumeration" xmi:id="_2G-0AOzBEeSj6YflWRJe4Q" name="NodeState">
+        <ownedLiteral xmi:id="_7FbD8OzBEeSj6YflWRJe4Q" name="OFF" classifier="_2G-0AOzBEeSj6YflWRJe4Q"/>
+        <ownedLiteral xmi:id="_nMbDwOzCEeSj6YflWRJe4Q" name="RUNNING" classifier="_2G-0AOzBEeSj6YflWRJe4Q"/>
+        <ownedLiteral xmi:id="_r_P5kOzCEeSj6YflWRJe4Q" name="FAILURE" classifier="_2G-0AOzBEeSj6YflWRJe4Q"/>
+        <ownedLiteral xmi:id="_tlyZkOzCEeSj6YflWRJe4Q" name="UNKNOWN" classifier="_2G-0AOzBEeSj6YflWRJe4Q"/>
+        <ownedLiteral xmi:id="_u1H6gOzCEeSj6YflWRJe4Q" name="MAINTENANCE" classifier="_2G-0AOzBEeSj6YflWRJe4Q"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_5uYocES5EeW2TPgc4TJ8CQ" name="MonitorableResource" isAbstract="true">
+        <generalization xmi:id="_UWDqoES6EeW2TPgc4TJ8CQ">
+          <general xmi:type="uml:Class" href="identifier.uml#_IZ8_YcarEeWjVKFatxSPjg"/>
+        </generalization>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_n8AaYEr4EeWDUt8a9isINA" name="PowerDistributionUnit">
+        <generalization xmi:id="_a__9gEslEeWDUt8a9isINA" general="_0PAhcEsWEeWDUt8a9isINA"/>
+        <generalization xmi:id="_eGvE8EslEeWDUt8a9isINA" general="_oQN0MEsWEeWDUt8a9isINA"/>
+        <ownedAttribute xmi:id="_vRcW4Er4EeWDUt8a9isINA" name="physicalDCModel" visibility="public" type="_br9kUNdMEeOWiv2w1JMBFw" association="_vRZTkEr4EeWDUt8a9isINA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_vRc98Ur4EeWDUt8a9isINA" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_vRc98Er4EeWDUt8a9isINA"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_6sePwEr4EeWDUt8a9isINA" name="hostedIn" visibility="public" type="_W_d_YNBOEeO4muSpLo4P7Q" association="_6sdosEr4EeWDUt8a9isINA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6se20Ur4EeWDUt8a9isINA" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6se20Er4EeWDUt8a9isINA"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_vRZTkEr4EeWDUt8a9isINA" memberEnd="_vRahsEr4EeWDUt8a9isINA _vRcW4Er4EeWDUt8a9isINA"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_6sdosEr4EeWDUt8a9isINA" memberEnd="_6sePwEr4EeWDUt8a9isINA _6sfd4Er4EeWDUt8a9isINA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_r6xj8Np7EeOgZ8iCG_cfdA" name="architecturetype">
+      <packagedElement xmi:type="uml:Class" xmi:id="_RPZoINpoEeOgZ8iCG_cfdA" name="ArchitectureType">
+        <generalization xmi:id="_xFR9gKXFEeWjxKuOvjj6vQ">
+          <general xmi:type="uml:Class" href="identifier.uml#_IZ8_YcarEeWjVKFatxSPjg"/>
+        </generalization>
+        <ownedAttribute xmi:id="_bpW10Np5EeOgZ8iCG_cfdA" name="name" visibility="public">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_HK8wk9p8EeOgZ8iCG_cfdA" name="architectureTypeRepository" visibility="public" type="_FAww8Np8EeOgZ8iCG_cfdA" association="_HK2p8Np8EeOgZ8iCG_cfdA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_HLC3Mdp8EeOgZ8iCG_cfdA" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HLC3MNp8EeOgZ8iCG_cfdA"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_FAww8Np8EeOgZ8iCG_cfdA" name="ArchitectureTypeRepository">
+        <ownedAttribute xmi:id="_HK8wkNp8EeOgZ8iCG_cfdA" name="architectureTypes" visibility="public" type="_RPZoINpoEeOgZ8iCG_cfdA" aggregation="composite" association="_HK2p8Np8EeOgZ8iCG_cfdA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_HK8wktp8EeOgZ8iCG_cfdA" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HK8wkdp8EeOgZ8iCG_cfdA"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_HK2p8Np8EeOgZ8iCG_cfdA" memberEnd="_HK8wkNp8EeOgZ8iCG_cfdA _HK8wk9p8EeOgZ8iCG_cfdA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_TEHTQOzNEeOrOLoJQ_bk1g" name="util">
+      <packagedElement xmi:type="uml:Class" xmi:id="_1Dl-8ODkEeOoz6p-ll5D6Q" name="Bandwidth">
+        <ownedAttribute xmi:id="_3JxoUODkEeOoz6p-ll5D6Q" name="value" visibility="public" type="_uX7bEP0mEeOwQsUkAvd0gw"/>
+        <ownedAttribute xmi:id="_9qhYgeDkEeOoz6p-ll5D6Q" name="memorySpecificationRead" visibility="public" type="_JL8IoNBPEeO4muSpLo4P7Q" association="_9qVLQODkEeOoz6p-ll5D6Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9qhYg-DkEeOoz6p-ll5D6Q" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9qhYguDkEeOoz6p-ll5D6Q"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_k8e8AODlEeOoz6p-ll5D6Q" name="storageSpecificationRead" visibility="public" type="_U-QgINBPEeO4muSpLo4P7Q" association="_k8Y1YODlEeOoz6p-ll5D6Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_k8e8AuDlEeOoz6p-ll5D6Q" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_k8e8AeDlEeOoz6p-ll5D6Q"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_4E5-Y-DlEeOoz6p-ll5D6Q" name="storageSpecificationWrite" visibility="public" type="_U-QgINBPEeO4muSpLo4P7Q" association="_4Ez3wODlEeOoz6p-ll5D6Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4FAFAeDlEeOoz6p-ll5D6Q" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4FAFAODlEeOoz6p-ll5D6Q"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_wbZN0-vyEeOnWK4468fCwQ" name="memorySpecification" visibility="public" type="_JL8IoNBPEeO4muSpLo4P7Q" association="_wbTHMOvyEeOnWK4468fCwQ">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_wbfUcevyEeOnWK4468fCwQ" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wbfUcOvyEeOnWK4468fCwQ"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_yZYyUOszEeO77KcDqiDtnw" name="networkInterconnect" visibility="public" type="_DltmgNB8EeO4muSpLo4P7Q" association="_yZMlEOszEeO77KcDqiDtnw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_yZYyUuszEeO77KcDqiDtnw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_yZYyUeszEeO77KcDqiDtnw"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_FcIXwPx9EeOwQsUkAvd0gw" name="Power"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_WnFqwOzNEeOrOLoJQ_bk1g" name="NamedElement" isAbstract="true">
+        <generalization xmi:id="_7yDngMT5EeW6MJ9rKOdEvA">
+          <general xmi:type="uml:Class" href="identifier.uml#_IZ8_YcarEeWjVKFatxSPjg"/>
+        </generalization>
+        <ownedAttribute xmi:id="_YDzgYOzNEeOrOLoJQ_bk1g" name="name" visibility="public">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_s25ucPx8EeOwQsUkAvd0gw" name="Amount">
+        <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_hM-MAPx-EeOwQsUkAvd0gw" parameter="_hM-MAfx-EeOwQsUkAvd0gw">
+          <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_hM-MAfx-EeOwQsUkAvd0gw" parameteredElement="_hNESoPx-EeOwQsUkAvd0gw">
+            <ownedParameteredElement xmi:type="uml:PrimitiveType" xmi:id="_hNESoPx-EeOwQsUkAvd0gw" name="E" templateParameter="_hM-MAfx-EeOwQsUkAvd0gw"/>
+          </ownedParameter>
+        </ownedTemplateSignature>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_ahfn8Px9EeOwQsUkAvd0gw" name="AmountPower">
+        <templateBinding xmi:id="_o9vZoPx-EeOwQsUkAvd0gw" signature="_hM-MAPx-EeOwQsUkAvd0gw">
+          <parameterSubstitution xmi:id="_Yq_5APyAEeOwQsUkAvd0gw" formal="_hM-MAfx-EeOwQsUkAvd0gw" actual="_FcIXwPx9EeOwQsUkAvd0gw"/>
+        </templateBinding>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_xwb54P0kEeOwQsUkAvd0gw" name="AmountDataAmount">
+        <templateBinding xmi:id="_5AfnIP0kEeOwQsUkAvd0gw" signature="_hM-MAPx-EeOwQsUkAvd0gw">
+          <parameterSubstitution xmi:id="_GIFTAP0mEeOwQsUkAvd0gw" formal="_hM-MAfx-EeOwQsUkAvd0gw" actual="_79Ih8P0lEeOwQsUkAvd0gw"/>
+        </templateBinding>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_79Ih8P0lEeOwQsUkAvd0gw" name="DataAmount"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_ltgooP0mEeOwQsUkAvd0gw" name="DataRate"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uX7bEP0mEeOwQsUkAvd0gw" name="AmountDataRate">
+        <templateBinding xmi:id="_5hXNoP0mEeOwQsUkAvd0gw" signature="_hM-MAPx-EeOwQsUkAvd0gw">
+          <parameterSubstitution xmi:id="_-hCMoP0mEeOwQsUkAvd0gw" formal="_hM-MAfx-EeOwQsUkAvd0gw" actual="_ltgooP0mEeOwQsUkAvd0gw"/>
+        </templateBinding>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_AhPw4P0nEeOwQsUkAvd0gw" name="Frequency"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_ITrLYP0nEeOwQsUkAvd0gw" name="AmountFrequency">
+        <templateBinding xmi:id="_MrijgP0nEeOwQsUkAvd0gw" signature="_hM-MAPx-EeOwQsUkAvd0gw">
+          <parameterSubstitution xmi:id="_PTe2IP0nEeOwQsUkAvd0gw" formal="_hM-MAfx-EeOwQsUkAvd0gw" actual="_AhPw4P0nEeOwQsUkAvd0gw"/>
+        </templateBinding>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_APzmIP0oEeOwQsUkAvd0gw" name="Duration"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_AM8C4P0pEeOwQsUkAvd0gw" name="AmountDuration">
+        <templateBinding xmi:id="_HUEdoP0pEeOwQsUkAvd0gw" signature="_hM-MAPx-EeOwQsUkAvd0gw">
+          <parameterSubstitution xmi:id="_JMbGYP0pEeOwQsUkAvd0gw" formal="_hM-MAfx-EeOwQsUkAvd0gw" actual="_APzmIP0oEeOwQsUkAvd0gw"/>
+        </templateBinding>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_1ocDEHP9EeSwH44fkXIqUQ" name="Dimensionless"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_K7UK0HP-EeSwH44fkXIqUQ" name="AmountDimensionless">
+        <templateBinding xmi:id="_K7UK0XP-EeSwH44fkXIqUQ" signature="_hM-MAPx-EeOwQsUkAvd0gw">
+          <parameterSubstitution xmi:id="_K7UK0nP-EeSwH44fkXIqUQ" formal="_hM-MAfx-EeOwQsUkAvd0gw" actual="_1ocDEHP9EeSwH44fkXIqUQ"/>
+        </templateBinding>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_2OiAIPk7EeSNJKFYmIG6jw" name="EStringToEStringObjectMapEntry">
+        <ownedAttribute xmi:id="_AplCsPk8EeSNJKFYmIG6jw" name="key" visibility="public">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_DaRBoPk8EeSNJKFYmIG6jw" name="value" visibility="public">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_MCCAIETUEeW2TPgc4TJ8CQ" name="Time"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_0uZH8EsdEeWDUt8a9isINA" name="Unit">
+        <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_-avKEEsgEeWDUt8a9isINA" parameter="_-avxIEsgEeWDUt8a9isINA">
+          <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_-avxIEsgEeWDUt8a9isINA" parameteredElement="_ljAmQEtGEeWDUt8a9isINA">
+            <ownedParameteredElement xmi:type="uml:PrimitiveType" xmi:id="_ljAmQEtGEeWDUt8a9isINA" name="Q" templateParameter="_-avxIEsgEeWDUt8a9isINA"/>
+          </ownedParameter>
+        </ownedTemplateSignature>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_JVbuUEsnEeWDUt8a9isINA" name="amountEnergy">
+        <templateBinding xmi:id="_frOroEsnEeWDUt8a9isINA" signature="_hM-MAPx-EeOwQsUkAvd0gw">
+          <parameterSubstitution xmi:id="_odGw8EsnEeWDUt8a9isINA" formal="_hM-MAfx-EeOwQsUkAvd0gw" actual="_SYY8kEsnEeWDUt8a9isINA"/>
+        </templateBinding>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_SYY8kEsnEeWDUt8a9isINA" name="Energy"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_0bIDUEtBEeWDUt8a9isINA" name="Quantity"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_9WohQPA-EeW9mb5WC5tvag" name="UnitDuration">
+        <templateBinding xmi:id="_IKfFYPA_EeW9mb5WC5tvag" signature="_-avKEEsgEeWDUt8a9isINA">
+          <parameterSubstitution xmi:id="_J1CisPA_EeW9mb5WC5tvag" formal="_-avxIEsgEeWDUt8a9isINA" actual="_APzmIP0oEeOwQsUkAvd0gw"/>
+        </templateBinding>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_E55ycEsMEeWDUt8a9isINA" name="power">
+      <packagedElement xmi:type="uml:Association" xmi:id="_lWNWoEsVEeWDUt8a9isINA" memberEnd="_lWOkwEsVEeWDUt8a9isINA _lWQZ8EsVEeWDUt8a9isINA"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_oQN0MEsWEeWDUt8a9isINA" name="PowerConsumingEntity" isAbstract="true">
+        <generalization xmi:id="_9jvJQEsjEeWDUt8a9isINA" general="_WnFqwOzNEeOrOLoJQ_bk1g"/>
+        <generalization xmi:id="_9jvJQUsjEeWDUt8a9isINA">
+          <general xmi:type="uml:Class" href="identifier.uml#_IZ8_YcarEeWjVKFatxSPjg"/>
+        </generalization>
+        <ownedAttribute xmi:id="_5R8P0EsWEeWDUt8a9isINA" name="powerModelBinding" visibility="public" type="_bkdd0EsXEeWDUt8a9isINA" association="_5R7owEsWEeWDUt8a9isINA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_5R824UsWEeWDUt8a9isINA" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_5R824EsWEeWDUt8a9isINA"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_ZyPRQksiEeWDUt8a9isINA" name="powerProvidingEntities" visibility="public" type="_0PAhcEsWEeWDUt8a9isINA" association="_ZyODIEsiEeWDUt8a9isINA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ZyP4UUsiEeWDUt8a9isINA" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ZyP4UEsiEeWDUt8a9isINA"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_5VCz4EsmEeWDUt8a9isINA" name="powerCap" visibility="public" type="_ahfn8Px9EeOwQsUkAvd0gw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_H2GZIHNhEeWorKKUEkaoAQ" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_H2ASgHNhEeWorKKUEkaoAQ"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_0PAhcEsWEeWDUt8a9isINA" name="PowerProvidingEntity" isAbstract="true">
+        <generalization xmi:id="_ARE5QEskEeWDUt8a9isINA" general="_WnFqwOzNEeOrOLoJQ_bk1g"/>
+        <generalization xmi:id="_ARFgUEskEeWDUt8a9isINA">
+          <general xmi:type="uml:Class" href="identifier.uml#_IZ8_YcarEeWjVKFatxSPjg"/>
+        </generalization>
+        <ownedAttribute xmi:id="_ZyOqMEsiEeWDUt8a9isINA" name="powerConsumingEntities" visibility="public" type="_oQN0MEsWEeWDUt8a9isINA" association="_ZyODIEsiEeWDUt8a9isINA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ZyPRQUsiEeWDUt8a9isINA" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ZyPRQEsiEeWDUt8a9isINA"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_Hksl8EsmEeWDUt8a9isINA" name="suppliablePeakPower" visibility="public" type="_ahfn8Px9EeOwQsUkAvd0gw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_HcGFsHfrEeWANYMfKxBfHw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HcAmIHfrEeWANYMfKxBfHw"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_5R7owEsWEeWDUt8a9isINA" memberEnd="_5R8P0EsWEeWDUt8a9isINA _5R9d8EsWEeWDUt8a9isINA">
+        <ownedEnd xmi:id="_5R9d8EsWEeWDUt8a9isINA" name="" visibility="private" type="_oQN0MEsWEeWDUt8a9isINA" association="_5R7owEsWEeWDUt8a9isINA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_5R9d8ksWEeWDUt8a9isINA" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_5R9d8UsWEeWDUt8a9isINA"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_aYp8kEsYEeWDUt8a9isINA" memberEnd="_aYrKsEsYEeWDUt8a9isINA _aYsY0EsYEeWDUt8a9isINA"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_voCEYEsYEeWDUt8a9isINA" memberEnd="_voDSgEsYEeWDUt8a9isINA _voEgoEsYEeWDUt8a9isINA">
+        <ownedEnd xmi:id="_voEgoEsYEeWDUt8a9isINA" name="" visibility="private" type="_bkdd0EsXEeWDUt8a9isINA" association="_voCEYEsYEeWDUt8a9isINA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_voFuwEsYEeWDUt8a9isINA" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_voFHsEsYEeWDUt8a9isINA"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_U4dN8EsZEeWDUt8a9isINA" memberEnd="_U4d1AEsZEeWDUt8a9isINA _U4fDIEsZEeWDUt8a9isINA">
+        <ownedEnd xmi:id="_U4fDIEsZEeWDUt8a9isINA" name="" visibility="private" type="_95YfkEsXEeWDUt8a9isINA" association="_U4dN8EsZEeWDUt8a9isINA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_U4fqMEsZEeWDUt8a9isINA" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_U4fDIUsZEeWDUt8a9isINA"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_ZyODIEsiEeWDUt8a9isINA" memberEnd="_ZyOqMEsiEeWDUt8a9isINA _ZyPRQksiEeWDUt8a9isINA"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_9uaksEsiEeWDUt8a9isINA" memberEnd="_9uby0EsiEeWDUt8a9isINA _9ucZ4EsiEeWDUt8a9isINA"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_pdWp0EsjEeWDUt8a9isINA" memberEnd="_pdXQ4EsjEeWDUt8a9isINA _pdYfAEsjEeWDUt8a9isINA"/>
+      <packagedElement xmi:type="uml:Package" xmi:id="_D4jWQEskEeWDUt8a9isINA" name="binding">
+        <packagedElement xmi:type="uml:Class" xmi:id="_95YfkEsXEeWDUt8a9isINA" name="FixedFactorValue">
+          <generalization xmi:id="_NvgDsEsYEeWDUt8a9isINA" general="_WnFqwOzNEeOrOLoJQ_bk1g"/>
+          <ownedAttribute xmi:id="_aYsY0EsYEeWDUt8a9isINA" name="powerModelBinding" visibility="public" type="_bkdd0EsXEeWDUt8a9isINA" association="_aYp8kEsYEeWDUt8a9isINA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_aYs_4UsYEeWDUt8a9isINA" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_aYs_4EsYEeWDUt8a9isINA" value="1"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_U4d1AEsZEeWDUt8a9isINA" name="boundFactor" visibility="public" type="_AAlAIEsZEeWDUt8a9isINA" association="_U4dN8EsZEeWDUt8a9isINA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_U4ecEUsZEeWDUt8a9isINA" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_U4ecEEsZEeWDUt8a9isINA" value="1"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_tLG5gEsZEeWDUt8a9isINA" name="value" visibility="public" type="_ahfn8Px9EeOwQsUkAvd0gw"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_bkdd0EsXEeWDUt8a9isINA" name="PowerModelBinding">
+          <generalization xmi:id="_50dbIEsjEeWDUt8a9isINA" general="_WnFqwOzNEeOrOLoJQ_bk1g"/>
+          <generalization xmi:id="_50dbIUsjEeWDUt8a9isINA">
+            <general xmi:type="uml:Class" href="identifier.uml#_IZ8_YcarEeWjVKFatxSPjg"/>
+          </generalization>
+          <ownedAttribute xmi:id="_aYrKsEsYEeWDUt8a9isINA" name="fixedFactorValues" visibility="public" type="_95YfkEsXEeWDUt8a9isINA" aggregation="composite" association="_aYp8kEsYEeWDUt8a9isINA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_aYrxwUsYEeWDUt8a9isINA" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_aYrxwEsYEeWDUt8a9isINA"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_voDSgEsYEeWDUt8a9isINA" name="powerModel" visibility="public" type="_Irl7YEsMEeWDUt8a9isINA" association="_voCEYEsYEeWDUt8a9isINA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_voD5kUsYEeWDUt8a9isINA" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_voD5kEsYEeWDUt8a9isINA" value="1"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_9ucZ4EsiEeWDUt8a9isINA" name="powerModelBindingRepository" visibility="public" type="_ilX60EsiEeWDUt8a9isINA" association="_9uaksEsiEeWDUt8a9isINA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9udA8UsiEeWDUt8a9isINA" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9udA8EsiEeWDUt8a9isINA" value="1"/>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_ilX60EsiEeWDUt8a9isINA" name="PowerModelBindingRepository">
+          <ownedAttribute xmi:id="_9uby0EsiEeWDUt8a9isINA" name="powerModelBindings" visibility="public" type="_bkdd0EsXEeWDUt8a9isINA" aggregation="composite" association="_9uaksEsiEeWDUt8a9isINA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9uby0ksiEeWDUt8a9isINA" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9uby0UsiEeWDUt8a9isINA"/>
+          </ownedAttribute>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_XuhbIEskEeWDUt8a9isINA" name="specification">
+        <packagedElement xmi:type="uml:Class" xmi:id="_nMYswEsjEeWDUt8a9isINA" name="PowerModelRepository">
+          <generalization xmi:id="_yHiLsEsjEeWDUt8a9isINA" general="_WnFqwOzNEeOrOLoJQ_bk1g"/>
+          <generalization xmi:id="_0iDGUEsjEeWDUt8a9isINA">
+            <general xmi:type="uml:Class" href="identifier.uml#_IZ8_YcarEeWjVKFatxSPjg"/>
+          </generalization>
+          <ownedAttribute xmi:id="_pdXQ4EsjEeWDUt8a9isINA" name="powerModels" visibility="public" type="_Irl7YEsMEeWDUt8a9isINA" aggregation="composite" association="_pdWp0EsjEeWDUt8a9isINA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_pdX38UsjEeWDUt8a9isINA" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_pdX38EsjEeWDUt8a9isINA"/>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Irl7YEsMEeWDUt8a9isINA" name="PowerModel">
+          <generalization xmi:id="_RUWK0EsVEeWDUt8a9isINA" general="_WnFqwOzNEeOrOLoJQ_bk1g"/>
+          <generalization xmi:id="_U9teMEsVEeWDUt8a9isINA">
+            <general xmi:type="uml:Class" href="identifier.uml#_IZ8_YcarEeWjVKFatxSPjg"/>
+          </generalization>
+          <ownedAttribute xmi:id="_c5heMEsVEeWDUt8a9isINA" name="expression" visibility="public">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_lWOkwEsVEeWDUt8a9isINA" name="consumptionFactors" visibility="public" type="_MGbDgEsMEeWDUt8a9isINA" aggregation="composite" association="_lWNWoEsVEeWDUt8a9isINA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lWPL0UsVEeWDUt8a9isINA" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lWPL0EsVEeWDUt8a9isINA"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_pdYfAEsjEeWDUt8a9isINA" name="powermodelRepository" visibility="public" type="_nMYswEsjEeWDUt8a9isINA" association="_pdWp0EsjEeWDUt8a9isINA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_pdZGEUsjEeWDUt8a9isINA" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_pdZGEEsjEeWDUt8a9isINA" value="1"/>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_MGbDgEsMEeWDUt8a9isINA" name="ConsumptionFactor" isAbstract="true">
+          <generalization xmi:id="_NXmBYEsVEeWDUt8a9isINA">
+            <general xmi:type="uml:Class" href="identifier.uml#_IZ8_YcarEeWjVKFatxSPjg"/>
+          </generalization>
+          <generalization xmi:id="_Jc-ekEsYEeWDUt8a9isINA" general="_WnFqwOzNEeOrOLoJQ_bk1g"/>
+          <ownedAttribute xmi:id="_lWQZ8EsVEeWDUt8a9isINA" name="powerModel" visibility="public" type="_Irl7YEsMEeWDUt8a9isINA" association="_lWNWoEsVEeWDUt8a9isINA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lWRBAUsVEeWDUt8a9isINA" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lWRBAEsVEeWDUt8a9isINA" value="1"/>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_AAlAIEsZEeWDUt8a9isINA" name="FixedFactor">
+          <generalization xmi:id="_MKNEYEsZEeWDUt8a9isINA" general="_MGbDgEsMEeWDUt8a9isINA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_JSug8EsZEeWDUt8a9isINA" name="MeasuredFactor">
+          <generalization xmi:id="_NbnB4EsZEeWDUt8a9isINA" general="_MGbDgEsMEeWDUt8a9isINA"/>
+          <ownedAttribute xmi:id="_UqnJwEsaEeWDUt8a9isINA" name="unit" visibility="public" type="_0uZH8EsdEeWDUt8a9isINA"/>
+          <ownedAttribute xmi:id="_Nknx8EsvEeWDUt8a9isINA" name="unitString" visibility="public" isDerived="true">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+          </ownedAttribute>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <profileApplication xmi:id="_XxE39NBNEeO01fgRZH4hTg">
+      <eAnnotations xmi:id="_XxE39dBNEeO01fgRZH4hTg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+    <profileApplication xmi:id="_XxE39tBNEeO01fgRZH4hTg">
+      <eAnnotations xmi:id="_XxE399BNEeO01fgRZH4hTg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="Default.profile.uml#_fNwoAAqoEd6-N_NOT9vsCA"/>
+      </eAnnotations>
+      <appliedProfile href="Default.profile.uml#_a_S3wNWLEdiy4IqP8whjFA"/>
+    </profileApplication>
+    <profileApplication xmi:id="_XxE3-NBNEeO01fgRZH4hTg">
+      <eAnnotations xmi:id="_XxE3-dBNEeO01fgRZH4hTg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="Deployment.profile.uml#_IrdAUMmBEdqBcN1R6EvWUw"/>
+      </eAnnotations>
+      <appliedProfile href="Deployment.profile.uml#_vjbuwOvHEdiDX5bji0iVSA"/>
+    </profileApplication>
+    <profileApplication xmi:id="_tOkUQNBNEeO01fgRZH4hTg">
+      <eAnnotations xmi:id="_tOk7UNBNEeO01fgRZH4hTg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Ecore.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Package>
+  <Ecore:EPackage xmi:id="_mayd4NBOEeO4muSpLo4P7Q" base_Package="_XxE38NBNEeO01fgRZH4hTg" packageName="physicaldc" nsPrefix="physicaldc" nsURI="http://www.cactosfp7.eu/PhysicalDCModel/1.0" basePackage="eu.cactosfp7.infrastructuremodels" prefix="Physicaldc"/>
+  <Ecore:EPackage xmi:id="_mnpdcNp7EeOgZ8iCG_cfdA" base_Package="_kktVUNp7EeOgZ8iCG_cfdA" packageName="core" nsPrefix="core" nsURI="http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0" prefix="Core"/>
+  <Ecore:EPackage xmi:id="_U4LR4OzNEeOrOLoJQ_bk1g" base_Package="_TEHTQOzNEeOrOLoJQ_bk1g" packageName="util" nsPrefix="util" nsURI="http://www.cactosfp7.eu/PhysicalDCModel/Util/1.0" prefix="Util"/>
+  <Ecore:EPackage xmi:id="_8frRMO11EeOj_4OJnbZ7LA" base_Package="_r6xj8Np7EeOgZ8iCG_cfdA" packageName="architecturetype" nsPrefix="architecturetype" nsURI="http://www.cactosfp7.eu/PhysicalDCModel/ArchitectureType/1.0" prefix="Architecturetype"/>
+  <Ecore:EDataType xmi:id="_0qpXkPx8EeOwQsUkAvd0gw" instanceClassName="org.jscience.physics.amount.Amount" base_PrimitiveType="_s25ucPx8EeOwQsUkAvd0gw" dataTypeName="Amount"/>
+  <Ecore:EDataType xmi:id="_IWrdUPx9EeOwQsUkAvd0gw" instanceClassName="javax.measure.quantity.Power" base_PrimitiveType="_FcIXwPx9EeOwQsUkAvd0gw" dataTypeName="Power"/>
+  <Ecore:EDataType xmi:id="_gVnisPx9EeOwQsUkAvd0gw" instanceClassName="" base_PrimitiveType="_ahfn8Px9EeOwQsUkAvd0gw"/>
+  <Ecore:EGenericType xmi:id="_K9h7oPz9EeOwQsUkAvd0gw" base_DataType="_ahfn8Px9EeOwQsUkAvd0gw"/>
+  <Ecore:EDataType xmi:id="_2B8yYP0kEeOwQsUkAvd0gw" instanceClassName="javax.measure.quantity.DataAmount" base_PrimitiveType="_xwb54P0kEeOwQsUkAvd0gw" dataTypeName="DataAmount"/>
+  <Ecore:EGenericType xmi:id="_2B8yYf0kEeOwQsUkAvd0gw" base_DataType="_xwb54P0kEeOwQsUkAvd0gw"/>
+  <Ecore:EDataType xmi:id="_-yJnQP0lEeOwQsUkAvd0gw" instanceClassName="javax.measure.quantity.DataAmount" base_PrimitiveType="_79Ih8P0lEeOwQsUkAvd0gw" dataTypeName="DataAmount"/>
+  <Ecore:EDataType xmi:id="_qEyx8P0mEeOwQsUkAvd0gw" instanceClassName="javax.measure.quantity.DataRate" base_PrimitiveType="_ltgooP0mEeOwQsUkAvd0gw" dataTypeName="DataRate"/>
+  <Ecore:EDataType xmi:id="_yGGV8P0mEeOwQsUkAvd0gw" instanceClassName="javax.measure.quantity.DataRate" base_PrimitiveType="_uX7bEP0mEeOwQsUkAvd0gw" dataTypeName="DataRate"/>
+  <Ecore:EGenericType xmi:id="_2q_dcP0mEeOwQsUkAvd0gw" base_DataType="_uX7bEP0mEeOwQsUkAvd0gw"/>
+  <Ecore:EDataType xmi:id="_Cu5UMP0nEeOwQsUkAvd0gw" instanceClassName="javax.measure.quantity.Frequency" base_PrimitiveType="_AhPw4P0nEeOwQsUkAvd0gw" dataTypeName="Frequency"/>
+  <Ecore:EDataType xmi:id="_LD-IwP0nEeOwQsUkAvd0gw" base_PrimitiveType="_ITrLYP0nEeOwQsUkAvd0gw"/>
+  <Ecore:EGenericType xmi:id="_LD-Iwf0nEeOwQsUkAvd0gw" base_DataType="_ITrLYP0nEeOwQsUkAvd0gw"/>
+  <Ecore:EDataType xmi:id="_74kqsP0oEeOwQsUkAvd0gw" instanceClassName="javax.measure.quantity.Duration" base_PrimitiveType="_APzmIP0oEeOwQsUkAvd0gw" dataTypeName="Duration"/>
+  <Ecore:EDataType xmi:id="_DorJ8P0pEeOwQsUkAvd0gw" base_PrimitiveType="_AM8C4P0pEeOwQsUkAvd0gw"/>
+  <Ecore:EGenericType xmi:id="_DorxAP0pEeOwQsUkAvd0gw" base_DataType="_AM8C4P0pEeOwQsUkAvd0gw"/>
+  <Ecore:EDataType xmi:id="_1ocDEXP9EeSwH44fkXIqUQ" instanceClassName="javax.measure.quantity.Dimensionless" base_PrimitiveType="_1ocDEHP9EeSwH44fkXIqUQ" dataTypeName="Dimensionless"/>
+  <Ecore:EDataType xmi:id="_K7UK03P-EeSwH44fkXIqUQ" instanceClassName="javax.measure.quantity.Dimensionless" base_PrimitiveType="_K7UK0HP-EeSwH44fkXIqUQ" dataTypeName="Dimensionless"/>
+  <Ecore:EGenericType xmi:id="_K7aRcHP-EeSwH44fkXIqUQ" base_DataType="_K7UK0HP-EeSwH44fkXIqUQ"/>
+  <Ecore:EEnum xmi:id="_5zrvQOzBEeSj6YflWRJe4Q" base_Enumeration="_2G-0AOzBEeSj6YflWRJe4Q"/>
+  <Ecore:EClass xmi:id="_6DSrMPk7EeSNJKFYmIG6jw" instanceClassName="java.util.Map$Entry" base_Class="_2OiAIPk7EeSNJKFYmIG6jw"/>
+  <Ecore:EDataType xmi:id="_On6dQETUEeW2TPgc4TJ8CQ" instanceClassName="org.jscience.geography.coordinates.Time" base_PrimitiveType="_MCCAIETUEeW2TPgc4TJ8CQ" dataTypeName="Time"/>
+  <Ecore:EPackage xmi:id="_G4EvUEsMEeWDUt8a9isINA" base_Package="_E55ycEsMEeWDUt8a9isINA" packageName="power" nsPrefix="power" nsURI="http://www.cactosfp7.eu/PhysicalDCModel/Power/1.0" prefix="Power"/>
+  <Ecore:EDataType xmi:id="_7cySkEsdEeWDUt8a9isINA" instanceClassName="javax.measure.unit.Unit" base_PrimitiveType="_0uZH8EsdEeWDUt8a9isINA" dataTypeName="Unit"/>
+  <Ecore:EPackage xmi:id="_Wh1lkEskEeWDUt8a9isINA" base_Package="_D4jWQEskEeWDUt8a9isINA" packageName="binding" nsPrefix="binding" nsURI="http://www.cactosfp7.eu/PhysicalDCModel/Power/Binding/1.0" prefix="Binding"/>
+  <Ecore:EPackage xmi:id="_ntVBMEskEeWDUt8a9isINA" base_Package="_XuhbIEskEeWDUt8a9isINA" packageName="specification" nsPrefix="specification" nsURI="http://www.cactosfp7.eu/PhysicalDCModel/Power/Specification/1.0" prefix="Specification"/>
+  <Ecore:EDataType xmi:id="_M3vXcEsnEeWDUt8a9isINA" base_PrimitiveType="_JVbuUEsnEeWDUt8a9isINA"/>
+  <Ecore:EDataType xmi:id="_VXkqgEsnEeWDUt8a9isINA" instanceClassName="javax.measure.quantity.Energy" base_PrimitiveType="_SYY8kEsnEeWDUt8a9isINA" dataTypeName="Energy"/>
+  <Ecore:EGenericType xmi:id="_XH_fQEsnEeWDUt8a9isINA" base_DataType="_JVbuUEsnEeWDUt8a9isINA"/>
+  <Ecore:EAttribute xmi:id="_QKVP8EsvEeWDUt8a9isINA" isTransient="true" isVolatile="true" base_Property="_Nknx8EsvEeWDUt8a9isINA"/>
+  <Ecore:ETypeParameter xmi:id="_M4hYkEs9EeWDUt8a9isINA" base_TemplateParameter="_-avxIEsgEeWDUt8a9isINA" bounds="_0bIDUEtBEeWDUt8a9isINA"/>
+  <Ecore:EDataType xmi:id="_5X0m0EtBEeWDUt8a9isINA" instanceClassName="javax.measure.quantity.Quantity" base_PrimitiveType="_0bIDUEtBEeWDUt8a9isINA" dataTypeName="Quantity"/>
+  <Ecore:EDataType xmi:id="_AV-AMPA_EeW9mb5WC5tvag" base_PrimitiveType="_9WohQPA-EeW9mb5WC5tvag" dataTypeName=""/>
+  <Ecore:EGenericType xmi:id="_AV-AMfA_EeW9mb5WC5tvag" base_DataType="_9WohQPA-EeW9mb5WC5tvag"/>
+</xmi:XMI>

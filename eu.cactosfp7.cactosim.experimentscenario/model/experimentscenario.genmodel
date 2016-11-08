@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/uml2/2.2.0/GenModel"
+    modelDirectory="/eu.cactosfp7.cactosim.experimentscenario/src"
+    modelPluginID="eu.cactosfp7.cactosim.experimentscenario" dynamicTemplates="true"
+    forceOverwrite="true" modelName="Experimentscenario" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.uml2.uml.ecore.importer" featureDelegation="Dynamic" complianceLevel="8.0"
+    copyrightFields="false" usedGenPackages="../../tools.descartes.dlim.generator/src/tools/descartes/dlim/model/dlim.genmodel#//dlim ../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../eu.cactosfp7.infrastructuremodels/model/infrastructuremodels.genmodel#//physicaldc ../../eu.cactosfp7.infrastructuremodels/model/infrastructuremodels.genmodel#//logicaldc ../../eu.cactosfp7.identifier/model/identifier.genmodel#//identifier"
+    operationReflection="true" importOrganizing="true" cleanup="true">
+  <genAnnotations source="http://www.eclipse.org/emf/2002/GenModel/importer/org.eclipse.uml2.uml.ecore.importer">
+    <details key="ECORE_TAGGED_VALUES" value="PROCESS"/>
+    <details key="UNION_PROPERTIES" value="REPORT"/>
+    <details key="DUPLICATE_FEATURES" value="DISCARD"/>
+    <details key="SUBSETTING_PROPERTIES" value="REPORT"/>
+    <details key="COMMENTS" value="PROCESS"/>
+    <details key="DUPLICATE_FEATURE_INHERITANCE" value="DISCARD"/>
+    <details key="DUPLICATE_OPERATIONS" value="DISCARD"/>
+    <details key="INVARIANT_CONSTRAINTS" value="PROCESS"/>
+    <details key="REDEFINING_PROPERTIES" value="REPORT"/>
+    <details key="ANNOTATION_DETAILS" value="PROCESS"/>
+    <details key="DUPLICATE_OPERATION_INHERITANCE" value="DISCARD"/>
+    <details key="REDEFINING_OPERATIONS" value="REPORT"/>
+    <details key="DERIVED_FEATURES" value="PROCESS"/>
+    <details key="OPERATION_BODIES" value="PROCESS"/>
+    <details key="SUPER_CLASS_ORDER" value="IGNORE"/>
+    <details key="CAMEL_CASE_NAMES" value="IGNORE"/>
+    <details key="VALIDATION_DELEGATES" value="IGNORE"/>
+    <details key="INVOCATION_DELEGATES" value="IGNORE"/>
+    <details key="OPPOSITE_ROLE_NAMES" value="IGNORE"/>
+    <details key="PROPERTY_DEFAULT_EXPRESSIONS" value="IGNORE"/>
+    <details key="NON_API_INVARIANTS" value="IGNORE"/>
+    <details key="UNTYPED_PROPERTIES" value="REPORT"/>
+  </genAnnotations>
+  <foreignModel>dlim.uml</foreignModel>
+  <foreignModel>Ecore.uml</foreignModel>
+  <foreignModel>ExperimentScenario.uml</foreignModel>
+  <foreignModel>identifier.uml</foreignModel>
+  <foreignModel>infrastructuretopology.uml</foreignModel>
+  <foreignModel>virtualmachinemodel.uml</foreignModel>
+  <modelPluginVariables>OCL=org.eclipse.ocl</modelPluginVariables>
+  <modelPluginVariables>EMF_OCL=org.eclipse.ocl.ecore</modelPluginVariables>
+  <modelPluginVariables>CDO=org.eclipse.emf.cdo</modelPluginVariables>
+  <genPackages xsi:type="genmodel:GenPackage" prefix="Experimentscenario" basePackage="eu.cactosfp7.cactosim"
+      resource="XMI" disposableProviderFactory="true" ecorePackage="experimentscenario.ecore#/">
+    <genEnums xsi:type="genmodel:GenEnum" typeSafeEnumCompatible="false" ecoreEnum="experimentscenario.ecore#//EventStatus">
+      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="experimentscenario.ecore#//EventStatus/PROCESSED_SUCCESS"/>
+      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="experimentscenario.ecore#//EventStatus/PROCESSED_FAILURE"/>
+      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="experimentscenario.ecore#//EventStatus/PENDING"/>
+      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="experimentscenario.ecore#//EventStatus/SCHEDULED"/>
+      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="experimentscenario.ecore#//EventStatus/IN_EXECUTION"/>
+    </genEnums>
+    <genEnums xsi:type="genmodel:GenEnum" typeSafeEnumCompatible="false" ecoreEnum="experimentscenario.ecore#//EPlacementCompatibilityMode">
+      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="experimentscenario.ecore#//EPlacementCompatibilityMode/RepetitiveRetry"/>
+      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="experimentscenario.ecore#//EPlacementCompatibilityMode/SimplePlacement"/>
+    </genEnums>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="experimentscenario.ecore#//AbsoluteTimeEvent">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute experimentscenario.ecore#//AbsoluteTimeEvent/simulationTime"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="experimentscenario.ecore#//TimeLineEvent">
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference experimentscenario.ecore#//TimeLineEvent/experimentScenarioRequest"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute experimentscenario.ecore#//TimeLineEvent/eventStatus"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference experimentscenario.ecore#//TimeLineEvent/experimentScenarioTimeline"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
+          createChild="false" ecoreFeature="ecore:EReference experimentscenario.ecore#//TimeLineEvent/relativeTimeEvents"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="experimentscenario.ecore#//ExperimentScenarioTimeLine">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute experimentscenario.ecore#//ExperimentScenarioTimeLine/simulationResolution"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute experimentscenario.ecore#//ExperimentScenarioTimeLine/placementCompatibilityMode"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference experimentscenario.ecore#//ExperimentScenarioTimeLine/timeLineEvents"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="experimentscenario.ecore#//RelativeTimeEvent">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute experimentscenario.ecore#//RelativeTimeEvent/intervalSinceEvent"/>
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference experimentscenario.ecore#//RelativeTimeEvent/referenceEvent"/>
+    </genClasses>
+    <nestedGenPackages xsi:type="genmodel:GenPackage" prefix="Request" basePackage="eu.cactosfp7.cactosim.experimentscenario"
+        disposableProviderFactory="true" ecorePackage="experimentscenario.ecore#//request">
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="experimentscenario.ecore#//request/ReconfigureOptimizationAlgorithmRequest">
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute experimentscenario.ecore#//request/ReconfigureOptimizationAlgorithmRequest/algorithmName"/>
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference experimentscenario.ecore#//request/ReconfigureOptimizationAlgorithmRequest/algorithmParameters"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="experimentscenario.ecore#//request/MigrateApplicationRequest">
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference experimentscenario.ecore#//request/MigrateApplicationRequest/targetPhysicalNode"/>
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference experimentscenario.ecore#//request/MigrateApplicationRequest/applicationInstanceSelector"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="experimentscenario.ecore#//request/StartApplicationRequest">
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference experimentscenario.ecore#//request/StartApplicationRequest/applicationTemplate"/>
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference experimentscenario.ecore#//request/StartApplicationRequest/applicationInstance"/>
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference experimentscenario.ecore#//request/StartApplicationRequest/vmFlavour"/>
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference experimentscenario.ecore#//request/StartApplicationRequest/inputParameters"/>
+        <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="experimentscenario.ecore#//request/StartApplicationRequest/applicationInstanceMustBeOfTheRightTemplate">
+          <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="experimentscenario.ecore#//request/StartApplicationRequest/applicationInstanceMustBeOfTheRightTemplate/diagnostics"/>
+          <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="experimentscenario.ecore#//request/StartApplicationRequest/applicationInstanceMustBeOfTheRightTemplate/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="experimentscenario.ecore#//request/SuspendApplicationRequest">
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference experimentscenario.ecore#//request/SuspendApplicationRequest/runningApplicationSelector"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="experimentscenario.ecore#//request/TerminateApplicationRequest">
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference experimentscenario.ecore#//request/TerminateApplicationRequest/runningApplicationSelector"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="experimentscenario.ecore#//request/ChangeOptimizationIntervalRequest">
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute experimentscenario.ecore#//request/ChangeOptimizationIntervalRequest/optimizationInterval"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="experimentscenario.ecore#//request/ReconfigureScalableImageConnectorRequest">
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference experimentscenario.ecore#//request/ReconfigureScalableImageConnectorRequest/whiteBoxApplicationInstanceSelector"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute experimentscenario.ecore#//request/ReconfigureScalableImageConnectorRequest/loadBalancingPolicy"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute experimentscenario.ecore#//request/ReconfigureScalableImageConnectorRequest/autoscalingAnalysisInterval"/>
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference experimentscenario.ecore#//request/ReconfigureScalableImageConnectorRequest/targetConnector"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="experimentscenario.ecore#//request/SetPhysicalNodeStateRequest">
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference experimentscenario.ecore#//request/SetPhysicalNodeStateRequest/targetNode"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute experimentscenario.ecore#//request/SetPhysicalNodeStateRequest/targetState"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="experimentscenario.ecore#//request/ResumeApplicationRequest">
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference experimentscenario.ecore#//request/ResumeApplicationRequest/previouslySuspendedApplicationSelector"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="experimentscenario.ecore#//request/ExperimentScenarioRequest">
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false"
+            createChild="false" ecoreFeature="ecore:EReference experimentscenario.ecore#//request/ExperimentScenarioRequest/timelineEvent"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages xsi:type="genmodel:GenPackage" prefix="Selector" basePackage="eu.cactosfp7.cactosim.experimentscenario"
+        disposableProviderFactory="true" ecorePackage="experimentscenario.ecore#//selector">
+      <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="experimentscenario.ecore#//selector/InitiallyRunningInstanceSelector">
+        <genTypeParameters ecoreTypeParameter="experimentscenario.ecore#//selector/InitiallyRunningInstanceSelector/instanceTypeParameter"/>
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference experimentscenario.ecore#//selector/InitiallyRunningInstanceSelector/applicationInstance"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="experimentscenario.ecore#//selector/PreviouslyStartedApplicationSelector">
+        <genTypeParameters ecoreTypeParameter="experimentscenario.ecore#//selector/PreviouslyStartedApplicationSelector/instanceTypeParameter"/>
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference experimentscenario.ecore#//selector/PreviouslyStartedApplicationSelector/startApplicationRequest"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="experimentscenario.ecore#//selector/PreviouslySuspendedApplicationSelector">
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference experimentscenario.ecore#//selector/PreviouslySuspendedApplicationSelector/suspendRequest"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="experimentscenario.ecore#//selector/SuspendedInstanceSelector"/>
+      <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="experimentscenario.ecore#//selector/BlackBoxApplicationInstanceSelector"/>
+      <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="experimentscenario.ecore#//selector/NonWhiteBoxApplicationInstanceSelector"/>
+      <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="experimentscenario.ecore#//selector/GreyBoxApplicationInstanceSelector"/>
+      <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="experimentscenario.ecore#//selector/WhiteBoxApplicationInstanceSelector"/>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="experimentscenario.ecore#//selector/InitiallyRunningWhiteBoxApplicationInstanceSelector"/>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="experimentscenario.ecore#//selector/InitiallyRunningGreyBoxApplicationInstanceSelector"/>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="experimentscenario.ecore#//selector/InitiallyRunningBlackBoxApplicationInstanceSelector"/>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="experimentscenario.ecore#//selector/PreviouslyStartedWhiteBoxApplicationInstanceSelector"/>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="experimentscenario.ecore#//selector/PreviouslyStartedBlackBoxApplicationSelector"/>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="experimentscenario.ecore#//selector/PreviouslyStartedGreyBoxApplicationSelector"/>
+      <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="experimentscenario.ecore#//selector/ApplicationInstanceSelector"/>
+    </nestedGenPackages>
+  </genPackages>
+</genmodel:GenModel>

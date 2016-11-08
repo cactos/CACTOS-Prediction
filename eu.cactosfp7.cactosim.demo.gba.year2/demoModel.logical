@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:LogicalDCModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.cactosfp7.eu/LogicalDCModel/Application/1.0" xmlns:core="http://www.cactosfp7.eu/LogicalDCModel/Core/1.0" xmlns:core_1="http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0" id="_GBtk0HgLEeWo66R8YksaUA">
+  <hypervisors id="_GCBt4HgLEeWo66R8YksaUA">
+    <virtualMachines id="_GCu4gHgLEeWo66R8YksaUA" name="BBA 0" virtualNetworkInterconnects="_GDuXAHgLEeWo66R8YksaUA" state="RUNNING">
+      <vMImageInstance id="_GDK9YHgLEeWo66R8YksaUA" executedVMImage="_GB3V0HgLEeWo66R8YksaUA" isRunLocally="true" localStorageSize="1600.0bit*1000000000" volumes="_GBydUHgLEeWo66R8YksaUA"/>
+      <virtualMemoryUnits id="_GDOAsHgLEeWo66R8YksaUA" provisioned="64.0bit*1000000000"/>
+      <virtualProcessingUnits id="_GDBMYHgLEeWo66R8YksaUA" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxApplication" id="_GDTgQHgLEeWo66R8YksaUA">
+        <workloadPhases id="_GDV8gHgLEeWo66R8YksaUA">
+          <resourceDemands amount="35374.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="189.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDYYwHgLEeWo66R8YksaUA">
+          <resourceDemands amount="115.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="234.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDZm4HgLEeWo66R8YksaUA">
+          <resourceDemands amount="28259.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="172.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDa1AHgLEeWo66R8YksaUA">
+          <resourceDemands amount="2212.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="422.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_F99GMHgLEeWo66R8YksaUA"/>
+    <node href="demoModel.physical#_GAdAkHgLEeWo66R8YksaUA"/>
+  </hypervisors>
+  <hypervisors id="_GCC8AHgLEeWo66R8YksaUA">
+    <virtualMachines id="_GDcDIHgLEeWo66R8YksaUA" name="BBA 0" virtualNetworkInterconnects="_GDuXAHgLEeWo66R8YksaUA" state="RUNNING">
+      <vMImageInstance id="_GDcDIngLEeWo66R8YksaUA" executedVMImage="_GB3V0HgLEeWo66R8YksaUA" isRunLocally="true" localStorageSize="1600.0bit*1000000000" volumes="_GBydUHgLEeWo66R8YksaUA"/>
+      <virtualMemoryUnits id="_GDcDI3gLEeWo66R8YksaUA" provisioned="64.0bit*1000000000"/>
+      <virtualProcessingUnits id="_GDcDIXgLEeWo66R8YksaUA" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxApplication" id="_GDcDJHgLEeWo66R8YksaUA">
+        <workloadPhases id="_GDcDJXgLEeWo66R8YksaUA">
+          <resourceDemands amount="35374.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="189.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDcDJngLEeWo66R8YksaUA">
+          <resourceDemands amount="115.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="234.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDcDJ3gLEeWo66R8YksaUA">
+          <resourceDemands amount="28259.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="172.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDcDKHgLEeWo66R8YksaUA">
+          <resourceDemands amount="2212.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="422.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_F99GMHgLEeWo66R8YksaUA"/>
+    <node href="demoModel.physical#_GA8v0HgLEeWo66R8YksaUA"/>
+  </hypervisors>
+  <hypervisors id="_GCC8AXgLEeWo66R8YksaUA">
+    <virtualMachines id="_GDcqMHgLEeWo66R8YksaUA" name="BBA 0" virtualNetworkInterconnects="_GDuXAHgLEeWo66R8YksaUA" state="RUNNING">
+      <vMImageInstance id="_GDcqMngLEeWo66R8YksaUA" executedVMImage="_GB3V0HgLEeWo66R8YksaUA" isRunLocally="true" localStorageSize="1600.0bit*1000000000" volumes="_GBydUHgLEeWo66R8YksaUA"/>
+      <virtualMemoryUnits id="_GDcqM3gLEeWo66R8YksaUA" provisioned="64.0bit*1000000000"/>
+      <virtualProcessingUnits id="_GDcqMXgLEeWo66R8YksaUA" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxApplication" id="_GDcqNHgLEeWo66R8YksaUA">
+        <workloadPhases id="_GDcqNXgLEeWo66R8YksaUA">
+          <resourceDemands amount="35374.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="189.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDcqNngLEeWo66R8YksaUA">
+          <resourceDemands amount="115.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="234.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDcqN3gLEeWo66R8YksaUA">
+          <resourceDemands amount="28259.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="172.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDcqOHgLEeWo66R8YksaUA">
+          <resourceDemands amount="2212.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="422.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_F99GMHgLEeWo66R8YksaUA"/>
+    <node href="demoModel.physical#_GA9W4HgLEeWo66R8YksaUA"/>
+  </hypervisors>
+  <hypervisors id="_GCDjEHgLEeWo66R8YksaUA">
+    <virtualMachines id="_GDdRQHgLEeWo66R8YksaUA" name="BBA 0" virtualNetworkInterconnects="_GDuXAHgLEeWo66R8YksaUA" state="RUNNING">
+      <vMImageInstance id="_GDfGcHgLEeWo66R8YksaUA" executedVMImage="_GB3V0HgLEeWo66R8YksaUA" isRunLocally="true" localStorageSize="1600.0bit*1000000000" volumes="_GBydUHgLEeWo66R8YksaUA"/>
+      <virtualMemoryUnits id="_GDfGcXgLEeWo66R8YksaUA" provisioned="64.0bit*1000000000"/>
+      <virtualProcessingUnits id="_GDdRQXgLEeWo66R8YksaUA" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxApplication" id="_GDftgHgLEeWo66R8YksaUA">
+        <workloadPhases id="_GDftgXgLEeWo66R8YksaUA">
+          <resourceDemands amount="35374.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="189.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDftgngLEeWo66R8YksaUA">
+          <resourceDemands amount="115.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="234.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDftg3gLEeWo66R8YksaUA">
+          <resourceDemands amount="28259.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="172.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDfthHgLEeWo66R8YksaUA">
+          <resourceDemands amount="2212.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="422.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_F99GMHgLEeWo66R8YksaUA"/>
+    <node href="demoModel.physical#_GA9W5HgLEeWo66R8YksaUA"/>
+  </hypervisors>
+  <hypervisors id="_GCDjEXgLEeWo66R8YksaUA">
+    <virtualMachines id="_GDfthXgLEeWo66R8YksaUA" name="BBA 0" virtualNetworkInterconnects="_GDuXAHgLEeWo66R8YksaUA" state="RUNNING">
+      <vMImageInstance id="_GDgUkXgLEeWo66R8YksaUA" executedVMImage="_GB3V0HgLEeWo66R8YksaUA" isRunLocally="true" localStorageSize="1600.0bit*1000000000" volumes="_GBydUHgLEeWo66R8YksaUA"/>
+      <virtualMemoryUnits id="_GDiJwHgLEeWo66R8YksaUA" provisioned="64.0bit*1000000000"/>
+      <virtualProcessingUnits id="_GDgUkHgLEeWo66R8YksaUA" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxApplication" id="_GDiJwXgLEeWo66R8YksaUA">
+        <workloadPhases id="_GDiJwngLEeWo66R8YksaUA">
+          <resourceDemands amount="35374.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="189.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDiJw3gLEeWo66R8YksaUA">
+          <resourceDemands amount="115.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="234.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDiJxHgLEeWo66R8YksaUA">
+          <resourceDemands amount="28259.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="172.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDjX4HgLEeWo66R8YksaUA">
+          <resourceDemands amount="2212.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="422.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_F99GMHgLEeWo66R8YksaUA"/>
+    <node href="demoModel.physical#_GA998ngLEeWo66R8YksaUA"/>
+  </hypervisors>
+  <hypervisors id="_GCDjEngLEeWo66R8YksaUA">
+    <virtualMachines id="_GDj-8HgLEeWo66R8YksaUA" name="BBA 0" virtualNetworkInterconnects="_GDuXAHgLEeWo66R8YksaUA" state="RUNNING">
+      <vMImageInstance id="_GDj-8ngLEeWo66R8YksaUA" executedVMImage="_GB3V0HgLEeWo66R8YksaUA" isRunLocally="true" localStorageSize="1600.0bit*1000000000" volumes="_GBydUHgLEeWo66R8YksaUA"/>
+      <virtualMemoryUnits id="_GDj-83gLEeWo66R8YksaUA" provisioned="64.0bit*1000000000"/>
+      <virtualProcessingUnits id="_GDj-8XgLEeWo66R8YksaUA" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxApplication" id="_GDj-9HgLEeWo66R8YksaUA">
+        <workloadPhases id="_GDj-9XgLEeWo66R8YksaUA">
+          <resourceDemands amount="35374.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="189.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDj-9ngLEeWo66R8YksaUA">
+          <resourceDemands amount="115.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="234.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDj-93gLEeWo66R8YksaUA">
+          <resourceDemands amount="28259.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="172.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDkmAHgLEeWo66R8YksaUA">
+          <resourceDemands amount="2212.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="422.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_F99GMHgLEeWo66R8YksaUA"/>
+    <node href="demoModel.physical#_GBAaMHgLEeWo66R8YksaUA"/>
+  </hypervisors>
+  <hypervisors id="_GCDjE3gLEeWo66R8YksaUA">
+    <virtualMachines id="_GDkmAXgLEeWo66R8YksaUA" name="BBA 0" virtualNetworkInterconnects="_GDuXAHgLEeWo66R8YksaUA" state="RUNNING">
+      <vMImageInstance id="_GDkmA3gLEeWo66R8YksaUA" executedVMImage="_GB3V0HgLEeWo66R8YksaUA" isRunLocally="true" localStorageSize="1600.0bit*1000000000" volumes="_GBydUHgLEeWo66R8YksaUA"/>
+      <virtualMemoryUnits id="_GDkmBHgLEeWo66R8YksaUA" provisioned="64.0bit*1000000000"/>
+      <virtualProcessingUnits id="_GDkmAngLEeWo66R8YksaUA" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxApplication" id="_GDkmBXgLEeWo66R8YksaUA">
+        <workloadPhases id="_GDkmBngLEeWo66R8YksaUA">
+          <resourceDemands amount="35374.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="189.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDkmB3gLEeWo66R8YksaUA">
+          <resourceDemands amount="115.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="234.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDkmCHgLEeWo66R8YksaUA">
+          <resourceDemands amount="28259.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="172.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDkmCXgLEeWo66R8YksaUA">
+          <resourceDemands amount="2212.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="422.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_F99GMHgLEeWo66R8YksaUA"/>
+    <node href="demoModel.physical#_GBEEkHgLEeWo66R8YksaUA"/>
+  </hypervisors>
+  <hypervisors id="_GCDjFHgLEeWo66R8YksaUA">
+    <virtualMachines id="_GDlNEHgLEeWo66R8YksaUA" name="BBA 0" virtualNetworkInterconnects="_GDuXAHgLEeWo66R8YksaUA" state="RUNNING">
+      <vMImageInstance id="_GDlNEngLEeWo66R8YksaUA" executedVMImage="_GB3V0HgLEeWo66R8YksaUA" isRunLocally="true" localStorageSize="1600.0bit*1000000000" volumes="_GBydUHgLEeWo66R8YksaUA"/>
+      <virtualMemoryUnits id="_GDlNE3gLEeWo66R8YksaUA" provisioned="64.0bit*1000000000"/>
+      <virtualProcessingUnits id="_GDlNEXgLEeWo66R8YksaUA" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxApplication" id="_GDlNFHgLEeWo66R8YksaUA">
+        <workloadPhases id="_GDlNFXgLEeWo66R8YksaUA">
+          <resourceDemands amount="35374.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="189.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDlNFngLEeWo66R8YksaUA">
+          <resourceDemands amount="115.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="234.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDlNF3gLEeWo66R8YksaUA">
+          <resourceDemands amount="28259.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="172.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDlNGHgLEeWo66R8YksaUA">
+          <resourceDemands amount="2212.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="422.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_F99GMHgLEeWo66R8YksaUA"/>
+    <node href="demoModel.physical#_GBErongLEeWo66R8YksaUA"/>
+  </hypervisors>
+  <hypervisors id="_GCDjFXgLEeWo66R8YksaUA">
+    <virtualMachines id="_GDl0IHgLEeWo66R8YksaUA" name="BBA 0" virtualNetworkInterconnects="_GDuXAHgLEeWo66R8YksaUA" state="RUNNING">
+      <vMImageInstance id="_GDl0IngLEeWo66R8YksaUA" executedVMImage="_GB3V0HgLEeWo66R8YksaUA" isRunLocally="true" localStorageSize="1600.0bit*1000000000" volumes="_GBydUHgLEeWo66R8YksaUA"/>
+      <virtualMemoryUnits id="_GDl0I3gLEeWo66R8YksaUA" provisioned="64.0bit*1000000000"/>
+      <virtualProcessingUnits id="_GDl0IXgLEeWo66R8YksaUA" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxApplication" id="_GDl0JHgLEeWo66R8YksaUA">
+        <workloadPhases id="_GDl0JXgLEeWo66R8YksaUA">
+          <resourceDemands amount="35374.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="189.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDl0JngLEeWo66R8YksaUA">
+          <resourceDemands amount="115.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="234.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDl0J3gLEeWo66R8YksaUA">
+          <resourceDemands amount="28259.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="172.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDl0KHgLEeWo66R8YksaUA">
+          <resourceDemands amount="2212.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="422.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_F99GMHgLEeWo66R8YksaUA"/>
+    <node href="demoModel.physical#_GBFSsXgLEeWo66R8YksaUA"/>
+  </hypervisors>
+  <hypervisors id="_GCDjFngLEeWo66R8YksaUA">
+    <virtualMachines id="_GDl0KXgLEeWo66R8YksaUA" name="BBA 0" virtualNetworkInterconnects="_GDuXAHgLEeWo66R8YksaUA" state="RUNNING">
+      <vMImageInstance id="_GDmbMHgLEeWo66R8YksaUA" executedVMImage="_GB3V0HgLEeWo66R8YksaUA" isRunLocally="true" localStorageSize="1600.0bit*1000000000" volumes="_GBydUHgLEeWo66R8YksaUA"/>
+      <virtualMemoryUnits id="_GDmbMXgLEeWo66R8YksaUA" provisioned="64.0bit*1000000000"/>
+      <virtualProcessingUnits id="_GDl0KngLEeWo66R8YksaUA" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxApplication" id="_GDmbMngLEeWo66R8YksaUA">
+        <workloadPhases id="_GDmbM3gLEeWo66R8YksaUA">
+          <resourceDemands amount="35374.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="189.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDmbNHgLEeWo66R8YksaUA">
+          <resourceDemands amount="115.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="234.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDmbNXgLEeWo66R8YksaUA">
+          <resourceDemands amount="28259.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="172.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDmbNngLEeWo66R8YksaUA">
+          <resourceDemands amount="2212.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="422.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_F99GMHgLEeWo66R8YksaUA"/>
+    <node href="demoModel.physical#_GBHH4HgLEeWo66R8YksaUA"/>
+  </hypervisors>
+  <hypervisors id="_GCDjF3gLEeWo66R8YksaUA">
+    <virtualMachines id="_GDmbN3gLEeWo66R8YksaUA" name="BBA 0" virtualNetworkInterconnects="_GDuXAHgLEeWo66R8YksaUA" state="RUNNING">
+      <vMImageInstance id="_GDmbOXgLEeWo66R8YksaUA" executedVMImage="_GB3V0HgLEeWo66R8YksaUA" isRunLocally="true" localStorageSize="1600.0bit*1000000000" volumes="_GBydUHgLEeWo66R8YksaUA"/>
+      <virtualMemoryUnits id="_GDnCQHgLEeWo66R8YksaUA" provisioned="64.0bit*1000000000"/>
+      <virtualProcessingUnits id="_GDmbOHgLEeWo66R8YksaUA" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxApplication" id="_GDnCQXgLEeWo66R8YksaUA">
+        <workloadPhases id="_GDnCQngLEeWo66R8YksaUA">
+          <resourceDemands amount="35374.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="189.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDnCQ3gLEeWo66R8YksaUA">
+          <resourceDemands amount="115.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="234.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDnCRHgLEeWo66R8YksaUA">
+          <resourceDemands amount="28259.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="172.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDnCRXgLEeWo66R8YksaUA">
+          <resourceDemands amount="2212.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="422.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_F99GMHgLEeWo66R8YksaUA"/>
+    <node href="demoModel.physical#_GBHH5HgLEeWo66R8YksaUA"/>
+  </hypervisors>
+  <hypervisors id="_GCDjGHgLEeWo66R8YksaUA">
+    <virtualMachines id="_GDnCRngLEeWo66R8YksaUA" name="BBA 0" virtualNetworkInterconnects="_GDuXAHgLEeWo66R8YksaUA" state="RUNNING">
+      <vMImageInstance id="_GDnCSHgLEeWo66R8YksaUA" executedVMImage="_GB3V0HgLEeWo66R8YksaUA" isRunLocally="true" localStorageSize="1600.0bit*1000000000" volumes="_GBydUHgLEeWo66R8YksaUA"/>
+      <virtualMemoryUnits id="_GDnCSXgLEeWo66R8YksaUA" provisioned="64.0bit*1000000000"/>
+      <virtualProcessingUnits id="_GDnCR3gLEeWo66R8YksaUA" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxApplication" id="_GDnpUHgLEeWo66R8YksaUA">
+        <workloadPhases id="_GDnpUXgLEeWo66R8YksaUA">
+          <resourceDemands amount="35374.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="189.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDnpUngLEeWo66R8YksaUA">
+          <resourceDemands amount="115.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="234.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDnpU3gLEeWo66R8YksaUA">
+          <resourceDemands amount="28259.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="172.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDnpVHgLEeWo66R8YksaUA">
+          <resourceDemands amount="2212.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="422.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_F99GMHgLEeWo66R8YksaUA"/>
+    <node href="demoModel.physical#_GBHu83gLEeWo66R8YksaUA"/>
+  </hypervisors>
+  <hypervisors id="_GCDjGXgLEeWo66R8YksaUA">
+    <virtualMachines id="_GDnpVXgLEeWo66R8YksaUA" name="BBA 0" virtualNetworkInterconnects="_GDuXAHgLEeWo66R8YksaUA" state="RUNNING">
+      <vMImageInstance id="_GDnpV3gLEeWo66R8YksaUA" executedVMImage="_GB3V0HgLEeWo66R8YksaUA" isRunLocally="true" localStorageSize="1600.0bit*1000000000" volumes="_GBydUHgLEeWo66R8YksaUA"/>
+      <virtualMemoryUnits id="_GDoQYHgLEeWo66R8YksaUA" provisioned="64.0bit*1000000000"/>
+      <virtualProcessingUnits id="_GDnpVngLEeWo66R8YksaUA" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxApplication" id="_GDoQYXgLEeWo66R8YksaUA">
+        <workloadPhases id="_GDoQYngLEeWo66R8YksaUA">
+          <resourceDemands amount="35374.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="189.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDoQY3gLEeWo66R8YksaUA">
+          <resourceDemands amount="115.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="234.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDoQZHgLEeWo66R8YksaUA">
+          <resourceDemands amount="28259.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="172.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDoQZXgLEeWo66R8YksaUA">
+          <resourceDemands amount="2212.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="422.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_F99GMHgLEeWo66R8YksaUA"/>
+    <node href="demoModel.physical#_GBI9EHgLEeWo66R8YksaUA"/>
+  </hypervisors>
+  <hypervisors id="_GCDjGngLEeWo66R8YksaUA">
+    <virtualMachines id="_GDoQZngLEeWo66R8YksaUA" name="BBA 0" virtualNetworkInterconnects="_GDuXAHgLEeWo66R8YksaUA" state="RUNNING">
+      <vMImageInstance id="_GDoQaHgLEeWo66R8YksaUA" executedVMImage="_GB3V0HgLEeWo66R8YksaUA" isRunLocally="true" localStorageSize="1600.0bit*1000000000" volumes="_GBydUHgLEeWo66R8YksaUA"/>
+      <virtualMemoryUnits id="_GDoQaXgLEeWo66R8YksaUA" provisioned="64.0bit*1000000000"/>
+      <virtualProcessingUnits id="_GDoQZ3gLEeWo66R8YksaUA" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxApplication" id="_GDoQangLEeWo66R8YksaUA">
+        <workloadPhases id="_GDo3cHgLEeWo66R8YksaUA">
+          <resourceDemands amount="35374.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="189.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDo3cXgLEeWo66R8YksaUA">
+          <resourceDemands amount="115.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="234.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDo3cngLEeWo66R8YksaUA">
+          <resourceDemands amount="28259.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="172.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDo3c3gLEeWo66R8YksaUA">
+          <resourceDemands amount="2212.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="422.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_F99GMHgLEeWo66R8YksaUA"/>
+    <node href="demoModel.physical#_GBI9FHgLEeWo66R8YksaUA"/>
+  </hypervisors>
+  <hypervisors id="_GCDjG3gLEeWo66R8YksaUA">
+    <virtualMachines id="_GDo3dHgLEeWo66R8YksaUA" name="BBA 0" virtualNetworkInterconnects="_GDuXAHgLEeWo66R8YksaUA" state="RUNNING">
+      <vMImageInstance id="_GDo3dngLEeWo66R8YksaUA" executedVMImage="_GB3V0HgLEeWo66R8YksaUA" isRunLocally="true" localStorageSize="1600.0bit*1000000000" volumes="_GBydUHgLEeWo66R8YksaUA"/>
+      <virtualMemoryUnits id="_GDo3d3gLEeWo66R8YksaUA" provisioned="64.0bit*1000000000"/>
+      <virtualProcessingUnits id="_GDo3dXgLEeWo66R8YksaUA" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxApplication" id="_GDo3eHgLEeWo66R8YksaUA">
+        <workloadPhases id="_GDo3eXgLEeWo66R8YksaUA">
+          <resourceDemands amount="35374.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="189.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDo3engLEeWo66R8YksaUA">
+          <resourceDemands amount="115.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="234.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDpegHgLEeWo66R8YksaUA">
+          <resourceDemands amount="28259.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="172.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDpegXgLEeWo66R8YksaUA">
+          <resourceDemands amount="2212.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="422.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_F99GMHgLEeWo66R8YksaUA"/>
+    <node href="demoModel.physical#_GBJkIXgLEeWo66R8YksaUA"/>
+  </hypervisors>
+  <hypervisors id="_GCDjHHgLEeWo66R8YksaUA">
+    <virtualMachines id="_GDpegngLEeWo66R8YksaUA" name="BBA 0" virtualNetworkInterconnects="_GDuXAHgLEeWo66R8YksaUA" state="RUNNING">
+      <vMImageInstance id="_GDqFkXgLEeWo66R8YksaUA" executedVMImage="_GB3V0HgLEeWo66R8YksaUA" isRunLocally="true" localStorageSize="1600.0bit*1000000000" volumes="_GBydUHgLEeWo66R8YksaUA"/>
+      <virtualMemoryUnits id="_GDqFkngLEeWo66R8YksaUA" provisioned="64.0bit*1000000000"/>
+      <virtualProcessingUnits id="_GDqFkHgLEeWo66R8YksaUA" name="vCPU Flavour 1" virtualCores="1">
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxApplication" id="_GDqFk3gLEeWo66R8YksaUA">
+        <workloadPhases id="_GDqFlHgLEeWo66R8YksaUA">
+          <resourceDemands amount="35374.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="189.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDqFlXgLEeWo66R8YksaUA">
+          <resourceDemands amount="115.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="234.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDqFlngLEeWo66R8YksaUA">
+          <resourceDemands amount="28259.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="172.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_GDqFl3gLEeWo66R8YksaUA">
+          <resourceDemands amount="2212.0*1000000000">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="demoModel.physical#_GBPqwXgLEeWo66R8YksaUA"/>
+          </resourceDemands>
+          <resourceDemands amount="422.0GB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="demoModel.hypervisor#_F99GMHgLEeWo66R8YksaUA"/>
+    <node href="demoModel.physical#_GBPqwHgLEeWo66R8YksaUA"/>
+  </hypervisors>
+  <virtualNetworks id="_GB_4sHgLEeWo66R8YksaUA" name="Single virtual Network Layout" virtualNetworkInterconnects="_GDuXAHgLEeWo66R8YksaUA"/>
+  <vmImages id="_GB3V0HgLEeWo66R8YksaUA" name="Molpro Image" size="2.0GB" virtualMachine="_GDK9YHgLEeWo66R8YksaUA _GDcDIngLEeWo66R8YksaUA _GDcqMngLEeWo66R8YksaUA _GDfGcHgLEeWo66R8YksaUA _GDgUkXgLEeWo66R8YksaUA _GDj-8ngLEeWo66R8YksaUA _GDkmA3gLEeWo66R8YksaUA _GDlNEngLEeWo66R8YksaUA _GDl0IngLEeWo66R8YksaUA _GDmbMHgLEeWo66R8YksaUA _GDmbOXgLEeWo66R8YksaUA _GDnCSHgLEeWo66R8YksaUA _GDnpV3gLEeWo66R8YksaUA _GDoQaHgLEeWo66R8YksaUA _GDo3dngLEeWo66R8YksaUA _GDqFkXgLEeWo66R8YksaUA" applicationTypeTag="MolproCcsd">
+    <storageLocation href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+  </vmImages>
+  <vmImages id="_GB384HgLEeWo66R8YksaUA" name="Black-Box Application Image" size="1.1999999999999997GB" volume="_GBydUHgLEeWo66R8YksaUA" applicationTypeTag="Black-Box">
+    <storageLocation href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+  </vmImages>
+  <volumes id="_GBydUHgLEeWo66R8YksaUA" size="12.0GB" virtualMachine="_GDK9YHgLEeWo66R8YksaUA _GDcDIngLEeWo66R8YksaUA _GDcqMngLEeWo66R8YksaUA _GDfGcHgLEeWo66R8YksaUA _GDgUkXgLEeWo66R8YksaUA _GDj-8ngLEeWo66R8YksaUA _GDkmA3gLEeWo66R8YksaUA _GDlNEngLEeWo66R8YksaUA _GDl0IngLEeWo66R8YksaUA _GDmbMHgLEeWo66R8YksaUA _GDmbOXgLEeWo66R8YksaUA _GDnCSHgLEeWo66R8YksaUA _GDnpV3gLEeWo66R8YksaUA _GDoQaHgLEeWo66R8YksaUA _GDo3dngLEeWo66R8YksaUA _GDqFkXgLEeWo66R8YksaUA" vmImage="_GB384HgLEeWo66R8YksaUA">
+    <storageLocation href="demoModel.physical#_GBPqwngLEeWo66R8YksaUA"/>
+  </volumes>
+  <virtualNetworkInterconnects id="_GDuXAHgLEeWo66R8YksaUA" name="Single vNIC Layout" connectedVirtualEntity="_GB_4sHgLEeWo66R8YksaUA _GCu4gHgLEeWo66R8YksaUA _GDcDIHgLEeWo66R8YksaUA _GDcqMHgLEeWo66R8YksaUA _GDdRQHgLEeWo66R8YksaUA _GDfthXgLEeWo66R8YksaUA _GDj-8HgLEeWo66R8YksaUA _GDkmAXgLEeWo66R8YksaUA _GDlNEHgLEeWo66R8YksaUA _GDl0IHgLEeWo66R8YksaUA _GDl0KXgLEeWo66R8YksaUA _GDmbN3gLEeWo66R8YksaUA _GDnCRngLEeWo66R8YksaUA _GDnpVXgLEeWo66R8YksaUA _GDoQZngLEeWo66R8YksaUA _GDo3dHgLEeWo66R8YksaUA _GDpegngLEeWo66R8YksaUA"/>
+</core:LogicalDCModel>

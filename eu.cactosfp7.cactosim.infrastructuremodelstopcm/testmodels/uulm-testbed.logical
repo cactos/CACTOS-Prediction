@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:LogicalDCModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.cactosfp7.eu/LogicalDCModel/Application/1.0" xmlns:core="http://www.cactosfp7.eu/LogicalDCModel/Core/1.0" xmlns:core_1="http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0" xmlns:tools.descartes.dlim="http://descartes.tools/dlim/0.1" id="_eaki8VxoEeW_-_djncgLtw">
+  <hypervisors id="1">
+    <virtualMachines id="instance-000000d2" name="d2" state="RUNNING">
+      <vMImageInstance id="2" isRunLocally="true" localStorageSize="40960.0MB"/>
+      <virtualMemoryUnits id="instance-000000d20" provisioned="3953.0MB"/>
+      <puAffinity id="_eYYKkFxoEeW_-_djncgLtw"/>
+      <inputParameters key="uuid" value="4a1eff1c-54aa-480a-8acb-614198d1e312"/>
+      <virtualProcessingUnits id="_lyjAgGLTEeW61e4rbn70_g" virtualCores="2">
+        <architectureType href="uulm-testbed.architecturetype#_YH-1cFxmEeWNL8aCAwjuzg"/>
+      </virtualProcessingUnits>
+    </virtualMachines>
+    <virtualMachines id="instance-000000d5" name="d5" state="RUNNING">
+      <vMImageInstance id="3" isRunLocally="true" localStorageSize="40960.0MB"/>
+      <virtualMemoryUnits id="instance-000000d50" provisioned="3953.0MB"/>
+      <puAffinity id="_eYdqJVxoEeW_-_djncgLtw"/>
+      <inputParameters key="uuid" value="b0a6e363-0e58-433f-a26f-9767dc9bb799"/>
+      <virtualProcessingUnits id="_lyjnkmLTEeW61e4rbn70_g" virtualCores="2">
+        <architectureType href="uulm-testbed.architecturetype#_YH-1cFxmEeWNL8aCAwjuzg"/>
+      </virtualProcessingUnits>
+    </virtualMachines>
+    <virtualMachines id="instance-000000dc" name="dc" state="RUNNING">
+      <vMImageInstance id="4" isRunLocally="true" localStorageSize="40960.0MB"/>
+      <virtualMemoryUnits id="instance-000000dc0" provisioned="3953.0MB"/>
+      <puAffinity id="_eYeROFxoEeW_-_djncgLtw"/>
+      <inputParameters key="uuid" value="69d34a8a-3547-43b1-b3dc-b3908a1f2ca8"/>
+      <virtualProcessingUnits id="_lyjnmGLTEeW61e4rbn70_g" virtualCores="2">
+        <architectureType href="uulm-testbed.architecturetype#_YH-1cFxmEeWNL8aCAwjuzg"/>
+      </virtualProcessingUnits>
+    </virtualMachines>
+    <virtualMachines id="instance-000000dd" name="dd" state="RUNNING">
+      <vMImageInstance id="5" isRunLocally="true" localStorageSize="40960.0MB"/>
+      <virtualMemoryUnits id="instance-000000dd0" provisioned="3953.0MB"/>
+      <puAffinity id="_eYffUlxoEeW_-_djncgLtw"/>
+      <inputParameters key="uuid" value="a1b04305-81f7-49de-b977-78359ecf9b06"/>
+      <virtualProcessingUnits id="_lykOpWLTEeW61e4rbn70_g" virtualCores="2">
+        <architectureType href="uulm-testbed.architecturetype#_YH-1cFxmEeWNL8aCAwjuzg"/>
+      </virtualProcessingUnits>
+    </virtualMachines>
+    <virtualMachines id="instance-000000de" name="de" state="RUNNING">
+      <vMImageInstance id="6" isRunLocally="true" localStorageSize="40960.0MB"/>
+      <virtualMemoryUnits id="instance-000000de0" provisioned="3953.0MB"/>
+      <puAffinity id="_eYgGY1xoEeW_-_djncgLtw"/>
+      <inputParameters key="uuid" value="c54a0b09-56c7-4637-8d55-a4ec8a4cffe2"/>
+      <virtualProcessingUnits id="_lyk1tGLTEeW61e4rbn70_g" virtualCores="2">
+        <architectureType href="uulm-testbed.architecturetype#_YH-1cFxmEeWNL8aCAwjuzg"/>
+      </virtualProcessingUnits>
+    </virtualMachines>
+    <virtualMachines id="instance-000000df" name="df" state="RUNNING">
+      <vMImageInstance id="7" isRunLocally="true" localStorageSize="40960.0MB"/>
+      <virtualMemoryUnits id="instance-000000df0" provisioned="3953.0MB"/>
+      <puAffinity id="_eYgtd1xoEeW_-_djncgLtw"/>
+      <inputParameters key="uuid" value="31f1ece2-c8e6-4867-ae00-21dc6fe7542c"/>
+      <virtualProcessingUnits id="_lylcwWLTEeW61e4rbn70_g" virtualCores="2">
+        <architectureType href="uulm-testbed.architecturetype#_YH-1cFxmEeWNL8aCAwjuzg"/>
+      </virtualProcessingUnits>
+    </virtualMachines>
+    <virtualMachines id="_2HmjYGLTEeW61e4rbn70_g" name="Black-Box VM" state="RUNNING">
+      <virtualMemoryUnits id="_lmpAkWLVEeWOneKughWvRQ" provisioned="2.0GB"/>
+      <virtualProcessingUnits id="_mw_642LVEeWOneKughWvRQ" name="cpu 3" virtualCores="1">
+        <architectureType href="uulm-testbed.architecturetype#_YH-1cFxmEeWNL8aCAwjuzg"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:BlackBoxApplication" id="_noHwJGLVEeWOneKughWvRQ" name="Black-Box Application Model Demo (non-repeating)">
+        <blackBoxWorkloads id="_2VeVYGLVEeWOneKughWvRQ" name="bbw">
+          <resourceDemandRates name="Black-Box Application Model" terminateAfterTime="360.0">
+            <sequenceFunctionContainers>
+              <function xsi:type="tools.descartes.dlim:Constant" constant="2000.0"/>
+            </sequenceFunctionContainers>
+          </resourceDemandRates>
+          <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" id="_AVyCE2LpEeWOneKughWvRQ" name="vcpu spec for BBA" frequency="1.0GHz">
+            <architectureType href="uulm-testbed.architecturetype#_YH-1cFxmEeWNL8aCAwjuzg"/>
+          </resourceSpecification>
+        </blackBoxWorkloads>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <virtualMachines id="_rEnnAGLnEeWOneKughWvRQ" name="Grey-Box VM" state="RUNNING">
+      <virtualMemoryUnits id="_wQfO8WLnEeWOneKughWvRQ" provisioned="10.0GB"/>
+      <virtualProcessingUnits id="_xXt8w2LnEeWOneKughWvRQ" name="vcpu gb" virtualCores="1">
+        <architectureType href="uulm-testbed.architecturetype#_YH-1cFxmEeWNL8aCAwjuzg"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:GreyBoxApplication" id="_x-UpxWLnEeWOneKughWvRQ" name="gba">
+        <workloadPhases id="_5aYLoGLnEeWOneKughWvRQ" name="Phase 1">
+          <resourceDemands amount="20.0">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="uulm-testbed.physical#56izo7tu85zhnb6ewrftzhgh"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_6UXusGLnEeWOneKughWvRQ" name="Phase 2">
+          <resourceDemands amount="20.0MB">
+            <resourceSpecification xsi:type="core_1:StorageSpecification" href="uulm-testbed.physical#568o68op87"/>
+          </resourceDemands>
+          <resourceDemands amount="5.0">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="uulm-testbed.physical#zklup87078m75"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_66bpIGLnEeWOneKughWvRQ" name="Phase 3">
+          <resourceDemands amount="30000.0">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="uulm-testbed.physical#56izo7tu85zhnb6ewrftzhgh"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_66bpIGLnEeWOneKughWvRQ" name="Phase 4">
+          <resourceDemands amount="40.0">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="uulm-testbed.physical#56izo7tu85zhnb6ewrftzhgh"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_66bpIGLnEeWOneKughWvRQ" name="Phase 5">
+          <resourceDemands amount="50.0">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="uulm-testbed.physical#56izo7tu85zhnb6ewrftzhgh"/>
+          </resourceDemands>
+        </workloadPhases>
+        <workloadPhases id="_66bpIGLnEeWOneKughWvRQ" name="Phase 6">
+          <resourceDemands amount="60.0">
+            <resourceSpecification xsi:type="core_1:ProcessingUnitSpecification" href="uulm-testbed.physical#56izo7tu85zhnb6ewrftzhgh"/>
+          </resourceDemands>
+        </workloadPhases>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <virtualMachines id="_2HmjYGLTEeW61e4rbn1_g" name="Black-Box VM (repeating)" state="RUNNING">
+      <virtualMemoryUnits id="_lmpAkWLVEeWOneKughWvRQ2" provisioned="2.0GB"/>
+      <virtualProcessingUnits id="_mw_642LVEeEOneKughWvRQ" name="cpu 3.1" virtualCores="1">
+        <architectureType href="uulm-testbed.architecturetype#_YH-1cFxmEeWNL8aCAwjuzg"/>
+      </virtualProcessingUnits>
+      <runtimeApplicationModel xsi:type="application:BlackBoxApplication" id="_noHwJGLVEeWOneKughWvRR" name="Black-Box Application Model Demo (repeating)" patternIsRepeating="true">
+        <blackBoxWorkloads id="_2VeVYGLVEeWOnEKughWvRQ">
+          <resourceDemandRates terminateAfterTime="360.0">
+            <sequenceFunctionContainers duration="240.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="2000.0"/>
+            </sequenceFunctionContainers>
+            <sequenceFunctionContainers duration="120.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="4000.0"/>
+            </sequenceFunctionContainers>
+          </resourceDemandRates>
+        </blackBoxWorkloads>
+      </runtimeApplicationModel>
+    </virtualMachines>
+    <hypervisorType href="uulm-testbed.hypervisor#_Uk1z8FxoEeWnOq66NqWefQ"/>
+    <node href="uulm-testbed.physical#157878u6zjnh"/>
+  </hypervisors>
+  <hypervisors id="_UgH0cGLpEeWOneKughWvRQ">
+    <hypervisorType href="uulm-testbed.hypervisor#_Uk1z8FxoEeWnOq66NqWefQ"/>
+    <node href="uulm-testbed.physical#tg625w3etiujhnzu"/>
+  </hypervisors>
+  <hypervisors id="_VE4uYGLpEeWOneKughWvRQ">
+    <hypervisorType href="uulm-testbed.hypervisor#_Uk1z8FxoEeWnOq66NqWefQ"/>
+    <node href="uulm-testbed.physical#165uit65u7tpotz6tu"/>
+  </hypervisors>
+</core:LogicalDCModel>

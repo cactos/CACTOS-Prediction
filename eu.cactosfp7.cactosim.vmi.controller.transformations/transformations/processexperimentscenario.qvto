@@ -1,0 +1,133 @@
+import m2m.qvt.oml.JScience;
+import eu.cactosfp7.cactosim.optimisationconnector.SimulationStateUnit;
+import transforms.cactosAdaptationBehaviorHelper;
+import simulizar_qvto_helper.logHelper;
+
+modeltype RUNTIMEMEASUREMENT uses 'http://simulizar.palladiosimulator.org/RuntimeMeasurement/1.0';
+modeltype PCM_ALLOC uses 'http://palladiosimulator.org/PalladioComponentModel/Allocation/5.1';
+modeltype PCM_REP uses 'http://palladiosimulator.org/PalladioComponentModel/Repository/5.1';
+modeltype PCM_SEFF uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/5.1';
+modeltype PCM_SYS uses 'http://palladiosimulator.org/PalladioComponentModel/System/5.1';
+modeltype PCM_RES_ENV uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1';
+modeltype PCM_RES_TYPE uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.1';
+modeltype PCM_USAGE uses 'http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.1';
+modeltype PCM_FEATURE_CONF uses 'http://sdq.ipd.uka.de/FeatureConfig/2.0';
+modeltype PCM_FEATURE_MOD uses 'http://sdq.ipd.uka.de/FeatureModel/2.0';
+modeltype PCM_CORE uses 'http://palladiosimulator.org/PalladioComponentModel/Core/5.1';
+modeltype PCM_COMP uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.1';
+modeltype PCM_ENTITY uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Entity/5.1';
+modeltype PCM_PARAM uses 'http://palladiosimulator.org/PalladioComponentModel/Parameter/5.1';
+modeltype PCM_STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+modeltype PHYSICAL_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype LOGICAL_CORRESPONDENCE uses  'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype OPTIMISATION_PLAN uses 'http://www.cactosfp7.eu/OptimisationPlan/1.0';
+modeltype PHYSICAL_CORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype PHYSICAL_UTIL uses 'http://www.cactosfp7.eu/PhysicalDCModel/Util/1.0';
+modeltype LOGICAL_CORE uses 'http://www.cactosfp7.eu/LogicalDCModel/Core/1.0';
+modeltype LOGICAL_APPLICATION uses 'http://www.cactosfp7.eu/LogicalDCModel/Application/1.0';
+modeltype PLM uses 'http://www.cactosfp7.eu/CactosLoadModel/Physical/1.0';
+modeltype LLM uses 'http://www.cactosfp7.eu/CactosLoadModel/Logical/1.0';
+modeltype MONITOR_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/Measurement/1.1';
+modeltype CACTOS_IDENTIFIER uses 'http://www.cactosfp7.eu/Identifier/1.0';
+modeltype LOAD_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/1.1';
+modeltype ECORE uses 'http://www.eclipse.org/emf/2002/Ecore';
+modeltype EXPERIMENT_SCENARIO uses 'http://www.cactosfp7.eu/ExperimentScenarioModel/1.0';
+modeltype EXPERIMENT_SCENARIO_REQUEST uses 'http://www.cactosfp7.eu/ExperimentScenarioModel/Request/1.0';
+modeltype EXPERIMENT_SCENARIO_SELECTOR uses 'http://www.cactosfp7.eu/ExperimentScenarioModel/Selector/1.0';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype ACTION_PARAM uses 'http://simulizar.palladiosimulator.org/Actions/Parameter/1.1';
+
+/**Integrates the optimimisation in the simulations.
+ * Execution requires three steps:
+ * 1) Synchronises Palladio and CACTOS measurements.
+ * 2) Call the optimisation.
+ * 3) Execute optimiation plan (if present)
+ *
+ * @author krach
+ */
+transformation processexperimentscenario(  inout physicalCorrespondence : PHYSICAL_CORRESPONDENCE,  
+											inout logicalCorrespondence : LOGICAL_CORRESPONDENCE,
+											inout logicalCore : LOGICAL_CORE,
+											inout experimentScenario : EXPERIMENT_SCENARIO,
+											in measurementCorrespondence : MONITOR_CORRESPONDENCE,
+											in runtimeMeasurement : RUNTIMEMEASUREMENT,
+											inout actionCore: ACTION_CORE)
+											extends transformation cactosAdaptationBehaviorHelper (PHYSICAL_CORRESPONDENCE,  
+																				  LOGICAL_CORRESPONDENCE,
+																				  ACTION_CORE);
+
+/** UUID of the Metric Description for measurements made the points in time an event should be processed.
+ */
+property EXTERNAL_EVENT_TIME_ID = '_cstc8snXEeWQ7JWjPeXsEQ';
+
+property START_APPLICATION_REQUEST_ACTION_ID = "_8ZcdIO0FEeWwk45MX11cig";
+property START_APPLICATION_REQUEST_ROLE_TYPE_ID = "_RswpxO0GEeWwk45MX11cig";
+
+property TERMINATE_APPLICATION_REQUEST_ACTION_ID = "_FR32YO0GEeWwk45MX11cig";
+property TERMINATE_APPLICATION_REQUEST_ROLE_TYPE_ID = "_VirydO0GEeWwk45MX11cig";
+
+property MIGRATE_APPLICATION_REQUEST_ACTION_ID = "_m1nEEO0MEeWwk45MX11cig";
+property MIGRATE_APPLICATION_REQUEST_ROLE_TYPE_ID = "_pRuhNO0MEeWwk45MX11cig";
+
+property NODE_STATE_CHANGE_REQUEST_ACTION_ID = "_ZX13YO0MEeWwk45MX11cig";
+property NODE_STATE_CHANGE_REQUEST_ROLE_TYPE_ID = "_b_vGtO0MEeWwk45MX11cig";
+						
+main() {
+	var eventTimeMeasurement : RuntimeMeasurement := runtimeMeasurement.rootObjects()[RuntimeMeasurement]->any(rm | rm.measurementSpecification.metricDescription.id = EXTERNAL_EVENT_TIME_ID);
+	if (eventTimeMeasurement != null) { 
+		if (eventTimeMeasurement.measuringValue >= getSimulationTime() - 0.0001) { // do not run if not met: too early to optimise.
+			experimentScenario.rootObjects()[ExperimentScenarioTimeLine]
+				.timeLineEvents->select(event | event.eventStatus = EventStatus::SCHEDULED)
+					->map processScheduledEvent();
+		};
+	};
+}
+
+mapping inout TimeLineEvent::processScheduledEvent() {											 
+	assert error (self.eventStatus = EventStatus::SCHEDULED) with log('Events that have not been scheduled yet cannot be processed'); 
+	logDebug("Process Scheduled Event");
+	experimentScenarioRequest.map executeAppropriateAction();
+}
+
+mapping ExperimentScenarioRequest::executeAppropriateAction() {
+	logError("Mapping operation executeAppropriateAction for abstract super type ExperimentScenarioRequest called")
+}
+
+mapping StartApplicationRequest::executeAppropriateAction() {
+	logInfo("Start execution of StartApplicationRequest at simulation time: " + getSimulationTime().toString());
+	self.executeAction(START_APPLICATION_REQUEST_ACTION_ID, START_APPLICATION_REQUEST_ROLE_TYPE_ID);
+}
+
+mapping TerminateApplicationRequest::executeAppropriateAction() {
+	logInfo("Start execution of TerminateApplicationRequest at simulation time: " + getSimulationTime().toString());
+	self.executeAction(TERMINATE_APPLICATION_REQUEST_ACTION_ID, TERMINATE_APPLICATION_REQUEST_ROLE_TYPE_ID);
+}
+
+mapping MigrateApplicationRequest::executeAppropriateAction() {
+	logInfo("Start execution of MigrateApplicationRequest at simulation time: " + getSimulationTime().toString());
+	self.executeAction(MIGRATE_APPLICATION_REQUEST_ACTION_ID, MIGRATE_APPLICATION_REQUEST_ROLE_TYPE_ID);
+}
+
+mapping SetPhysicalNodeStateRequest::executeAppropriateAction() {
+	logInfo("Start execution of SetPhysicalNodeStateRequest at simulation time: " + getSimulationTime().toString());
+	self.executeAction(NODE_STATE_CHANGE_REQUEST_ACTION_ID, NODE_STATE_CHANGE_REQUEST_ROLE_TYPE_ID);
+}
+
+mapping ChangeOptimizationIntervalRequest::executeAppropriateAction() {
+	logInfo("Start execution of ChangeOptimizationIntervalRequest at simulation time: " + getSimulationTime().toString());
+	self.timelineEvent.eventStatus := EventStatus::IN_EXECUTION;
+	logicalCore.rootObjects()[LogicalDCModel]->any(true).cyclicOptimizationInterval := self.optimizationInterval;
+	self.timelineEvent.eventStatus := EventStatus::PROCESSED_SUCCESS;
+}
+
+helper ExperimentScenarioRequest::executeAction(actionId: String, role_id: String) {
+	var action := lookupAdaptationBehaviorInSet(actionId);
+	
+	action.executeAsync(object RoleSet {
+		roles += object ACTION_INSTANCE::Role {
+			roleType := action.involvedRoles->any(id = role_id);
+			value := self.oclAsType(EObject);
+		}
+	});
+}

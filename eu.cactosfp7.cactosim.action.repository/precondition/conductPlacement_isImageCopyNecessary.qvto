@@ -1,0 +1,79 @@
+import transforms.cactosAdaptationBehaviorHelper;
+
+modeltype CACT_LCORE uses 'http://www.cactosfp7.eu/LogicalDCModel/Core/1.0';
+modeltype CACT_LAPP uses 'http://www.cactosfp7.eu/LogicalDCModel/Application/1.0';
+modeltype CACT_PCORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype CACT_PCORR uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype CACT_LCORR uses 'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype PCM_COMP uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.1';
+modeltype PCM_ALLOC uses 'http://palladiosimulator.org/PalladioComponentModel/Allocation/5.1';
+modeltype PCM_STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+modeltype PCM_PARAM uses 'http://palladiosimulator.org/PalladioComponentModel/Parameter/5.1';
+modeltype PCM_REP uses 'http://palladiosimulator.org/PalladioComponentModel/Repository/5.1';
+modeltype PCM_SEFF uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/5.1';
+modeltype PCM_SYS uses 'http://palladiosimulator.org/PalladioComponentModel/System/5.1';
+modeltype PCM_RES_ENV uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1';
+modeltype PCM_RES_TYPE uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.1';
+modeltype PCM_CORE uses 'http://palladiosimulator.org/PalladioComponentModel/Core/5.1';
+modeltype ACTION_MAPPING uses 'http://simulizar.palladiosimulator.org/Actions/Mapping/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_PARAM uses 'http://simulizar.palladiosimulator.org/Actions/Parameter/1.1';
+modeltype ECORE uses 'http://www.eclipse.org/emf/2002/Ecore';
+modeltype STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+modeltype PLM uses 'http://www.cactosfp7.eu/CactosLoadModel/Physical/1.0';
+modeltype LLM uses 'http://www.cactosfp7.eu/CactosLoadModel/Logical/1.0';
+modeltype OPTIMISATION_PLAN uses 'http://www.cactosfp7.eu/OptimisationPlan/1.0';
+modeltype RUNTIMEMEASUREMENT uses 'http://simulizar.palladiosimulator.org/RuntimeMeasurement/1.0';
+modeltype MONITOR_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/Measurement/1.1';
+
+transformation isImageCopyNecessary(inout actionRoleSet: ACTION_INSTANCE, 
+									in logicaldc: CACT_LCORE,
+									in physicalCorrespondence : CACT_PCORR,  
+									in logicalCorrespondence : CACT_LCORR,
+									inout actionRepositories : ACTION_CORE) {
+											
+	main() {
+		var vmplacements := actionRoleSet.rootObjects()[RoleSet]->any(true).roles
+			->any(roleType.id=CVMP_VM_PLACEMENT_ACTION_ROLE_TYPE_ID).value.oclAsType(VmPlacementAction);
+		assert fatal(vmplacements.vMImageCopyNecessary()) with log("The current vm start does not require a file transfer");
+	}
+	
+	query VmPlacementAction::vMImageCopyNecessary(): Boolean {
+		var vmImage := self.unassignedVirtualMachine.vMImageInstance.rootDisk;
+		var hypervisorImage := self.targetHost.rootVolume;
+		
+		if (hypervisorImage.storageLocation.id = vmImage.storageLocation.id)
+			return false;
+		
+		return hypervisorImage.storageLocation.hasCopyOfVirtualDisk(vmImage);
+	}
+	
+	query StorageSpecification::hasCopyOfVirtualDisk(disk: VirtualDisk): Boolean {
+		var tempDisk := disk;
+		
+		var matchingSequence := Sequence {tempDisk};
+		
+		while (tempDisk.parent <> null or not tempDisk.oclIsKindOf(VMImage)) {
+			tempDisk := tempDisk.parent;
+			var tempSequence := Sequence {tempDisk};
+			tempSequence += matchingSequence;
+			matchingSequence := tempSequence;
+		};
+
+		var candidates : Set(VirtualDisk) := 
+			logicaldc.rootObjects()[LogicalDCModel].volumesAndImages.allSubobjectsOfKind(VMImage).oclAsType(Set(VirtualDisk))->flatten()
+				->select(storageLocation = self)->asSet();
+		matchingSequence->forEach(image) {
+			candidates := candidates.deltaOverlay->select(o | o.name = image.name)->oclAsSet()->flatten();
+			if (candidates->isEmpty()) {
+				return true;
+			}
+		};
+		
+		return false;
+	}
+	
+
+							
+}

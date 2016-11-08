@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: CactoScale to EDP2 Import
+Bundle-SymbolicName: eu.cactosfp7.cactosim.cactoscale2edp2
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: CACTOS Consortium
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: HBaseClient;bundle-version="1.0.0";visibility:=reexport,
+ org.palladiosimulator.edp2;visibility:=reexport,
+ org.palladiosimulator.edp2.util;visibility:=reexport,
+ org.apache.commons.lang3;visibility:=reexport,
+ org.palladiosimulator.measurementframework,
+ org.eclipse.osgi.services,
+ org.eclipse.equinox.ds;bundle-version="1.4.300",
+ eu.cactosfp7.infrastructuremodels
+Service-Component: OSGI-INF/component.xml
+Export-Package: eu.cactosfp7.cactosim.cactoscale2edp2,
+ eu.cactosfp7.cactosim.cactoscale2edp2.data,
+ eu.cactosfp7.cactosim.cactoscale2edp2.util
+Bundle-ActivationPolicy: lazy

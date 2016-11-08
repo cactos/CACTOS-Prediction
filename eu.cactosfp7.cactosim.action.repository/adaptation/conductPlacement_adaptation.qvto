@@ -1,0 +1,296 @@
+import m2m.qvt.oml.JScience;
+import transforms.pcmHelperCore;
+import transforms.localstorage;
+import transforms.cactosAdaptationBehaviorHelper;
+import transforms.cactos2PCMRepository;
+import transforms.cactos2PCMSystem;
+import transforms.cactos2PCMAllocation;
+import simulizar_qvto_helper.logHelper;
+import eu.cactosfp7.cactosim.placementconnector.PlacementConnectorUnit;
+import transforms.updateRuntimeCorrespondence;
+import eu.cactosfp7.infrastructuremodels.util.blackboxunit.InfrastructureModelUtilsBlackBoxUnit;
+
+
+modeltype CACT_LCORE uses 'http://www.cactosfp7.eu/LogicalDCModel/Core/1.0';
+modeltype CACT_LAPP uses 'http://www.cactosfp7.eu/LogicalDCModel/Application/1.0';
+modeltype CACT_PCORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype CACT_PUTIL uses 'http://www.cactosfp7.eu/PhysicalDCModel/Util/1.0';
+modeltype CACT_PCORR uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype CACT_LCORR uses 'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype PCM_COMP uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.1';
+modeltype PCM_ALLOC uses 'http://palladiosimulator.org/PalladioComponentModel/Allocation/5.1';
+modeltype PCM_STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+modeltype PCM_PARAM uses 'http://palladiosimulator.org/PalladioComponentModel/Parameter/5.1';
+modeltype PCM_REP uses 'http://palladiosimulator.org/PalladioComponentModel/Repository/5.1';
+modeltype PCM_SEFF uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/5.1';
+modeltype PCM_SYS uses 'http://palladiosimulator.org/PalladioComponentModel/System/5.1';
+modeltype PCM_RES_ENV uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1';
+modeltype PCM_RES_TYPE uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.1';
+modeltype PCM_CORE uses 'http://palladiosimulator.org/PalladioComponentModel/Core/5.1';
+modeltype PCM_USAGE uses 'http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.1';
+modeltype ACTION_MAPPING uses 'http://simulizar.palladiosimulator.org/Actions/Mapping/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_PARAM uses 'http://simulizar.palladiosimulator.org/Actions/Parameter/1.1';
+modeltype ECORE uses 'http://www.eclipse.org/emf/2002/Ecore';
+modeltype STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+modeltype PLM uses 'http://www.cactosfp7.eu/CactosLoadModel/Physical/1.0';
+modeltype LLM uses 'http://www.cactosfp7.eu/CactosLoadModel/Logical/1.0';
+modeltype OPTIMISATION_PLAN uses 'http://www.cactosfp7.eu/OptimisationPlan/1.0';
+modeltype RUNTIMEMEASUREMENT uses 'http://simulizar.palladiosimulator.org/RuntimeMeasurement/1.0';
+modeltype MONITOR_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/Measurement/1.1';
+modeltype USAGEEVOLUTION uses "http://usageevolution/1.0";
+modeltype USAGESEQUENCE uses "http://www.cactosfp7.eu/CactoSim/UsageSequence/1.1";
+modeltype MONITORREPOSITORY uses "http://palladiosimulator.org/MonitorRepository/1.0";
+modeltype MEASURINGPOINT uses "http://palladiosimulator.org/EDP2/MeasuringPoint/1.0";
+modeltype PCMMEASURINGPOINT uses "http://palladiosimulator.org/PCM/MeasuringPoint/1.0";
+
+transformation conductVMPlacement(inout logicalCorrespondence: CACT_LCORR,
+									inout physicalCorrespondence : CACT_PCORR, 
+									in logicaldc: CACT_LCORE,
+									in physicaldc: CACT_PCORE,
+									in physicalload: PLM,
+									in logicalload: LLM,
+									in measurementCorrespondence : MONITOR_CORRESPONDENCE,
+									in runtimeMeasurement : RUNTIMEMEASUREMENT, 
+									in actionStep : ACTION_CORE,
+									in primitiveresourcetyperepo : PCM_REP,
+									inout actionRoleSet : ACTION_INSTANCE,
+									inout pcmrepository: PCM_REP,
+									inout pcmsystem: PCM_SYS,
+									inout pcmallocation: PCM_ALLOC,
+									inout usageevolutions: USAGEEVOLUTION,
+									inout usagesequences: USAGESEQUENCE,
+									out measuringpoint: PCMMEASURINGPOINT,
+									inout monitorrepository: MONITORREPOSITORY) {
+	
+	property logicalDCModel: LogicalDCModel;
+	property physicalDCModel: PhysicalDCModel;
+	
+	main() {
+		var physicalCorrespondenceRepository : PhysicalCorrespondenceRepository = physicalCorrespondence.rootObjects()[PhysicalCorrespondenceRepository]->any(true);
+		var logicalCorrespondenceRepository : LogicalCorrespondenceRepository = logicalCorrespondence.rootObjects()[LogicalCorrespondenceRepository]->any(true);
+		
+		var measuringPointRepo := object MeasuringPointRepository @ measuringpoint {};
+		var monitorRepository := monitorrepository.rootObjects()[MonitorRepository]->any(true);
+		
+		assert error (physicalCorrespondenceRepository != null) with log('Physical correspondence model must contain one Physical Correspondence Repository');
+		assert error (logicalCorrespondenceRepository != null) with log('Logical correspondence model must contain one Logical Correspondence Repository');
+		
+		var resourceEnvironment := physicalCorrespondenceRepository.abstractNodeCorrespondences->any(cactos.oclIsKindOf(ComputeNode)).palladio.resourceEnvironment_ResourceContainer;
+		var allocation : Allocation := pcmallocation.rootObjects()[Allocation]->any(targetResourceEnvironment_Allocation = resourceEnvironment);
+		var system : System := pcmsystem.rootObjects()[System]->any(id = allocation.system_Allocation.id);
+		var repository : Repository := logicalCorrespondence.rootObjects()[LogicalCorrespondenceRepository].hypervisorCorrespondences
+			.palladio.assemblyContext_AllocationContext.encapsulatedComponent__AssemblyContext.repository__RepositoryComponent->any(true);
+		
+		
+		var roleSet := actionRoleSet.rootObjects()[RoleSet]->any(true);
+		var vmPlacement := roleSet.roles->any(roleType.id=CVMP_VM_PLACEMENT_ACTION_ROLE_TYPE_ID).value.oclAsType(VmPlacementAction);
+		
+		assert fatal(vmPlacement.unassignedVirtualMachine <> null) with log("The VmPlacementAction does not reference a virtual machine! Please check the Placement Algorithm!", null, LOG_LEVEL_ERROR);
+		assert fatal(vmPlacement.targetHost <> null) with log("The VmPlacementAction does specify a target host! Please check the Placement Algorithm!", null, LOG_LEVEL_ERROR);
+		
+		logicalDCModel := logicaldc.rootObjects()[LogicalDCModel]->any(true);
+		physicalDCModel := physicaldc.rootObjects()[PhysicalDCModel]->any(true);
+		
+		vmPlacement.map enactPlacements();
+		vmPlacement.unassignedVirtualMachine.map enactPalladioPlacement(repository, system, allocation, 
+				logicalCorrespondenceRepository, physicalCorrespondenceRepository);
+		
+		logDebug("Placed VM: " + vmPlacement.unassignedVirtualMachine.name + " on Hypervisor of : " + vmPlacement.targetHost.node.name);
+		vmPlacement.unassignedVirtualMachine.state := VM_State::PLACED;
+	} 
+	
+	
+	/**
+	* Cactos-specific placement of virtual machines
+	*/
+		
+	
+	mapping VmPlacementAction::enactPlacements() {
+		logInfo("Placing VM " + self.unassignedVirtualMachine.toString() +" (" + self.unassignedVirtualMachine.id + ")"
+			+ " on Hypervisor " +  self.targetHost.node.name + " (" + self.targetHost.id + ")");
+		self.unassignedVirtualMachine.map setUpVirtualMachine(self);
+		self.targetHost.virtualMachines += self.unassignedVirtualMachine; 
+	}
+	
+	mapping inout VirtualMachine::setUpVirtualMachine(placement: VmPlacementAction) {
+		virtualProcessingUnits->map setUpVirtualProcessingUnit(placement);
+		if (placement.proposedMemory <> null) {
+			virtualMemoryUnits->map createVirtualMemoryUnit(placement);
+		};
+		
+		//Remove preliminary Virtual Disk
+		logicaldc.removeElement(self.vMImageInstance.rootDisk);
+		
+		//And create anew
+		vMImageInstance := runtimeApplicationModel.map createVMImageInstance(placement);
+	}
+	
+	mapping inout VirtualProcessingUnit::setUpVirtualProcessingUnit(placement: VmPlacementAction) {
+		//Remove if restriction as soon as placement algorithm works properly
+		if (placement.proposedVirtualCores > virtualCores) {
+			virtualCores := placement.proposedVirtualCores;
+		}
+	}
+	
+	mapping inout VirtualMemory::createVirtualMemoryUnit(placement: VmPlacementAction) {
+		
+		provisioned := placement.proposedMemory;
+	}
+	
+	mapping VMBehaviour::createVMImageInstance(vmFlavour: Flavour): VMImageInstance {
+		assert fatal(false) with log("Cannot create vm image instance from abstract superclass VMBehaviour");
+	}
+	
+	mapping VMBehaviour::createVMImageInstance(placement: VmPlacementAction): VMImageInstance {
+		init {
+			result := self.vmImageBehaviour.createVMImageInstance(placement);
+		}
+	}
+	
+	helper VMImageBehaviour::createVMImageInstance(placement: VmPlacementAction): VMImageInstance {
+		return object VMImageInstance {
+			rootDisk := self.vmImage
+				.getOrCreateVirtualDiskOverlayOn(placement.targetHost.rootVolume.storageLocation)
+					.createVDiskOverlay(placement, self.defaultFlavour)
+		}
+	} 
+	
+	helper VirtualDisk::getOrCreateVirtualDiskOverlayOn(storageLocation: StorageSpecification): VirtualDisk {
+		logDebug("Searching or creating base for disk overlay for: " + self.name + " (" + self.id + ")");
+		logDebug("Searching or creating base for disk overlay on: " + storageLocation.name + " (" + storageLocation.id + ")");
+		var vmRootDisk : VirtualDisk := self;
+		var matchingSequence := Sequence {vmRootDisk};
+		while (vmRootDisk.parent <> null and not vmRootDisk.oclIsKindOf(VMImage)) {
+			vmRootDisk := vmRootDisk.parent;
+			var tempSequence := Sequence {vmRootDisk};
+			tempSequence += matchingSequence;
+			matchingSequence := tempSequence;
+		};		
+		
+		var candidates : Set(VirtualDisk) := storageLocation.getVMImageCandidatesOnLocation(vmRootDisk.name);
+		var matchedDisk : VirtualDisk;
+		matchingSequence->forEach(image) {
+			logDebug("Try to match: " + image.name + " (" + image.id + ")");
+			var oldCandidates := candidates;
+			candidates := candidates.deltaOverlay->select(o | o.name = image.name)->oclAsSet()->flatten();
+			
+			if (candidates->oclIsInvalid() or candidates->isEmpty()) {
+				logDebug("Copy overlay: " + image.name + " (" + vmRootDisk.id + ")");
+				matchedDisk := vmRootDisk.oclAsType(EObject).nonIdDeepClone().oclAsType(VirtualDisk);
+				matchedDisk.deltaOverlay := Set {};
+				matchedDisk.storageLocation := storageLocation;
+				if (oldCandidates->isEmpty()) {	
+					logicaldc.rootObjects()[LogicalDCModel]->any(true).volumesAndImages += matchedDisk;
+				} else {
+					oldCandidates->any(true).deltaOverlay += matchedDisk;	
+				};
+				candidates := Set {matchedDisk};				
+			};
+			
+			matchedDisk := candidates->any(true);
+		};
+		
+		logDebug("Matched basis for disk overlay: " + matchedDisk.name + " (" + matchedDisk.toString() + ")");
+		return matchedDisk;
+	}
+	
+	query StorageSpecification::getVMImageCandidatesOnLocation(name: String): Set(VirtualDisk) {
+		return logicaldc.rootObjects()[LogicalDCModel].volumesAndImages.allSubobjectsOfKind(VMImage).oclAsType(Set(VirtualDisk))->flatten()
+			->select(vd | vd.storageLocation.id = self.id and vd.name = name)->asSet();
+	}
+	
+	helper VirtualDisk::createVDiskOverlay(placement: VmPlacementAction, defaultFlavour: Flavour): VirtualDisk {
+		return object VirtualDisk {
+			parent := self;
+			var size := placement.proposedStorage;
+			if (size = null) {
+				size := defaultFlavour.sizeStorage;
+				if (size.oclIsInvalid() or size = null) {
+					logWarn("Neither placement algorithm nor defaultFlavour of VM Image Behaviour specified capacity for VM disk overlay! (" + 
+						self.name + " (" + self.id + "))");
+					logWarn("Used unspecific default value. Simulation results may be false.");
+					size := add(createDataAmountAmount(20.0), self.addUpVDiskSizes());
+				}
+			};
+			capacity := subtract(size, self.addUpVDiskSizes());
+			usedCapacity := createDataAmountAmount(0.0);
+			storageLocation := self.storageLocation;
+		}
+	}
+	
+	query VirtualDisk::addUpVDiskSizes(): Amount {
+		var localCapacity := self.capacity;
+		if (localCapacity = null) {
+			localCapacity := createDataAmountAmount(0.0);
+		};
+		if (self.parent <> null) {
+			return add(localCapacity, self.parent.addUpVDiskSizes());
+		} endif;
+		return localCapacity;
+	}
+	
+	/**
+	* Palladio-specific placement of virtual machines
+	*/
+	
+	mapping VirtualMachine::enactPalladioPlacement( inout componentRepository: Repository,
+													inout palladioSystem: System,
+													inout palladioAllocation: Allocation, 
+													inout logiCorr: LogicalCorrespondenceRepository, 
+													inout physiCorr: PhysicalCorrespondenceRepository) {
+		
+		
+		// Add Repository Components		
+		componentRepository.interfaces__Repository += self.map toProvidedOperationInterfaces(componentRepository);
+		var components := self.map toBasicComponents(componentRepository);
+		components->collect(c | logDebug("Created component for: " + c.entityName));
+		
+		componentRepository.components__Repository += components;
+		// Add System Assembly Contexts
+		palladioSystem.assemblyContexts__ComposedStructure += self.map toAssemblyContexts();
+		
+		var app : ApplicationInstance := logicaldc.rootObjects()[LogicalDCModel].applicationInstances[BlackBoxApplicationInstance]
+			->any(virtualMachine.id = self.id);
+		if (app = null) {
+			app := logicaldc.rootObjects()[LogicalDCModel].applicationInstances[GreyBoxApplicationInstance]
+				->any(virtualMachine.id = self.id);
+			if (app = null) {
+				app := logicaldc.rootObjects()[LogicalDCModel].applicationInstances[WhiteBoxApplicationInstance]
+					->any(instance | instance.virtualMachineIsPartOfSystemInterface(self)); 
+			};  
+		}; 
+		if (app <> null) {
+			palladioSystem.providedRoles_InterfaceProvidingEntity += app.map toSystemProvidedRoles();
+			palladioSystem.connectors__ComposedStructure += app.map toProvidedDelegationConnectors();
+		};
+		var allocations := self.map vmToAllocationContexts(logiCorr, physiCorr);
+		allocations->collect(a | logDebug("Allocated " + a.assemblyContext_AllocationContext.entityName + " at " + a.resourceContainer_AllocationContext.entityName));
+		
+		// Add Allocations
+		palladioAllocation.allocationContexts_Allocation += allocations; 
+		
+		// Update hypervisor storage access
+		self.map updateStorage(palladioSystem, logiCorr, physiCorr);
+	}
+	
+	query WhiteBoxApplicationInstance::virtualMachineIsPartOfSystemInterface(vm : VirtualMachine): Boolean {
+		return self.composedVMs->any(virtualMachine.id = vm.id).composedVMImage.providedRoles.id->exists(roleId |
+			self.applicationTemplate.oclAsType(WhiteBoxApplicationTemplate).userFacingServices.id->includes(roleId));
+		
+	}
+	
+	mapping VirtualMachine::updateStorage(inout palladioSystem: System,
+											inout logiCorr: LogicalCorrespondenceRepository, 
+											inout physiCorr: PhysicalCorrespondenceRepository) {
+		var hypervisorCorr : HypervisorCorrespondence := logiCorr.hypervisorCorrespondences->any(cactos.virtualMachines->exists(id = self.id));
+		var storageSpec : StorageSpecification := self.vMImageInstance.rootDisk.storageLocation;
+		var storageSpecCorr := physiCorr.storageSpecificationCorrespondences->any(cactos.id = storageSpec.id);
+		hypervisorCorr.map updateNewStorage(logiCorr, physiCorr, storageSpecCorr);
+		
+		palladioSystem.connectors__ComposedStructure += 
+			logiCorr.virtualMachineCorrespondences->select(cactos.id = self.id).map linkVmToLocalStorageAccess(logiCorr);
+		}
+
+}

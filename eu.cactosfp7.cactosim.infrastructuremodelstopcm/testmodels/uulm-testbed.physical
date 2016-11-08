@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<core:PhysicalDCModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0" id="_eacAEFxoEeW_-_djncgLtw">
+  <racks id="4e5ti6k5tlufvu65" name="rack01">
+    <nodes xsi:type="core:ComputeNode" id="157878u6zjnh" name="computenode18" powerCap="400.0W" powerConsumingEntities="zklup87078m75 568o68op87 cv3q2v4z63b" networkInterconnects="_t3B1kF1HEeWujuT8lK2m0g">
+      <cpuSpecifications id="zklup87078m75" name="18" powerProvidingEntities="157878u6zjnh" frequency="2600.0MHz" numberOfCores="16">
+        <powerModelBinding href="uulm-testbed.pdcbinding#_cLMPwGtaEeWsF62zwGM7lw"/>
+        <architectureType href="uulm-testbed.architecturetype#_YH-1cFxmEeWNL8aCAwjuzg"/>
+      </cpuSpecifications>
+      <storageSpecifications id="568o68op87" name="computenode18" powerProvidingEntities="157878u6zjnh" size="237568.0MB" readDelay="0.017699115044247787s" writeDelay="0.0819672131147541s">
+        <readBandwidth value="26.0MB/s"/>
+        <writeBandwidth value="26.0MB/s"/>
+      </storageSpecifications>
+      <memorySpecifications id="cv3q2v4z63b" name="computenode18" powerProvidingEntities="157878u6zjnh" size="96670.0MB"/>
+      <hypervisor href="uulm-testbed.logical#1"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="tg625w3etiujhnzu" name="computenode19" powerCap="400.0W" powerConsumingEntities="241h3h54j57635 214g53j4r656 3j125j64w53efzttu" networkInterconnects="_t3B1kF1HEeWujuT8lK2m0g">
+      <cpuSpecifications id="241h3h54j57635" name="19_2" powerProvidingEntities="tg625w3etiujhnzu" frequency="2600.0MHz" numberOfCores="2">
+        <powerModelBinding href="uulm-testbed.pdcbinding#_cLMPwGtaEeWsF62zwGM7lw"/>
+        <architectureType href="uulm-testbed.architecturetype#_YH-1cFxmEeWNL8aCAwjuzg"/>
+      </cpuSpecifications>
+      <storageSpecifications id="214g53j4r656" name="computenode18s1" powerProvidingEntities="tg625w3etiujhnzu" size="237568.0MB" readDelay="0.017699115044247787s" writeDelay="0.0819672131147541s">
+        <readBandwidth value="26.0MB/s"/>
+        <writeBandwidth value="26.0MB/s"/>
+      </storageSpecifications>
+      <memorySpecifications id="3j125j64w53efzttu" name="computenode18m1" powerProvidingEntities="tg625w3etiujhnzu" size="96670.0MB"/>
+      <hypervisor href="uulm-testbed.logical#_UgH0cGLpEeWOneKughWvRQ"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="165uit65u7tpotz6tu" name="computenode20" powerCap="400.0W" powerConsumingEntities="56izo7tu85zhnb6ewrftzhgh 68zujie32we 368346izret54w3" networkInterconnects="_t3B1kF1HEeWujuT8lK2m0g">
+      <cpuSpecifications id="56izo7tu85zhnb6ewrftzhgh" name="20_2" powerProvidingEntities="165uit65u7tpotz6tu" frequency="2600.0MHz" numberOfCores="2">
+        <powerModelBinding href="uulm-testbed.pdcbinding#_cLMPwGtaEeWsF62zwGM7lw"/>
+        <architectureType href="uulm-testbed.architecturetype#_YH-1cFxmEeWNL8aCAwjuzg"/>
+      </cpuSpecifications>
+      <storageSpecifications id="68zujie32we" name="computenode18s3" powerProvidingEntities="165uit65u7tpotz6tu" size="237568.0MB" readDelay="0.017699115044247787s" writeDelay="0.0819672131147541s">
+        <readBandwidth value="26.0MB/s"/>
+        <writeBandwidth value="26.0MB/s"/>
+      </storageSpecifications>
+      <memorySpecifications id="368346izret54w3" name="computenode18m4" powerProvidingEntities="165uit65u7tpotz6tu" size="96670.0MB"/>
+      <hypervisor href="uulm-testbed.logical#_VE4uYGLpEeWOneKughWvRQ"/>
+    </nodes>
+  </racks>
+  <networkInterconnects id="_t3B1kF1HEeWujuT8lK2m0g" name="NIC" connectedEntities="157878u6zjnh tg625w3etiujhnzu 165uit65u7tpotz6tu">
+    <bandwidth/>
+  </networkInterconnects>
+</core:PhysicalDCModel>

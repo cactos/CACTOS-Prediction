@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.palladiosimulator.action:AdaptationBehaviorRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.palladiosimulator.action="http://simulizar.palladiosimulator.org/Actions/Core/1.1" id="_xfk-oPfcEeWBd5TSpv9xog" entityName="OptimisationPlanAdaptationBehaviourRepository">
+  <actions id="_x7dpYPfcEeWBd5TSpv9xog" entityName="ExecuteOptimisationPlan">
+    <adaptationActions xsi:type="org.palladiosimulator.action:EnactAdaptationAction" id="_hCGDEffdEeWBd5TSpv9xog" entityName="ProcessOptimisationPlan" adaptationStepURI="platform:/plugin/eu.cactosfp7.cactosim.optimisationplan.action.repository/transformation/processOptimisationPlan.qvto"/>
+    <involvedRoles id="_ycw_pPfcEeWBd5TSpv9xog" entityName="OptimisationPlan">
+      <type href="platform:/plugin/eu.cactosfp7.optimisationplan/model/optimisationplan.ecore#//OptimisationPlan"/>
+    </involvedRoles>
+    <involvedRoles id="_cz3vJPfdEeWBd5TSpv9xog" entityName="OptimisationStep">
+      <type href="platform:/plugin/eu.cactosfp7.optimisationplan/model/optimisationplan.ecore#//OptimisationStep"/>
+    </involvedRoles>
+  </actions>
+  <includedRepositories href="../../eu.cactosfp7.cactosim.action.repository/model/cactos_repository.actions#_Z0H-oMp5EeW4EYpxKkq5Gw"/>
+</org.palladiosimulator.action:AdaptationBehaviorRepository>

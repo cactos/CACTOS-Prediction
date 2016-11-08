@@ -1,0 +1,108 @@
+import eu.cactosfp7.cactosim.optimisationconnector.OptimisationConnectorUnit;
+import eu.cactosfp7.cactosim.optimisationconnector.SimulationStateUnit;
+import transforms.updateRuntimeCorrespondence;
+import transforms.cactosAdaptationBehaviorHelper;
+import simulizar_qvto_helper.logHelper;
+
+
+modeltype RUNTIMEMEASUREMENT uses 'http://simulizar.palladiosimulator.org/RuntimeMeasurement/1.0';
+modeltype MONITOR_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/Measurement/1.1';
+modeltype PHYSICAL_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype LOGICAL_CORRESPONDENCE uses  'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype OPTIMISATION_PLAN uses 'http://www.cactosfp7.eu/OptimisationPlan/1.0';
+modeltype PHYSICAL_CORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype PHYSICAL_UTIL uses 'http://www.cactosfp7.eu/PhysicalDCModel/Util/1.0';
+modeltype LOGICAL_CORE uses 'http://www.cactosfp7.eu/LogicalDCModel/Core/1.0';
+modeltype PLM uses 'http://www.cactosfp7.eu/CactosLoadModel/Physical/1.0';
+modeltype LLM uses 'http://www.cactosfp7.eu/CactosLoadModel/Logical/1.0';
+modeltype CACTOS_IDENTIFIER uses 'http://www.cactosfp7.eu/Identifier/1.0';
+modeltype LOAD_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/1.1';
+modeltype ECORE uses 'http://www.eclipse.org/emf/2002/Ecore';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+
+/**Integrates the optimimisation in the simulations.
+ * Execution requires three steps:
+ * 1) Synchronises Palladio and CACTOS measurements.
+ * 2) Call the optimisation.
+ * 3) Execute optimiation plan (if present)
+ *
+ * @author groenda, stier
+ */
+transformation optimiseandsynchronise(  inout physicalCorrespondence : PHYSICAL_CORRESPONDENCE,  
+										inout logicalCorrespondence : LOGICAL_CORRESPONDENCE,
+										inout actionCore: ACTION_CORE,
+										in measurementCorrespondence : MONITOR_CORRESPONDENCE,
+										in runtimeMeasurement : RUNTIMEMEASUREMENT)
+										access transformation updateRuntimeCorrespondence(
+											inout PHYSICAL_CORRESPONDENCE,
+											inout LOGICAL_CORRESPONDENCE,
+											in MONITOR_CORRESPONDENCE,
+											in RUNTIMEMEASUREMENT)
+										extends transformation cactosAdaptationBehaviorHelper (PHYSICAL_CORRESPONDENCE,  
+																			  LOGICAL_CORRESPONDENCE,
+																			  ACTION_CORE) {
+	
+	/** UUID of the Metric Description for measurements made each interval the optimiser should run.
+	 */
+	property POINT_IN_TIME_ID = '_NCRBos7pEeOX_4BzImuHbA';
+											
+	main() {
+		var optimisationIntervalMeasurement : RuntimeMeasurement := runtimeMeasurement.rootObjects()[RuntimeMeasurement]->any(rm | rm.measurementSpecification.metricDescription.id = POINT_IN_TIME_ID);
+		
+		
+		if (optimisationIntervalMeasurement.isTimeForOptimisation()) { // do not run if not met: too early to optimise.
+			var logicalCorrespondenceRepository : LogicalCorrespondenceRepository = logicalCorrespondence.rootObjects()[LogicalCorrespondenceRepository]->any(true);
+			assert error (logicalCorrespondenceRepository != null) with log('Logical correspondence model must contain one Logical Correspondence Repository');
+	
+			
+			var physicalCorrespondenceRepository : PhysicalCorrespondenceRepository = physicalCorrespondence.rootObjects()[PhysicalCorrespondenceRepository]->any(true);
+
+			assert error (physicalCorrespondenceRepository != null) with log('Physical correspondence model must contain one Physical Correspondence Repository');
+			
+			if (logicalCorrespondenceRepository.noConcurrentOptimisationExecutionRunning()
+				and logicalCorrespondenceRepository.optimisationDidNotJustFinish()) {
+				var updateRuntimeCorrespondenceIfNecessary := new updateRuntimeCorrespondence(physicalCorrespondence, logicalCorrespondence, measurementCorrespondence, runtimeMeasurement);
+				updateRuntimeCorrespondenceIfNecessary.transform();
+					  
+				// optimise
+				var optResult : OptimisationPlan := optimise(physicalCorrespondenceRepository.physicalDcModel, 
+						logicalCorrespondenceRepository.logicalDcModel, physicalCorrespondenceRepository.physicalLoadModel, logicalCorrespondenceRepository.logicalLoadModel);
+				if (optResult<>null) {
+					logicalCorrespondenceRepository.optimisationPlanCorrespondence := object OptimisationPlanCorrespondence {
+						lastOptimisationPlan := optResult;
+					};
+					
+					var action := selectExecuteOptimisationPlanAction();
+					action.executeAsync(action.createExecuteOptimisationPlanRoleSet(optResult));
+				}
+			} else {
+				if (logicalCorrespondenceRepository.optimisationDidNotJustFinish()) {
+					logWarn("Optimisation did not execute because previous one is not finished yet");
+					assert warning(false);	
+				} else {
+					logDebug("Process optimisation plan scheduled twice - second time ingnored");
+				}
+				
+			}
+		}
+	}
+	
+	query RuntimeMeasurement::isTimeForOptimisation() : Boolean {
+		var curTime : Real := getSimulationTime();
+		return self.measuringValue >= curTime - 0.0001;
+	}
+	
+	query LogicalCorrespondenceRepository::optimisationDidNotJustFinish() : Boolean {
+		var res := self.optimisationPlanCorrespondence.lastOptimisationPlan.executionStopped;
+		if (res <> null) {
+			return res.before(getTimestampForSimulationTime(), 0.0001);
+		};
+		return true;
+	}
+		
+	query LogicalCorrespondenceRepository::noConcurrentOptimisationExecutionRunning() : Boolean {
+		return self.optimisationPlanCorrespondence = null
+			or self.optimisationPlanCorrespondence.lastOptimisationPlan.executionStatus = ExecutionStatus::COMPLETED_SUCCESSFUL
+			or self.optimisationPlanCorrespondence.lastOptimisationPlan.executionStatus = ExecutionStatus::COMPLETED_FAILED
+	}
+}

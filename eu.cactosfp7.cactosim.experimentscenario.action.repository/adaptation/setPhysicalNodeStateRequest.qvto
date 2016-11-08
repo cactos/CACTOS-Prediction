@@ -1,0 +1,47 @@
+import m2m.qvt.oml.JScience;
+import transforms.cactosAdaptationBehaviorHelper;
+import simulizar_qvto_helper.logHelper;
+
+modeltype CACT_LCORE uses 'http://www.cactosfp7.eu/LogicalDCModel/Core/1.0';
+modeltype CACT_APP uses 'http://www.cactosfp7.eu/LogicalDCModel/Application/1.0';
+modeltype CACT_PCORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype PHYSICAL_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype EXPERIMENT_SCENARIO uses 'http://www.cactosfp7.eu/ExperimentScenarioModel/1.0';
+modeltype EXPERIMENT_SCENARIO_REQUEST uses 'http://www.cactosfp7.eu/ExperimentScenarioModel/Request/1.0';
+modeltype EXPERIMENT_SCENARIO_SELECTOR uses 'http://www.cactosfp7.eu/ExperimentScenarioModel/Selector/1.0';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype ACTION_PARAM uses 'http://simulizar.palladiosimulator.org/Actions/Parameter/1.1';
+modeltype PCM_CORE uses 'http://palladiosimulator.org/PalladioComponentModel/Core/5.1';
+modeltype PCM_PARAM uses 'http://palladiosimulator.org/PalladioComponentModel/Parameter/5.1';
+modeltype PCM_STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+modeltype ACTION_CONTEXT uses 'http://simulizar.palladiosimulator.org/Actions/Context/1.1';
+
+transformation nodeStateChangeApplicationAction(
+							inout logicalDC: CACT_LCORE,
+							inout actions : ACTION_CORE,
+							inout actionRoleSet : ACTION_INSTANCE,
+							in actionContext : ACTION_CONTEXT,
+							in physicalcorrespondence: PHYSICAL_CORRESPONDENCE) {
+	
+	property SET_PHYSICAL_NODE_STATE_REQUEST_ROLE_TYPE_ID = "_b_vGtO0MEeWwk45MX11cig";
+	
+	main() {
+		var requestRole : instance::Role := actionRoleSet.rootObjects()[RoleSet].roles->any(role | role.roleType.id = SET_PHYSICAL_NODE_STATE_REQUEST_ROLE_TYPE_ID);
+		var nodeStateRequest := requestRole.value.oclAsType(SetPhysicalNodeStateRequest);
+		nodeStateRequest.timelineEvent.eventStatus := EventStatus::IN_EXECUTION;
+		
+		var action := selectSetPhysicalNodeStateAction();
+		
+		var roleSet := action.createSetPhysicalNodeStateRoleSet(nodeStateRequest.targetNode, nodeStateRequest.targetState);
+		
+		if (action.execute(roleSet, actionContext.rootObjects()[ExecutionContext]->any(true))) then {
+			logInfo("Node state change request was executed properly");	
+			nodeStateRequest.timelineEvent.eventStatus := EventStatus::PROCESSED_SUCCESS;
+		} else {
+			logWarn("Node state change request was not executed properly");
+			nodeStateRequest.timelineEvent.eventStatus := EventStatus::PROCESSED_FAILURE;
+		} endif;
+	};
+}
+								

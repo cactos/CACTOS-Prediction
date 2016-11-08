@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+<extension
+point="org.eclipse.m2m.qvt.oml.runtime.qvtTransformation">
+<transformation
+file="transforms/physicaldcmodel2resourceenvironment.qvto"
+id="transforms.physicaldcmodel2resourceenvironment">
+</transformation>
+<transformation
+         file="transforms/updateRuntimeCorrespondence.qvto"
+         id="transforms.updateRuntimeCorrespondence">
+</transformation>
+<transformation
+      file="transforms/cactos2PCMShared.qvto"
+      id="transforms.cactos2PCMShared">
+</transformation>
+<transformation
+      file="transforms/cactos2PCMAllocation.qvto"
+      id="transforms.cactos2PCMAllocation">
+</transformation>
+<transformation
+      file="transforms/cactos2PCMRepository.qvto"
+      id="transforms.cactos2PCMRepository">
+</transformation>
+
+<transformation
+      file="transforms/cactos2PCMSystem.qvto"
+      id="transforms.cactos2PCMSystem">
+</transformation>
+<transformation
+      file="transforms/cactos2PCMUsage.qvto"
+      id="transforms.cactos2PCMUsage">
+</transformation>
+<transformation
+      file="transforms/cactos2PCMUsageEvolution.qvto"
+      id="transforms.cactos2PCMUsageEvolution">
+</transformation>
+<library
+      file="transforms/pcmHelper.qvto"
+      id="transforms.pcmHelper">
+</library>
+<library
+      file="transforms/pcmHelperCore.qvto"
+      id="transforms.pcmHelperCore">
+</library>
+<transformation
+      file="transforms/localstorage.qvto"
+      id="transforms.localstorage">
+</transformation>
+<transformation
+      file="transforms/cactosAdaptationBehaviorHelper.qvto"
+      id="transforms.cactosAdaptationBehaviorHelper">
+</transformation>
+</extension>
+<extension
+      point="org.eclipse.m2m.qvt.oml.runtime.qvtTransformationContainer">
+   <sourceContainer
+         path="transforms/">
+   </sourceContainer>
+</extension>
+</plugin>

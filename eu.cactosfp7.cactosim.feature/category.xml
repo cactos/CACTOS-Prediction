@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <category-def name="cactosim_category" label="New Category">
+      <description>
+         New Category - description
+      </description>
+   </category-def>
+</site>

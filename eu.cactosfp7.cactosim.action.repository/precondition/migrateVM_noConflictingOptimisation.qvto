@@ -1,0 +1,60 @@
+import simulizar_qvto_helper.logHelper;
+import transforms.cactosAdaptationBehaviorHelper;
+import eu.cactosfp7.cactosim.action.repository.black.CactosActionBlackboxUnit;
+
+/*
+ * This simple QVTO SimuLizar reconfiguration rule migrates the application to another
+ * server node as defined by the OptimizationPlan
+ *
+ */
+
+/*
+ * Two modeltypes are declared. The http NS URIs correspond to those used to register the 
+ * Ecore models in the environment. Alternatively, a workspace metamodel may be used 
+ * in conjunction with mappings defined in the project properties.
+ */
+
+modeltype CACT_PUTIL uses 'http://www.cactosfp7.eu/PhysicalDCModel/Util/1.0';
+modeltype CACT_LCORE uses 'http://www.cactosfp7.eu/LogicalDCModel/Core/1.0';
+modeltype CACT_PCORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype CACT_PCORR uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype CACT_LCORR uses 'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype PCM_ALLOC uses 'http://palladiosimulator.org/PalladioComponentModel/Allocation/5.1';
+modeltype PCM_RES_ENV uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1';
+modeltype PCM_COMP uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.1';
+modeltype PCM_ENTITY uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Entity/5.1';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype ECORE uses 'http://www.eclipse.org/emf/2002/Ecore';
+
+transformation vmMigrationRoles(
+							inout cLCorrespondence : CACT_LCORR,
+							inout cPCorrespondence : CACT_PCORR,
+							in actionRoleSet : ACTION_INSTANCE,
+							inout actionStep : ACTION_CORE) {
+
+	/**
+	 * The main transformation.
+	 * This is the entry point to the overall transformation.
+	 */
+	main() {	
+		
+		var vm := actionRoleSet.rootObjects()[RoleSet].roles->any(roleType.id = MVA_MIGRATED_VM_ROLE_TYPE_ID).value.oclAsType(VirtualMachine);
+		var node := actionRoleSet.rootObjects()[RoleSet].roles->any(roleType.id = MVA_TARGET_NODE_ROLE_TYPE_ID).value.oclAsType(AbstractNode);
+		
+		var nodeCorr := cPCorrespondence.rootObjects()[PhysicalCorrespondenceRepository].abstractNodeCorrespondences->any(cactos.id = node.id);
+		
+		if (vm.hasAppliedStereotype(OPTIMISATION_IN_PROGRESS_STEREOTYPE_NAME)) {
+			log("BREAKPOINT", vm);
+		};
+		assert fatal(not vm.hasAppliedStereotype(OPTIMISATION_IN_PROGRESS_STEREOTYPE_NAME)) with log('Migration not conducted, as conflicting operation in progress', null, LOG_LEVEL_WARN);
+		assert fatal(vm.state = VM_State::RUNNING) with log('Migration not conducted, as only running VMs can be migrated', null, LOG_LEVEL_WARN);	
+		assert fatal(vm.hypervisor.node <> nodeCorr.cactos) with log('Migration not conducted, as source and target are equal', null, LOG_LEVEL_WARN);
+		
+		// Assumption here: A node has only CPUs of one architecture type 
+		assert fatal(vm.hypervisor.node.cpuSpecifications->any(true).architectureType.id = nodeCorr.cactos.cpuSpecifications->any(true).architectureType.id) with log('Migrations between incompatible architecture types are not allowed', null, LOG_LEVEL_WARN);
+		
+		vm.state := VM_State::IN_OPTIMISATION;
+		vm.applyStereotype(OPTIMISATION_IN_PROGRESS_STEREOTYPE_NAME);
+	}
+}

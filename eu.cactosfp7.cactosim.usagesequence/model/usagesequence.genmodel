@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/eu.cactosfp7.cactosim.usagesequence/src" modelPluginID="eu.cactosfp7.cactosim.usagesequence"
+    modelName="Usagesequence" rootExtendsInterface="org.eclipse.emf.cdo.CDOObject"
+    rootExtendsClass="org.eclipse.emf.internal.cdo.CDOObjectImpl" importerID="org.eclipse.emf.importer.ecore"
+    featureDelegation="Dynamic" complianceLevel="7.0" copyrightFields="false" providerRootExtendsClass="org.eclipse.emf.cdo.edit.CDOItemProviderAdapter"
+    runtimeVersion="2.5" usedGenPackages="../../tools.descartes.dlim.generator/src/tools/descartes/dlim/model/dlim.genmodel#//dlim"
+    importOrganizing="true">
+  <foreignModel>usagesequence.ecore</foreignModel>
+  <modelPluginVariables>CDO=org.eclipse.emf.cdo</modelPluginVariables>
+  <genPackages prefix="Usagesequence" basePackage="eu.cactosfp7.cactosim" disposableProviderFactory="true"
+      ecorePackage="usagesequence.ecore#/">
+    <genClasses ecoreClass="usagesequence.ecore#//UsageSequenceRepository">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference usagesequence.ecore#//UsageSequenceRepository/sequences"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

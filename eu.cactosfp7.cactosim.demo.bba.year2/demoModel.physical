@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:PhysicalDCModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0" id="_dN4pMHdKEeWetadCAPUIzg">
+  <switches id="_dOV8MHdKEeWetadCAPUIzg" name="Single Switch Layout" networkInterconnects="_dOSR0HdKEeWetadCAPUIzg"/>
+  <racks id="_dN86oHdKEeWetadCAPUIzg" name="Dell 08-15" powerSupplies="_dN7FcHdKEeWetadCAPUIzg">
+    <nodes xsi:type="core:ComputeNode" id="_dOAlAHdKEeWetadCAPUIzg" name="Compute Node 0" powerProvidingEntities="_dN7FcHdKEeWetadCAPUIzg" powerConsumingEntities="_dODBQHdKEeWetadCAPUIzg _dOFdgHdKEeWetadCAPUIzg _dOJH4HdKEeWetadCAPUIzg" networkInterconnects="_dOSR0HdKEeWetadCAPUIzg">
+      <cpuSpecifications id="_dODBQHdKEeWetadCAPUIzg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_dOAlAHdKEeWetadCAPUIzg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_dNzJoHdKEeWetadCAPUIzg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_dOFdgHdKEeWetadCAPUIzg" name="Local HDD" powerProvidingEntities="_dOAlAHdKEeWetadCAPUIzg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_dOJH4HdKEeWetadCAPUIzg" name="DDR-RAM" powerProvidingEntities="_dOAlAHdKEeWetadCAPUIzg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_dOg7UHdKEeWetadCAPUIzg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_dOKWAHdKEeWetadCAPUIzg" name="Compute Node 1" powerProvidingEntities="_dN7FcHdKEeWetadCAPUIzg" powerConsumingEntities="_dOKWAXdKEeWetadCAPUIzg _dOKWAndKEeWetadCAPUIzg _dOK9EHdKEeWetadCAPUIzg" networkInterconnects="_dOSR0HdKEeWetadCAPUIzg">
+      <cpuSpecifications id="_dOKWAXdKEeWetadCAPUIzg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_dOKWAHdKEeWetadCAPUIzg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_dNzJoHdKEeWetadCAPUIzg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_dOKWAndKEeWetadCAPUIzg" name="Local HDD" powerProvidingEntities="_dOKWAHdKEeWetadCAPUIzg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_dOK9EHdKEeWetadCAPUIzg" name="DDR-RAM" powerProvidingEntities="_dOKWAHdKEeWetadCAPUIzg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_dOhiYHdKEeWetadCAPUIzg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_dOK9EXdKEeWetadCAPUIzg" name="Compute Node 2" powerProvidingEntities="_dN7FcHdKEeWetadCAPUIzg" powerConsumingEntities="_dOK9EndKEeWetadCAPUIzg _dOK9E3dKEeWetadCAPUIzg _dOK9FHdKEeWetadCAPUIzg" networkInterconnects="_dOSR0HdKEeWetadCAPUIzg">
+      <cpuSpecifications id="_dOK9EndKEeWetadCAPUIzg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_dOK9EXdKEeWetadCAPUIzg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_dNzJoHdKEeWetadCAPUIzg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_dOK9E3dKEeWetadCAPUIzg" name="Local HDD" powerProvidingEntities="_dOK9EXdKEeWetadCAPUIzg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_dOK9FHdKEeWetadCAPUIzg" name="DDR-RAM" powerProvidingEntities="_dOK9EXdKEeWetadCAPUIzg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_dOhiYXdKEeWetadCAPUIzg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_dOLkIHdKEeWetadCAPUIzg" name="Compute Node 3" powerProvidingEntities="_dN7FcHdKEeWetadCAPUIzg" powerConsumingEntities="_dOLkIXdKEeWetadCAPUIzg _dOLkIndKEeWetadCAPUIzg _dOLkI3dKEeWetadCAPUIzg" networkInterconnects="_dOSR0HdKEeWetadCAPUIzg">
+      <cpuSpecifications id="_dOLkIXdKEeWetadCAPUIzg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_dOLkIHdKEeWetadCAPUIzg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_dNzJoHdKEeWetadCAPUIzg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_dOLkIndKEeWetadCAPUIzg" name="Local HDD" powerProvidingEntities="_dOLkIHdKEeWetadCAPUIzg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_dOLkI3dKEeWetadCAPUIzg" name="DDR-RAM" powerProvidingEntities="_dOLkIHdKEeWetadCAPUIzg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_dOhiYndKEeWetadCAPUIzg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_dOLkJHdKEeWetadCAPUIzg" name="Compute Node 4" powerProvidingEntities="_dN7FcHdKEeWetadCAPUIzg" powerConsumingEntities="_dOLkJXdKEeWetadCAPUIzg _dOLkJndKEeWetadCAPUIzg _dOMLMHdKEeWetadCAPUIzg" networkInterconnects="_dOSR0HdKEeWetadCAPUIzg">
+      <cpuSpecifications id="_dOLkJXdKEeWetadCAPUIzg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_dOLkJHdKEeWetadCAPUIzg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_dNzJoHdKEeWetadCAPUIzg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_dOLkJndKEeWetadCAPUIzg" name="Local HDD" powerProvidingEntities="_dOLkJHdKEeWetadCAPUIzg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_dOMLMHdKEeWetadCAPUIzg" name="DDR-RAM" powerProvidingEntities="_dOLkJHdKEeWetadCAPUIzg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_dOhiY3dKEeWetadCAPUIzg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_dOMLMXdKEeWetadCAPUIzg" name="Compute Node 5" powerProvidingEntities="_dN7FcHdKEeWetadCAPUIzg" powerConsumingEntities="_dOMLMndKEeWetadCAPUIzg _dOMLM3dKEeWetadCAPUIzg _dOMLNHdKEeWetadCAPUIzg" networkInterconnects="_dOSR0HdKEeWetadCAPUIzg">
+      <cpuSpecifications id="_dOMLMndKEeWetadCAPUIzg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_dOMLMXdKEeWetadCAPUIzg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_dNzJoHdKEeWetadCAPUIzg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_dOMLM3dKEeWetadCAPUIzg" name="Local HDD" powerProvidingEntities="_dOMLMXdKEeWetadCAPUIzg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_dOMLNHdKEeWetadCAPUIzg" name="DDR-RAM" powerProvidingEntities="_dOMLMXdKEeWetadCAPUIzg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_dOhiZHdKEeWetadCAPUIzg"/>
+    </nodes>
+  </racks>
+  <racks id="_dN9hsHdKEeWetadCAPUIzg" name="Dell 08-15" powerSupplies="_dN7sgHdKEeWetadCAPUIzg">
+    <nodes xsi:type="core:ComputeNode" id="_dOMLNXdKEeWetadCAPUIzg" name="Compute Node 6" powerProvidingEntities="_dN7sgHdKEeWetadCAPUIzg" powerConsumingEntities="_dOMyQHdKEeWetadCAPUIzg _dOMyQXdKEeWetadCAPUIzg _dOMyQndKEeWetadCAPUIzg">
+      <cpuSpecifications id="_dOMyQHdKEeWetadCAPUIzg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_dOMLNXdKEeWetadCAPUIzg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_dNzJoHdKEeWetadCAPUIzg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_dOMyQXdKEeWetadCAPUIzg" name="Local HDD" powerProvidingEntities="_dOMLNXdKEeWetadCAPUIzg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_dOMyQndKEeWetadCAPUIzg" name="DDR-RAM" powerProvidingEntities="_dOMLNXdKEeWetadCAPUIzg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_dOhiZXdKEeWetadCAPUIzg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_dOMyQ3dKEeWetadCAPUIzg" name="Compute Node 7" powerProvidingEntities="_dN7sgHdKEeWetadCAPUIzg" powerConsumingEntities="_dOMyRHdKEeWetadCAPUIzg _dOMyRXdKEeWetadCAPUIzg _dOMyRndKEeWetadCAPUIzg">
+      <cpuSpecifications id="_dOMyRHdKEeWetadCAPUIzg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_dOMyQ3dKEeWetadCAPUIzg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_dNzJoHdKEeWetadCAPUIzg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_dOMyRXdKEeWetadCAPUIzg" name="Local HDD" powerProvidingEntities="_dOMyQ3dKEeWetadCAPUIzg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_dOMyRndKEeWetadCAPUIzg" name="DDR-RAM" powerProvidingEntities="_dOMyQ3dKEeWetadCAPUIzg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_dOhiZndKEeWetadCAPUIzg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_dONZUHdKEeWetadCAPUIzg" name="Compute Node 8" powerProvidingEntities="_dN7sgHdKEeWetadCAPUIzg" powerConsumingEntities="_dONZUXdKEeWetadCAPUIzg _dONZUndKEeWetadCAPUIzg _dONZU3dKEeWetadCAPUIzg">
+      <cpuSpecifications id="_dONZUXdKEeWetadCAPUIzg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_dONZUHdKEeWetadCAPUIzg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_dNzJoHdKEeWetadCAPUIzg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_dONZUndKEeWetadCAPUIzg" name="Local HDD" powerProvidingEntities="_dONZUHdKEeWetadCAPUIzg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_dONZU3dKEeWetadCAPUIzg" name="DDR-RAM" powerProvidingEntities="_dONZUHdKEeWetadCAPUIzg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_dOiJcHdKEeWetadCAPUIzg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_dONZVHdKEeWetadCAPUIzg" name="Compute Node 9" powerProvidingEntities="_dN7sgHdKEeWetadCAPUIzg" powerConsumingEntities="_dONZVXdKEeWetadCAPUIzg _dONZVndKEeWetadCAPUIzg _dONZV3dKEeWetadCAPUIzg">
+      <cpuSpecifications id="_dONZVXdKEeWetadCAPUIzg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_dONZVHdKEeWetadCAPUIzg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_dNzJoHdKEeWetadCAPUIzg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_dONZVndKEeWetadCAPUIzg" name="Local HDD" powerProvidingEntities="_dONZVHdKEeWetadCAPUIzg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_dONZV3dKEeWetadCAPUIzg" name="DDR-RAM" powerProvidingEntities="_dONZVHdKEeWetadCAPUIzg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_dOiJcXdKEeWetadCAPUIzg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_dOOAYHdKEeWetadCAPUIzg" name="Compute Node 10" powerProvidingEntities="_dN7sgHdKEeWetadCAPUIzg" powerConsumingEntities="_dOOAYXdKEeWetadCAPUIzg _dOOAYndKEeWetadCAPUIzg _dOOAY3dKEeWetadCAPUIzg">
+      <cpuSpecifications id="_dOOAYXdKEeWetadCAPUIzg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_dOOAYHdKEeWetadCAPUIzg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_dNzJoHdKEeWetadCAPUIzg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_dOOAYndKEeWetadCAPUIzg" name="Local HDD" powerProvidingEntities="_dOOAYHdKEeWetadCAPUIzg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_dOOAY3dKEeWetadCAPUIzg" name="DDR-RAM" powerProvidingEntities="_dOOAYHdKEeWetadCAPUIzg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_dOiJcndKEeWetadCAPUIzg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_dOOAZHdKEeWetadCAPUIzg" name="Compute Node 11" powerProvidingEntities="_dN7sgHdKEeWetadCAPUIzg" powerConsumingEntities="_dOOAZXdKEeWetadCAPUIzg _dOOncHdKEeWetadCAPUIzg _dOOncXdKEeWetadCAPUIzg">
+      <cpuSpecifications id="_dOOAZXdKEeWetadCAPUIzg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_dOOAZHdKEeWetadCAPUIzg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_dNzJoHdKEeWetadCAPUIzg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_dOOncHdKEeWetadCAPUIzg" name="Local HDD" powerProvidingEntities="_dOOAZHdKEeWetadCAPUIzg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_dOOncXdKEeWetadCAPUIzg" name="DDR-RAM" powerProvidingEntities="_dOOAZHdKEeWetadCAPUIzg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_dOiJc3dKEeWetadCAPUIzg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_dOPOgHdKEeWetadCAPUIzg" name="Compute Node 12" powerProvidingEntities="_dN7sgHdKEeWetadCAPUIzg" powerConsumingEntities="_dOPOgXdKEeWetadCAPUIzg _dOPOgndKEeWetadCAPUIzg _dOPOg3dKEeWetadCAPUIzg">
+      <cpuSpecifications id="_dOPOgXdKEeWetadCAPUIzg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_dOPOgHdKEeWetadCAPUIzg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_dNzJoHdKEeWetadCAPUIzg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_dOPOgndKEeWetadCAPUIzg" name="Local HDD" powerProvidingEntities="_dOPOgHdKEeWetadCAPUIzg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_dOPOg3dKEeWetadCAPUIzg" name="DDR-RAM" powerProvidingEntities="_dOPOgHdKEeWetadCAPUIzg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_dOiJdHdKEeWetadCAPUIzg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_dOP1kHdKEeWetadCAPUIzg" name="Compute Node 13" powerProvidingEntities="_dN7sgHdKEeWetadCAPUIzg" powerConsumingEntities="_dOP1kXdKEeWetadCAPUIzg _dOP1kndKEeWetadCAPUIzg _dOP1k3dKEeWetadCAPUIzg">
+      <cpuSpecifications id="_dOP1kXdKEeWetadCAPUIzg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_dOP1kHdKEeWetadCAPUIzg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_dNzJoHdKEeWetadCAPUIzg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_dOP1kndKEeWetadCAPUIzg" name="Local HDD" powerProvidingEntities="_dOP1kHdKEeWetadCAPUIzg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_dOP1k3dKEeWetadCAPUIzg" name="DDR-RAM" powerProvidingEntities="_dOP1kHdKEeWetadCAPUIzg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_dOiJdXdKEeWetadCAPUIzg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_dOQcoHdKEeWetadCAPUIzg" name="Compute Node 14" powerProvidingEntities="_dN7sgHdKEeWetadCAPUIzg" powerConsumingEntities="_dOQcoXdKEeWetadCAPUIzg _dOQcondKEeWetadCAPUIzg _dOQco3dKEeWetadCAPUIzg">
+      <cpuSpecifications id="_dOQcoXdKEeWetadCAPUIzg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_dOQcoHdKEeWetadCAPUIzg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_dNzJoHdKEeWetadCAPUIzg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_dOQcondKEeWetadCAPUIzg" name="Local HDD" powerProvidingEntities="_dOQcoHdKEeWetadCAPUIzg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_dOQco3dKEeWetadCAPUIzg" name="DDR-RAM" powerProvidingEntities="_dOQcoHdKEeWetadCAPUIzg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_dOiJdndKEeWetadCAPUIzg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_dOQcpHdKEeWetadCAPUIzg" name="Compute Node 15" powerProvidingEntities="_dN7sgHdKEeWetadCAPUIzg" powerConsumingEntities="_dOQcpXdKEeWetadCAPUIzg _dOQcpndKEeWetadCAPUIzg _dOQcp3dKEeWetadCAPUIzg">
+      <cpuSpecifications id="_dOQcpXdKEeWetadCAPUIzg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_dOQcpHdKEeWetadCAPUIzg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_dNzJoHdKEeWetadCAPUIzg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_dOQcpndKEeWetadCAPUIzg" name="Local HDD" powerProvidingEntities="_dOQcpHdKEeWetadCAPUIzg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_dOQcp3dKEeWetadCAPUIzg" name="DDR-RAM" powerProvidingEntities="_dOQcpHdKEeWetadCAPUIzg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_dOiJd3dKEeWetadCAPUIzg"/>
+    </nodes>
+  </racks>
+  <powerSupplies id="_dN6eYHdKEeWetadCAPUIzg" name="Main PDU" powerCap="3.0kW" powerConsumingEntities="_dN7FcHdKEeWetadCAPUIzg _dN7sgHdKEeWetadCAPUIzg" suppliablePeakPower="3.2kW"/>
+  <powerSupplies id="_dN7FcHdKEeWetadCAPUIzg" name="Rack 1 PDU" powerProvidingEntities="_dN6eYHdKEeWetadCAPUIzg" powerCap="2.0kW" powerConsumingEntities="_dOAlAHdKEeWetadCAPUIzg _dOKWAHdKEeWetadCAPUIzg _dOK9EXdKEeWetadCAPUIzg _dOLkIHdKEeWetadCAPUIzg _dOLkJHdKEeWetadCAPUIzg _dOMLMXdKEeWetadCAPUIzg" suppliablePeakPower="2.0kW" hostedIn="_dN86oHdKEeWetadCAPUIzg"/>
+  <powerSupplies id="_dN7sgHdKEeWetadCAPUIzg" name="Rack 2 PDU" powerProvidingEntities="_dN6eYHdKEeWetadCAPUIzg" powerCap="2.0kW" powerConsumingEntities="_dOMLNXdKEeWetadCAPUIzg _dOMyQ3dKEeWetadCAPUIzg _dONZUHdKEeWetadCAPUIzg _dONZVHdKEeWetadCAPUIzg _dOOAYHdKEeWetadCAPUIzg _dOOAZHdKEeWetadCAPUIzg _dOPOgHdKEeWetadCAPUIzg _dOP1kHdKEeWetadCAPUIzg _dOQcoHdKEeWetadCAPUIzg _dOQcpHdKEeWetadCAPUIzg" suppliablePeakPower="2.0kW" hostedIn="_dN9hsHdKEeWetadCAPUIzg"/>
+  <clusters id="_dOXxYHdKEeWetadCAPUIzg" name="Single Cluster Layout" clusterId="1" containedNodes="_dOAlAHdKEeWetadCAPUIzg _dOKWAHdKEeWetadCAPUIzg _dOK9EXdKEeWetadCAPUIzg _dOLkIHdKEeWetadCAPUIzg _dOLkJHdKEeWetadCAPUIzg _dOMLMXdKEeWetadCAPUIzg"/>
+  <networkInterconnects id="_dOSR0HdKEeWetadCAPUIzg" name="Single NIC Layout" connectedEntities="_dOAlAHdKEeWetadCAPUIzg _dOKWAHdKEeWetadCAPUIzg _dOK9EXdKEeWetadCAPUIzg _dOLkIHdKEeWetadCAPUIzg _dOLkJHdKEeWetadCAPUIzg _dOMLMXdKEeWetadCAPUIzg _dOV8MHdKEeWetadCAPUIzg">
+    <bandwidth value="1.0(bit/s)*1000000000"/>
+  </networkInterconnects>
+</core:PhysicalDCModel>

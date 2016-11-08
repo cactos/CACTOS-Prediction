@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Headless Model Extractor
+Bundle-SymbolicName: eu.cactosfp7.cactosim.modelextractor.headless;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: eu.cactosfp7.cactosim.modelextractor.headless.Activator
+Bundle-Vendor: CACTOS
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.emf.cdo,
+ eu.cactosfp7.infrastructuremodels,
+ org.eclipse.emf.cdo.net4j,
+ org.eclipse.net4j.tcp,
+ HBaseClient,
+ eu.cactosfp7.cactosim.modelextractor,
+ XtremeSerealiser,
+ org.eclipse.equinox.cm;bundle-version="1.1.100",
+ org.apache.felix.fileinstall;bundle-version="3.5.4"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Import-Package: eu.cactosfp7.cactosim.experimentscenario

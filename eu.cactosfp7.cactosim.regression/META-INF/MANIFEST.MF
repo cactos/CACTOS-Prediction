@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Regression
+Bundle-SymbolicName: eu.cactosfp7.cactosim.regression
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: eu.cactosfp7.cactosim.regression.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ org.apache.log4j,
+ org.vedantatree.expressionoasis;bundle-version="1.0.0",
+ JScience;bundle-version="4.3.1",
+ org.rosuda.rJavaAndRserve;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Export-Package: eu.cactosfp7.cactosim.regression.r

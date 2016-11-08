@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="true"
+            locationURI="popup:eu.cactosfp7.infrastructuremodels.logicaldc.core.presentation.CoreEditorID?after=additions">
+         <command
+               commandId="eu.cactosfp7.cactosim.modelextractor.ui.commands.ExtractModels"
+               label="Extract Black-Box Models"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="true"
+            locationURI="popup:eu.cactosfp7.infrastructuremodels.physicaldc.core.presentation.CoreEditorID?after=additions">
+         <command
+               commandId="eu.cactosfp7.cactosim.modelextractor.ui.commands.ExtractPowerModel"
+               label="Extract Power Model"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="true"
+            locationURI="popup:eu.cactosfp7.cactosim.experimentscenario.presentation.ExperimentscenarioEditorID">
+         <command
+               commandId="eu.cactosfp7.cactosim.modelextractor.ui.commands.ExtractExperimentScenarioEvents"
+               label="Extract Experiment Scenario Events"
+               style="push">
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            categoryId="eu.cactosfp7.cactosim.modelextractor.ui.category.Models"
+            defaultHandler="eu.cactosfp7.cactosim.modelextractor.ui.ModelExtractorHandler"
+            description="Extract Black-Box VMs from Historical DB"
+            id="eu.cactosfp7.cactosim.modelextractor.ui.commands.ExtractModels"
+            name="Extract Black-Box VMs">
+      </command>
+      <category
+            id="eu.cactosfp7.cactosim.modelextractor.ui.category.Models"
+            name="Models">
+      </category>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            categoryId="eu.cactosfp7.cactosim.modelextractor.ui.category.Models"
+            defaultHandler="eu.cactosfp7.cactosim.modelextractor.ui.PowerModelExtractorHandler"
+            description="Extract Power Model from Historical DB"
+            id="eu.cactosfp7.cactosim.modelextractor.ui.commands.ExtractPowerModel"
+            name="Extract Power Model">
+      </command>
+      <category
+            id="eu.cactosfp7.cactosim.modelextractor.ui.category.Models"
+            name="Models">
+      </category>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            categoryId="eu.cactosfp7.cactosim.modelextractor.ui.category.Models"
+            defaultHandler="eu.cactosfp7.cactosim.modelextractor.ui.ExperimentScenarioExtractorHandler"
+            description="Extract Experiment Scenario Events from Historical DB"
+            id="eu.cactosfp7.cactosim.modelextractor.ui.commands.ExtractExperimentScenarioEvents"
+            name="Extract Experiment Scenario Events from Historical DB">
+      </command>
+      <category
+            id="eu.cactosfp7.cactosim.modelextractor.ui.category.Models"
+            name="Models">
+      </category>
+   </extension>
+
+</plugin>

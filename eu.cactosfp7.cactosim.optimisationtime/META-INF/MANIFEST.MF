@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: eu.cactosfp7.cactosim.optimisationtime
+Bundle-SymbolicName: eu.cactosfp7.cactosim.optimisationtime;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: eu.cactosfp7.cactosim.optimisationtime.Activator
+Bundle-Vendor: CACTOS Consortium
+Require-Bundle: org.eclipse.core.runtime,
+ org.palladiosimulator.simulizar,
+ org.palladiosimulator.monitorrepository,
+ de.uka.ipd.sdq.simucomframework,
+ org.palladiosimulator.probeframework,
+ de.uka.ipd.sdq.simulation,
+ org.palladiosimulator.recorderframework,
+ de.uka.ipd.sdq.simulation.abstractsimengine,
+ org.jscience,
+ org.palladiosimulator.measurementframework;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Export-Package: eu.cactosfp7.cactosim.optimisationtime,
+ eu.cactosfp7.cactosim.optimisationtime.probes,
+ eu.cactosfp7.cactosim.optimisationtime.util

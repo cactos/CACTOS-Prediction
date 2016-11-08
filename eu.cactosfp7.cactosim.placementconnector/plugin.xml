@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.m2m.qvt.oml.javaBlackboxUnits">
+      <unit
+            name="PlacementConnectorUnit"
+            namespace="eu.cactosfp7.cactosim.placementconnector">
+         <library
+               class="eu.cactosfp7.cactosim.placementconnector.PlacementConnector"
+               name="PlacementConnector">
+            <metamodel
+                  nsURI="http://www.cactosfp7.eu/OptimisationPlan/1.0">
+            </metamodel>
+            <metamodel
+                  nsURI="http://www.cactosfp7.eu/CactosLoadModel/Logical/1.0">
+            </metamodel>
+            <metamodel
+                  nsURI="http://www.cactosfp7.eu/CactosLoadModel/Physical/1.0">
+            </metamodel>
+            <metamodel
+                  nsURI="http://www.cactosfp7.eu/LogicalDCModel/Core/1.0">
+            </metamodel>
+            <metamodel
+                  nsURI="http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0">
+            </metamodel>
+            <metamodel
+                  nsURI="http://simulizar.palladiosimulator.org/Actions/Context/1.1">
+            </metamodel>
+         </library>
+      </unit>
+   </extension>
+   <extension
+         id="eu.cactosfp7.cactosim.placementconnector.PlacementSettingsRuntimeStateAccessor"
+         name="Placement Settings Runtime State Accessor"
+         point="org.palladiosimulator.simulizar.runtimestate.runtimestateaccessor">
+      <runtimeStateAccessor
+            accessor="eu.cactosfp7.cactosim.placementconnector.PlacementSettingsRuntimeStateAccessor">
+      </runtimeStateAccessor>
+   </extension>
+</plugin>

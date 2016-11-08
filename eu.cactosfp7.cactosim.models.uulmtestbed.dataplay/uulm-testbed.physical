@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:PhysicalDCModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0" id="_iQpl0B0JEeaDpMSSavnfxA">
+  <racks id="_iLGXcB0JEeaDpMSSavnfxA" name="rack01" powerSupplies="_iNnf8B0JEeaDpMSSavnfxA _iNoHAB0JEeaDpMSSavnfxA _iNp8MB0JEeaDpMSSavnfxA _iNp8MR0JEeaDpMSSavnfxA">
+    <nodes xsi:type="core:ComputeNode" id="_iMrr0B0JEeaDpMSSavnfxA" name="computenode11" powerProvidingEntities="_iNnf8B0JEeaDpMSSavnfxA _iNoHAB0JEeaDpMSSavnfxA" powerConsumingEntities="_iMs58B0JEeaDpMSSavnfxA _iMwkUB0JEeaDpMSSavnfxA _iMznoB0JEeaDpMSSavnfxA" networkInterconnects="_iLIMoB0JEeaDpMSSavnfxA">
+      <cpuSpecifications id="_iMs58B0JEeaDpMSSavnfxA" name="computenode11" powerProvidingEntities="_iMrr0B0JEeaDpMSSavnfxA" frequency="3166.8199999999997MHz" numberOfCores="32">
+        <powerModelBinding href="uulm-testbed.pdcbinding#_Lj2YwOn7EeWDO84ZsNy36w"/>
+        <architectureType href="uulm-testbed.architecturetype#_iLFJUB0JEeaDpMSSavnfxA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_iMznoB0JEeaDpMSSavnfxA" name="computenode11" powerProvidingEntities="_iMrr0B0JEeaDpMSSavnfxA" size="190.0GB" readDelay="0.003333333333333333s" writeDelay="0.01572327044025157s">
+        <readBandwidth value="2.5165824E9bit/s"/>
+        <writeBandwidth value="5.3351546879999995E8bit/s"/>
+      </storageSpecifications>
+      <memorySpecifications id="_iMwkUB0JEeaDpMSSavnfxA" name="computenode11" powerProvidingEntities="_iMrr0B0JEeaDpMSSavnfxA" size="128831.0MB"/>
+      <hypervisor href="uulm-testbed.logical#_iM35EB0JEeaDpMSSavnfxA"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_iMyZgR0JEeaDpMSSavnfxA" name="computenode15" powerProvidingEntities="_iNp8MB0JEeaDpMSSavnfxA _iNp8MR0JEeaDpMSSavnfxA" powerConsumingEntities="_iMyZgh0JEeaDpMSSavnfxA _iMyZhR0JEeaDpMSSavnfxA _iM1c0h0JEeaDpMSSavnfxA" networkInterconnects="_iMyZgB0JEeaDpMSSavnfxA">
+      <cpuSpecifications id="_iMyZgh0JEeaDpMSSavnfxA" name="computenode15" powerProvidingEntities="_iMyZgR0JEeaDpMSSavnfxA" frequency="2932.312MHz" numberOfCores="32">
+        <powerModelBinding href="uulm-testbed.pdcbinding#_Lj2YwOn7EeWDO84ZsNy36w"/>
+        <architectureType href="uulm-testbed.architecturetype#_iLFJUB0JEeaDpMSSavnfxA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_iM1c0h0JEeaDpMSSavnfxA" name="computenode15" powerProvidingEntities="_iMyZgR0JEeaDpMSSavnfxA" readDelay="0.008547008547008548s" writeDelay="0.010695187165775399s">
+        <readBandwidth value="9.81467136E8bit/s"/>
+        <writeBandwidth value="7.84334848E8bit/s"/>
+      </storageSpecifications>
+      <memorySpecifications id="_iMyZhR0JEeaDpMSSavnfxA" name="computenode15" powerProvidingEntities="_iMyZgR0JEeaDpMSSavnfxA" size="128833.0MB"/>
+      <hypervisor href="uulm-testbed.logical#_iM35ER0JEeaDpMSSavnfxA"/>
+    </nodes>
+  </racks>
+  <powerSupplies id="_iNnf8B0JEeaDpMSSavnfxA" name="G18593D1207003034" powerConsumingEntities="_iMrr0B0JEeaDpMSSavnfxA" suppliablePeakPower="1200.0W" hostedIn="_iLGXcB0JEeaDpMSSavnfxA"/>
+  <powerSupplies id="_iNoHAB0JEeaDpMSSavnfxA" name="G18593D1207003032" powerConsumingEntities="_iMrr0B0JEeaDpMSSavnfxA" suppliablePeakPower="1200.0W" hostedIn="_iLGXcB0JEeaDpMSSavnfxA"/>
+  <powerSupplies id="_iNp8MB0JEeaDpMSSavnfxA" name="G18593D1207002510" powerConsumingEntities="_iMyZgR0JEeaDpMSSavnfxA" suppliablePeakPower="1200.0W" hostedIn="_iLGXcB0JEeaDpMSSavnfxA"/>
+  <powerSupplies id="_iNp8MR0JEeaDpMSSavnfxA" name="G18593D1207003073" powerConsumingEntities="_iMyZgR0JEeaDpMSSavnfxA" suppliablePeakPower="1200.0W" hostedIn="_iLGXcB0JEeaDpMSSavnfxA"/>
+  <networkInterconnects id="_iLIMoB0JEeaDpMSSavnfxA" name="computenode11" connectedEntities="_iMrr0B0JEeaDpMSSavnfxA">
+    <bandwidth value="8.388608E9bit/s"/>
+  </networkInterconnects>
+  <networkInterconnects id="_iMyZgB0JEeaDpMSSavnfxA" name="computenode15" connectedEntities="_iMyZgR0JEeaDpMSSavnfxA">
+    <bandwidth value="8.388608E9bit/s"/>
+  </networkInterconnects>
+</core:PhysicalDCModel>

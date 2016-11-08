@@ -1,0 +1,136 @@
+import cactos2PCMShared;
+import cactos2PCMSystem;
+import logicalDCModelHelper;
+import pcmHelper;
+
+modeltype _physicaldc uses "http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0";
+modeltype _physicaldc_architecturetype uses "http://www.cactosfp7.eu/PhysicalDCModel/ArchitectureType/1.0";
+modeltype _logicaldc uses "http://www.cactosfp7.eu/LogicalDCModel/Core/1.0";
+modeltype _logicaldc_application uses "http://www.cactosfp7.eu/LogicalDCModel/Application/1.0";
+modeltype _lcorrespondence uses 'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype _pcorrespondence uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype _mcorrespondence uses 'http://www.cactosfp7.eu/Correspondence/Measurement/1.1';
+modeltype _pcmcore uses "http://palladiosimulator.org/PalladioComponentModel/Core/5.1";
+modeltype _pcmrepository uses "http://palladiosimulator.org/PalladioComponentModel/Repository/5.1";
+modeltype _pcmresourcetype uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.1';
+modeltype _pcmsystem uses 'http://palladiosimulator.org/PalladioComponentModel/System/5.1';
+modeltype _pcmcomposition uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.1';
+modeltype _pcm_seff uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/5.1';
+modeltype _pcm_seff_performance uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/SEFF_Performance/5.1';
+modeltype _pcm_parameter uses 'http://palladiosimulator.org/PalladioComponentModel/Parameter/5.1';
+modeltype _pcmusage uses 'http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.1';
+modeltype _pcmallocation uses 'http://palladiosimulator.org/PalladioComponentModel/Allocation/5.1';
+modeltype _pcmresourceenvironment uses "http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1";
+modeltype _pcm_stoex uses "http://sdq.ipd.uka.de/StochasticExpressions/2.2";
+modeltype _monitorrepository uses "http://palladiosimulator.org/MonitorRepository/1.0";
+modeltype _measuringpoint uses "http://palladiosimulator.org/PCM/MeasuringPoint/1.0";
+modeltype _metricspec uses "http://palladiosimulator.org/MetricSpec/1.0";
+modeltype _usageevolution uses "http://usageevolution/1.0";
+modeltype _loadmodel_logical uses "http://www.cactosfp7.eu/CactosLoadModel/Logical/1.0";
+modeltype _loadmodel_physical uses "http://www.cactosfp7.eu/CactosLoadModel/Physical/1.0";
+modeltype _usagesequencerepository uses "http://www.cactosfp7.eu/CactoSim/UsageSequence/1.1";
+modeltype _cactospowermodel uses 'http://www.cactosfp7.eu/PhysicalDCModel/Power/1.0';
+modeltype _cactospowerbinding uses 'http://www.cactosfp7.eu/PhysicalDCModel/Power/Binding/1.0';
+modeltype _cactospowerinfrastructure uses 'http://www.cactosfp7.eu/PhysicalDCModel/Power/Specification/1.0'; 
+modeltype _cactospowerspecification uses 'http://www.cactosfp7.eu/PhysicalDCModel/Power/Specification/1.0';
+modeltype _powerutil uses 'http://www.fzi.de/Power/Util/1.0';
+modeltype _powerbinding uses 'http://www.fzi.de/Power/Binding/1.0';
+modeltype _powerspecification uses 'http://www.fzi.de/Power/Specification/1.0';
+modeltype _powerinfrastructure uses 'http://www.fzi.de/Power/Infrastructure/1.0';
+modeltype _dlim uses "http://descartes.tools/dlim/0.1";
+modeltype _measuringpointEDP2 uses "http://palladiosimulator.org/EDP2/MeasuringPoint/1.0";
+modeltype _resourceenvironment uses "http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1";
+modeltype _pcm_usagemodel uses "http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.1";
+modeltype _pcmseff uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/5.1';
+modeltype _pcmseffperformance uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/SEFF_Performance/5.1';
+modeltype _monitor_correspondence uses 'http://www.cactosfp7.eu/Correspondence/Measurement/1.1';
+
+transformation cactos2PCMAllocation(in metricspec : _metricspec,
+									in resourcetypepcm : _pcmresourcetype,
+									in primitiveresourcetyperepo : _pcmrepository,
+									inout lcorrespondence : _lcorrespondence,
+									inout pcorrespondence : _pcorrespondence,
+									inout pcmrepository : _pcmrepository,
+									inout pcmsystem : _pcmsystem,
+									inout pcmallocation : _pcmallocation,
+									inout usagesequence: _usagesequencerepository,
+									inout measuringpoint: _measuringpoint,
+									inout monitorrepository :_monitorrepository,
+									inout logicalload : _loadmodel_logical,
+									inout measurementcorrespondence : _monitor_correspondence) {
+									
+	mapping LogicalDCModel::logicalDCModelToAllocation(inout lc : LogicalCorrespondenceRepository, in pc: PhysicalCorrespondenceRepository, physicalDCModel : PhysicalDCModel) : Allocation @ pcmallocation {
+		entityName := "Allocation representing the logical data centre model.";
+		targetResourceEnvironment_Allocation := physicalDCModel.resolveone(ResourceEnvironment);
+		system_Allocation := self.resolveone(System);
+		allocationContexts_Allocation += self.hypervisors.virtualMachines.map vmToAllocationContexts(lc, pc);
+		allocationContexts_Allocation += self.applicationInstances[WhiteBoxApplicationInstance].map toAllocationContextOfLoadBalancerComponents()->flatten();
+		// Correspondence
+		lc.logicalDcModel := self;
+	}	
+									
+	mapping VirtualMachine::vmToAllocationContexts(inout lc : LogicalCorrespondenceRepository, in pc: PhysicalCorrespondenceRepository) : Set(AllocationContext) {
+		init  {
+			result := self.resolveoneIn(VirtualMachine::toAssemblyContexts, Set(AssemblyContext))->flatten()->collect(ctx |
+				self.createAllocationContextTemplateFromVm(ctx, lc, pc)
+			)->asSet();
+		}		
+	}
+	
+	helper VirtualMachine::createAllocationContextTemplateFromVm(assembly: AssemblyContext, inout lc : LogicalCorrespondenceRepository, in pc: PhysicalCorrespondenceRepository): AllocationContext {
+		var res := object AllocationContext {
+			resourceContainer_AllocationContext := pc.abstractNodeCorrespondences->any(cactos.id = self.hypervisor.node.id).palladio;
+			assemblyContext_AllocationContext := assembly;
+			entityName := "Allocation of (" + assemblyContext_AllocationContext.entityName + ") on (" + resourceContainer_AllocationContext.entityName + ")";
+		};
+		lc.virtualMachineCorrespondences += object VirtualMachineCorrespondence {
+			cactos := self;
+			palladio := res;
+		};
+		return res;
+	}
+	
+	mapping WhiteBoxApplicationInstance::toAllocationContextOfLoadBalancerComponents(): Set(AllocationContext) {
+		init {
+			result := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].scalableConnectorCorrespondences
+				->select(cactosApplicationInstance = self)->map toAllocationContextOfLoadBalancerComponent()->asSet()->flatten();			
+		}
+	}
+	
+	mapping ScalableVMImageConnectorCorrespondence::toAllocationContextOfLoadBalancerComponent(): Set(AllocationContext) {
+		init {
+			result := pcmsystem.rootObjects()[System].assemblyContexts__ComposedStructure
+				->select(encapsulatedComponent__AssemblyContext = self.palladio)
+				->collect(ctx | pcmsystem.rootObjects()[System].connectors__ComposedStructure[AssemblyConnector]
+									->any(ctx = providingAssemblyContext_AssemblyConnector))
+				->collect(con | object AllocationContext {
+						assemblyContext_AllocationContext := con.providingAssemblyContext_AssemblyConnector;
+						resourceContainer_AllocationContext := pcmallocation.rootObjects()[Allocation].allocationContexts_Allocation
+							->any(assemblyContext_AllocationContext = con.requiringAssemblyContext_AssemblyConnector).resourceContainer_AllocationContext; 
+						entityName := "Allocation of (" + assemblyContext_AllocationContext.entityName + ") on (" + resourceContainer_AllocationContext.entityName + ")";
+					})->asSet();
+		}
+	}
+	
+	mapping Hypervisor::deployStorageAssemblies(inout lc : LogicalCorrespondenceRepository) : AllocationContext {
+		var assembly := self.resolveone(AssemblyContext);
+		entityName := assembly.entityName;
+		assemblyContext_AllocationContext := assembly;
+		resourceContainer_AllocationContext := self.node.resolveone(ResourceContainer);
+		lc.hypervisorCorrespondences += object HypervisorCorrespondence {
+			cactos := self;
+			palladio := result;
+		}
+	}
+	
+	mapping NetworkAttachedStorage::deployStorageAssemblies(inout lc : LogicalCorrespondenceRepository) : AllocationContext {
+		var assembly := self.resolveone(AssemblyContext);
+		entityName := assembly.entityName;
+		assemblyContext_AllocationContext := assembly;
+		resourceContainer_AllocationContext := self.resolveone(ResourceContainer);
+		lc.networkAttachedStorageCorrespondences += object NetworkAttachedStorageCorrespondence {
+			cactos := self;
+			palladio := result;
+		};
+	}
+}

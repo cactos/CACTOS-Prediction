@@ -1,0 +1,233 @@
+/*
+ * This simple QVTO SimuLizar reconfiguration rule migrates the application to another
+ * server node as defined by the OptimizationPlan
+ *
+ */
+
+/*
+ * Two modeltypes are declared. The http NS URIs correspond to those used to register the 
+ * Ecore models in the environment. Alternatively, a workspace metamodel may be used 
+ * in conjunction with mappings defined in the project properties.
+ */
+import simulizar_qvto_helper.logHelper;
+import transforms.cactosAdaptationBehaviorHelper;
+
+modeltype PCM_ALLOC uses 'http://palladiosimulator.org/PalladioComponentModel/Allocation/5.1';
+modeltype PCM_REP uses 'http://palladiosimulator.org/PalladioComponentModel/Repository/5.1';
+modeltype PCM_SYS uses 'http://palladiosimulator.org/PalladioComponentModel/System/5.1';
+modeltype PCM_RES_ENV uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1';
+modeltype PCM_COMP uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.1';
+modeltype ACTION_MAPPING uses 'http://simulizar.palladiosimulator.org/Actions/Mapping/1.1';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype PHYSICAL_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype PHYSICAL_CORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype LOGICAL_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype LOGICAL_CORE uses 'http://www.cactosfp7.eu/LogicalDCModel/Core/1.0';
+
+transformation vmMigration(
+							inout pcmAllocation : PCM_ALLOC,
+							in pcmControllerRepository : PCM_REP,
+							in actionRoleSet : ACTION_INSTANCE,
+							in actionStep : ACTION_CORE,
+							out actionMapping : ACTION_MAPPING,
+							inout physiCorr : PHYSICAL_CORRESPONDENCE,
+							inout logiCorr : LOGICAL_CORRESPONDENCE) {
+							
+	property migrationController : BasicComponent;
+	property migrationSourceController : BasicComponent;
+	property migrationTargetController : BasicComponent;
+	
+	property migrationControllerContainer : ResourceContainer;
+	property migratedAssembly : AssemblyContext;
+	property targetContainer : ResourceContainer;
+							
+	/**
+	 * The main transformation.
+	 * This is the entry point to the overall transformation.
+	 */
+	main() {	
+		logInfo("Starting migrateVM controller completion");
+		
+		assert fatal(pcmAllocation.rootObjects()[Allocation]->size() > 0) with log ("Allocation Model is empty!", null, LOG_LEVEL_ERROR);
+		var step := actionStep.rootObjects()[ResourceDemandingAction]->any(true);		
+		assert fatal(step <> null) with log("No ResourceDemandingAction in model extent. Something seems to be wrong with the setup.", null, LOG_LEVEL_ERROR);
+		var controllerRepositories : Set(Repository) := pcmControllerRepository.rootObjects()[Repository];
+		
+		migrationController := controllerRepositories->getComponentById("_63lUEOqDEeS1xrjFer2CUg")->any(true);
+		migrationSourceController := controllerRepositories->getComponentById("_CizTUOqEEeS1xrjFer2CUg")->any(true);
+		migrationTargetController := controllerRepositories->getComponentById("_FFJUQOqEEeS1xrjFer2CUg")->any(true);	
+		assert fatal((migrationController <> null) and (migrationSourceController <> null) and (migrationTargetController <> null)) 
+			with log("Controller entities not found. Something seems to be wrong with the setup.", null, LOG_LEVEL_ERROR);
+		
+		var allocation : Allocation := pcmAllocation.rootObjects()[Allocation]->any(true);
+		
+		var vm := actionRoleSet.rootObjects()[RoleSet].roles->any(roleType.id = MVI_MIGRATED_VM_TYPE_ID).value.oclAsType(VirtualMachine);
+		assert fatal(vm <> null) with log("Migrate VM called without specifying the virtual machine to migrate", null, LOG_LEVEL_ERROR);
+		
+		var nodeCorr := actionRoleSet.rootObjects()[RoleSet].roles->any(roleType.id = MVI_TARGET_NODE_CORRESPONDENCE_TYPE_ID).value.oclAsType(AbstractNodeCorrespondence);
+		assert fatal(nodeCorr <> null) with log("Migrate VM called without specifying the target node", null, LOG_LEVEL_ERROR);
+		// This captures only one vm correspondence
+		// as we only use the correspondence to look up the appropriate location for the controller
+		// this is fine. Multiple assemblies for the same VM are always located on the same resource
+		// container.
+		var vmCorr := logiCorr.rootObjects()[LogicalCorrespondenceRepository].virtualMachineCorrespondences->any(cactos.id = vm.id);
+		assert fatal(vmCorr <> null) with log("Could not resolve VM correspondence - there seems to be something wrong with the simulation model", null, LOG_LEVEL_ERROR);
+		
+		migrationControllerContainer := nodeCorr.getReconfigurationActionController();
+		assert fatal(migrationControllerContainer <> null) with log("No migration controller assigned. Transient effects cannot be taken into account.", null, LOG_LEVEL_ERROR);
+		migratedAssembly := vmCorr.palladio.assemblyContext_AllocationContext;
+		assert fatal(vmCorr.palladio.assemblyContext_AllocationContext <> null) with log("Failure to resolve Palladio correspondence of VM - there seems to be something wrong with the simulation model", null, LOG_LEVEL_ERROR);
+		targetContainer := nodeCorr.palladio;
+		
+		var assembly : AssemblyContext := getMigrationControllerAssembly(allocation, migrationControllerContainer, migratedAssembly.getControllerHost(allocation), targetContainer);
+		if(assembly = null) {
+			step.map vmMigrate(vm, allocation);	
+		} else {
+			logInfo("Reuse existing controller: " + assembly.entityName.toString());
+			// TODO FIXME this only works when there is no more than one mapping.
+			step.controllerCalls->map createMappingForExistingComponent(assembly, allocation);
+		}
+	}
+	
+	mapping ControllerCall::createMappingForExistingComponent(assemblyContext : AssemblyContext, allocation : Allocation) : Mapping@actionMapping {
+		var system : System := allocation.system_Allocation;
+		result.controllerMappings += object ControllerMapping {
+			entityName := 'Preexisting Controller Completion Mapping Lookup';
+			mappedCall := self;
+			controllerRole := system.providedRoles_InterfaceProvidingEntity->selectByType(OperationProvidedRole)->select(i | i.providedInterface__OperationProvidedRole.id = self.calledSignature.interface__OperationSignature.id)->oclAsType(OperationProvidedRole)->any(true);			
+		};
+	}
+	
+	mapping ResourceDemandingAction::vmMigrate(in vm: VirtualMachine, inout allocation : Allocation) : Mapping@actionMapping {
+		logInfo("Adding controllers for VM migration");
+		result.controllerMappings := self.controllerCalls->map addVMControllers(vm, allocation)
+	}
+	
+	query getMigrationControllerAssembly(allocation : Allocation, controllerLocation : ResourceContainer, sourceLocation : ResourceContainer, targetLocation : ResourceContainer) : AssemblyContext {
+		var migrationControllersOnLocation := allocation.allocationContexts_Allocation
+			->select(resourceContainer_AllocationContext.id = controllerLocation.id
+				and assemblyContext_AllocationContext.encapsulatedComponent__AssemblyContext.id = migrationController.id).assemblyContext_AllocationContext;
+		
+		var sourceControllersOnLocation := allocation.allocationContexts_Allocation
+			->select(resourceContainer_AllocationContext.id = sourceLocation.id
+				and assemblyContext_AllocationContext.encapsulatedComponent__AssemblyContext.id = migrationSourceController.id).assemblyContext_AllocationContext;
+				
+		var targetControllersOnLocation := allocation.allocationContexts_Allocation
+			->select(resourceContainer_AllocationContext.id = targetLocation.id
+				and assemblyContext_AllocationContext.encapsulatedComponent__AssemblyContext.id = migrationTargetController.id).assemblyContext_AllocationContext;
+		
+		var connectors := allocation.system_Allocation.connectors__ComposedStructure[AssemblyConnector];
+		
+		var connCorrectTarget := connectors->select(migrationControllersOnLocation->includes(requiringAssemblyContext_AssemblyConnector)
+			and targetControllersOnLocation->includes(providingAssemblyContext_AssemblyConnector));
+		
+		var connCorrectSource := connectors->select(connCorrectTarget.providingAssemblyContext_AssemblyConnector->includes(requiringAssemblyContext_AssemblyConnector)
+			and sourceControllersOnLocation->includes(providingAssemblyContext_AssemblyConnector));
+		
+		return connCorrectTarget->select(cct | connCorrectSource.requiringAssemblyContext_AssemblyConnector->includes(cct.providingAssemblyContext_AssemblyConnector))
+			.requiringAssemblyContext_AssemblyConnector->any(true);
+	}
+	
+	mapping ControllerCall::addVMControllers(in vm: VirtualMachine, inout allocation : Allocation) : ControllerMapping {
+		logInfo("Adding VM controllers");
+		var reconfigurationContainer := physiCorr.rootObjects()[PhysicalCorrespondenceRepository].abstractNodeCorrespondences
+			->any(cactos = vm.hypervisor.node).getReconfigurationActionController();
+		assert fatal(reconfigurationContainer <> null) with log ("Simulation error: Reconfiguration container does not exist!", null, LOG_LEVEL_ERROR);
+		var sourceContainer := migratedAssembly.getControllerHost(allocation);
+		assert fatal(sourceContainer <> null) with log ("Controller host of VM to migrate is not configured!", null, LOG_LEVEL_ERROR);
+		 
+		var assemblyMigrationController : AssemblyContext := migrationController.createAssembly(reconfigurationContainer);
+		var assemblyMigrationSource : AssemblyContext := migrationSourceController.createAssembly(sourceContainer);
+		var assemblyMigrationTarget : AssemblyContext := migrationTargetController.createAssembly(targetContainer);
+		var system : System := allocation.system_Allocation;
+		
+		system.assemblyContexts__ComposedStructure += assemblyMigrationController;
+		system.assemblyContexts__ComposedStructure += assemblyMigrationSource;
+		system.assemblyContexts__ComposedStructure += assemblyMigrationTarget;
+		
+		system.connectors__ComposedStructure += linkAssemblies(assemblyMigrationController, migrationController.selectRequiredRoleById('_KbTgoOqEEeS1xrjFer2CUg'),
+						assemblyMigrationTarget, migrationTargetController.selectProvidedRoleById('_8UdsUOqEEeS1xrjFer2CUg'));	
+		system.connectors__ComposedStructure += linkAssemblies(assemblyMigrationTarget, migrationTargetController.selectRequiredRoleById('_XxISQOqEEeS1xrjFer2CUg'),
+						assemblyMigrationSource, migrationSourceController.selectProvidedRoleById('_XNbvUOqEEeS1xrjFer2CUg'));
+		assemblyMigrationController.allocateAt(allocation, reconfigurationContainer);
+		assemblyMigrationSource.allocateAt(allocation, sourceContainer);
+		assemblyMigrationTarget.allocateAt(allocation, targetContainer);
+		
+		// add system interface to controller component
+		var controllerProvidedRole := object OperationProvidedRole {
+			entityName := 'SystemProvided' + assemblyMigrationController.entityName;
+			providingEntity_ProvidedRole := migrationController;
+			providedInterface__OperationProvidedRole := self.calledSignature.interface__OperationSignature;			
+		};
+		
+		system.providedRoles_InterfaceProvidingEntity += controllerProvidedRole;
+		system.connectors__ComposedStructure += object ProvidedDelegationConnector {
+			innerProvidedRole_ProvidedDelegationConnector := migrationController.selectProvidedRoleById('_ITgtsOqEEeS1xrjFer2CUg');
+			outerProvidedRole_ProvidedDelegationConnector := controllerProvidedRole;
+			assemblyContext_ProvidedDelegationConnector := assemblyMigrationController;
+			entityName := "MigrationControllerConnection: " + outerProvidedRole_ProvidedDelegationConnector.entityName + " --> "
+					+ innerProvidedRole_ProvidedDelegationConnector.entityName;
+		};
+		result.mappedCall := self;
+		result.entityName := 'mapped' + mappedCall.entityName;
+		result.controllerRole := controllerProvidedRole;
+		
+		logInfo("Added VM controller: " + result.entityName);
+	}
+	
+	helper AssemblyContext::allocateAt(inout allocation : Allocation, container : ResourceContainer) {
+		allocation.allocationContexts_Allocation += object AllocationContext {
+			entityName := self.entityName + 'At' + container.entityName;
+			resourceContainer_AllocationContext := container;
+			assemblyContext_AllocationContext := self;
+		}
+	}
+	
+	query BasicComponent::selectRequiredRoleById(id : String) : OperationRequiredRole {
+		return self.requiredRoles_InterfaceRequiringEntity->select(c | c. id = id)->any(true).oclAsType(OperationRequiredRole);
+	}
+	
+	query BasicComponent::selectProvidedRoleById(id : String) : OperationProvidedRole {
+		return self.providedRoles_InterfaceProvidingEntity->select(c | c. id = id)->any(true).oclAsType(OperationProvidedRole)
+	}
+	
+	helper linkAssemblies(assemblyRequiring : AssemblyContext, requiredRole : OperationRequiredRole, 
+							assemblyProviding : AssemblyContext, providedRole : OperationProvidedRole) : AssemblyConnector {
+		return object AssemblyConnector {
+			entityName := assemblyRequiring.entityName + "To" + assemblyProviding.entityName;
+			requiringAssemblyContext_AssemblyConnector := assemblyRequiring;
+			providingAssemblyContext_AssemblyConnector := assemblyProviding;
+			requiredRole_AssemblyConnector := requiredRole;
+			providedRole_AssemblyConnector := providedRole;			
+		}
+	}
+	
+	helper BasicComponent::createAssembly(inout container : ResourceContainer) : AssemblyContext {
+		var nameInput := self.entityName;
+		return object AssemblyContext {
+			entityName :=  nameInput + "AssemblyCtxOn" + container.entityName;
+			encapsulatedComponent__AssemblyContext := self;
+		}
+	}
+	
+	query Repository::getComponentById(id : String) : BasicComponent {
+		return self.components__Repository->any(component | component.id = id)->oclAsType(BasicComponent)->any(true);
+	}
+	
+	query AssemblyContext::getControllerHost(allocation : Allocation) : ResourceContainer {
+		return allocation.allocationContexts_Allocation
+			->any(assemblyContext_AllocationContext.id = self.id).resourceContainer_AllocationContext;
+	}
+	
+	query getResourceEnv() : ResourceEnvironment{
+		var resEnv:=pcmAllocation.rootObjects()[Allocation].targetResourceEnvironment_Allocation;
+		return resEnv->any(true);
+	}
+	
+	query AbstractNodeCorrespondence::getReconfigurationActionController(): ResourceContainer {
+		return self.physicalCorrespondenceRepository.networkInterconnectCorrespondences[NetworkInterconnectCorrespondence]
+			->select(palladio.connectedResourceContainers_LinkingResource[ResourceContainer].id->includes(self.palladio.id)).reconfigurationController->any(true);
+	}
+	
+}

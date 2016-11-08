@@ -1,0 +1,7 @@
+transformation pcmHelperCore();
+
+modeltype _pcmcore uses "http://palladiosimulator.org/PalladioComponentModel/Core/5.1";
+
+helper createPcmRandomVariable(value: String) : _pcmcore::PCMRandomVariable {
+        return object PCMRandomVariable {specification := value};
+}

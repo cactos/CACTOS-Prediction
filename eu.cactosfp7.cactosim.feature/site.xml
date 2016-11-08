@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/eu.cactosfp7.cactosim.feature_1.0.0.qualifier.jar" id="eu.cactosfp7.cactosim.feature" version="1.0.0.qualifier"/>
+</site>

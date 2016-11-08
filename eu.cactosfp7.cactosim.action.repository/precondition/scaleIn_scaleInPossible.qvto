@@ -1,0 +1,64 @@
+import simulizar_qvto_helper.logHelper;
+import transforms.cactosAdaptationBehaviorHelper;
+import eu.cactosfp7.cactosim.action.repository.black.CactosActionBlackboxUnit;
+
+/*
+ * This simple QVTO SimuLizar reconfiguration rule migrates the application to another
+ * server node as defined by the OptimizationPlan
+ *
+ */
+
+/*
+ * Two modeltypes are declared. The http NS URIs correspond to those used to register the 
+ * Ecore models in the environment. Alternatively, a workspace metamodel may be used 
+ * in conjunction with mappings defined in the project properties.
+ */
+
+modeltype CACT_PUTIL uses 'http://www.cactosfp7.eu/PhysicalDCModel/Util/1.0';
+modeltype CACT_LCORE uses 'http://www.cactosfp7.eu/LogicalDCModel/Core/1.0';
+modeltype CACT_PCORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype CACT_PCORR uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype CACT_LCORR uses 'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype CACT_LAPP uses 'http://www.cactosfp7.eu/LogicalDCModel/Application/1.0';
+modeltype PCM_ALLOC uses 'http://palladiosimulator.org/PalladioComponentModel/Allocation/5.1';
+modeltype PCM_REP uses 'http://palladiosimulator.org/PalladioComponentModel/Repository/5.1';
+modeltype PCM_RES_ENV uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1';
+modeltype PCM_COMP uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.1';
+modeltype PCM_ENTITY uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Entity/5.1';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype ECORE uses 'http://www.eclipse.org/emf/2002/Ecore';
+
+transformation scaleInPossible(
+							inout cLCorrespondence : CACT_LCORR,
+							inout cPCorrespondence : CACT_PCORR,
+							in actionRoleSet : ACTION_INSTANCE,
+							inout actionStep : ACTION_CORE) {
+
+	/**
+	 * The main transformation.
+	 * This is the entry point to the overall transformation.
+	 */
+	main() {	
+		
+		var loadBalancerVM := actionRoleSet.rootObjects()[RoleSet].roles->any(roleType.id=SI_LOAD_BALANCER_VM_ROLE_TYPE_ID).value.oclAsType(ComposedVM);
+		var scaledVM := actionRoleSet.rootObjects()[RoleSet].roles->any(roleType.id=SI_SCALED_VM_ROLE_TYPE_ID).value.oclAsType(ComposedVM);
+		
+		var lbCorrespondences := cLCorrespondence.rootObjects()[LogicalCorrespondenceRepository].scalableConnectorCorrespondences
+			->select(cactosConnector.serviceProvidedRole.interfaceProvidingEntity = scaledVM.composedVMImage
+					and cactosConnector.serviceRequiredRole.interfaceRequiringEntity = loadBalancerVM.composedVMImage
+					and cactosApplicationInstance.composedVMs->includes(loadBalancerVM)
+					and cactosApplicationInstance.composedVMs->includes(scaledVM));
+		if (lbCorrespondences->isEmpty()) {
+			assert fatal(false) with log ("No appropriate Scalable VM Image Connector found", null, LOG_LEVEL_ERROR);
+		};
+		
+		lbCorrespondences->forEach(conn) {
+			var amount_instances := conn.palladio.requiredRoles_InterfaceRequiringEntity[OperationRequiredRole]->size();
+			if (amount_instances - 1 < conn.cactosConnector.minInstances) {
+				assert fatal(false) with log ("Scale In not executed as the resulting number of instances would be smaller than the minimum", null, LOG_LEVEL_ERROR);
+			}
+		}
+		
+	}
+}

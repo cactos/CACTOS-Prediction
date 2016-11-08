@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="eu.cactosfp7.cactosim"
+         name="CactoSim"
+         point="org.eclipse.core.runtime.applications">
+      <application
+            cardinality="singleton-global"
+            thread="main"
+            visible="true">
+         <run
+               class="eu.cactosfp7.cactosim.application.CactoSimApplication">
+         </run>
+      </application>
+   </extension>
+   <extension
+         id="CactoSim"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="eu.cactosfp7.cactosim"
+            name="CactoSim Headless">
+         <property
+               name="appName"
+               value="CactoSim Headless">
+         </property>
+      </product>
+   </extension>
+   <extension
+         id="CactoSimHeadless"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="eu.cactosfp7.cactosim"
+            name="CactoSim Headless Product">
+         <property
+               name="appName"
+               value="CactoSim Headless Product">
+         </property>
+      </product>
+   </extension>
+
+
+</plugin>

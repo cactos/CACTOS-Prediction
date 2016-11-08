@@ -1,0 +1,74 @@
+import transforms.cactosAdaptationBehaviorHelper;
+import simulizar_qvto_helper.logHelper;
+
+modeltype CACT_LCORE uses 'http://www.cactosfp7.eu/LogicalDCModel/Core/1.0';
+modeltype CACT_APP uses 'http://www.cactosfp7.eu/LogicalDCModel/Application/1.0';
+modeltype CACT_PCORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype EXPERIMENT_SCENARIO uses 'http://www.cactosfp7.eu/ExperimentScenarioModel/1.0';
+modeltype EXPERIMENT_SCENARIO_REQUEST uses 'http://www.cactosfp7.eu/ExperimentScenarioModel/Request/1.0';
+modeltype EXPERIMENT_SCENARIO_SELECTOR uses 'http://www.cactosfp7.eu/ExperimentScenarioModel/Selector/1.0';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype ACTION_PARAM uses 'http://simulizar.palladiosimulator.org/Actions/Parameter/1.1';
+modeltype PCM_CORE uses 'http://palladiosimulator.org/PalladioComponentModel/Core/5.1';
+modeltype PCM_PARAM uses 'http://palladiosimulator.org/PalladioComponentModel/Parameter/5.1';
+modeltype PCM_STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+modeltype ACTION_CONTEXT uses 'http://simulizar.palladiosimulator.org/Actions/Context/1.1';
+
+transformation startApplicationAction(
+							inout logicalDC: CACT_LCORE,
+							inout actions : ACTION_CORE,
+							inout actionRoleSet : ACTION_INSTANCE,
+							in actionContext : ACTION_CONTEXT) {
+	
+	property START_APPLICATION_REQUEST_ROLE_TYPE_ID = "_RswpxO0GEeWwk45MX11cig";
+	
+	main() {
+		var requestRole : instance::Role := actionRoleSet.rootObjects()[RoleSet].roles->any(role | role.roleType.id = START_APPLICATION_REQUEST_ROLE_TYPE_ID);
+		var startRequest := requestRole.value.oclAsType(StartApplicationRequest);
+		startRequest.timelineEvent.eventStatus := EventStatus::IN_EXECUTION;
+		
+		var action := selectStartApplicationAction();
+		startRequest.applicationInstance := startRequest.applicationTemplate.map createInitialApplicationInstance();
+		
+		var roleSet := action.createStartApplicationRoleSet(startRequest.applicationTemplate, startRequest.vmFlavour, null, startRequest);
+		if (action.execute(roleSet, actionContext.rootObjects()[ExecutionContext]->any(true))) then {
+			logInfo("Action executed properly");	
+			startRequest.timelineEvent.eventStatus := EventStatus::PROCESSED_SUCCESS;			
+		} else {
+			logWarn("Action did not execute properly");
+			startRequest.timelineEvent.eventStatus := EventStatus::PROCESSED_FAILURE;
+			logicalDC.removeElement(startRequest.applicationInstance);
+		} endif;
+	};
+	
+	
+	mapping ApplicationTemplate::createInitialApplicationInstance(): ApplicationInstance {
+		init {
+			logError("createInitialApplicationInstance for abstract super type ApplicationTemplate called");
+			assert fatal(false);
+			result := object BlackBoxApplicationInstance{};
+		}
+	}
+	
+	mapping BlackBoxApplicationTemplate::createInitialApplicationInstance(): ApplicationInstance {
+		init {
+			result := object BlackBoxApplicationInstance{};
+		}
+	}
+	
+	mapping GreyBoxApplicationTemplate::createInitialApplicationInstance(): ApplicationInstance {
+		init {
+			result := object GreyBoxApplicationInstance{};
+		}
+	}
+	
+	mapping WhiteBoxApplicationTemplate::createInitialApplicationInstance(): ApplicationInstance {
+		init {
+			result := object WhiteBoxApplicationInstance{};
+		}
+	}	
+	
+	
+}
+								

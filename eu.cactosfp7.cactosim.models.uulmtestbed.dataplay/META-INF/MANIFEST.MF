@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: uulm-testbed-3
+Bundle-SymbolicName: eu.cactosfp7.cactosim.models.uulmtestbed.dataplay
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: com.google.guava,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtend.lib,
+ org.eclipse.xtend.lib.macro,
+ eu.cactosfp7.infrastructuremodels;bundle-version="1.0.0"
+

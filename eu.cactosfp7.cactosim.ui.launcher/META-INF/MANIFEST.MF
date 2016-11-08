@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: eu.cactosfp7.cactosim.ui.launcher
+Bundle-SymbolicName: eu.cactosfp7.cactosim.ui.launcher;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: eu.cactosfp7.cactosim.ui.launcher.Activator
+Bundle-Vendor: CACTOS Consortium
+Require-Bundle: org.eclipse.core.runtime,
+ de.uka.ipd.sdq.workflow.launchconfig,
+ org.eclipse.debug.ui,
+ org.eclipse.swt,
+ de.uka.ipd.sdq.codegen.simucontroller,
+ org.palladiosimulator.analyzer.workflow;bundle-version="1.0.0";visibility:=reexport,
+ eu.cactosfp7.cactosim;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7

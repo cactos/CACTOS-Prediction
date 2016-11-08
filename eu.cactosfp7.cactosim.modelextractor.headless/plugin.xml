@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="AppModelExtractorHeadless"
+         point="org.eclipse.core.runtime.applications">
+      <application
+            cardinality="singleton-global"
+            icon="icons/cactosim_32.bmp"
+            thread="main"
+            visible="true">
+         <run
+               class="eu.cactosfp7.cactosim.modelextractor.headless.AppModelExtractorHeadless">
+         </run>
+      </application>
+   </extension>
+   <extension
+         id="AppModelExtractorHeadless"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="eu.cactosfp7.cactosim.modelextractor.headless.AppModelExtractorHeadless"
+            name="Model Retriever Headless">
+         <property
+               name="AppModelExtractorHeadless"
+               value="App Model Extractor Headless">
+         </property>
+         <property
+               name="appName"
+               value="Model Retriever Headless">
+         </property>
+      </product>
+   </extension>
+
+</plugin>

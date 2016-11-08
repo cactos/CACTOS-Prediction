@@ -1,0 +1,57 @@
+import m2m.qvt.oml.JScience;
+
+modeltype _physicaldc uses "http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0";
+modeltype _physicaldcutil uses "http://www.cactosfp7.eu/PhysicalDCModel/Util/1.0";
+
+/**Reduces the physical network to a single one connection removing all Switches and NetworkInterconnects.
+*/
+transformation flattenPhysicalNetwork(inout physicaldc : _physicaldc);
+
+main() {
+	log("Transforming Physical Data Centre Model - PhysicalNetwork.");
+	physicaldc.rootObjects()[PhysicalDCModel]->map physicalDCtoResourceEnvironment();	
+	log("Transformation of Physical Data Centre Model finished.");
+}
+
+mapping inout PhysicalDCModel::physicalDCtoResourceEnvironment() {
+	// Network Interconnect
+	if (self.networkInterconnects->notEmpty()) {
+		self.networkInterconnects := self->flattenSwitchHierarchy();
+	};
+}
+
+mapping inout PhysicalDCModel::flattenSwitchHierarchy() : NetworkInterconnect {
+	/* TODO Address assumptions and limitations by flattening approach. 
+		The RESULT of this mapping is a single NI that is used instead of all other NIs in the model. Only the RESULT is used on the Palladio side. This
+		allows to create correspondence mappings and leave the original model data unmodified. Assumes that all nodes in the data centre can communicate
+		with each other and there are not separate partitions. 
+		Flattening the switch hierarchy makes the smallest bandwith the only bandwith. Correspondence is meaningless as
+		there is only one NetworkInterconnect remaining after this transformation. */
+	assert error (self.networkInterconnects->notEmpty()) with log('The Physical DC Model must have at least one network interconnect in the model.');
+	// single NI / RESULT
+	bandwidth := object Bandwidth {
+		value := copy(self.networkInterconnects->any(true).bandwidth.value); 
+	};
+	
+	if(self.switches->isEmpty()) {
+		self.switches += object Switch {
+			networkInterconnects += self.networkInterconnects;
+		}
+	};
+	// add connected entities from all switched to singleNI 
+	self.switches->forEach(singleSwitch) {
+		if (singleSwitch.networkInterconnects->notEmpty()) {
+			// add connected Entities from all other NIs and detach switch
+			singleSwitch.networkInterconnects->forEach(ni) {
+				result.connectedEntities += ni.connectedEntities->excluding(singleSwitch)->select(m | (not m.oclIsTypeOf(Rack) ) and (not m.oclIsTypeOf(Switch)) );
+				// set bandwith to minimum of all participating NIs
+				var comparison := compareAmount(result.bandwidth.value, ni.bandwidth.value);
+				if(comparison > 0) { // first amount greater - lower limit must be set
+					result.bandwidth.value := copy(ni.bandwidth.value);
+				};
+			};
+		};
+	};
+	self.switches->collect(it | physicaldc.removeElement(it));
+	self.networkInterconnects->collect(it | physicaldc.removeElement(it));
+}

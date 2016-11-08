@@ -1,0 +1,178 @@
+import m2m.qvt.oml.JScience;
+import transforms.pcmHelperCore;
+import transforms.localstorage;
+import transforms.cactosAdaptationBehaviorHelper;
+import simulizar_qvto_helper.logHelper;
+import eu.cactosfp7.cactosim.placementconnector.PlacementConnectorUnit;
+import transforms.updateRuntimeCorrespondence;
+
+
+modeltype CACT_LCORE uses 'http://www.cactosfp7.eu/LogicalDCModel/Core/1.0';
+modeltype CACT_LAPP uses 'http://www.cactosfp7.eu/LogicalDCModel/Application/1.0';
+modeltype CACT_PCORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype CACT_PCORR uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype CACT_LCORR uses 'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype CACT_PUTIL uses 'http://www.cactosfp7.eu/PhysicalDCModel/Util/1.0';
+modeltype PCM_COMP uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.1';
+modeltype PCM_ALLOC uses 'http://palladiosimulator.org/PalladioComponentModel/Allocation/5.1';
+modeltype PCM_STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+modeltype PCM_PARAM uses 'http://palladiosimulator.org/PalladioComponentModel/Parameter/5.1';
+modeltype PCM_REP uses 'http://palladiosimulator.org/PalladioComponentModel/Repository/5.1';
+modeltype PCM_SEFF uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/5.1';
+modeltype PCM_SYS uses 'http://palladiosimulator.org/PalladioComponentModel/System/5.1';
+modeltype PCM_RES_ENV uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1';
+modeltype PCM_RES_TYPE uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.1';
+modeltype PCM_CORE uses 'http://palladiosimulator.org/PalladioComponentModel/Core/5.1';
+modeltype ACTION_MAPPING uses 'http://simulizar.palladiosimulator.org/Actions/Mapping/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_PARAM uses 'http://simulizar.palladiosimulator.org/Actions/Parameter/1.1';
+modeltype ACTION_CONTEXT uses 'http://simulizar.palladiosimulator.org/Actions/Context/1.1';
+modeltype ECORE uses 'http://www.eclipse.org/emf/2002/Ecore';
+modeltype STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+modeltype PLM uses 'http://www.cactosfp7.eu/CactosLoadModel/Physical/1.0';
+modeltype LLM uses 'http://www.cactosfp7.eu/CactosLoadModel/Logical/1.0';
+modeltype OPTIMISATION_PLAN uses 'http://www.cactosfp7.eu/OptimisationPlan/1.0';
+modeltype RUNTIMEMEASUREMENT uses 'http://simulizar.palladiosimulator.org/RuntimeMeasurement/1.0';
+modeltype MONITOR_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/Measurement/1.1';
+
+
+transformation placeVMs(inout logicalCorrespondence: CACT_LCORR,
+						inout physicalCorrespondence : CACT_PCORR, 
+						inout logicaldc: CACT_LCORE,
+						in physicaldc: CACT_PCORE,
+						in physicalload: PLM,
+						in logicalload: LLM,
+						in measurementCorrespondence : MONITOR_CORRESPONDENCE,
+						in runtimeMeasurement : RUNTIMEMEASUREMENT, 
+						in actionStep : ACTION_CORE,
+						inout actionRoleSet : ACTION_INSTANCE,
+						in actionContext : ACTION_CONTEXT) {
+
+	mapping inout ApplicationInstance::placeUnassignedVirtualMachines(inout steps: ParallelSteps) {
+		assert fatal(false) with log("Unknown ApplicationInstance: This should not have been called.")
+	}
+	
+	mapping inout BlackBoxApplicationInstance::placeUnassignedVirtualMachines(inout steps: ParallelSteps) {
+		if (self.virtualMachine.state = VM_State::UNASSIGNED) {
+			steps.optimisationSteps += steps.optimisationSteps += Sequence {self.virtualMachine}->determinePlacements().encapsulateInSequentialStep();
+		}
+	}
+	
+	mapping inout GreyBoxApplicationInstance::placeUnassignedVirtualMachines(inout steps: ParallelSteps) {
+		if (self.virtualMachine.state = VM_State::UNASSIGNED) {
+			steps.optimisationSteps += steps.optimisationSteps += Sequence {self.virtualMachine}->determinePlacements().encapsulateInSequentialStep();
+		}
+	}
+	
+	mapping inout WhiteBoxApplicationInstance::placeUnassignedVirtualMachines(inout steps: ParallelSteps) {
+		/*steps.optimisationSteps += self.composedVMs.virtualMachine->select(state = VM_State::UNASSIGNED)->asSequence()
+				->determinePlacements()->map encapsulateInSequentialStep();*/
+		// TODO: Placement algorithms currently place only one VM even though the interface does not pose this limitation
+		// Current fix: placement algorithm called independently for each VM
+		steps.optimisationSteps += self.composedVMs.virtualMachine->select(state = VM_State::UNASSIGNED)->collectNested(vm | Sequence {vm})
+			->determinePlacements()->flatten().encapsulateInSequentialStep();
+	}	
+	
+	helper VmPlacementAction::encapsulateInSequentialStep(): SequentialSteps {
+		return object SequentialSteps {
+			optimisationSteps += self;
+		}
+	}
+	
+	helper Sequence(VirtualMachine)::determinePlacements(): Set(VmPlacementAction) {
+		var logicalDCModel := logicaldc.rootObjects()[LogicalDCModel]->any(true);
+		var physicalDCModel := physicaldc.rootObjects()[PhysicalDCModel]->any(true);
+		var physicalLoadModel := physicalload.rootObjects()[PhysicalLoadModel]->any(true);
+		var logicalLoadModel := logicalload.rootObjects()[LogicalLoadModel]->any(true);			
+		var optimisationPlan := determinePlacement(physicalDCModel, logicalDCModel, physicalLoadModel, logicalLoadModel, 
+			self, actionContext.rootObjects()[ExecutionContext]->any(true));
+		var res := optimisationPlan.allSubobjectsOfType(VmPlacementAction)->oclAsType(VmPlacementAction)->asSet();
+		if (res->size() <> self->size()) {
+			self->forEach(vm) {
+				if (not res.unassignedVirtualMachine->exists(uvm | uvm.id = vm.id)) {
+					logWarn("The placement algorithm could not determine a suitable placement for VM: " + vm.name + "(#" + vm.id + ")");
+					logWarn("VM Image: " + vm.runtimeApplicationModel.vmImageBehaviour.vmImage.name);
+				};
+			};
+			assert fatal(false) with log("The VM placement failed. The listed VMs have not been started.")
+		};
+		return res;
+	}
+	
+	mapping in VmPlacementAction::createVariableUsageCollectionForPlacement(): ControllerCallInputVariableUsageCollection {
+		var instance : ApplicationInstance = logicaldc.rootObjects()[LogicalDCModel].applicationInstances[BlackBoxApplicationInstance]
+			->any(virtualMachine = self.unassignedVirtualMachine);
+		if (instance = null) {
+			instance := logicaldc.rootObjects()[LogicalDCModel].applicationInstances[GreyBoxApplicationInstance]
+				->any(virtualMachine = self.unassignedVirtualMachine);
+			if (instance = null) {
+				instance := logicaldc.rootObjects()[LogicalDCModel].applicationInstances[WhiteBoxApplicationInstance]
+					->any(composedVMs->exists(virtualMachine = self.unassignedVirtualMachine));
+			};				
+		};
+		controllerCallInputVariableUsages += instance.getVmImageFromTemplateForVM(self.unassignedVirtualMachine)
+			.map createVariableUsageForCopyTo(self.targetHost);	
+	}
+	
+	query ApplicationInstance::getVmImageFromTemplateForVM(vm: VirtualMachine): VirtualDisk {
+		return null;
+	}
+	
+	query BlackBoxApplicationInstance::getVmImageFromTemplateForVM(vm: VirtualMachine): VirtualDisk {
+		return self.applicationTemplate.oclAsType(BlackBoxApplicationTemplate).blackBoxVMImageBehaviour.vmImage;
+	}
+	
+	query GreyBoxApplicationInstance::getVmImageFromTemplateForVM(vm: VirtualMachine): VirtualDisk {
+		return self.applicationTemplate.oclAsType(GreyBoxApplicationTemplate).greyBoxVMImageBehaviour.vmImage;
+	}
+	
+	query WhiteBoxApplicationInstance::getVmImageFromTemplateForVM(vm: VirtualMachine): VirtualDisk {
+		return self.composedVMs->any(virtualMachine = vm).composedVMImage.vmImageBehaviour.vmImage;
+	}
+	
+	
+	mapping VirtualDisk::createVariableUsageForCopyTo(hypervisor: Hypervisor): ControllerCallInputVariableUsage {
+		variableUsage := object VariableUsage {
+			variableCharacterisation_VariableUsage := object VariableCharacterisation {
+				type := VariableCharacterisationType::VALUE;
+				specification_VariableCharacterisation := object PCMRandomVariable {
+					specification := getSpecificationInMegaByte(hypervisor.rootVolume.storageLocation.determineMegaBytesTyCopy(self));
+				};
+			};
+			namedReference__VariableUsage := object VariableReference {
+				referenceName := CVMP_TRANSFER_VM_TO_TARGET_CALL_PARAMETER_ID;
+			}
+		};
+		correspondingControllerCall := actionStep.objectsOfType(ControllerCall)->any(id = CVMP_TRANSFER_VM_TO_TARGET_CALL_ID);
+	}
+	
+	
+	query StorageSpecification::determineMegaBytesTyCopy(disk: VirtualDisk): Amount {
+		var tempDisk := disk;
+		
+		var matchingSequence := Sequence {tempDisk};
+		
+		while (tempDisk.parent <> null or not tempDisk.oclIsKindOf(VMImage)) {
+			tempDisk := tempDisk.parent;
+			var tempSequence := Sequence {tempDisk};
+			tempSequence += matchingSequence;
+			matchingSequence := tempSequence;
+		};
+
+		var candidates : Set(VirtualDisk) := 
+			logicaldc.rootObjects()[LogicalDCModel].volumesAndImages.allSubobjectsOfKind(VMImage).oclAsType(Set(VirtualDisk))->flatten()->asSet();
+		var amountToCopy := createDataAmountAmount(0.0);
+		matchingSequence->forEach(image) {
+			candidates := candidates.deltaOverlay->select(o | o.name = image.name)->oclAsSet()->flatten();
+			if (candidates->isEmpty()) {
+				if (image.usedCapacity <> null) {
+					amountToCopy := add(amountToCopy, image.usedCapacity);
+				}
+			}
+		};
+		
+		return amountToCopy;
+	}
+							
+}

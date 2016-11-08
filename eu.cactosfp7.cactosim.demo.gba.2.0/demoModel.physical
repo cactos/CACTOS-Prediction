@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:PhysicalDCModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0" id="_ZhWgUNGPEeW0d7ty1btHsw">
+  <switches id="_Zk6xsNGPEeW0d7ty1btHsw" name="Single Switch Layout" networkInterconnects="_Zk3HUNGPEeW0d7ty1btHsw"/>
+  <racks id="_ZhbY0NGPEeW0d7ty1btHsw" name="Dell 08-15" powerSupplies="_ZhZjoNGPEeW0d7ty1btHsw">
+    <nodes xsi:type="core:ComputeNode" id="_ZkDPANGPEeW0d7ty1btHsw" name="Compute Node 0" powerProvidingEntities="_ZhZjoNGPEeW0d7ty1btHsw" powerConsumingEntities="_ZkGSUNGPEeW0d7ty1btHsw _ZkMY8NGPEeW0d7ty1btHsw _ZkSfkNGPEeW0d7ty1btHsw" networkInterconnects="_Zk3HUNGPEeW0d7ty1btHsw">
+      <cpuSpecifications id="_ZkGSUNGPEeW0d7ty1btHsw" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_ZkDPANGPEeW0d7ty1btHsw" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_Zg_T8NGPEeW0d7ty1btHsw"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_ZkMY8NGPEeW0d7ty1btHsw" name="Local HDD #0" powerProvidingEntities="_ZkDPANGPEeW0d7ty1btHsw" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="560.0(bit/s)*1000000"/>
+        <writeBandwidth value="560.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_ZkSfkNGPEeW0d7ty1btHsw" name="DDR3-RAM" powerProvidingEntities="_ZkDPANGPEeW0d7ty1btHsw" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_ZlL3cNGPEeW0d7ty1btHsw"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_ZkTtsNGPEeW0d7ty1btHsw" name="Compute Node 1" powerProvidingEntities="_ZhZjoNGPEeW0d7ty1btHsw" powerConsumingEntities="_ZkTtsdGPEeW0d7ty1btHsw _ZkUUwNGPEeW0d7ty1btHsw _ZkUUwdGPEeW0d7ty1btHsw" networkInterconnects="_Zk3HUNGPEeW0d7ty1btHsw">
+      <cpuSpecifications id="_ZkTtsdGPEeW0d7ty1btHsw" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_ZkTtsNGPEeW0d7ty1btHsw" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_Zg_T8NGPEeW0d7ty1btHsw"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_ZkUUwNGPEeW0d7ty1btHsw" name="Local HDD #1" powerProvidingEntities="_ZkTtsNGPEeW0d7ty1btHsw" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="560.0(bit/s)*1000000"/>
+        <writeBandwidth value="560.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_ZkUUwdGPEeW0d7ty1btHsw" name="DDR3-RAM" powerProvidingEntities="_ZkTtsNGPEeW0d7ty1btHsw" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_ZlRXAdGPEeW0d7ty1btHsw"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_ZkUUwtGPEeW0d7ty1btHsw" name="Compute Node 2" powerProvidingEntities="_ZhZjoNGPEeW0d7ty1btHsw" powerConsumingEntities="_ZkU70NGPEeW0d7ty1btHsw _ZkU70dGPEeW0d7ty1btHsw _ZkU70tGPEeW0d7ty1btHsw" networkInterconnects="_Zk3HUNGPEeW0d7ty1btHsw">
+      <cpuSpecifications id="_ZkU70NGPEeW0d7ty1btHsw" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_ZkUUwtGPEeW0d7ty1btHsw" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_Zg_T8NGPEeW0d7ty1btHsw"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_ZkU70dGPEeW0d7ty1btHsw" name="Local HDD #2" powerProvidingEntities="_ZkUUwtGPEeW0d7ty1btHsw" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="560.0(bit/s)*1000000"/>
+        <writeBandwidth value="560.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_ZkU70tGPEeW0d7ty1btHsw" name="DDR3-RAM" powerProvidingEntities="_ZkUUwtGPEeW0d7ty1btHsw" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_ZlR-ENGPEeW0d7ty1btHsw"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_ZkU709GPEeW0d7ty1btHsw" name="Compute Node 3" powerProvidingEntities="_ZhZjoNGPEeW0d7ty1btHsw" powerConsumingEntities="_ZkU71NGPEeW0d7ty1btHsw _ZkU71dGPEeW0d7ty1btHsw _ZkVi4NGPEeW0d7ty1btHsw" networkInterconnects="_Zk3HUNGPEeW0d7ty1btHsw">
+      <cpuSpecifications id="_ZkU71NGPEeW0d7ty1btHsw" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_ZkU709GPEeW0d7ty1btHsw" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_Zg_T8NGPEeW0d7ty1btHsw"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_ZkU71dGPEeW0d7ty1btHsw" name="Local HDD #3" powerProvidingEntities="_ZkU709GPEeW0d7ty1btHsw" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="560.0(bit/s)*1000000"/>
+        <writeBandwidth value="560.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_ZkVi4NGPEeW0d7ty1btHsw" name="DDR3-RAM" powerProvidingEntities="_ZkU709GPEeW0d7ty1btHsw" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_ZlR-E9GPEeW0d7ty1btHsw"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_ZkVi4dGPEeW0d7ty1btHsw" name="Compute Node 4" powerProvidingEntities="_ZhZjoNGPEeW0d7ty1btHsw" powerConsumingEntities="_ZkVi4tGPEeW0d7ty1btHsw _ZkVi49GPEeW0d7ty1btHsw _ZkVi5NGPEeW0d7ty1btHsw" networkInterconnects="_Zk3HUNGPEeW0d7ty1btHsw">
+      <cpuSpecifications id="_ZkVi4tGPEeW0d7ty1btHsw" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_ZkVi4dGPEeW0d7ty1btHsw" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_Zg_T8NGPEeW0d7ty1btHsw"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_ZkVi49GPEeW0d7ty1btHsw" name="Local HDD #4" powerProvidingEntities="_ZkVi4dGPEeW0d7ty1btHsw" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="560.0(bit/s)*1000000"/>
+        <writeBandwidth value="560.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_ZkVi5NGPEeW0d7ty1btHsw" name="DDR3-RAM" powerProvidingEntities="_ZkVi4dGPEeW0d7ty1btHsw" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_ZlR-FtGPEeW0d7ty1btHsw"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_ZkWxANGPEeW0d7ty1btHsw" name="Compute Node 5" powerProvidingEntities="_ZhZjoNGPEeW0d7ty1btHsw" powerConsumingEntities="_ZkWxAdGPEeW0d7ty1btHsw _ZkWxAtGPEeW0d7ty1btHsw _ZkWxA9GPEeW0d7ty1btHsw" networkInterconnects="_Zk3HUNGPEeW0d7ty1btHsw">
+      <cpuSpecifications id="_ZkWxAdGPEeW0d7ty1btHsw" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_ZkWxANGPEeW0d7ty1btHsw" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_Zg_T8NGPEeW0d7ty1btHsw"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_ZkWxAtGPEeW0d7ty1btHsw" name="Local HDD #5" powerProvidingEntities="_ZkWxANGPEeW0d7ty1btHsw" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="560.0(bit/s)*1000000"/>
+        <writeBandwidth value="560.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_ZkWxA9GPEeW0d7ty1btHsw" name="DDR3-RAM" powerProvidingEntities="_ZkWxANGPEeW0d7ty1btHsw" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_ZlR-GdGPEeW0d7ty1btHsw"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_ZkWxBNGPEeW0d7ty1btHsw" name="Compute Node 6" powerProvidingEntities="_ZhZjoNGPEeW0d7ty1btHsw" powerConsumingEntities="_ZkWxBdGPEeW0d7ty1btHsw _ZkXYENGPEeW0d7ty1btHsw _ZkXYEdGPEeW0d7ty1btHsw" networkInterconnects="_Zk3HUNGPEeW0d7ty1btHsw">
+      <cpuSpecifications id="_ZkWxBdGPEeW0d7ty1btHsw" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_ZkWxBNGPEeW0d7ty1btHsw" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_Zg_T8NGPEeW0d7ty1btHsw"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_ZkXYENGPEeW0d7ty1btHsw" name="Local HDD #6" powerProvidingEntities="_ZkWxBNGPEeW0d7ty1btHsw" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="560.0(bit/s)*1000000"/>
+        <writeBandwidth value="560.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_ZkXYEdGPEeW0d7ty1btHsw" name="DDR3-RAM" powerProvidingEntities="_ZkWxBNGPEeW0d7ty1btHsw" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_ZlR-HNGPEeW0d7ty1btHsw"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_ZkXYEtGPEeW0d7ty1btHsw" name="Compute Node 7" powerProvidingEntities="_ZhZjoNGPEeW0d7ty1btHsw" powerConsumingEntities="_ZkX_INGPEeW0d7ty1btHsw _ZkX_IdGPEeW0d7ty1btHsw _ZkX_ItGPEeW0d7ty1btHsw" networkInterconnects="_Zk3HUNGPEeW0d7ty1btHsw">
+      <cpuSpecifications id="_ZkX_INGPEeW0d7ty1btHsw" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_ZkXYEtGPEeW0d7ty1btHsw" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_Zg_T8NGPEeW0d7ty1btHsw"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_ZkX_IdGPEeW0d7ty1btHsw" name="Local HDD #7" powerProvidingEntities="_ZkXYEtGPEeW0d7ty1btHsw" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="560.0(bit/s)*1000000"/>
+        <writeBandwidth value="560.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_ZkX_ItGPEeW0d7ty1btHsw" name="DDR3-RAM" powerProvidingEntities="_ZkXYEtGPEeW0d7ty1btHsw" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_ZlSlItGPEeW0d7ty1btHsw"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_ZkX_I9GPEeW0d7ty1btHsw" name="Compute Node 8" powerProvidingEntities="_ZhZjoNGPEeW0d7ty1btHsw" powerConsumingEntities="_ZkX_JNGPEeW0d7ty1btHsw _ZkYmMNGPEeW0d7ty1btHsw _ZkabYNGPEeW0d7ty1btHsw" networkInterconnects="_Zk3HUNGPEeW0d7ty1btHsw">
+      <cpuSpecifications id="_ZkX_JNGPEeW0d7ty1btHsw" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_ZkX_I9GPEeW0d7ty1btHsw" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_Zg_T8NGPEeW0d7ty1btHsw"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_ZkYmMNGPEeW0d7ty1btHsw" name="Local SSD #8" powerProvidingEntities="_ZkX_I9GPEeW0d7ty1btHsw" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="960.0(bit/s)*1000000"/>
+        <writeBandwidth value="960.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_ZkabYNGPEeW0d7ty1btHsw" name="DDR3-RAM" powerProvidingEntities="_ZkX_I9GPEeW0d7ty1btHsw" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_ZlSlJdGPEeW0d7ty1btHsw"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_ZkbCcNGPEeW0d7ty1btHsw" name="Compute Node 9" powerProvidingEntities="_ZhZjoNGPEeW0d7ty1btHsw" powerConsumingEntities="_ZkbCcdGPEeW0d7ty1btHsw _ZkbCctGPEeW0d7ty1btHsw _ZkbpgNGPEeW0d7ty1btHsw" networkInterconnects="_Zk3HUNGPEeW0d7ty1btHsw">
+      <cpuSpecifications id="_ZkbCcdGPEeW0d7ty1btHsw" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_ZkbCcNGPEeW0d7ty1btHsw" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_Zg_T8NGPEeW0d7ty1btHsw"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_ZkbCctGPEeW0d7ty1btHsw" name="Local SSD #9" powerProvidingEntities="_ZkbCcNGPEeW0d7ty1btHsw" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="960.0(bit/s)*1000000"/>
+        <writeBandwidth value="960.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_ZkbpgNGPEeW0d7ty1btHsw" name="DDR3-RAM" powerProvidingEntities="_ZkbCcNGPEeW0d7ty1btHsw" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_ZlSlKNGPEeW0d7ty1btHsw"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_ZkbpgdGPEeW0d7ty1btHsw" name="Compute Node 10" powerProvidingEntities="_ZhZjoNGPEeW0d7ty1btHsw" powerConsumingEntities="_ZkbpgtGPEeW0d7ty1btHsw _Zkbpg9GPEeW0d7ty1btHsw _ZkcQkNGPEeW0d7ty1btHsw" networkInterconnects="_Zk3HUNGPEeW0d7ty1btHsw">
+      <cpuSpecifications id="_ZkbpgtGPEeW0d7ty1btHsw" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_ZkbpgdGPEeW0d7ty1btHsw" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_Zg_T8NGPEeW0d7ty1btHsw"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_Zkbpg9GPEeW0d7ty1btHsw" name="Local SSD #10" powerProvidingEntities="_ZkbpgdGPEeW0d7ty1btHsw" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="960.0(bit/s)*1000000"/>
+        <writeBandwidth value="960.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_ZkcQkNGPEeW0d7ty1btHsw" name="DDR3-RAM" powerProvidingEntities="_ZkbpgdGPEeW0d7ty1btHsw" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_ZlSlK9GPEeW0d7ty1btHsw"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_Zkc3oNGPEeW0d7ty1btHsw" name="Compute Node 11" powerProvidingEntities="_ZhZjoNGPEeW0d7ty1btHsw" powerConsumingEntities="_Zkc3odGPEeW0d7ty1btHsw _Zkc3otGPEeW0d7ty1btHsw _Zkc3o9GPEeW0d7ty1btHsw" networkInterconnects="_Zk3HUNGPEeW0d7ty1btHsw">
+      <cpuSpecifications id="_Zkc3odGPEeW0d7ty1btHsw" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_Zkc3oNGPEeW0d7ty1btHsw" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_Zg_T8NGPEeW0d7ty1btHsw"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_Zkc3otGPEeW0d7ty1btHsw" name="Local SSD #11" powerProvidingEntities="_Zkc3oNGPEeW0d7ty1btHsw" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="960.0(bit/s)*1000000"/>
+        <writeBandwidth value="960.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_Zkc3o9GPEeW0d7ty1btHsw" name="DDR3-RAM" powerProvidingEntities="_Zkc3oNGPEeW0d7ty1btHsw" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_ZlTMMNGPEeW0d7ty1btHsw"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_ZkdesNGPEeW0d7ty1btHsw" name="Compute Node 12" powerProvidingEntities="_ZhZjoNGPEeW0d7ty1btHsw" powerConsumingEntities="_ZkdesdGPEeW0d7ty1btHsw _ZkdestGPEeW0d7ty1btHsw _Zkdes9GPEeW0d7ty1btHsw" networkInterconnects="_Zk3HUNGPEeW0d7ty1btHsw">
+      <cpuSpecifications id="_ZkdesdGPEeW0d7ty1btHsw" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_ZkdesNGPEeW0d7ty1btHsw" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_Zg_T8NGPEeW0d7ty1btHsw"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_ZkdestGPEeW0d7ty1btHsw" name="Local SSD #12" powerProvidingEntities="_ZkdesNGPEeW0d7ty1btHsw" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="960.0(bit/s)*1000000"/>
+        <writeBandwidth value="960.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_Zkdes9GPEeW0d7ty1btHsw" name="DDR3-RAM" powerProvidingEntities="_ZkdesNGPEeW0d7ty1btHsw" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_ZlVocNGPEeW0d7ty1btHsw"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_ZkeFwNGPEeW0d7ty1btHsw" name="Compute Node 13" powerProvidingEntities="_ZhZjoNGPEeW0d7ty1btHsw" powerConsumingEntities="_ZkeFwdGPEeW0d7ty1btHsw _ZkeFwtGPEeW0d7ty1btHsw _ZkeFw9GPEeW0d7ty1btHsw" networkInterconnects="_Zk3HUNGPEeW0d7ty1btHsw">
+      <cpuSpecifications id="_ZkeFwdGPEeW0d7ty1btHsw" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_ZkeFwNGPEeW0d7ty1btHsw" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_Zg_T8NGPEeW0d7ty1btHsw"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_ZkeFwtGPEeW0d7ty1btHsw" name="Local SSD #13" powerProvidingEntities="_ZkeFwNGPEeW0d7ty1btHsw" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="960.0(bit/s)*1000000"/>
+        <writeBandwidth value="960.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_ZkeFw9GPEeW0d7ty1btHsw" name="DDR3-RAM" powerProvidingEntities="_ZkeFwNGPEeW0d7ty1btHsw" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_ZlW2kNGPEeW0d7ty1btHsw"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_ZkeFxNGPEeW0d7ty1btHsw" name="Compute Node 14" powerProvidingEntities="_ZhZjoNGPEeW0d7ty1btHsw" powerConsumingEntities="_ZkeFxdGPEeW0d7ty1btHsw _ZkeFxtGPEeW0d7ty1btHsw _Zkes0NGPEeW0d7ty1btHsw" networkInterconnects="_Zk3HUNGPEeW0d7ty1btHsw">
+      <cpuSpecifications id="_ZkeFxdGPEeW0d7ty1btHsw" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_ZkeFxNGPEeW0d7ty1btHsw" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_Zg_T8NGPEeW0d7ty1btHsw"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_ZkeFxtGPEeW0d7ty1btHsw" name="Local SSD #14" powerProvidingEntities="_ZkeFxNGPEeW0d7ty1btHsw" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="960.0(bit/s)*1000000"/>
+        <writeBandwidth value="960.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_Zkes0NGPEeW0d7ty1btHsw" name="DDR3-RAM" powerProvidingEntities="_ZkeFxNGPEeW0d7ty1btHsw" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_ZlXdodGPEeW0d7ty1btHsw"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_Zkes0dGPEeW0d7ty1btHsw" name="Compute Node 15" powerProvidingEntities="_ZhZjoNGPEeW0d7ty1btHsw" powerConsumingEntities="_Zkes0tGPEeW0d7ty1btHsw _Zkes09GPEeW0d7ty1btHsw _Zkes1NGPEeW0d7ty1btHsw" networkInterconnects="_Zk3HUNGPEeW0d7ty1btHsw">
+      <cpuSpecifications id="_Zkes0tGPEeW0d7ty1btHsw" name="Intel(R) Core(TM) i5-3470" powerProvidingEntities="_Zkes0dGPEeW0d7ty1btHsw" frequency="3.2GHz" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_Zg_T8NGPEeW0d7ty1btHsw"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_Zkes09GPEeW0d7ty1btHsw" name="Local SSD #15" powerProvidingEntities="_Zkes0dGPEeW0d7ty1btHsw" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="960.0(bit/s)*1000000"/>
+        <writeBandwidth value="960.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_Zkes1NGPEeW0d7ty1btHsw" name="DDR3-RAM" powerProvidingEntities="_Zkes0dGPEeW0d7ty1btHsw" size="16.0GB">
+        <bandwidthWrite value="201.05599999999998(bit/s)*1000000000"/>
+        <bandwidthRead value="191.872(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_ZlYEsNGPEeW0d7ty1btHsw"/>
+    </nodes>
+  </racks>
+  <racks id="_Zhcm8NGPEeW0d7ty1btHsw" name="Dell 08-15" powerSupplies="_ZhaKsNGPEeW0d7ty1btHsw">
+    <nodes xsi:type="core:NetworkAttachedStorage" id="_Zkf68NGPEeW0d7ty1btHsw" name="Main" powerProvidingEntities="_ZhaKsNGPEeW0d7ty1btHsw">
+      <storageSpecifications id="_ZkhJENGPEeW0d7ty1btHsw" name="NAS (Virtual) HDD" size="500.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="960.0(bit/s)*1000000"/>
+        <writeBandwidth value="960.0(bit/s)*1000000"/>
+      </storageSpecifications>
+    </nodes>
+  </racks>
+  <powerSupplies id="_ZhYVgNGPEeW0d7ty1btHsw" name="Main PDU" powerCap="3.0kW" powerConsumingEntities="_ZhZjoNGPEeW0d7ty1btHsw _ZhaKsNGPEeW0d7ty1btHsw" suppliablePeakPower="3.2kW"/>
+  <powerSupplies id="_ZhZjoNGPEeW0d7ty1btHsw" name="Rack 1 PDU" powerProvidingEntities="_ZhYVgNGPEeW0d7ty1btHsw" powerCap="2.0kW" powerConsumingEntities="_ZkDPANGPEeW0d7ty1btHsw _ZkTtsNGPEeW0d7ty1btHsw _ZkUUwtGPEeW0d7ty1btHsw _ZkU709GPEeW0d7ty1btHsw _ZkVi4dGPEeW0d7ty1btHsw _ZkWxANGPEeW0d7ty1btHsw _ZkWxBNGPEeW0d7ty1btHsw _ZkXYEtGPEeW0d7ty1btHsw _ZkX_I9GPEeW0d7ty1btHsw _ZkbCcNGPEeW0d7ty1btHsw _ZkbpgdGPEeW0d7ty1btHsw _Zkc3oNGPEeW0d7ty1btHsw _ZkdesNGPEeW0d7ty1btHsw _ZkeFwNGPEeW0d7ty1btHsw _ZkeFxNGPEeW0d7ty1btHsw _Zkes0dGPEeW0d7ty1btHsw" suppliablePeakPower="2.0kW" hostedIn="_ZhbY0NGPEeW0d7ty1btHsw"/>
+  <powerSupplies id="_ZhaKsNGPEeW0d7ty1btHsw" name="Rack 2 PDU" powerProvidingEntities="_ZhYVgNGPEeW0d7ty1btHsw" powerCap="2.0kW" powerConsumingEntities="_Zkf68NGPEeW0d7ty1btHsw" suppliablePeakPower="2.0kW" hostedIn="_Zhcm8NGPEeW0d7ty1btHsw"/>
+  <clusters id="_Zk7_0NGPEeW0d7ty1btHsw" name="Single Cluster Layout" clusterId="1" containedNodes="_ZkDPANGPEeW0d7ty1btHsw _ZkTtsNGPEeW0d7ty1btHsw _ZkUUwtGPEeW0d7ty1btHsw _ZkU709GPEeW0d7ty1btHsw _ZkVi4dGPEeW0d7ty1btHsw _ZkWxANGPEeW0d7ty1btHsw _ZkWxBNGPEeW0d7ty1btHsw _ZkXYEtGPEeW0d7ty1btHsw _ZkX_I9GPEeW0d7ty1btHsw _ZkbCcNGPEeW0d7ty1btHsw _ZkbpgdGPEeW0d7ty1btHsw _Zkc3oNGPEeW0d7ty1btHsw _ZkdesNGPEeW0d7ty1btHsw _ZkeFwNGPEeW0d7ty1btHsw _ZkeFxNGPEeW0d7ty1btHsw _Zkes0dGPEeW0d7ty1btHsw"/>
+  <networkInterconnects id="_Zk3HUNGPEeW0d7ty1btHsw" name="Single NIC Layout" connectedEntities="_ZkDPANGPEeW0d7ty1btHsw _ZkTtsNGPEeW0d7ty1btHsw _ZkUUwtGPEeW0d7ty1btHsw _ZkU709GPEeW0d7ty1btHsw _ZkVi4dGPEeW0d7ty1btHsw _ZkWxANGPEeW0d7ty1btHsw _ZkWxBNGPEeW0d7ty1btHsw _ZkXYEtGPEeW0d7ty1btHsw _ZkX_I9GPEeW0d7ty1btHsw _ZkbCcNGPEeW0d7ty1btHsw _ZkbpgdGPEeW0d7ty1btHsw _Zkc3oNGPEeW0d7ty1btHsw _ZkdesNGPEeW0d7ty1btHsw _ZkeFwNGPEeW0d7ty1btHsw _ZkeFxNGPEeW0d7ty1btHsw _Zkes0dGPEeW0d7ty1btHsw _Zk6xsNGPEeW0d7ty1btHsw">
+    <bandwidth value="1.0(bit/s)*1000000000"/>
+  </networkInterconnects>
+</core:PhysicalDCModel>

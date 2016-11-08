@@ -1,0 +1,210 @@
+import m2m.qvt.oml.JScience;
+import logicalDCModelHelper;
+
+modeltype _physicaldc uses "http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0";
+modeltype _physicaldc_architecturetype uses "http://www.cactosfp7.eu/PhysicalDCModel/ArchitectureType/1.0";
+modeltype _logicaldc uses "http://www.cactosfp7.eu/LogicalDCModel/Core/1.0";
+modeltype _logicaldc_application uses "http://www.cactosfp7.eu/LogicalDCModel/Application/1.0";
+modeltype _lcorrespondence uses 'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype _pcorrespondence uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype _mcorrespondence uses 'http://www.cactosfp7.eu/Correspondence/Measurement/1.1';
+modeltype _pcmcore uses "http://palladiosimulator.org/PalladioComponentModel/Core/5.1";
+modeltype _pcmrepository uses "http://palladiosimulator.org/PalladioComponentModel/Repository/5.1";
+modeltype _pcmresourcetype uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.1';
+modeltype _pcmsystem uses 'http://palladiosimulator.org/PalladioComponentModel/System/5.1';
+modeltype _pcmcomposition uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.1';
+modeltype _pcm_seff uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/5.1';
+modeltype _pcm_seff_performance uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/SEFF_Performance/5.1';
+modeltype _pcm_parameter uses 'http://palladiosimulator.org/PalladioComponentModel/Parameter/5.1';
+modeltype _pcmusage uses 'http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.1';
+modeltype _pcmallocation uses 'http://palladiosimulator.org/PalladioComponentModel/Allocation/5.1';
+modeltype _pcmresourceenvironment uses "http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1";
+modeltype _pcm_stoex uses "http://sdq.ipd.uka.de/StochasticExpressions/2.2";
+modeltype _monitorrepository uses "http://palladiosimulator.org/MonitorRepository/1.0";
+modeltype _measuringpoint uses "http://palladiosimulator.org/PCM/MeasuringPoint/1.0";
+modeltype _metricspec uses "http://palladiosimulator.org/MetricSpec/1.0";
+modeltype _usageevolution uses "http://usageevolution/1.0";
+modeltype _loadmodel_logical uses "http://www.cactosfp7.eu/CactosLoadModel/Logical/1.0";
+modeltype _loadmodel_physical uses "http://www.cactosfp7.eu/CactosLoadModel/Physical/1.0";
+modeltype _measuringpointEDP2 uses "http://palladiosimulator.org/EDP2/MeasuringPoint/1.0";
+
+transformation localstorage(
+		inout pcorrespondence : _pcorrespondence,
+		inout lcorrespondence : _lcorrespondence,
+		in resourcetypepcm : _pcmresourcetype,
+		in metricspec : _metricspec,									
+		out repository : _pcmrepository,
+		in primitiveresourcetyperepo : _pcmrepository);
+		
+main() {
+	
+}
+
+mapping Hypervisor::createStorageResources(inout lc : LogicalCorrespondenceRepository, in pc: PhysicalCorrespondenceRepository, in storageInterface : InfrastructureInterface) : BasicComponent {
+	var vmCorrespondences : Set(VirtualMachineCorrespondence) := lc.virtualMachineCorrespondences->select(c | c.cactos.hypervisor.node.id = self.node.id);
+	var cactosStorage : Set(StorageSpecification) = vmCorrespondences.cactos.vMImageInstance.rootDisk.storageLocation->asSet();
+	// Initially connected remote storages
+	var storageCorrespondences : Set(StorageSpecificationCorrespondence) := pc.storageSpecificationCorrespondences->select(s | cactosStorage->exists(p | s.cactos.id = p.id));
+	// Add root volumes
+	storageCorrespondences += pc.storageSpecificationCorrespondences->select(s | self.rootVolume.storageLocation.id = s.cactos.id);
+	entityName := "Remote Storage Access for " + self.node.name;
+	providedRoles_InterfaceProvidingEntity += object InfrastructureProvidedRole {
+		providedInterface__InfrastructureProvidedRole := storageInterface;
+		entityName := "Provided Role for " + providedInterface__InfrastructureProvidedRole.entityName;
+	};
+	componentType := ComponentType::INFRASTRUCTURE_COMPONENT;
+	serviceEffectSpecifications__BasicComponent += object ResourceDemandingSEFF {
+		var action : AbstractAction;
+		steps_Behaviour += action := object seff::StartAction {
+			entityName := "Start";
+		};
+		steps_Behaviour += action := object BranchAction {
+			predecessor_AbstractAction := action;
+		};
+		var branchAction : BranchAction := action.oclAsType(BranchAction);
+		// Only create remote accesses for remote nodes
+		requiredRoles_InterfaceRequiringEntity += storageCorrespondences->select(s | s.cactos.node.id <> self.node.id)
+			.map storageAccessToBranchesAndRoles(self, storageInterface, branchAction);
+		// Create local access if local accesses possible
+		branchAction.branches_Branch += pc.storageSpecificationCorrespondences->select(s | s.cactos.node.id = self.node.id)
+			.map localStorageAccessToBranch(storageInterface);
+		steps_Behaviour += object seff::StopAction {
+			entityName := "Stop";
+			predecessor_AbstractAction := action;
+		};
+		describedService__SEFF := storageInterface.infrastructureSignatures__InfrastructureInterface->any(true);
+	};
+}
+	
+mapping inout HypervisorCorrespondence::updateNewStorage(inout lc : LogicalCorrespondenceRepository, inout pc : PhysicalCorrespondenceRepository, inout newStorageLocationCorr : StorageSpecificationCorrespondence) {
+	if(self.cactos.virtualMachines->isEmpty() or not self.cactos.virtualMachines.vMImageInstance.rootDisk->exists(s | s.storageLocation.id = newStorageLocationCorr.cactos.id)) {
+		var storageComponent := self.palladio.assemblyContext_AllocationContext.encapsulatedComponent__AssemblyContext;
+		storageComponent.requiredRoles_InterfaceRequiringEntity += newStorageLocationCorr.map storageAccessToBranchesAndRoles(self.cactos, 
+			storageComponent.providedRoles_InterfaceProvidingEntity[InfrastructureProvidedRole].providedInterface__InfrastructureProvidedRole[InfrastructureInterface]->any(true),
+			storageComponent[BasicComponent].serviceEffectSpecifications__BasicComponent.allSubobjectsOfType(BranchAction)->oclAsType(BranchAction)->any(true));
+		lc.hypervisorCorrespondences->select(h | h.cactos.node.storageSpecifications.id->exists(i | i = newStorageLocationCorr.cactos.id)).palladio.assemblyContext_AllocationContext
+			.map linkStorageRoleWithComponent(self.palladio.assemblyContext_AllocationContext);
+	}
+}
+
+
+mapping inout HypervisorCorrespondence::updateOldStorage(inout lc : LogicalCorrespondenceRepository, pc : PhysicalCorrespondenceRepository, oldStorageLocationCorr : StorageSpecificationCorrespondence) {
+	if(not self.cactos.virtualMachines.vMImageInstance.rootDisk->exists(s | s.storageLocation.id = oldStorageLocationCorr.cactos.id)) {
+		var connectors := self.palladio.assemblyContext_AllocationContext.parentStructure__AssemblyContext.connectors__ComposedStructure[AssemblyInfrastructureConnector]
+		->select(c | c.providingAssemblyContext__AssemblyInfrastructureConnector.id = self.palladio.assemblyContext_AllocationContext.id);
+		if(connectors->size() = 1) {
+			lcorrespondence.removeElement(connectors.requiredRole__AssemblyInfrastructureConnector->any(true));
+		}
+	};
+};
+
+// Set the variable characterisation's storage access to the new hypervisor's storage component.
+mapping inout VariableCharacterisation::setNewLocalHypervisor(hypervisorCorr : HypervisorCorrespondence, physicalCorr : PhysicalCorrespondenceRepository) {
+	var storageCorr := physicalCorr.storageSpecificationCorrespondences->any(s | s.cactos.id = hypervisorCorr.cactos.rootVolume.storageLocation.id);
+	self.specification_VariableCharacterisation := createPcmRandomVariable("\"" + convertToASCII(storageCorr.palladio.id) + "\"");
+}
+
+mapping NetworkAttachedStorage::createStorageResources(inout lc : LogicalCorrespondenceRepository, in pc: PhysicalCorrespondenceRepository, in storageInterface : InfrastructureInterface) : BasicComponent {
+	entityName := self.name;
+	providedRoles_InterfaceProvidingEntity += object InfrastructureProvidedRole {
+		providedInterface__InfrastructureProvidedRole := storageInterface;
+		entityName := "Provided Role for " + providedInterface__InfrastructureProvidedRole.entityName;
+	};
+	componentType := ComponentType::INFRASTRUCTURE_COMPONENT;
+	serviceEffectSpecifications__BasicComponent += object ResourceDemandingSEFF {
+		var action : AbstractAction;
+		steps_Behaviour += action := object seff::StartAction {
+			entityName := "Start";
+		};
+		steps_Behaviour += action := object BranchAction {
+			predecessor_AbstractAction := action;
+		};
+		var branchAction : BranchAction := action.oclAsType(BranchAction);
+		branchAction.branches_Branch += pc.storageSpecificationCorrespondences->any(s | s.cactos.node.id = self.id)
+			.map localStorageAccessToBranch(storageInterface);
+		steps_Behaviour += object seff::StopAction {
+			entityName := "Stop";
+			predecessor_AbstractAction := action;
+		};
+		describedService__SEFF := storageInterface.infrastructureSignatures__InfrastructureInterface->any(true);
+	};
+}
+
+mapping StorageSpecificationCorrespondence::storageToBranch(hypervisor : Hypervisor, storageInterface : InfrastructureInterface,
+	requiredRole : InfrastructureRequiredRole) : GuardedBranchTransition {
+	var parameter : Parameter := storageInterface.infrastructureSignatures__InfrastructureInterface
+					.parameters__InfrastructureSignature->any(true);
+	entityName := hypervisor.node.name + " to " + self.palladio.resourceContainer_ProcessingResourceSpecification.entityName;			
+	branchBehaviour_BranchTransition := object ResourceDemandingBehaviour {
+		var action : AbstractAction;
+		steps_Behaviour += action := object seff::StartAction {
+			entityName := "Start";
+		};
+		steps_Behaviour += action := object InternalAction {			
+			predecessor_AbstractAction := action;
+			infrastructureCall__Action := object InfrastructureCall {
+				numberOfCalls__InfrastructureCall := createPcmRandomVariable("1");
+				requiredRole__InfrastructureCall := requiredRole;
+				signature__InfrastructureCall := storageInterface.infrastructureSignatures__InfrastructureInterface->any(true);
+				inputVariableUsages__CallAction := object VariableUsage {
+					variableCharacterisation_VariableUsage += object VariableCharacterisation {
+						type := VariableCharacterisationType::BYTESIZE;
+						specification_VariableCharacterisation := createPcmRandomVariable(parameter.parameterName + ".BYTESIZE");			
+					};
+					variableCharacterisation_VariableUsage += object VariableCharacterisation {
+						type := VariableCharacterisationType::VALUE;
+						specification_VariableCharacterisation := createPcmRandomVariable('\"' + convertToASCII(self.palladio.id) + '\"');
+					};
+					namedReference__VariableUsage := object VariableReference {
+						referenceName := parameter.parameterName;
+					};
+				};
+			};
+		};
+		steps_Behaviour += action := object seff::StopAction {
+			entityName := "Stop";
+			predecessor_AbstractAction := action;
+		};
+		branchCondition_GuardedBranchTransition := createPcmRandomVariable('\"' + convertToASCII(self.palladio.id) + '\"==' + parameter.parameterName + '.VALUE');
+	};
+}
+
+mapping StorageSpecificationCorrespondence::storageAccessToBranchesAndRoles(in hypervisor: Hypervisor, in storageInterface : InfrastructureInterface,
+	inout action : BranchAction) : InfrastructureRequiredRole {
+	entityName := "Remote Storage Access";
+	requiredInterface__InfrastructureRequiredRole := storageInterface;
+	action.branches_Branch += self.map storageToBranch(hypervisor, storageInterface, result);
+}
+
+mapping StorageSpecificationCorrespondence::localStorageAccessToBranch(in storageInterface : InfrastructureInterface) : GuardedBranchTransition {
+	var parameter : Parameter := storageInterface.infrastructureSignatures__InfrastructureInterface
+					.parameters__InfrastructureSignature->any(true);
+	branchBehaviour_BranchTransition := object ResourceDemandingBehaviour {
+		var action : AbstractAction;
+		steps_Behaviour += action := object seff::StartAction {
+			entityName := "Start";
+		};
+		steps_Behaviour += action := object InternalAction {			
+			resourceDemand_Action := object ParametricResourceDemand {	
+				specification_ParametericResourceDemand := createPcmRandomVariable(parameter.parameterName + ".BYTESIZE");
+				requiredResource_ParametricResourceDemand := self.palladio.activeResourceType_ActiveResourceSpecification;	
+			};
+			predecessor_AbstractAction := action;
+		};
+		steps_Behaviour += object seff::StopAction {
+			entityName := "Stop";
+			predecessor_AbstractAction := action;
+		};
+		branchCondition_GuardedBranchTransition := createPcmRandomVariable(parameter.parameterName + '.VALUE==\"' + convertToASCII(self.palladio.id) + '\"');
+	};
+}
+
+mapping AssemblyContext::linkStorageRoleWithComponent(in storageAssembly : AssemblyContext) : AssemblyInfrastructureConnector {	
+	var providedRole := storageAssembly.encapsulatedComponent__AssemblyContext.providedRoles_InterfaceProvidingEntity->selectByType(InfrastructureProvidedRole)->any(true);
+	entityName := "From " + self.entityName + " to " + storageAssembly.entityName;
+	requiringAssemblyContext__AssemblyInfrastructureConnector := self;
+	providingAssemblyContext__AssemblyInfrastructureConnector := storageAssembly;
+	providedRole__AssemblyInfrastructureConnector := providedRole;
+	requiredRole__AssemblyInfrastructureConnector := self.encapsulatedComponent__AssemblyContext.requiredRoles_InterfaceRequiringEntity->selectByType(InfrastructureRequiredRole)
+		->any(true);
+}

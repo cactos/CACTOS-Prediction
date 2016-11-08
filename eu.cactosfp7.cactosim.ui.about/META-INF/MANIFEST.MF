@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: CactoSim About
+Bundle-SymbolicName: eu.cactosfp7.cactosim.ui.about;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: CACTOS
+Require-Bundle: org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7

@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Experiment Scenario Action Repository
+Bundle-SymbolicName: eu.cactosfp7.cactosim.experimentscenario.action.repository
+Bundle-Version: 1.0.0.qualifier

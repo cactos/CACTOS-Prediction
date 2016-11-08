@@ -1,0 +1,330 @@
+import m2m.qvt.oml.JScience;
+import eu.cactosfp7.cactosim.optimisationconnector.OptimisationConnectorUnit;
+import eu.cactosfp7.cactosim.optimisationconnector.SimulationStateUnit;
+import transforms.pcmHelperCore;
+import transforms.updateRuntimeCorrespondence;
+import transforms.cactosAdaptationBehaviorHelper;
+import eu.cactosfp7.cactosim.optimisationplan.action.repository.black.CactosOptimisationPlanActionBlackboxUnit;
+import cactosActionLibrary.placeVMs;
+import cactosActionLibrary.startVM;
+
+modeltype RUNTIMEMEASUREMENT uses 'http://simulizar.palladiosimulator.org/RuntimeMeasurement/1.0';
+modeltype MONITOR_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/Measurement/1.1';
+modeltype PCM_ALLOC uses 'http://palladiosimulator.org/PalladioComponentModel/Allocation/5.1';
+modeltype PCM_REP uses 'http://palladiosimulator.org/PalladioComponentModel/Repository/5.1';
+modeltype PCM_SEFF uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/5.1';
+modeltype PCM_SYS uses 'http://palladiosimulator.org/PalladioComponentModel/System/5.1';
+modeltype PCM_RES_ENV uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1';
+modeltype PCM_RES_TYPE uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.1';
+modeltype PCM_USAGE uses 'http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.1';
+modeltype PCM_FEATURE_CONF uses 'http://sdq.ipd.uka.de/FeatureConfig/2.0';
+modeltype PCM_FEATURE_MOD uses 'http://sdq.ipd.uka.de/FeatureModel/2.0';
+modeltype PCM_CORE uses 'http://palladiosimulator.org/PalladioComponentModel/Core/5.1';
+modeltype PCM_COMP uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.1';
+modeltype PCM_ENTITY uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Entity/5.1';
+modeltype PCM_PARAM uses 'http://palladiosimulator.org/PalladioComponentModel/Parameter/5.1';
+modeltype PCM_STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+modeltype PHYSICAL_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype LOGICAL_CORRESPONDENCE uses  'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype OPTIMISATION_PLAN uses 'http://www.cactosfp7.eu/OptimisationPlan/1.0';
+modeltype PHYSICAL_CORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype PHYSICAL_UTIL uses 'http://www.cactosfp7.eu/PhysicalDCModel/Util/1.0';
+modeltype LOGICAL_CORE uses 'http://www.cactosfp7.eu/LogicalDCModel/Core/1.0';
+modeltype LOGICAL_APPPLICATION uses 'http://www.cactosfp7.eu/LogicalDCModel/Application/1.0';
+modeltype PLM uses 'http://www.cactosfp7.eu/CactosLoadModel/Physical/1.0';
+modeltype LLM uses 'http://www.cactosfp7.eu/CactosLoadModel/Logical/1.0';
+modeltype CACTOS_IDENTIFIER uses 'http://www.cactosfp7.eu/Identifier/1.0';
+modeltype LOAD_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/1.1';
+modeltype ECORE uses 'http://www.eclipse.org/emf/2002/Ecore';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype ACTION_CONTEXT uses 'http://simulizar.palladiosimulator.org/Actions/Context/1.1';
+modeltype ACTION_PARAMETER uses 'http://simulizar.palladiosimulator.org/Actions/Parameter/1.1';
+
+transformation optimiseandsynchronise(  inout actions : ACTION_CORE,
+										inout actionRoleSet : ACTION_INSTANCE,
+										in actionContexts : ACTION_CONTEXT,
+										inout logicalCore: LOGICAL_CORE,
+										inout physicalCore: PHYSICAL_CORE,
+										inout physicalCorrespondence : PHYSICAL_CORRESPONDENCE,  
+										inout logicalCorrespondence : LOGICAL_CORRESPONDENCE,
+										in measurementCorrespondence : MONITOR_CORRESPONDENCE,
+										in runtimeMeasurement : RUNTIMEMEASUREMENT,
+										in physicalload: PLM,
+										in logicalload: LLM)
+{		
+	property executionContext : ExecutionContext;
+									
+	main() {
+		executionContext := actionContexts.rootObjects()[ExecutionContext]->any(true);
+		actionRoleSet.rootObjects()[RoleSet].roles->any(roleType.id = EOP_OPTIMISATION_PLAN_ROLE_TYPE_ID).value[OptimisationPlan]->map enactOptimisationPlan();
+		actionRoleSet.rootObjects()[RoleSet].roles->any(roleType.id = EOP_OPTIMISATION_STEP_ROLE_TYPE_ID).value[OptimisationStep]->map executeStep();
+	}	
+	
+	mapping inout OptimisationPlan::enactOptimisationPlan() {
+		logInfo("Start enacting of Optimisation Plan at simulation time: " + getSimulationTime().toString());
+		self.executionStatus := ExecutionStatus::IN_EXECUTION;
+		self.executionStarted := getTimestampForSimulationTime();
+		self.optimisationStep.map executeStep();
+		self.executionStopped := getTimestampForSimulationTime();
+		self.executionStatus := ExecutionStatus::COMPLETED_SUCCESSFUL;
+		logDebug("Finish enactOptimisationPlan");
+	}
+	
+	mapping inout OptimisationStep::executeStep() {
+		assert warning (true) with log('Unknown OptimisationStep encountered. No logical or physical resources are changed. The step counts as failed.');
+		self.executionStarted := self.executionStopped := getTimestampForSimulationTime();
+		self.executionStatus := ExecutionStatus::COMPLETED_FAILED;
+	}
+	
+	mapping inout SequentialSteps::executeStep() {
+		logDebug("Start execute SequentialSteps");
+		self.executionStatus := ExecutionStatus::IN_EXECUTION;
+		self.executionStarted := getTimestampForSimulationTime();
+		
+		self.optimisationSteps->forEach(it) {
+			it->executeStep();
+			if (it.executionStatus = ExecutionStatus::COMPLETED_FAILED) {
+				self.executionStatus := ExecutionStatus::COMPLETED_FAILED;
+				break;
+			}
+		};
+		
+		self.executionStopped := getTimestampForSimulationTime();
+		if (self.executionStatus<> ExecutionStatus::COMPLETED_FAILED)
+			self.executionStatus := ExecutionStatus::COMPLETED_SUCCESSFUL;
+		logDebug("Finish execute SequentialSteps");
+	}
+	
+	mapping inout ParallelSteps::executeStep() {
+		self.executionStatus := ExecutionStatus::IN_EXECUTION;
+		self.executionStarted := getTimestampForSimulationTime();
+		
+		var connectSteps := self.optimisationSteps[ConnectVmAction];
+		var nonConnectSteps := self.optimisationSteps - connectSteps;
+		
+		nonConnectSteps->forEach(step) {
+			var stepExecution := selectExecuteOptimisationPlanAction();
+			stepExecution.executeAsync(stepExecution.
+				createExecuteOptimisationStepRoleSet(step));
+		};
+		
+		if (connectSteps->notEmpty()) {
+			var connectExecution := selectConnectVMsAction();
+			connectExecution.execute(
+				connectExecution.createConnectVMsActionRoleSet(object ParallelSteps {
+					optimisationSteps := connectSteps;
+				})
+			);
+		};
+		
+		var res := ExecutionStatus::COMPLETED_SUCCESSFUL;
+		self.optimisationSteps->forEach(step) {
+			if (not executionContext.
+				passivateUntilOptimisationStepExecutionFinished(step)) {
+				res := ExecutionStatus::COMPLETED_FAILED;
+			}
+		};
+		
+		self.executionStopped := getTimestampForSimulationTime();
+		self.executionStatus := res;
+	}
+
+	mapping inout VmMigrationAction::executeStep() {
+		logInfo("VM Migration started at simulation time: " + getSimulationTime().toString());
+		self.executionStatus := ExecutionStatus::IN_EXECUTION;
+		self.executionStarted := getTimestampForSimulationTime();
+		
+		var action := selectMigrateVMAction();
+		
+		if (action.execute(action.createMigrateVMRoleSet(self.targetHost.node, self.migratedVm), 
+							executionContext)) {
+			self.executionStopped := getTimestampForSimulationTime();
+			logInfo("VM Migration finished at simulation time: " + getSimulationTime().toString());
+			self.executionStatus := ExecutionStatus::COMPLETED_SUCCESSFUL;
+		} else {
+			self.executionStopped := getTimestampForSimulationTime();
+			logInfo("VM Migration failed at simulation time: " + getSimulationTime().toString());
+			self.executionStatus := ExecutionStatus::COMPLETED_FAILED;
+		};
+		
+	}
+	
+	mapping inout VmPlacementAction::executeStep() {
+		logInfo("VM Placement started at simulation time: " + getSimulationTime().toString());
+		self.executionStatus := ExecutionStatus::IN_EXECUTION;
+		self.executionStarted := getTimestampForSimulationTime();
+		
+		var action := selectConductVMPlacementAction();
+		
+		if (action.execute(action.createConductVMPlacementActionRoleSet(self), 
+							self.map createVariableUsageCollectionForPlacement(),
+							executionContext)) {
+			self.executionStopped := getTimestampForSimulationTime();
+			logInfo("VM Placement finished at simulation time: " + getSimulationTime().toString());
+			self.executionStatus := ExecutionStatus::COMPLETED_SUCCESSFUL;
+		} else {
+			self.executionStopped := getTimestampForSimulationTime();
+			logInfo("VM Placement failed at simulation time: " + getSimulationTime().toString());
+			self.executionStatus := ExecutionStatus::COMPLETED_FAILED;
+		};
+	}
+	
+	mapping inout StartVmAction::executeStep() {
+		logInfo("VM Start Action started processing at simulation time: " + getSimulationTime().toString());
+		self.executionStatus := ExecutionStatus::IN_EXECUTION;
+		self.executionStarted := getTimestampForSimulationTime();
+		
+		var action := selectStartVirtualMachineAction();
+		
+		if (action.execute(action.createStartVirtualMachineRoleSet(self.startedVm),
+							self.startedVm.map createVariableUsageForBootUp(),
+											executionContext)) {
+			self.executionStopped := getTimestampForSimulationTime();
+			logInfo("VM Start Action finished processing at simulation time: " + getSimulationTime().toString());
+			self.executionStatus := ExecutionStatus::COMPLETED_SUCCESSFUL;
+		} else {
+			self.executionStopped := getTimestampForSimulationTime();
+			logInfo("VM Start Action failed at simulation time: " + getSimulationTime().toString());
+			self.executionStatus := ExecutionStatus::COMPLETED_FAILED;
+		};
+	}
+	
+	mapping inout SuspendVmAction::executeStep() {
+		//TODO Year 3: Requires extension to abort and reschedule resource demand in the simulation  
+	}
+	
+	mapping inout ScaleIn::executeStep() {
+		logInfo("Scale In started processing at simulation time: " + getSimulationTime().toString());
+		self.executionStatus := ExecutionStatus::IN_EXECUTION;
+		self.executionStarted := getTimestampForSimulationTime();
+	
+		var action := selectScaleInAction();
+		
+		if (action.execute(action.createScaleInRoleSet(self.loadBalancerInstance, self.scaledVM),							
+							executionContext)) {
+			self.executionStopped := getTimestampForSimulationTime();
+			logInfo("Scale In finished processing at simulation time: " + getSimulationTime().toString());
+			self.executionStatus := ExecutionStatus::COMPLETED_SUCCESSFUL;
+		} else {
+			self.executionStopped := getTimestampForSimulationTime();
+			logInfo("Scale In failed at simulation time: " + getSimulationTime().toString());
+			self.executionStatus := ExecutionStatus::COMPLETED_FAILED;
+		};	
+	}
+	
+	mapping inout ScaleOut::executeStep() {
+		logInfo("Scale Out started processing at simulation time: " + getSimulationTime().toString());
+		self.executionStatus := ExecutionStatus::IN_EXECUTION;
+		self.executionStarted := getTimestampForSimulationTime();
+	
+		var action := selectScaleOutAction();
+		
+		if (action.execute(action.createScaleOutRoleSet(self.loadBalancerInstance, self.scalingConnector),							
+							executionContext)) {
+			self.executionStopped := getTimestampForSimulationTime();
+			logInfo("Scale Out finished processing at simulation time: " + getSimulationTime().toString());
+			self.executionStatus := ExecutionStatus::COMPLETED_SUCCESSFUL;
+		} else {
+			self.executionStopped := getTimestampForSimulationTime();
+			logInfo("Scale Out failed at simulation time: " + getSimulationTime().toString());
+			self.executionStatus := ExecutionStatus::COMPLETED_FAILED;
+		};		
+	}
+	
+	mapping inout StopVmAction::executeStep() {
+		logInfo("Stop VM started processing at simulation time: " + getSimulationTime().toString());
+		self.executionStatus := ExecutionStatus::IN_EXECUTION;
+		self.executionStarted := getTimestampForSimulationTime();
+	
+		var action : AdaptationBehavior;
+		var roleSet : RoleSet;
+		
+		var instance : ApplicationInstance = logicalCore.rootObjects()[LogicalDCModel]
+			.applicationInstances[BlackBoxApplicationInstance]->any(virtualMachine.id = self.stoppedVm.id);
+		if (instance = null or instance.oclIsInvalid()) {
+			instance := logicalCore.rootObjects()[LogicalDCModel]
+				.applicationInstances[GreyBoxApplicationInstance]->any(virtualMachine.id = self.stoppedVm.id)
+		};
+		
+		if (instance = null or instance.oclIsInvalid()) {
+			// VM must belong to White Box Application, consequently just terminate the virtual machine	
+			instance := logicalCore.rootObjects()[LogicalDCModel]
+				.applicationInstances[WhiteBoxApplicationInstance]->any(composedVMs.virtualMachine.id->includes(self.stoppedVm.id));
+			if (instance = null or instance.oclIsInvalid()) {
+				logError("VM stop action did not find suitable application instance - termination could not be executed.");
+				self.executionStopped := getTimestampForSimulationTime();
+				self.executionStatus := ExecutionStatus::COMPLETED_FAILED;
+				assert fatal(false) with log("VM stop action did not find suitable application instance - termination could not be executed.")
+			}; 
+			action := selectTerminateVMAction();
+			roleSet := action.createTerminateVMRoleSet(self.stoppedVm);
+		} else {
+			//VM belongs to either black or grey box application, therefore terminate the entire application
+			action := selectTerminateApplicationAction();
+			roleSet := action.createTerminateApplicationRoleSet(instance);
+		};
+		
+		if (action.execute(roleSet, executionContext)) {
+			self.executionStopped := getTimestampForSimulationTime();
+			logInfo("VM stopped at simulation time: " + getSimulationTime().toString());
+			self.executionStatus := ExecutionStatus::COMPLETED_SUCCESSFUL;
+		} else {
+			self.executionStopped := getTimestampForSimulationTime();
+			logInfo("VM stop failed at simulation time: " + getSimulationTime().toString());
+			self.executionStatus := ExecutionStatus::COMPLETED_FAILED;
+		};
+	}
+	
+	mapping inout ManagePhysicalNodeAction::executeStep() {
+		self.executionStatus := ExecutionStatus::IN_EXECUTION;
+		self.executionStarted := getTimestampForSimulationTime();
+	
+		var action := selectSetPhysicalNodeStateAction();
+		
+		if (action.execute(action.createSetPhysicalNodeStateRoleSet(self.managedNode, self.targetState),							
+							executionContext)) {
+			self.executionStopped := getTimestampForSimulationTime();
+			self.executionStatus := ExecutionStatus::COMPLETED_SUCCESSFUL;
+		} else {
+			self.executionStopped := getTimestampForSimulationTime();
+			self.executionStatus := ExecutionStatus::COMPLETED_FAILED;
+		};
+	}
+	
+	mapping inout LogicalMemoryScalingAction::executeStep() {
+		self.executionStatus := ExecutionStatus::IN_EXECUTION;
+		self.executionStarted := getTimestampForSimulationTime();
+		
+		self.scaledVirtualMemory.provisioned := self.proposedSize;
+		// Do nothing for the Palladio side as virtual scaling has no influence
+		
+		self.executionStarted := self.executionStopped := getTimestampForSimulationTime();
+		self.executionStatus := ExecutionStatus::COMPLETED_SUCCESSFUL;
+	}
+	
+	mapping inout LogicalStorageScalingAction::executeStep() {
+		self.executionStatus := ExecutionStatus::IN_EXECUTION;
+		self.executionStarted := getTimestampForSimulationTime();
+		
+		// TODO: Generalize this to allow for adaptation of other virtual disks' sizes. Requires change of Optimisation Plan
+		self.vMImageInstance.rootDisk.capacity := self.proposedLocalSize;
+		// Do nothing for the Palladio side as virtual scaling has no influence
+		
+		self.executionStarted := self.executionStopped := getTimestampForSimulationTime();
+		self.executionStatus := ExecutionStatus::COMPLETED_SUCCESSFUL;
+	}
+	
+	mapping inout PhysicalFrequencyScalingAction::executeStep() {
+		self.executionStatus := ExecutionStatus::IN_EXECUTION;
+		self.executionStarted := getTimestampForSimulationTime();
+		
+		self.scaledPhysicalProcessingUnit.frequency := self.proposedFrequency;
+		physicalCorrespondence.rootObjects()[PhysicalCorrespondenceRepository].processingUnitSpecificationCorrespondences->any(puc | puc.cactos = self.scaledPhysicalProcessingUnit)
+			.palladio.processingRate_ProcessingResourceSpecification.specification 
+				:= frequencyToProcessingRateSpecification(self.proposedFrequency);
+		
+		self.executionStopped := getTimestampForSimulationTime();
+		self.executionStatus := ExecutionStatus::COMPLETED_SUCCESSFUL;
+	}
+}

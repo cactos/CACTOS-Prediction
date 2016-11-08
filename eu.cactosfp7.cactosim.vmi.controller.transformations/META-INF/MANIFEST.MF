@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: eu.cactosfp7.cactosim.vmi.controller.transformations
+Bundle-SymbolicName: eu.cactosfp7.cactosim.vmi.controller.transformations;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: eu.cactosfp7.cactosim.correspondence;bundle-version="1.1.0",
+ eu.cactosfp7.cactosim.infrastructuremodelstopcm;bundle-version="1.0.0",
+ org.eclipse.m2m.qvt.oml;bundle-version="3.5.0",
+ org.eclipse.m2m.qvt.oml.project;bundle-version="3.5.0",
+ org.eclipse.m2m.qvt.oml.runtime;bundle-version="3.5.0"
+Bundle-ActivationPolicy: lazy

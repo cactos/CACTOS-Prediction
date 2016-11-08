@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated correspondence -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="eu.cactosfp7.cactosim.correspondence.physicalcorrespondence.presentation.PhysicalcorrespondenceModelWizardID"
+            name="%_UI_PhysicalcorrespondenceModelWizard_label"
+            class="eu.cactosfp7.cactosim.correspondence.physicalcorrespondence.presentation.PhysicalcorrespondenceModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/PhysicalcorrespondenceModelFile.gif">
+         <description>%_UI_PhysicalcorrespondenceModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated correspondence -->
+      <editor
+            id="eu.cactosfp7.cactosim.correspondence.physicalcorrespondence.presentation.PhysicalcorrespondenceEditorID"
+            name="%_UI_PhysicalcorrespondenceEditor_label"
+            icon="icons/full/obj16/PhysicalcorrespondenceModelFile.gif"
+            extensions="physicalcorrespondence"
+            class="eu.cactosfp7.cactosim.correspondence.physicalcorrespondence.presentation.PhysicalcorrespondenceEditor"
+            contributorClass="eu.cactosfp7.cactosim.correspondence.physicalcorrespondence.presentation.PhysicalcorrespondenceActionBarContributor">
+      </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated correspondence -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="eu.cactosfp7.cactosim.correspondence.logicalcorrespondence.presentation.LogicalcorrespondenceModelWizardID"
+            name="%_UI_LogicalcorrespondenceModelWizard_label"
+            class="eu.cactosfp7.cactosim.correspondence.logicalcorrespondence.presentation.LogicalcorrespondenceModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/LogicalcorrespondenceModelFile.gif">
+         <description>%_UI_LogicalcorrespondenceModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated correspondence -->
+      <editor
+            id="eu.cactosfp7.cactosim.correspondence.logicalcorrespondence.presentation.LogicalcorrespondenceEditorID"
+            name="%_UI_LogicalcorrespondenceEditor_label"
+            icon="icons/full/obj16/LogicalcorrespondenceModelFile.gif"
+            extensions="logicalcorrespondence"
+            class="eu.cactosfp7.cactosim.correspondence.logicalcorrespondence.presentation.LogicalcorrespondenceEditor"
+            contributorClass="eu.cactosfp7.cactosim.correspondence.logicalcorrespondence.presentation.LogicalcorrespondenceActionBarContributor">
+      </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated correspondence -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="eu.cactosfp7.cactosim.correspondence.measurementcorrespondence.presentation.MeasurementcorrespondenceModelWizardID"
+            name="%_UI_MeasurementcorrespondenceModelWizard_label"
+            class="eu.cactosfp7.cactosim.correspondence.measurementcorrespondence.presentation.MeasurementcorrespondenceModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/MeasurementcorrespondenceModelFile.gif">
+         <description>%_UI_MeasurementcorrespondenceModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated correspondence -->
+      <editor
+            id="eu.cactosfp7.cactosim.correspondence.measurementcorrespondence.presentation.MeasurementcorrespondenceEditorID"
+            name="%_UI_MeasurementcorrespondenceEditor_label"
+            icon="icons/full/obj16/MeasurementcorrespondenceModelFile.gif"
+            extensions="measurementcorrespondence"
+            class="eu.cactosfp7.cactosim.correspondence.measurementcorrespondence.presentation.MeasurementcorrespondenceEditor"
+            contributorClass="eu.cactosfp7.cactosim.correspondence.measurementcorrespondence.presentation.MeasurementcorrespondenceActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tools.descartes.dlim:Sequence xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tools.descartes.dlim="http://descartes.tools/dlim/0.1" name="cactos" terminateAfterTime="5100.0" terminateAfterLoops="1" firstIterationEnd="2880.0" loopDuration="2880.0" finalDuration="2880.0">
+  <sequenceFunctionContainers name="constantSeasonal" duration="120.0" firstIterationEnd="120.0">
+    <function xsi:type="tools.descartes.dlim:Constant" constant="5.0">
+      <combine>
+        <function xsi:type="tools.descartes.dlim:UniformNoise" min="3.0" max="-3.0"/>
+      </combine>
+    </function>
+  </sequenceFunctionContainers>
+  <sequenceFunctionContainers name="constantSeasonal" duration="120.0" firstIterationStart="120.0" firstIterationEnd="240.0">
+    <function xsi:type="tools.descartes.dlim:Constant" constant="8.0">
+      <combine>
+        <function xsi:type="tools.descartes.dlim:UniformNoise" min="3.0" max="-3.0"/>
+      </combine>
+    </function>
+  </sequenceFunctionContainers>
+  <sequenceFunctionContainers name="constantSeasonal" duration="120.0" firstIterationStart="240.0" firstIterationEnd="360.0">
+    <function xsi:type="tools.descartes.dlim:Constant" constant="12.0">
+      <combine>
+        <function xsi:type="tools.descartes.dlim:UniformNoise" min="3.0" max="-3.0"/>
+      </combine>
+    </function>
+  </sequenceFunctionContainers>
+  <sequenceFunctionContainers name="constantSeasonal" duration="120.0" firstIterationStart="360.0" firstIterationEnd="480.0">
+    <function xsi:type="tools.descartes.dlim:Constant" constant="18.0">
+      <combine>
+        <function xsi:type="tools.descartes.dlim:UniformNoise" min="3.0" max="-3.0"/>
+      </combine>
+    </function>
+  </sequenceFunctionContainers>
+  <sequenceFunctionContainers name="constantSeasonal" duration="120.0" firstIterationStart="480.0" firstIterationEnd="600.0">
+    <function xsi:type="tools.descartes.dlim:Constant" constant="20.0">
+      <combine>
+        <function xsi:type="tools.descartes.dlim:UniformNoise" min="3.0" max="-3.0"/>
+      </combine>
+    </function>
+  </sequenceFunctionContainers>
+  <sequenceFunctionContainers name="constantSeasonal" duration="120.0" firstIterationStart="600.0" firstIterationEnd="720.0">
+    <function xsi:type="tools.descartes.dlim:Constant" constant="27.0">
+      <combine>
+        <function xsi:type="tools.descartes.dlim:UniformNoise" min="3.0" max="-3.0"/>
+      </combine>
+    </function>
+  </sequenceFunctionContainers>
+  <sequenceFunctionContainers name="constantSeasonal" duration="120.0" firstIterationStart="720.0" firstIterationEnd="840.0">
+    <function xsi:type="tools.descartes.dlim:Constant" constant="35.0">
+      <combine>
+        <function xsi:type="tools.descartes.dlim:UniformNoise" min="3.0" max="-3.0"/>
+      </combine>
+    </function>
+  </sequenceFunctionContainers>
+  <sequenceFunctionContainers name="constantSeasonal" duration="120.0" firstIterationStart="840.0" firstIterationEnd="960.0">
+    <function xsi:type="tools.descartes.dlim:Constant" constant="33.0">
+      <combine>
+        <function xsi:type="tools.descartes.dlim:UniformNoise" min="3.0" max="-3.0"/>
+      </combine>
+    </function>
+  </sequenceFunctionContainers>
+  <sequenceFunctionContainers name="constantSeasonal" duration="120.0" firstIterationStart="960.0" firstIterationEnd="1080.0">
+    <function xsi:type="tools.descartes.dlim:Constant" constant="35.0">
+      <combine>
+        <function xsi:type="tools.descartes.dlim:UniformNoise" min="3.0" max="-3.0"/>
+      </combine>
+    </function>
+  </sequenceFunctionContainers>
+  <sequenceFunctionContainers name="constantSeasonal" duration="120.0" firstIterationStart="1080.0" firstIterationEnd="1200.0">
+    <function xsi:type="tools.descartes.dlim:Constant" constant="38.0">
+      <combine>
+        <function xsi:type="tools.descartes.dlim:UniformNoise" min="3.0" max="-3.0"/>
+      </combine>
+    </function>
+  </sequenceFunctionContainers>
+  <sequenceFunctionContainers name="constantSeasonal" duration="120.0" firstIterationStart="1200.0" firstIterationEnd="1320.0">
+    <function xsi:type="tools.descartes.dlim:Constant" constant="44.0">
+      <combine>
+        <function xsi:type="tools.descartes.dlim:UniformNoise" min="3.0" max="-3.0"/>
+      </combine>
+    </function>
+  </sequenceFunctionContainers>
+  <sequenceFunctionContainers name="constantSeasonal" duration="480.0" firstIterationStart="1320.0" firstIterationEnd="1440.0">
+    <function xsi:type="tools.descartes.dlim:Constant" constant="50.0">
+      <combine>
+        <function xsi:type="tools.descartes.dlim:UniformNoise" min="3.0" max="-3.0"/>
+      </combine>
+    </function>
+  </sequenceFunctionContainers>
+  <sequenceFunctionContainers name="constantSeasonal" duration="120.0" firstIterationStart="1560.0" firstIterationEnd="1680.0">
+    <function xsi:type="tools.descartes.dlim:Constant" constant="44.0">
+      <combine>
+        <function xsi:type="tools.descartes.dlim:UniformNoise" min="3.0" max="-3.0"/>
+      </combine>
+    </function>
+  </sequenceFunctionContainers>
+  <sequenceFunctionContainers name="constantSeasonal" duration="120.0" firstIterationStart="1680.0" firstIterationEnd="1800.0">
+    <function xsi:type="tools.descartes.dlim:Constant" constant="38.0">
+      <combine>
+        <function xsi:type="tools.descartes.dlim:UniformNoise" min="3.0" max="-3.0"/>
+      </combine>
+    </function>
+  </sequenceFunctionContainers>
+  <sequenceFunctionContainers name="constantSeasonal" duration="120.0" firstIterationStart="1800.0" firstIterationEnd="1920.0">
+    <function xsi:type="tools.descartes.dlim:Constant" constant="35.0">
+      <combine>
+        <function xsi:type="tools.descartes.dlim:UniformNoise" min="3.0" max="-3.0"/>
+      </combine>
+    </function>
+  </sequenceFunctionContainers>
+  <sequenceFunctionContainers name="constantSeasonal" duration="120.0" firstIterationStart="1920.0" firstIterationEnd="2040.0">
+    <function xsi:type="tools.descartes.dlim:Constant" constant="33.0">
+      <combine>
+        <function xsi:type="tools.descartes.dlim:UniformNoise" min="3.0" max="-3.0"/>
+      </combine>
+    </function>
+  </sequenceFunctionContainers>
+  <sequenceFunctionContainers name="constantSeasonal" duration="120.0" firstIterationStart="2040.0" firstIterationEnd="2160.0">
+    <function xsi:type="tools.descartes.dlim:Constant" constant="35.0">
+      <combine>
+        <function xsi:type="tools.descartes.dlim:UniformNoise" min="3.0" max="-3.0"/>
+      </combine>
+    </function>
+  </sequenceFunctionContainers>
+  <sequenceFunctionContainers name="constantSeasonal" duration="120.0" firstIterationStart="2160.0" firstIterationEnd="2280.0">
+    <function xsi:type="tools.descartes.dlim:Constant" constant="27.0">
+      <combine>
+        <function xsi:type="tools.descartes.dlim:UniformNoise" min="3.0" max="-3.0"/>
+      </combine>
+    </function>
+  </sequenceFunctionContainers>
+  <sequenceFunctionContainers name="constantSeasonal" duration="120.0" firstIterationStart="2280.0" firstIterationEnd="2400.0">
+    <function xsi:type="tools.descartes.dlim:Constant" constant="20.0">
+      <combine>
+        <function xsi:type="tools.descartes.dlim:UniformNoise" min="3.0" max="-3.0"/>
+      </combine>
+    </function>
+  </sequenceFunctionContainers>
+  <sequenceFunctionContainers name="constantSeasonal" duration="120.0" firstIterationStart="2400.0" firstIterationEnd="2520.0">
+    <function xsi:type="tools.descartes.dlim:Constant" constant="18.0">
+      <combine>
+        <function xsi:type="tools.descartes.dlim:UniformNoise" min="3.0" max="-3.0"/>
+      </combine>
+    </function>
+  </sequenceFunctionContainers>
+  <sequenceFunctionContainers name="constantSeasonal" duration="120.0" firstIterationStart="2520.0" firstIterationEnd="2640.0">
+    <function xsi:type="tools.descartes.dlim:Constant" constant="12.0">
+      <combine>
+        <function xsi:type="tools.descartes.dlim:UniformNoise" min="3.0" max="-3.0"/>
+      </combine>
+    </function>
+  </sequenceFunctionContainers>
+  <sequenceFunctionContainers name="constantSeasonal" duration="120.0" firstIterationStart="2640.0" firstIterationEnd="2760.0">
+    <function xsi:type="tools.descartes.dlim:Constant" constant="8.0">
+      <combine>
+        <function xsi:type="tools.descartes.dlim:UniformNoise" min="3.0" max="-3.0"/>
+      </combine>
+    </function>
+  </sequenceFunctionContainers>
+  <sequenceFunctionContainers name="constantSeasonal" duration="120.0" firstIterationStart="2760.0" firstIterationEnd="2880.0">
+    <function xsi:type="tools.descartes.dlim:Constant" constant="5.0">
+      <combine>
+        <function xsi:type="tools.descartes.dlim:UniformNoise" min="3.0" max="-3.0"/>
+      </combine>
+    </function>
+  </sequenceFunctionContainers>
+</tools.descartes.dlim:Sequence>

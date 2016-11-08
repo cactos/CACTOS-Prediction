@@ -1,0 +1,40 @@
+import simulizar_qvto_helper.logHelper;
+import transforms.cactosAdaptationBehaviorHelper;
+
+modeltype CACT_PCORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype CACT_PCORR uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype PCM_ALLOC uses 'http://palladiosimulator.org/PalladioComponentModel/Allocation/5.1';
+modeltype PCM_RES_ENV uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1';
+modeltype PCM_COMP uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.1';
+modeltype PCM_ENTITY uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Entity/5.1';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype XMLTYPE uses 'http://www.eclipse.org/emf/2003/XMLType';
+
+transformation nodeStateJustifiesResourceDemand(
+							inout cPCorrespondence : CACT_PCORR,
+							in actionRoleSet : ACTION_INSTANCE,
+							in actionStep : ACTION_CORE
+							) {
+	/**
+	 * The main transformation.
+	 * This is the entry point to the overall transformation.
+	 */
+	main() {	
+		var roleSet : RoleSet :=  actionRoleSet.rootObjects()[RoleSet]->any(true);
+		
+		var targetNodeRole := roleSet.roles->any(role | role.roleType.id = NSC_TARGET_NODE_CORRESPONDENCE_TYPE_ID);
+		var nodeStateRole := roleSet.roles->any(role | role.roleType.id = NSC_TARGET_NODE_STATE_TYPE_ID);
+		
+		var targetNode := targetNodeRole.value.oclAsType(AbstractNodeCorrespondence).cactos;
+		var nodeStateWrapper := nodeStateRole.value.oclAsType(SimpleAnyType);
+		var nodeState := nodeStateWrapper.value.oclAsType(NodeState);
+		
+		assert fatal(targetNode.stateChangeJustifiesDemand(nodeState)) with log('Node State does not justify issuing resource demand.');
+	}
+	
+	query AbstractNode::stateChangeJustifiesDemand(targetNodeState: NodeState): Boolean {
+		return not (self.state = targetNodeState)
+			and (self.state = NodeState::OFF and targetNodeState <> NodeState::OFF);
+	}
+}

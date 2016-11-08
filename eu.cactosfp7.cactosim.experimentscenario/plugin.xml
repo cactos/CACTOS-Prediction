@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated experimentscenario -->
+      <package
+            uri="http://www.cactosfp7.eu/ExperimentScenarioModel/1.0"
+            class="eu.cactosfp7.cactosim.experimentscenario.ExperimentscenarioPackage"
+            genModel="model/experimentscenario.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated experimentscenario -->
+      <parser
+            type="experimentscenario"
+            class="eu.cactosfp7.cactosim.experimentscenario.util.ExperimentscenarioResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated experimentscenario -->
+      <package
+            uri="http://www.cactosfp7.eu/ExperimentScenarioModel/Request/1.0"
+            class="eu.cactosfp7.cactosim.experimentscenario.request.RequestPackage"
+            genModel="model/experimentscenario.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated experimentscenario -->
+      <package
+            uri="http://www.cactosfp7.eu/ExperimentScenarioModel/Selector/1.0"
+            class="eu.cactosfp7.cactosim.experimentscenario.selector.SelectorPackage"
+            genModel="model/experimentscenario.genmodel"/>
+   </extension>
+
+</plugin>

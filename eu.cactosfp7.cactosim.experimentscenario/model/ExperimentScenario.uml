@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/5" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Ecore/5 pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA">
+  <uml:Package xmi:id="__CabALujEeWOF77yPHPRXw" name="experimentscenario">
+    <packageImport xmi:id="__CabA7ujEeWOF77yPHPRXw">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Class" xmi:id="_4tvtYMQGEeW5yIwM1qJkzg" name="AbsoluteTimeEvent">
+      <generalization xmi:id="_XVxmoMQHEeW5yIwM1qJkzg" general="_UEs3cMQHEeW5yIwM1qJkzg"/>
+      <ownedAttribute xmi:id="_KqnioMQHEeW5yIwM1qJkzg" name="simulationTime" visibility="public">
+        <type xmi:type="uml:PrimitiveType" href="infrastructuretopology.uml#_AM8C4P0pEeOwQsUkAvd0gw"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_UinXoLulEeWOF77yPHPRXw" name="ExperimentScenarioTimeLine">
+      <generalization xmi:id="_aynBwOxHEeW21MdbH3GyzQ">
+        <general xmi:type="uml:Class" href="identifier.uml#_IZ8_YcarEeWjVKFatxSPjg"/>
+      </generalization>
+      <ownedAttribute xmi:id="_xgaHgcQHEeW5yIwM1qJkzg" name="timeLineEvents" visibility="public" type="_UEs3cMQHEeW5yIwM1qJkzg" isOrdered="true" aggregation="composite" association="_xgaHgMQHEeW5yIwM1qJkzg">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xgjRccQHEeW5yIwM1qJkzg" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xgjRcMQHEeW5yIwM1qJkzg"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_0GRKcBhREeaHr44KKF5Qlw" name="simulationResolution" visibility="public">
+        <type xmi:type="uml:PrimitiveType" href="infrastructuretopology.uml#_AM8C4P0pEeOwQsUkAvd0gw"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_DVfUQFlZEeao1Z9oe0AQUQ" name="placementCompatibilityMode" visibility="public" type="_twilEFlYEeao1Z9oe0AQUQ">
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_KywXEFlZEeao1Z9oe0AQUQ" name="SimplePlacement" type="_twilEFlYEeao1Z9oe0AQUQ" instance="_-MfaIFlYEeao1Z9oe0AQUQ"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_DsvKgMQHEeW5yIwM1qJkzg" name="RelativeTimeEvent">
+      <generalization xmi:id="_Wq6EsMQHEeW5yIwM1qJkzg" general="_UEs3cMQHEeW5yIwM1qJkzg"/>
+      <ownedAttribute xmi:id="_O47WIMQHEeW5yIwM1qJkzg" name="intervalSinceEvent" visibility="public">
+        <type xmi:type="uml:PrimitiveType" href="infrastructuretopology.uml#_AM8C4P0pEeOwQsUkAvd0gw"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_huMUUMZqEeW1MoVGVxYznQ" name="referenceEvent" visibility="public" type="_UEs3cMQHEeW5yIwM1qJkzg" association="_huLGMMZqEeW1MoVGVxYznQ">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_huM7YcZqEeW1MoVGVxYznQ" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_huM7YMZqEeW1MoVGVxYznQ" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_UEs3cMQHEeW5yIwM1qJkzg" name="TimeLineEvent" isAbstract="true">
+      <generalization xmi:id="_XPRd4OxHEeW21MdbH3GyzQ">
+        <general xmi:type="uml:Class" href="identifier.uml#_IZ8_YcarEeWjVKFatxSPjg"/>
+      </generalization>
+      <ownedAttribute xmi:id="_mnRP4LulEeWOF77yPHPRXw" name="experimentScenarioRequest" visibility="public" type="_dcbQ8LulEeWOF77yPHPRXw" aggregation="composite" association="_mnQBwLulEeWOF77yPHPRXw">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mnR28bulEeWOF77yPHPRXw" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mnR28LulEeWOF77yPHPRXw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_j32HgMWxEeW1MoVGVxYznQ" name="eventStatus" visibility="public" type="__pi3YMWyEeW1MoVGVxYznQ">
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_W5G40MW0EeW1MoVGVxYznQ" name="Ready" type="__pi3YMWyEeW1MoVGVxYznQ" instance="_OTuM0MWzEeW1MoVGVxYznQ"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_xgjRcsQHEeW5yIwM1qJkzg" name="experimentScenarioTimeline" visibility="public" type="_UinXoLulEeWOF77yPHPRXw" association="_xgaHgMQHEeW5yIwM1qJkzg">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xgjRdMQHEeW5yIwM1qJkzg" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xgjRc8QHEeW5yIwM1qJkzg" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_huOJgMZqEeW1MoVGVxYznQ" name="relativeTimeEvents" visibility="public" type="_DsvKgMQHEeW5yIwM1qJkzg" association="_huLGMMZqEeW1MoVGVxYznQ">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_huOwkcZqEeW1MoVGVxYznQ" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_huOwkMZqEeW1MoVGVxYznQ"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_8B9lQMQIEeW5yIwM1qJkzg" name="request">
+      <packagedElement xmi:type="uml:Class" xmi:id="_T2YR0bunEeWOF77yPHPRXw" name="ReconfigureOptimizationAlgorithmRequest">
+        <generalization xmi:id="_ODdUILurEeWOF77yPHPRXw" general="_dcbQ8LulEeWOF77yPHPRXw"/>
+        <ownedAttribute xmi:id="_85_xcLutEeWOF77yPHPRXw" name="algorithmName" visibility="public">
+          <type xmi:type="uml:PrimitiveType" href="Ecore.uml#_SeWkisX_EduPJbEsMYXjUQ"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_GnqwoLuuEeWOF77yPHPRXw" name="algorithmParameters" visibility="public" aggregation="composite" association="_GnpigLuuEeWOF77yPHPRXw">
+          <type xmi:type="uml:Class" href="infrastructuretopology.uml#_2OiAIPk7EeSNJKFYmIG6jw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_GnrXsbuuEeWOF77yPHPRXw" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_GnrXsLuuEeWOF77yPHPRXw"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_Ss6IULunEeWOF77yPHPRXw" name="MigrateApplicationRequest">
+        <generalization xmi:id="_wm7ksLuqEeWOF77yPHPRXw" general="_dcbQ8LulEeWOF77yPHPRXw"/>
+        <ownedAttribute xmi:id="_O07xgMQIEeW5yIwM1qJkzg" name="targetPhysicalNode" visibility="public">
+          <type xmi:type="uml:Class" href="infrastructuretopology.uml#_WwwVMOyuEeOrOLoJQ_bk1g"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_OSg1kMQ3EeW5yIwM1qJkzg" name="applicationInstanceSelector" visibility="public" type="_uMAQIMQKEeW5yIwM1qJkzg" aggregation="composite" association="_OSfncMQ3EeW5yIwM1qJkzg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_OSg1ksQ3EeW5yIwM1qJkzg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_OSg1kcQ3EeW5yIwM1qJkzg" value="1"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_Xgw44bunEeWOF77yPHPRXw" name="StartApplicationRequest">
+        <ownedRule xmi:id="_2Bn8QMXxEeW1MoVGVxYznQ" name="applicationInstanceMustBeOfTheRightTemplate" constrainedElement="_Xgw44bunEeWOF77yPHPRXw">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="_2Bn8QcXxEeW1MoVGVxYznQ">
+            <language>OCL</language>
+            <body>self.applicationInstance.oclIsUndefined() or self.applicationTemplate = self.applicationInstance.applicationTemplate</body>
+          </specification>
+        </ownedRule>
+        <generalization xmi:id="_Qs3b0LuqEeWOF77yPHPRXw" general="_dcbQ8LulEeWOF77yPHPRXw"/>
+        <ownedAttribute xmi:id="_TOeicArGEeadcLaGO_reFw" name="applicationTemplate" visibility="public">
+          <type xmi:type="uml:Class" href="virtualmachinemodel.uml#_7_CikKSXEeWjxKuOvjj6vQ"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_mN9PMMXxEeW1MoVGVxYznQ" name="applicationInstance" visibility="public" association="_mN8BEMXxEeW1MoVGVxYznQ">
+          <type xmi:type="uml:Class" href="virtualmachinemodel.uml#_ahZRAKTtEeWjxKuOvjj6vQ"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mN92QcXxEeW1MoVGVxYznQ" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mN92QMXxEeW1MoVGVxYznQ"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_oFy7oOnBEeWyXexMyHpECQ" name="vmFlavour" visibility="public">
+          <type xmi:type="uml:Class" href="virtualmachinemodel.uml#_l9AkIM_sEeW6MJ9rKOdEvA"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_xQnGEFQUEeaCrurJ8x6vIg" name="inputParameters" visibility="public" aggregation="composite" association="_xQfxUFQUEeaCrurJ8x6vIg">
+          <type xmi:type="uml:Class" href="infrastructuretopology.uml#_2OiAIPk7EeSNJKFYmIG6jw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xQqwcVQUEeaCrurJ8x6vIg" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xQqwcFQUEeaCrurJ8x6vIg"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_Xgw44LunEeWOF77yPHPRXw" name="TerminateApplicationRequest">
+        <generalization xmi:id="_RbCJYLuqEeWOF77yPHPRXw" general="_dcbQ8LulEeWOF77yPHPRXw"/>
+        <ownedAttribute xmi:id="_XA5jMMRREeW5yIwM1qJkzg" name="runningApplicationSelector" visibility="public" type="_uMAQIMQKEeW5yIwM1qJkzg" aggregation="composite" association="_XA4VEMRREeW5yIwM1qJkzg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XA6KQcRREeW5yIwM1qJkzg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XA6KQMRREeW5yIwM1qJkzg" value="1"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_sIB30LunEeWOF77yPHPRXw" name="SuspendApplicationRequest">
+        <generalization xmi:id="_fZMGULuqEeWOF77yPHPRXw" general="_dcbQ8LulEeWOF77yPHPRXw"/>
+        <ownedAttribute xmi:id="_pIWosMQNEeW5yIwM1qJkzg" name="runningApplicationSelector" visibility="public" type="_uMAQIMQKEeW5yIwM1qJkzg" aggregation="composite" association="_pIVakMQNEeW5yIwM1qJkzg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_pIWossQNEeW5yIwM1qJkzg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_pIWoscQNEeW5yIwM1qJkzg" value="1"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_T2YR0LunEeWOF77yPHPRXw" name="ChangeOptimizationIntervalRequest">
+        <generalization xmi:id="_O49YwLurEeWOF77yPHPRXw" general="_dcbQ8LulEeWOF77yPHPRXw"/>
+        <ownedAttribute xmi:id="_PlHMwLuuEeWOF77yPHPRXw" name="optimizationInterval" visibility="public">
+          <type xmi:type="uml:PrimitiveType" href="infrastructuretopology.uml#_AM8C4P0pEeOwQsUkAvd0gw"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_Wlaq8bunEeWOF77yPHPRXw" name="ReconfigureScalableImageConnectorRequest">
+        <generalization xmi:id="_LdhzsLurEeWOF77yPHPRXw" general="_dcbQ8LulEeWOF77yPHPRXw"/>
+        <ownedAttribute xmi:id="_6dtvMMRTEeW5yIwM1qJkzg" name="whiteBoxApplicationInstanceSelector" visibility="public" type="_mUkToMQnEeW5yIwM1qJkzg" aggregation="composite" association="_6dshEMRTEeW5yIwM1qJkzg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6duWQcRTEeW5yIwM1qJkzg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6duWQMRTEeW5yIwM1qJkzg" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_kEX-EMWlEeW1MoVGVxYznQ" name="loadBalancingPolicy" visibility="public">
+          <type xmi:type="uml:Enumeration" href="virtualmachinemodel.uml#_ius4YKTnEeWjxKuOvjj6vQ"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_ztirUMWlEeW1MoVGVxYznQ" name="autoscalingAnalysisInterval" visibility="public">
+          <type xmi:type="uml:PrimitiveType" href="infrastructuretopology.uml#_AM8C4P0pEeOwQsUkAvd0gw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_UEu-oMWyEeW1MoVGVxYznQ" name="targetConnector" visibility="public">
+          <type xmi:type="uml:Class" href="virtualmachinemodel.uml#_dB-mIKTnEeWjxKuOvjj6vQ"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_Wlaq8LunEeWOF77yPHPRXw" name="SetPhysicalNodeStateRequest">
+        <generalization xmi:id="_D229QLurEeWOF77yPHPRXw" general="_dcbQ8LulEeWOF77yPHPRXw"/>
+        <ownedAttribute xmi:id="_0VXWkLuwEeWOF77yPHPRXw" name="targetNode" visibility="public">
+          <type xmi:type="uml:Class" href="infrastructuretopology.uml#_gVQqENBOEeO4muSpLo4P7Q"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_uTDIAMXmEeW1MoVGVxYznQ" name="targetState" visibility="public">
+          <type xmi:type="uml:Enumeration" href="infrastructuretopology.uml#_2G-0AOzBEeSj6YflWRJe4Q"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_dcbQ8LulEeWOF77yPHPRXw" name="ExperimentScenarioRequest" isAbstract="true">
+        <generalization xmi:id="_Pjon4OxHEeW21MdbH3GyzQ">
+          <general xmi:type="uml:Class" href="identifier.uml#_IZ8_YcarEeWjVKFatxSPjg"/>
+        </generalization>
+        <ownedAttribute xmi:id="_mnSeALulEeWOF77yPHPRXw" name="timelineEvent" visibility="public" type="_UEs3cMQHEeW5yIwM1qJkzg" association="_mnQBwLulEeWOF77yPHPRXw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mnTsILulEeWOF77yPHPRXw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mnTFELulEeWOF77yPHPRXw" value="1"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_pIVakMQNEeW5yIwM1qJkzg" memberEnd="_pIWosMQNEeW5yIwM1qJkzg _pIXPwMQNEeW5yIwM1qJkzg">
+        <ownedEnd xmi:id="_pIXPwMQNEeW5yIwM1qJkzg" name="" visibility="private" type="_sIB30LunEeWOF77yPHPRXw" association="_pIVakMQNEeW5yIwM1qJkzg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_pIX20cQNEeW5yIwM1qJkzg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_pIX20MQNEeW5yIwM1qJkzg" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_1K1jIMQNEeW5yIwM1qJkzg" name="ResumeApplicationRequest">
+        <generalization xmi:id="_1K1jIcQNEeW5yIwM1qJkzg" general="_dcbQ8LulEeWOF77yPHPRXw"/>
+        <generalization xmi:id="_07tskMQOEeW5yIwM1qJkzg" general="_dcbQ8LulEeWOF77yPHPRXw"/>
+        <ownedAttribute xmi:id="_EX8KAMQPEeW5yIwM1qJkzg" name="previouslySuspendedApplicationSelector" visibility="public" type="_RvaW4MQOEeW5yIwM1qJkzg" aggregation="composite" association="_EX674MQPEeW5yIwM1qJkzg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EX8KAsQPEeW5yIwM1qJkzg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_EX8KAcQPEeW5yIwM1qJkzg" value="1"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_EX674MQPEeW5yIwM1qJkzg" memberEnd="_EX8KAMQPEeW5yIwM1qJkzg _EX8xEMQPEeW5yIwM1qJkzg">
+        <ownedEnd xmi:id="_EX8xEMQPEeW5yIwM1qJkzg" name="" visibility="private" type="_1K1jIMQNEeW5yIwM1qJkzg" association="_EX674MQPEeW5yIwM1qJkzg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EX9YIcQPEeW5yIwM1qJkzg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_EX9YIMQPEeW5yIwM1qJkzg" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_OSfncMQ3EeW5yIwM1qJkzg" memberEnd="_OSg1kMQ3EeW5yIwM1qJkzg _OShcoMQ3EeW5yIwM1qJkzg">
+        <ownedEnd xmi:id="_OShcoMQ3EeW5yIwM1qJkzg" name="" visibility="private" type="_Ss6IULunEeWOF77yPHPRXw" association="_OSfncMQ3EeW5yIwM1qJkzg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_OSiDscQ3EeW5yIwM1qJkzg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_OSiDsMQ3EeW5yIwM1qJkzg" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_XA4VEMRREeW5yIwM1qJkzg" memberEnd="_XA5jMMRREeW5yIwM1qJkzg _XA6xUMRREeW5yIwM1qJkzg">
+        <ownedEnd xmi:id="_XA6xUMRREeW5yIwM1qJkzg" name="" visibility="private" type="_Xgw44LunEeWOF77yPHPRXw" association="_XA4VEMRREeW5yIwM1qJkzg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XA7YYMRREeW5yIwM1qJkzg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XA6xUcRREeW5yIwM1qJkzg" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_6dshEMRTEeW5yIwM1qJkzg" memberEnd="_6dtvMMRTEeW5yIwM1qJkzg _6du9UMRTEeW5yIwM1qJkzg">
+        <ownedEnd xmi:id="_6du9UMRTEeW5yIwM1qJkzg" name="" visibility="private" type="_Wlaq8bunEeWOF77yPHPRXw" association="_6dshEMRTEeW5yIwM1qJkzg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6dvkYMRTEeW5yIwM1qJkzg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6du9UcRTEeW5yIwM1qJkzg" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_GnpigLuuEeWOF77yPHPRXw" memberEnd="_GnqwoLuuEeWOF77yPHPRXw _Gnr-wLuuEeWOF77yPHPRXw">
+        <ownedEnd xmi:id="_Gnr-wLuuEeWOF77yPHPRXw" name="" visibility="private" type="_T2YR0bunEeWOF77yPHPRXw" association="_GnpigLuuEeWOF77yPHPRXw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Gnsl0buuEeWOF77yPHPRXw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Gnsl0LuuEeWOF77yPHPRXw" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_mN8BEMXxEeW1MoVGVxYznQ" memberEnd="_mN9PMMXxEeW1MoVGVxYznQ _mN-dUMXxEeW1MoVGVxYznQ">
+        <ownedEnd xmi:id="_mN-dUMXxEeW1MoVGVxYznQ" name="" visibility="private" type="_Xgw44bunEeWOF77yPHPRXw" association="_mN8BEMXxEeW1MoVGVxYznQ">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mN_EYcXxEeW1MoVGVxYznQ" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mN_EYMXxEeW1MoVGVxYznQ"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_xQfxUFQUEeaCrurJ8x6vIg" memberEnd="_xQnGEFQUEeaCrurJ8x6vIg _xQsloFQUEeaCrurJ8x6vIg">
+        <ownedEnd xmi:id="_xQsloFQUEeaCrurJ8x6vIg" name="" visibility="private" type="_Xgw44bunEeWOF77yPHPRXw" association="_xQfxUFQUEeaCrurJ8x6vIg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xQtMsVQUEeaCrurJ8x6vIg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xQtMsFQUEeaCrurJ8x6vIg" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_R7_k4MQPEeW5yIwM1qJkzg" name="selector">
+      <packagedElement xmi:type="uml:Class" xmi:id="_woQQIMQKEeW5yIwM1qJkzg" name="InitiallyRunningInstanceSelector" isAbstract="true">
+        <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_7XzJ8MQ0EeW5yIwM1qJkzg" name="" parameter="_JJuowMQ1EeW5yIwM1qJkzg">
+          <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_JJuowMQ1EeW5yIwM1qJkzg" parameteredElement="_JJvP0MQ1EeW5yIwM1qJkzg">
+            <ownedParameteredElement xmi:type="uml:Class" xmi:id="_JJvP0MQ1EeW5yIwM1qJkzg" name="instanceTypeParameter" templateParameter="_JJuowMQ1EeW5yIwM1qJkzg"/>
+          </ownedParameter>
+        </ownedTemplateSignature>
+        <generalization xmi:id="_ChRgIMQLEeW5yIwM1qJkzg" general="_uMAQIMQKEeW5yIwM1qJkzg"/>
+        <ownedAttribute xmi:id="_ohcroMQLEeW5yIwM1qJkzg" name="applicationInstance" visibility="public" type="_JJvP0MQ1EeW5yIwM1qJkzg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_JWxYUcQLEeW5yIwM1qJkzg" name="PreviouslyStartedApplicationSelector" isAbstract="true">
+        <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_Su3PoMQ4EeW5yIwM1qJkzg" name="redefinableSignature" parameter="_Su3PocQ4EeW5yIwM1qJkzg">
+          <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_Su3PocQ4EeW5yIwM1qJkzg" parameteredElement="_Su32sMQ4EeW5yIwM1qJkzg">
+            <ownedParameteredElement xmi:type="uml:Class" xmi:id="_Su32sMQ4EeW5yIwM1qJkzg" name="instanceTypeParameter" templateParameter="_Su3PocQ4EeW5yIwM1qJkzg"/>
+          </ownedParameter>
+        </ownedTemplateSignature>
+        <generalization xmi:id="_YJPuIMQLEeW5yIwM1qJkzg" general="_uMAQIMQKEeW5yIwM1qJkzg"/>
+        <ownedAttribute xmi:id="_OkSwoMQMEeW5yIwM1qJkzg" name="startApplicationRequest" visibility="public" type="_Xgw44bunEeWOF77yPHPRXw"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_RvaW4MQOEeW5yIwM1qJkzg" name="PreviouslySuspendedApplicationSelector">
+        <ownedAttribute xmi:id="_r3rgQMQOEeW5yIwM1qJkzg" name="suspendRequest" visibility="public" type="_sIB30LunEeWOF77yPHPRXw"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_uMAQIMQKEeW5yIwM1qJkzg" name="ApplicationInstanceSelector" isAbstract="true">
+        <generalization xmi:id="_JBuaEOxHEeW21MdbH3GyzQ">
+          <general xmi:type="uml:Class" href="identifier.uml#_IZ8_YcarEeWjVKFatxSPjg"/>
+        </generalization>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_cFDysMQnEeW5yIwM1qJkzg" name="SuspendedInstanceSelector"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_fsS_IMQnEeW5yIwM1qJkzg" name="BlackBoxApplicationInstanceSelector" isAbstract="true">
+        <generalization xmi:id="_lRAnEMQ2EeW5yIwM1qJkzg" general="_ic2dYMQ2EeW5yIwM1qJkzg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_iUmeIMQnEeW5yIwM1qJkzg" name="GreyBoxApplicationInstanceSelector" isAbstract="true">
+        <generalization xmi:id="_luYfkMQ2EeW5yIwM1qJkzg" general="_ic2dYMQ2EeW5yIwM1qJkzg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_mUkToMQnEeW5yIwM1qJkzg" name="WhiteBoxApplicationInstanceSelector" isAbstract="true">
+        <generalization xmi:id="_UpJ6wOxIEeW21MdbH3GyzQ" general="_uMAQIMQKEeW5yIwM1qJkzg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_axxS8MQ0EeW5yIwM1qJkzg" name="InitiallyRunningWhiteBoxApplicationInstanceSelector">
+        <generalization xmi:id="_rRsXIMQ2EeW5yIwM1qJkzg" general="_mUkToMQnEeW5yIwM1qJkzg"/>
+        <generalization xmi:id="_IoOfYMRPEeW5yIwM1qJkzg" general="_72MXUMROEeW5yIwM1qJkzg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_1EXnkMQ1EeW5yIwM1qJkzg" name="InitiallyRunningGreyBoxApplicationInstanceSelector">
+        <generalization xmi:id="_Jnr6oMQ2EeW5yIwM1qJkzg" general="_UdBDcMRMEeW5yIwM1qJkzg"/>
+        <generalization xmi:id="_qg7okMQ2EeW5yIwM1qJkzg" general="_iUmeIMQnEeW5yIwM1qJkzg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_CWMC8MQ2EeW5yIwM1qJkzg" name="InitiallyRunningBlackBoxApplicationInstanceSelector">
+        <generalization xmi:id="_oZvSkMQ2EeW5yIwM1qJkzg" general="_fsS_IMQnEeW5yIwM1qJkzg"/>
+        <generalization xmi:id="_ID64cMRPEeW5yIwM1qJkzg" general="_ukP1kMRNEeW5yIwM1qJkzg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_ic2dYMQ2EeW5yIwM1qJkzg" name="NonWhiteBoxApplicationInstanceSelector" isAbstract="true">
+        <generalization xmi:id="_hrrF4MXoEeW1MoVGVxYznQ" general="_uMAQIMQKEeW5yIwM1qJkzg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_634zcMQ3EeW5yIwM1qJkzg" name="PreviouslyStartedWhiteBoxApplicationInstanceSelector">
+        <generalization xmi:id="_TWTGQMQ8EeW5yIwM1qJkzg" general="_mUkToMQnEeW5yIwM1qJkzg"/>
+        <generalization xmi:id="_aXad8MRPEeW5yIwM1qJkzg" general="_PzpkQMRPEeW5yIwM1qJkzg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_UdBDcMRMEeW5yIwM1qJkzg" name="InitiallyRunningInstanceSelector_GreyBoxApplicationInstance">
+        <templateBinding xmi:id="_g4K8kMRMEeW5yIwM1qJkzg" signature="_7XzJ8MQ0EeW5yIwM1qJkzg">
+          <parameterSubstitution xmi:id="_n0jf4MRMEeW5yIwM1qJkzg" formal="_JJuowMQ1EeW5yIwM1qJkzg">
+            <actual xmi:type="uml:Class" href="virtualmachinemodel.uml#_gpWmIKWPEeWjxKuOvjj6vQ"/>
+          </parameterSubstitution>
+        </templateBinding>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_ukP1kMRNEeW5yIwM1qJkzg" name="InitiallyRunningInstanceSelector_BlackBoxApplication">
+        <templateBinding xmi:id="_prQ38MROEeW5yIwM1qJkzg" signature="_7XzJ8MQ0EeW5yIwM1qJkzg">
+          <parameterSubstitution xmi:id="_uEx14MROEeW5yIwM1qJkzg" formal="_JJuowMQ1EeW5yIwM1qJkzg">
+            <actual xmi:type="uml:Class" href="virtualmachinemodel.uml#_iCb48KWPEeWjxKuOvjj6vQ"/>
+          </parameterSubstitution>
+        </templateBinding>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_72MXUMROEeW5yIwM1qJkzg" name="InitiallyRunningInstanceSelector_WhiteBoxApplication">
+        <templateBinding xmi:id="_BR8OUMRPEeW5yIwM1qJkzg" signature="_7XzJ8MQ0EeW5yIwM1qJkzg">
+          <parameterSubstitution xmi:id="_EOVuAMRPEeW5yIwM1qJkzg" formal="_JJuowMQ1EeW5yIwM1qJkzg">
+            <actual xmi:type="uml:Class" href="virtualmachinemodel.uml#_fWwV0KWPEeWjxKuOvjj6vQ"/>
+          </parameterSubstitution>
+        </templateBinding>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_PzpkQMRPEeW5yIwM1qJkzg" name="PreviouslyStartedApplicationSelector_WhiteBoxApplication">
+        <templateBinding xmi:id="_VpgkYMRPEeW5yIwM1qJkzg" signature="_Su3PoMQ4EeW5yIwM1qJkzg">
+          <parameterSubstitution xmi:id="_waUHwMXsEeW1MoVGVxYznQ" formal="_Su3PocQ4EeW5yIwM1qJkzg">
+            <actual xmi:type="uml:Class" href="virtualmachinemodel.uml#_fWwV0KWPEeWjxKuOvjj6vQ"/>
+          </parameterSubstitution>
+        </templateBinding>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_geZDQMRPEeW5yIwM1qJkzg" name="PreviouslyStartedApplicationSelector_BlackBoxApplication">
+        <templateBinding xmi:id="_m7cmQMRPEeW5yIwM1qJkzg" signature="_Su3PoMQ4EeW5yIwM1qJkzg">
+          <parameterSubstitution xmi:id="_Y_ip8MXtEeW1MoVGVxYznQ" formal="_Su3PocQ4EeW5yIwM1qJkzg">
+            <actual xmi:type="uml:Class" href="virtualmachinemodel.uml#_iCb48KWPEeWjxKuOvjj6vQ"/>
+          </parameterSubstitution>
+        </templateBinding>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_pWUGMMRPEeW5yIwM1qJkzg" name="PreviouslyStartedBlackBoxApplicationSelector">
+        <generalization xmi:id="_tHIFYMRPEeW5yIwM1qJkzg" general="_geZDQMRPEeW5yIwM1qJkzg"/>
+        <generalization xmi:id="_u9OrYMRPEeW5yIwM1qJkzg" general="_fsS_IMQnEeW5yIwM1qJkzg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_UmTqwMXrEeW1MoVGVxYznQ" name="PreviouslyStartedApplicationSelector_GreyBoxApplication">
+        <templateBinding xmi:id="_s8hyQMXsEeW1MoVGVxYznQ" signature="_Su3PoMQ4EeW5yIwM1qJkzg">
+          <parameterSubstitution xmi:id="_yIUhsMXsEeW1MoVGVxYznQ" formal="_Su3PocQ4EeW5yIwM1qJkzg">
+            <actual xmi:type="uml:Class" href="virtualmachinemodel.uml#_gpWmIKWPEeWjxKuOvjj6vQ"/>
+          </parameterSubstitution>
+        </templateBinding>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_jE4NIMXrEeW1MoVGVxYznQ" name="PreviouslyStartedGreyBoxApplicationSelector">
+        <generalization xmi:id="_nCTsAMXrEeW1MoVGVxYznQ" general="_UmTqwMXrEeW1MoVGVxYznQ"/>
+        <generalization xmi:id="_o8KwoMXrEeW1MoVGVxYznQ" general="_iUmeIMQnEeW5yIwM1qJkzg"/>
+        <generalization xmi:id="_7YVxAMXrEeW1MoVGVxYznQ" general="_iUmeIMQnEeW5yIwM1qJkzg"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_mnQBwLulEeWOF77yPHPRXw" memberEnd="_mnRP4LulEeWOF77yPHPRXw _mnSeALulEeWOF77yPHPRXw"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_xgaHgMQHEeW5yIwM1qJkzg" memberEnd="_xgaHgcQHEeW5yIwM1qJkzg _xgjRcsQHEeW5yIwM1qJkzg"/>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="__pi3YMWyEeW1MoVGVxYznQ" name="EventStatus">
+      <ownedLiteral xmi:id="_DiVG0MWzEeW1MoVGVxYznQ" name="PROCESSED_SUCCESS" classifier="__pi3YMWyEeW1MoVGVxYznQ"/>
+      <ownedLiteral xmi:id="_L18i0MWzEeW1MoVGVxYznQ" name="PROCESSED_FAILURE" classifier="__pi3YMWyEeW1MoVGVxYznQ"/>
+      <ownedLiteral xmi:id="_OTuM0MWzEeW1MoVGVxYznQ" name="PENDING" classifier="__pi3YMWyEeW1MoVGVxYznQ"/>
+      <ownedLiteral xmi:id="_m-XzIM_vEeW5o8oBnt5A1Q" name="SCHEDULED" classifier="__pi3YMWyEeW1MoVGVxYznQ"/>
+      <ownedLiteral xmi:id="_YHqJ8PglEeW_UtDv6Td2Sg" name="IN_EXECUTION" classifier="__pi3YMWyEeW1MoVGVxYznQ"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_huLGMMZqEeW1MoVGVxYznQ" name="" memberEnd="_huMUUMZqEeW1MoVGVxYznQ _huOJgMZqEeW1MoVGVxYznQ"/>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_twilEFlYEeao1Z9oe0AQUQ" name="EPlacementCompatibilityMode">
+      <ownedLiteral xmi:id="_xzNJQFlYEeao1Z9oe0AQUQ" name="RepetitiveRetry" classifier="_twilEFlYEeao1Z9oe0AQUQ"/>
+      <ownedLiteral xmi:id="_-MfaIFlYEeao1Z9oe0AQUQ" name="SimplePlacement" classifier="_twilEFlYEeao1Z9oe0AQUQ"/>
+    </packagedElement>
+    <profileApplication xmi:id="__CabBLujEeWOF77yPHPRXw">
+      <eAnnotations xmi:id="__CabBbujEeWOF77yPHPRXw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+    <profileApplication xmi:id="__CabBrujEeWOF77yPHPRXw">
+      <eAnnotations xmi:id="__CabB7ujEeWOF77yPHPRXw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="Default.profile.uml#_fNwoAAqoEd6-N_NOT9vsCA"/>
+      </eAnnotations>
+      <appliedProfile href="Default.profile.uml#_a_S3wNWLEdiy4IqP8whjFA"/>
+    </profileApplication>
+    <profileApplication xmi:id="__CabCLujEeWOF77yPHPRXw">
+      <eAnnotations xmi:id="__CabCbujEeWOF77yPHPRXw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="Deployment.profile.uml#_IrdAUMmBEdqBcN1R6EvWUw"/>
+      </eAnnotations>
+      <appliedProfile href="Deployment.profile.uml#_vjbuwOvHEdiDX5bji0iVSA"/>
+    </profileApplication>
+    <profileApplication xmi:id="_v2754LukEeWOF77yPHPRXw">
+      <eAnnotations xmi:id="_v29vELukEeWOF77yPHPRXw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Ecore.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Package>
+  <Ecore:EPackage xmi:id="_wyduALukEeWOF77yPHPRXw" base_Package="__CabALujEeWOF77yPHPRXw" packageName="experimentscenario" nsPrefix="experimentscenario" nsURI="http://www.cactosfp7.eu/ExperimentScenarioModel/1.0" basePackage="eu.cactosfp7.cactosim" prefix="Experimentscenario"/>
+  <Ecore:EPackage xmi:id="_v79nUMQJEeW5yIwM1qJkzg" base_Package="_8B9lQMQIEeW5yIwM1qJkzg" packageName="request" nsPrefix="request" nsURI="http://www.cactosfp7.eu/ExperimentScenarioModel/Request/1.0" basePackage="" prefix="Request"/>
+  <Ecore:EPackage xmi:id="_dUfHIMQPEeW5yIwM1qJkzg" base_Package="_R7_k4MQPEeW5yIwM1qJkzg" packageName="selector" nsPrefix="selector" nsURI="http://www.cactosfp7.eu/ExperimentScenarioModel/Selector/1.0" prefix="Selector"/>
+  <Ecore:ETypeParameter xmi:id="_4Kl4AMQ9EeW5yIwM1qJkzg" base_TemplateParameter="_JJuowMQ1EeW5yIwM1qJkzg">
+    <bounds xmi:type="uml:Class" href="virtualmachinemodel.uml#_ahZRAKTtEeWjxKuOvjj6vQ"/>
+  </Ecore:ETypeParameter>
+  <Ecore:ETypeParameter xmi:id="_kjPBcMQ-EeW5yIwM1qJkzg" base_TemplateParameter="_Su3PocQ4EeW5yIwM1qJkzg">
+    <bounds xmi:type="uml:Class" href="virtualmachinemodel.uml#_ahZRAKTtEeWjxKuOvjj6vQ"/>
+  </Ecore:ETypeParameter>
+  <Ecore:EGenericType xmi:id="_wT_KUMRMEeW5yIwM1qJkzg" base_Class="_UdBDcMRMEeW5yIwM1qJkzg"/>
+  <Ecore:EGenericType xmi:id="_ynuSEMRNEeW5yIwM1qJkzg" base_Class="_ukP1kMRNEeW5yIwM1qJkzg"/>
+  <Ecore:EGenericType xmi:id="__q0fgMROEeW5yIwM1qJkzg" base_Class="_72MXUMROEeW5yIwM1qJkzg"/>
+  <Ecore:EGenericType xmi:id="_WoyQEMRPEeW5yIwM1qJkzg" base_Class="_PzpkQMRPEeW5yIwM1qJkzg"/>
+  <Ecore:EGenericType xmi:id="_k4ZJYMRPEeW5yIwM1qJkzg" base_Class="_geZDQMRPEeW5yIwM1qJkzg"/>
+  <Ecore:EGenericType xmi:id="_qdYPQMXsEeW1MoVGVxYznQ" base_Class="_UmTqwMXrEeW1MoVGVxYznQ"/>
+</xmi:XMI>

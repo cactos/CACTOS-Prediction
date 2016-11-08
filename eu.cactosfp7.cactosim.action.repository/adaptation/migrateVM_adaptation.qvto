@@ -1,0 +1,118 @@
+import transforms.pcmHelperCore;
+import transforms.localstorage;
+import transforms.cactosAdaptationBehaviorHelper;
+import simulizar_qvto_helper.logHelper;
+import eu.cactosfp7.cactosim.action.repository.black.CactosActionBlackboxUnit;
+
+modeltype CACT_LAPP uses 'http://www.cactosfp7.eu/LogicalDCModel/Application/1.0';
+modeltype CACT_LCORE uses 'http://www.cactosfp7.eu/LogicalDCModel/Core/1.0';
+modeltype CACT_PCORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype CACT_PCORR uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype CACT_LCORR uses 'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype PCM_COMP uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.1';
+modeltype PCM_ALLOC uses 'http://palladiosimulator.org/PalladioComponentModel/Allocation/5.1';
+modeltype PCM_STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+modeltype PCM_PARAM uses 'http://palladiosimulator.org/PalladioComponentModel/Parameter/5.1';
+modeltype PCM_REP uses 'http://palladiosimulator.org/PalladioComponentModel/Repository/5.1';
+modeltype PCM_SEFF uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/5.1';
+modeltype PCM_SYS uses 'http://palladiosimulator.org/PalladioComponentModel/System/5.1';
+modeltype PCM_RES_ENV uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1';
+modeltype PCM_RES_TYPE uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.1';
+modeltype PCM_CORE uses 'http://palladiosimulator.org/PalladioComponentModel/Core/5.1';
+modeltype ACTION_MAPPING uses 'http://simulizar.palladiosimulator.org/Actions/Mapping/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_PARAM uses 'http://simulizar.palladiosimulator.org/Actions/Parameter/1.1';
+modeltype ACTION_CONTEXT uses 'http://simulizar.palladiosimulator.org/Actions/Context/1.1';
+modeltype ECORE uses 'http://www.eclipse.org/emf/2002/Ecore';
+modeltype STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+
+transformation vmMigration(	inout logicalCorrespondence: CACT_LCORR,
+							inout physicalCorrespondence : CACT_PCORR,  
+							inout actionCore : ACTION_CORE,
+							inout repository : PCM_REP,
+							inout system : PCM_SYS,
+							inout allocation : PCM_ALLOC,
+							inout logicaldc : CACT_LCORE,
+							in actionRoleSet : ACTION_INSTANCE,
+							in actionContext : ACTION_CONTEXT,
+							in resourcetypepcm : PCM_RES_TYPE) {
+	/**
+	 * The main transformation.
+	 * This is the entry point to the overall transformation.
+	 */
+	main() {	
+		var physicalCorrespondenceRepository : PhysicalCorrespondenceRepository = physicalCorrespondence.rootObjects()[PhysicalCorrespondenceRepository]->any(true);
+		var logicalCorrespondenceRepository : LogicalCorrespondenceRepository = logicalCorrespondence.rootObjects()[LogicalCorrespondenceRepository]->any(true);
+		
+		actionRoleSet.rootObjects()[RoleSet]->map enactVmMigration(physicalCorrespondenceRepository, logicalCorrespondenceRepository);
+	}
+	
+		
+	mapping RoleSet::enactVmMigration(inout physicalCorrespondenceRepository : PhysicalCorrespondenceRepository, 
+			inout logicalCorrespondenceRepository : LogicalCorrespondenceRepository) {
+		var targetNodeCorrespondence := self.roles->select(r | r.roleType.id = MVI_TARGET_NODE_CORRESPONDENCE_TYPE_ID)
+			->collect(r | r.value)[AbstractNodeCorrespondence]->any(true);
+		var targetNode: AbstractNode = targetNodeCorrespondence.cactos;
+		
+		var virtualMachine  := self.roles->any(roleType.id = MVI_MIGRATED_VM_TYPE_ID).value.oclAsType(VirtualMachine);
+								
+		var oldStorageLocationCorr := physicalCorrespondenceRepository.storageSpecificationCorrespondences->any(s | s.cactos.id = virtualMachine.vMImageInstance.rootDisk.storageLocation.id);
+		var targetHypervisorCorr := logicalCorrespondenceRepository.hypervisorCorrespondences->any(h | h.cactos.node.id = targetNode.id);
+		var sourceHypervisorCorr := logicalCorrespondenceRepository.hypervisorCorrespondences->any(h | virtualMachine.hypervisor.id = h.cactos.id);
+		
+		var vmCorrespondences := logicalCorrespondence.rootObjects()[LogicalCorrespondenceRepository].virtualMachineCorrespondences
+			->select(cactos.id = virtualMachine.id);
+		// Update the storage access of the VM
+		vmCorrespondences.palladio.assemblyContext_AllocationContext.encapsulatedComponent__AssemblyContext.oclAsType(BasicComponent)
+			.serviceEffectSpecifications__BasicComponent.allSubobjectsOfType(InternalAction)[InternalAction]
+				.infrastructureCall__Action.inputVariableUsages__CallAction.variableCharacterisation_VariableUsage
+					->select(type = VariableCharacterisationType::VALUE)
+						.map setNewLocalHypervisor(targetHypervisorCorr, physicalCorrespondenceRepository);
+		
+		// Adapt the old hypervisors' storage access if necessary
+		sourceHypervisorCorr.map updateOldStorage(logicalCorrespondenceRepository, physicalCorrespondenceRepository, oldStorageLocationCorr);
+		// Adapt the new hypervisors' storage access
+		// Default: Use local storage on local node.
+		var newStorageLocationCorr : StorageSpecificationCorrespondence := physicalCorrespondenceRepository.storageSpecificationCorrespondences->any(s | s.cactos.id = targetHypervisorCorr.cactos.rootVolume.storageLocation.id);
+		// Case 1: Move from diskless to disk node -> change to local storage access -> no need to change storage component
+		// Case 2: Move from disk with local access to diskless -> no need to change storage component: Rootdisk access already mapped in initial transformation
+		// Case 3: Move from disk to disk node while using remote storage
+		if(newStorageLocationCorr.cactos.node.id = targetHypervisorCorr.cactos.node.id 
+			and sourceHypervisorCorr.cactos.node.storageSpecifications->exists(s | s.id = sourceHypervisorCorr.cactos.rootVolume.storageLocation.id) 
+			and oldStorageLocationCorr.cactos.node.id <> sourceHypervisorCorr.cactos.node.id) {
+				newStorageLocationCorr := oldStorageLocationCorr;
+		};
+		targetHypervisorCorr.map updateNewStorage(logicalCorrespondenceRepository, physicalCorrespondenceRepository, newStorageLocationCorr);	
+			
+		// Migrate
+		targetHypervisorCorr.cactos.virtualMachines += virtualMachine;
+		vmCorrespondences->collect(corr | corr.palladio.resourceContainer_AllocationContext := targetNodeCorrespondence.palladio);
+		
+		logicaldc.rootObjects()[LogicalDCModel].applicationInstances[WhiteBoxApplicationInstance].composedVMs
+			->select(cvm | cvm.virtualMachine.id = virtualMachine.id)
+			->forEach(whiteBoxVM) {
+				whiteBoxVM.composedVMImage.applicationTemplate.vmImageConnectors[ScalableVMImageConnector]
+					->select(whiteBoxVM.composedVMImage.requiredRoles->includes(serviceRequiredRole))
+					->forEach(scalableConn) {
+						var connCorr := logicalCorrespondenceRepository.scalableConnectorCorrespondences
+							->any(cactosConnector = scalableConn and cactosApplicationInstance = whiteBoxVM.applicationInstance);
+						system.rootObjects()[System].connectors__ComposedStructure[AssemblyConnector]
+							->select(vmCorrespondences.palladio.assemblyContext_AllocationContext->includes(requiringAssemblyContext_AssemblyConnector)
+									and providingAssemblyContext_AssemblyConnector.encapsulatedComponent__AssemblyContext = connCorr.palladio).providingAssemblyContext_AssemblyConnector
+							->collect(ctx | allocation.rootObjects()[Allocation].allocationContexts_Allocation
+								->select(assemblyContext_AllocationContext = ctx)
+								->collect(allocCtx | allocCtx.resourceContainer_AllocationContext := targetNodeCorrespondence.palladio));
+					};	
+			};
+		
+		// Change connector to new storage
+		vmCorrespondences->collect(corr | corr.palladioStorageConnector.providingAssemblyContext__AssemblyInfrastructureConnector := targetHypervisorCorr.palladio.assemblyContext_AllocationContext);
+		vmCorrespondences->collect(corr | corr.palladioStorageConnector.providedRole__AssemblyInfrastructureConnector 
+			:= targetHypervisorCorr.palladio.assemblyContext_AllocationContext.encapsulatedComponent__AssemblyContext.providedRoles_InterfaceProvidingEntity[InfrastructureProvidedRole]->any(true));
+		
+		logInfo("Migrated VM: " + virtualMachine.name + "from node: " + sourceHypervisorCorr.cactos.node.name + " to node: " + targetNode.name);
+		virtualMachine.state := VM_State::RUNNING;
+		virtualMachine.removeStereotypeApplications(OPTIMISATION_IN_PROGRESS_STEREOTYPE_NAME);
+	}
+} 

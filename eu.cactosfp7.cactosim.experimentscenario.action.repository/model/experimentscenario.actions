@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.palladiosimulator.action:AdaptationBehaviorRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.palladiosimulator.action="http://simulizar.palladiosimulator.org/Actions/Core/1.1" id="_IR2rAO0FEeWwk45MX11cig">
+  <actions id="_8ZcdIO0FEeWwk45MX11cig" entityName="StartApplicationRequest">
+    <adaptationActions xsi:type="org.palladiosimulator.action:EnactAdaptationAction" id="_nxg6Ye0GEeWwk45MX11cig" entityName="ExecuteStartApplicationRequest" adaptationStepURI="platform:/plugin/eu.cactosfp7.cactosim.experimentscenario.action.repository/adaptation/startApplicationRequest.qvto"/>
+    <involvedRoles id="_RswpxO0GEeWwk45MX11cig" entityName="StartApplicationRequest">
+      <type href="platform:/plugin/eu.cactosfp7.cactosim.experimentscenario/model/experimentscenario.ecore#//request/StartApplicationRequest"/>
+    </involvedRoles>
+  </actions>
+  <actions id="_FR32YO0GEeWwk45MX11cig" entityName="TerminateApplicationRequest">
+    <adaptationActions xsi:type="org.palladiosimulator.action:EnactAdaptationAction" id="_wkfy8e0GEeWwk45MX11cig" entityName="ExecuteTerminateApplicationRequest" adaptationStepURI="platform:/plugin/eu.cactosfp7.cactosim.experimentscenario.action.repository/adaptation/terminateApplicationRequest.qvto"/>
+    <involvedRoles id="_VirydO0GEeWwk45MX11cig" entityName="TerminateApplicationRequest">
+      <type href="platform:/plugin/eu.cactosfp7.cactosim.experimentscenario/model/experimentscenario.ecore#//request/TerminateApplicationRequest"/>
+    </involvedRoles>
+  </actions>
+  <actions id="_ZX13YO0MEeWwk45MX11cig" entityName="SetPhysicalNodeStateRequest">
+    <adaptationActions xsi:type="org.palladiosimulator.action:EnactAdaptationAction" id="_g8Cooe0MEeWwk45MX11cig" entityName="ExecuteSetPhysicalNodeStateChangeRequest" adaptationStepURI="platform:/plugin/eu.cactosfp7.cactosim.experimentscenario.action.repository/adaptation/setPhysicalNodeStateRequest.qvto"/>
+    <involvedRoles id="_b_vGtO0MEeWwk45MX11cig" entityName="SetPhysicalNodeStateRequest">
+      <type href="platform:/plugin/eu.cactosfp7.cactosim.experimentscenario/model/experimentscenario.ecore#//request/SetPhysicalNodeStateRequest"/>
+    </involvedRoles>
+  </actions>
+  <actions id="_m1nEEO0MEeWwk45MX11cig" entityName="MigrateApplicationRequest">
+    <adaptationActions xsi:type="org.palladiosimulator.action:EnactAdaptationAction" id="_rhouUe0MEeWwk45MX11cig" entityName="ExecuteMigrateApplicationRequest" adaptationStepURI="platform:/plugin/eu.cactosfp7.cactosim.experimentscenario.action.repository/adaptation/migrateApplicationRequest.qvto"/>
+    <involvedRoles id="_pRuhNO0MEeWwk45MX11cig" entityName="MigrateApplicationRequest">
+      <type href="platform:/plugin/eu.cactosfp7.cactosim.experimentscenario/model/experimentscenario.ecore#//request/MigrateApplicationRequest"/>
+    </involvedRoles>
+  </actions>
+  <includedRepositories href="platform:/plugin/eu.cactosfp7.cactosim.action.repository/model/cactos_repository.actions#_Z0H-oMp5EeW4EYpxKkq5Gw"/>
+</org.palladiosimulator.action:AdaptationBehaviorRepository>

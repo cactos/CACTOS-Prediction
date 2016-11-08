@@ -1,0 +1,39 @@
+import simulizar_qvto_helper.logHelper;
+import transforms.cactosAdaptationBehaviorHelper;
+import eu.cactosfp7.cactosim.action.repository.black.CactosActionBlackboxUnit;
+
+
+modeltype CACT_PCORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype CACT_PCORR uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype PCM_ALLOC uses 'http://palladiosimulator.org/PalladioComponentModel/Allocation/5.1';
+modeltype PCM_RES_ENV uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1';
+modeltype PCM_COMP uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.1';
+modeltype PCM_ENTITY uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Entity/5.1';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype XMLTYPE uses 'http://www.eclipse.org/emf/2003/XMLType';
+
+transformation nodeStateChangePrecondition(
+							inout cPCorrespondence : CACT_PCORR,
+							in actionRoleSet : ACTION_INSTANCE,
+							inout actionStep : ACTION_CORE
+							) {
+
+	property OPTIMISATION_IN_PROGRESS_STEREOTYPE_NAME = "CactosEntityInOptimisation";
+
+	/**
+	 * The main transformation.
+	 * This is the entry point to the overall transformation.
+	 */
+	main() {
+		var targetNode := actionRoleSet.rootObjects()[RoleSet].roles
+			->any(role | role.roleType.id = SPNS_TARGET_NODE_ROLE_TYPE_ID).value.oclAsType(AbstractNode);
+		assert fatal(targetNode.isSuitableForStateChange());
+		
+		targetNode.applyStereotype(OPTIMISATION_IN_PROGRESS_STEREOTYPE_NAME);		
+	}
+	
+	query AbstractNode::isSuitableForStateChange(): Boolean {
+		return not self.hasAppliedStereotype(OPTIMISATION_IN_PROGRESS_STEREOTYPE_NAME);
+	}
+}

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="eu.cactosfp7.cactosim.ui.wizards.category"
+            name="CactoSim">     
+      </category>
+      <wizard
+            category="eu.cactosfp7.cactosim.ui.wizards.category"
+            class="eu.cactosfp7.cactosim.ui.wizards.NewCactoSimProjectWizard"
+            descriptionImage="icons/cactosim_128.bmp"
+            finalPerspective="eu.cactosfp7.cactosim.ui.perspective"
+            icon="icons/cactosim_16_alt.bmp"
+            id="eu.cactosfp7.cactosim.ui.wizards.NewProject"
+            name="Create Blank CactoSim Project "
+            preferredPerspectives="eu.cactosfp7.cactosim.ui.perspective"
+            project="true">
+      </wizard>
+      <wizard
+            category="eu.cactosfp7.cactosim.ui.wizards.category"
+            class="eu.cactosfp7.cactosim.ui.wizards.cdo.CDOtoEMFWizard"
+            descriptionImage="icons/cactosim_128.bmp"
+            finalPerspective="eu.cactosfp7.cactosim.ui.perspective"
+            hasPages="true"
+            icon="icons/cactosim_16_alt.bmp"
+            id="eu.cactosfp7.cactosim.ui.wizards.CDOtoEMFWizard"
+            name="Runtime to Prediction Model Storage"
+            project="false">
+      </wizard>
+      <wizard
+            category="eu.cactosfp7.cactosim.ui.wizards.category"
+            class="eu.cactosfp7.cactosim.ui.wizards.cdo.CDOtoWorkspaceWizard"
+            descriptionImage="icons/cactosim_128.bmp"
+            finalPerspective="eu.cactosfp7.cactosim.ui.perspective"
+            hasPages="true"
+            icon="icons/cactosim_16_alt.bmp"
+            id="eu.cactosfp7.cactosim.ui.wizards.cdo.CDOtoWorkspaceWizard"
+            name="Runtime Model Storage to Workspace"
+            project="true">
+      </wizard>      
+   </extension>
+   <extension
+         point="org.eclipse.ui.importWizards">
+      <wizard
+            category="eu.cactosfp7.cactosim.ui.wizards.category"
+            class="eu.cactosfp7.cactosim.ui.wizards.cdo.CDOtoWorkspaceWizard"
+            descriptionImage="icons/cactos_32x32.png"
+            finalPerspective="eu.cactosfp7.cactosim.ui.perspective"
+            hasPages="true"
+            icon="icons/cactosim_16_alt.bmp"
+            id="eu.cactosfp7.cactosim.ui.wizards.cdo.CDOtoWorkspaceWizard"
+            name="Runtime Model Storage to Workspace"
+            project="true">
+      </wizard>
+      <wizard
+            category="eu.cactosfp7.cactosim.ui.wizards.category"
+            class="eu.cactosfp7.cactosim.ui.wizards.cdo.CDOtoEMFWizard"
+            descriptionImage="icons/cactos_32x32.png"
+            finalPerspective="eu.cactosfp7.cactosim.ui.perspective"
+            hasPages="true"
+            icon="icons/cactosim_16_alt.bmp"
+            id="eu.cactosfp7.cactosim.ui.wizards.CDOtoEMFWizard"
+            name="Runtime to Prediction Model Storage"
+            project="false">
+      </wizard>
+      <category
+            id="eu.cactosfp7.cactosim.ui.wizards.category"
+            name="Cactosim">
+      </category>
+   </extension>
+   <extension
+         id="id2"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="eu.cactosfp7.cactosim.ui.wizards.nature.CactosimNature">
+         </run>
+      </runtime>
+   </extension>
+   
+
+</plugin>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="true"
+            locationURI="popup:eu.cactosfp7.infrastructuremodels.physicaldc.core.presentation.CoreEditorID?after=additions">
+         <command
+               commandId="eu.cactosfp7.cactosim.cactoscale2edp2.ui.NodeMetrics"
+               label="Extract Node Metrics"
+               style="push">
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="eu.cactosfp7.cactosim.cactoscale2edp2.ui.Metrics"
+            name="Metrics">
+      </category>
+      <command
+            categoryId="eu.cactosfp7.cactosim.cactoscale2edp2.ui.Metrics"
+            defaultHandler="eu.cactosfp7.cactosim.cactoscale2edp2.ui.NodeMetricsHandler"
+            id="eu.cactosfp7.cactosim.cactoscale2edp2.ui.NodeMetrics"
+            name="Import Metrics from CactoScale to EDP2">
+      </command>
+   </extension>
+
+</plugin>

@@ -1,0 +1,229 @@
+import m2m.qvt.oml.JScience;
+import transforms.cactosAdaptationBehaviorHelper;
+import transforms.cactos2PCMRepository;
+import transforms.cactos2PCMSystem;
+import transforms.cactos2PCMAllocation;
+import simulizar_qvto_helper.logHelper;
+import cactosActionLibrary.loadBalancerHandling;
+
+
+modeltype CACT_LCORE uses 'http://www.cactosfp7.eu/LogicalDCModel/Core/1.0';
+modeltype CACT_LAPP uses 'http://www.cactosfp7.eu/LogicalDCModel/Application/1.0';
+modeltype CACT_PCORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype CACT_PUTIL uses 'http://www.cactosfp7.eu/PhysicalDCModel/Util/1.0';
+modeltype CACT_PCORR uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype CACT_LCORR uses 'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype CACT_LLOAD uses "http://www.cactosfp7.eu/CactosLoadModel/Logical/1.0";
+modeltype PCM_COMP uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.1';
+modeltype PCM_ALLOC uses 'http://palladiosimulator.org/PalladioComponentModel/Allocation/5.1';
+modeltype PCM_STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+modeltype PCM_PARAM uses 'http://palladiosimulator.org/PalladioComponentModel/Parameter/5.1';
+modeltype PCM_REP uses 'http://palladiosimulator.org/PalladioComponentModel/Repository/5.1';
+modeltype PCM_SEFF uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/5.1';
+modeltype PCM_SYS uses 'http://palladiosimulator.org/PalladioComponentModel/System/5.1';
+modeltype PCM_RES_ENV uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1';
+modeltype PCM_RES_TYPE uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.1';
+modeltype PCM_CORE uses 'http://palladiosimulator.org/PalladioComponentModel/Core/5.1';
+modeltype PCM_USAGE uses 'http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.1';
+modeltype ACTION_MAPPING uses 'http://simulizar.palladiosimulator.org/Actions/Mapping/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_PARAM uses 'http://simulizar.palladiosimulator.org/Actions/Parameter/1.1';
+modeltype ECORE uses 'http://www.eclipse.org/emf/2002/Ecore';
+modeltype STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+modeltype PLM uses 'http://www.cactosfp7.eu/CactosLoadModel/Physical/1.0';
+modeltype LLM uses 'http://www.cactosfp7.eu/CactosLoadModel/Logical/1.0';
+modeltype OPTIMISATION_PLAN uses 'http://www.cactosfp7.eu/OptimisationPlan/1.0';
+modeltype RUNTIMEMEASUREMENT uses 'http://simulizar.palladiosimulator.org/RuntimeMeasurement/1.0';
+modeltype MONITOR_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/Measurement/1.1';
+modeltype USAGEEVOLUTION uses "http://usageevolution/1.0";
+modeltype USAGESEQUENCE uses "http://www.cactosfp7.eu/CactoSim/UsageSequence/1.1";
+modeltype MONITORREPOSITORY uses "http://palladiosimulator.org/MonitorRepository/1.0";
+modeltype MEASURINGPOINT uses "http://palladiosimulator.org/EDP2/MeasuringPoint/1.0";
+modeltype PCMMEASURINGPOINT uses "http://palladiosimulator.org/PCM/MeasuringPoint/1.0";
+modeltype METRICSPEC uses "http://palladiosimulator.org/MetricSpec/1.0";
+
+transformation connectVMs(	in metricspec : METRICSPEC,
+							in logicaldc: CACT_LCORE,
+							in physicaldc: CACT_PCORE,
+							in runtimeMeasurement : RUNTIMEMEASUREMENT, 
+							in actionStep : ACTION_CORE,
+							in resourcetypepcm : PCM_RES_TYPE,
+							in primitiveresourcetyperepo : PCM_REP,
+							inout measurementCorrespondence : MONITOR_CORRESPONDENCE,
+							inout actionRoleSet : ACTION_INSTANCE,	
+							inout logicalCorrespondence: CACT_LCORR,
+							inout physicalCorrespondence : CACT_PCORR,
+							inout logicalload : CACT_LLOAD,
+							inout monitorrepository: MONITORREPOSITORY,
+							inout pcmrepository : PCM_REP,
+							inout pcmsystem : PCM_SYS,
+							inout pcmallocation : PCM_ALLOC,
+							inout pcmusage : PCM_USAGE,
+							inout usagesequence: USAGESEQUENCE,
+							out measuringpoint: PCMMEASURINGPOINT) {
+											
+	property logicalCorrRepo: LogicalCorrespondenceRepository;											
+	property physicalCorrRepo: PhysicalCorrespondenceRepository;
+	property logicalDCModel: LogicalDCModel;
+	property physicalDCModel: PhysicalDCModel;
+	
+	property palladioSystem: System;
+	property palladioRepository: Repository;
+	property palladioAllocation: Allocation;
+	
+	main() {
+		var physicalCorrespondenceRepository : PhysicalCorrespondenceRepository = physicalCorrespondence.rootObjects()[PhysicalCorrespondenceRepository]->any(true);
+		var logicalCorrespondenceRepository : LogicalCorrespondenceRepository = logicalCorrespondence.rootObjects()[LogicalCorrespondenceRepository]->any(true);
+		
+		var measuringPointRepo := object MeasuringPointRepository @ measuringpoint {};
+		var monitorRepository := monitorrepository.rootObjects()[MonitorRepository]->any(true);
+		
+		assert error (physicalCorrespondenceRepository != null) with log('Physical correspondence model must contain one Physical Correspondence Repository');
+		assert error (logicalCorrespondenceRepository != null) with log('Logical correspondence model must contain one Logical Correspondence Repository');
+		
+		var allocContext := logicalCorrespondenceRepository.virtualMachineCorrespondences.palladio->any(true);
+		palladioAllocation := allocContext.allocation_AllocationContext;
+		palladioSystem := palladioAllocation.system_Allocation;
+		palladioRepository := palladioSystem.assemblyContexts__ComposedStructure.encapsulatedComponent__AssemblyContext.repository__RepositoryComponent->any(true);
+		
+		
+		logicalDCModel := logicaldc.rootObjects()[LogicalDCModel]->any(true);
+		physicalDCModel := physicaldc.rootObjects()[PhysicalDCModel]->any(true);
+		logicalCorrRepo := logicalCorrespondence.rootObjects()[LogicalCorrespondenceRepository]->any(true);
+		physicalCorrRepo := physicalCorrespondence.rootObjects()[PhysicalCorrespondenceRepository]->any(true);
+				
+		
+		var roleSet := actionRoleSet.rootObjects()[RoleSet]->any(true);
+		var connectActions := roleSet.roles->any(roleType.id=CVM_CONNECT_VM_ACTIONS_ROLE_TYPE_ID).value.oclAsType(ParallelSteps);
+		connectActions.optimisationSteps[ConnectVmAction]->asSet()->map establishVMConnections();
+	} 
+	
+	
+	/**
+	* Cactos-specific placement of virtual machines
+	*/
+	
+	mapping Set(ConnectVmAction)::establishVMConnections() {
+		var applications := logicalDCModel.applicationInstances[WhiteBoxApplicationInstance]
+			->select(composedVMs
+				->exists(self.target.id->includes(virtualMachine.id)));
+		applications->forEach(application) {
+			var connectors : Set(VMImageConnector);
+			
+			self->forEach(cvma) {
+				var providedCorr := logicalCorrRepo.providedServiceCorrespondences->select(psc |
+					psc.cactosVM = cvma.target and
+					logicalCorrRepo.requiredServiceCorrespondences
+						->select(cactosVM.id = cvma.source.id).cactosRole.serviceInterface
+							->exists(id = psc.cactosRole.serviceInterface.id))->asSet();
+				var requiredCorr := logicalCorrRepo.requiredServiceCorrespondences->select(rsc |
+					rsc.cactosVM = cvma.source and
+					providedCorr.cactosRole.serviceInterface.id->includes(rsc.cactosRole.serviceInterface.id));
+					
+				connectors += application.applicationTemplate.oclAsType(WhiteBoxApplicationTemplate).vmImageConnectors
+					->select(providedCorr.cactosRole.id->includes(serviceProvidedRole.id) 
+						and requiredCorr.cactosRole.id->includes(serviceRequiredRole.id));
+				 
+			};
+			connectors->forEach(conn) {
+				var actions := self->select(action|
+					logicalCorrRepo.providedServiceCorrespondences->exists(corr |
+						corr.cactosRole = conn.serviceProvidedRole and
+						corr.cactosVM = action.target)
+					and logicalCorrRepo.requiredServiceCorrespondences->exists(corr |
+						corr.cactosRole = conn.serviceRequiredRole and
+						corr.cactosVM = action.source));
+				conn.establishVMConnectionsFor(application, actions);
+			};
+			connectors.createLoadMeasurementAndCorrespondencesFor(application);
+		};
+	}	
+	
+	helper VMImageConnector::establishVMConnectionsFor(instance: WhiteBoxApplicationInstance, connectActions: Set(ConnectVmAction)) {
+		connectActions->map establishAssemblyConnection(self);
+	}
+	
+	mapping ConnectVmAction::establishAssemblyConnection(connector: VMImageConnector) {
+		var providedCorrespondences := logicalCorrRepo.providedServiceCorrespondences
+			->select(cactosVM = self.target and cactosRole = connector.serviceProvidedRole);
+		assert fatal(providedCorrespondences->size() = 1) with log("Non-scalable connector only supports one service providing VM", null, LOG_LEVEL_ERROR);
+		var provCorr := providedCorrespondences->any(true);
+		var requiringCorrespondences := logicalCorrRepo.requiredServiceCorrespondences
+			->select(cactosVM = self.source and cactosRole = connector.serviceRequiredRole);
+		
+		palladioSystem.connectors__ComposedStructure += requiringCorrespondences->collect(reqCorr | 
+			object AssemblyConnector {
+				requiringAssemblyContext_AssemblyConnector := logicalCorrRepo.virtualMachineCorrespondences
+					->any(cactos = self.source 
+						and palladio.assemblyContext_AllocationContext.encapsulatedComponent__AssemblyContext.requiredRoles_InterfaceRequiringEntity->includes(reqCorr.palladioRole))
+					.palladio.assemblyContext_AllocationContext;
+				requiredRole_AssemblyConnector := reqCorr.palladioRole;
+				providingAssemblyContext_AssemblyConnector := logicalCorrRepo.virtualMachineCorrespondences
+					->any(cactos = self.target 
+						and palladio.assemblyContext_AllocationContext.encapsulatedComponent__AssemblyContext.providedRoles_InterfaceProvidingEntity->includes(provCorr.palladioRole))
+					.palladio.assemblyContext_AllocationContext;
+				providedRole_AssemblyConnector := provCorr.palladioRole;
+				entityName := "Service Connection: " + requiringAssemblyContext_AssemblyConnector.entityName + " --> " + providingAssemblyContext_AssemblyConnector.entityName;
+				logInfo("Create new Connection: " + entityName);
+			});
+	}
+	
+	helper ScalableVMImageConnector::establishVMConnectionsFor(instance: WhiteBoxApplicationInstance, connectActions: Set(ConnectVmAction)) {
+		var connectorCorrespondence := logicalCorrRepo.scalableConnectorCorrespondences
+			->any(cactosConnector = self and cactosApplicationInstance = instance);
+		if (connectorCorrespondence <> null) {
+			connectorCorrespondence.map establishVMConnectionsFor(connectActions);
+		} else {
+			self.setUpAssemblyConnections(instance, palladioSystem);
+			palladioAllocation.allocationContexts_Allocation += connectorCorrespondence.map toAllocationContextOfLoadBalancerComponent()
+		}
+	}
+	
+	mapping ScalableVMImageConnectorCorrespondence::establishVMConnectionsFor(connectActions: Set(ConnectVmAction)) {
+		var additionalProvCorrs := logicalCorrRepo.providedServiceCorrespondences
+			->select(psc | psc.cactosRole = self.cactosConnector.serviceProvidedRole and connectActions.target->includes(psc.cactosVM));
+		self.map extendLoadBalancerWithNewProvidedRoles(additionalProvCorrs);
+	}
+	
+	mapping ScalableVMImageConnectorCorrespondence::extendLoadBalancerWithNewProvidedRoles(
+			providedCorrs: Set(ProvidedServiceCorrespondence)): Set(OperationProvidedRole) {
+		var lbAssemblies := palladioSystem.assemblyContexts__ComposedStructure
+			->select(encapsulatedComponent__AssemblyContext = self.palladio);
+		
+		var existingOpProvRoles := palladioSystem.connectors__ComposedStructure[AssemblyConnector]
+			->select(con |
+				lbAssemblies->includes(con.requiringAssemblyContext_AssemblyConnector)
+					and self.palladio.requiredRoles_InterfaceRequiringEntity
+						->includes(con.requiredRole_AssemblyConnector))
+			.providedRole_AssemblyConnector;
+		var newCorrs := providedCorrs->select(not existingOpProvRoles->includes(palladioRole));
+		var amountInstances := self.cactosConnector.getCurrentAmountOfInstances(self.cactosApplicationInstance);
+		var counter := amountInstances - newCorrs->size();
+		var newConnectors : Set (AssemblyConnector);
+		newCorrs->forEach(corr) {
+			counter := counter + 1;
+			var requiredRole: OperationRequiredRole;
+			self.palladio.requiredRoles_InterfaceRequiringEntity += requiredRole := object OperationRequiredRole {
+				entityName := "RequiredRole_" + corr.palladioRole.providedInterface__OperationProvidedRole.entityName + "_" + counter.toString();
+				requiredInterface__OperationRequiredRole := corr.palladioRole.providedInterface__OperationProvidedRole;
+			};
+			newConnectors += lbAssemblies->collect(lbass|
+				object AssemblyConnector {
+					providedRole_AssemblyConnector := corr.palladioRole;
+					providingAssemblyContext_AssemblyConnector := logicalCorrRepo.virtualMachineCorrespondences
+						->any(cactos = corr.cactosVM
+							and palladio.assemblyContext_AllocationContext.encapsulatedComponent__AssemblyContext.providedRoles_InterfaceProvidingEntity->includes(providedRole_AssemblyConnector)
+						).palladio.assemblyContext_AllocationContext;
+					requiringAssemblyContext_AssemblyConnector := lbass;
+					requiredRole_AssemblyConnector := requiredRole;
+					entityName := "Scalable Service Connection: " + requiringAssemblyContext_AssemblyConnector.entityName + " --> " + providingAssemblyContext_AssemblyConnector.entityName;
+					logInfo("Create new Connection: " + entityName); 
+				}
+			)
+		};
+		palladioSystem.connectors__ComposedStructure += newConnectors;
+		self.palladio.serviceEffectSpecifications__BasicComponent[ResourceDemandingSEFF]
+			->map adaptLoadBalancer(newConnectors.requiredRole_AssemblyConnector->asSet(), Set{}, self.cactosConnector);
+	}
+}

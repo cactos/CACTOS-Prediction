@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Default="http:///schemas/Default/_fNm3AAqoEd6-N_NOT9vsCA/2" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/5" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xsi:schemaLocation="http:///schemas/Default/_fNm3AAqoEd6-N_NOT9vsCA/2 Default.profile.uml#_fNwoAAqoEd6-N_NOT9vsCA http://www.eclipse.org/uml2/schemas/Ecore/5 pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA">
+  <uml:Model xmi:id="_IZ8_YMarEeWjVKFatxSPjg" name="identifier">
+    <ownedComment xmi:id="_Ia7PwMarEeWjVKFatxSPjg" annotatedElement="_IZ8_YMarEeWjVKFatxSPjg">
+      <body>&lt;p>&#xD;
+    Provides a package for uniquely identifiable elements&#xD;
+&lt;/p></body>
+    </ownedComment>
+    <packagedElement xmi:type="uml:Class" xmi:id="_IZ8_YcarEeWjVKFatxSPjg" name="Identifier" isAbstract="true">
+      <ownedComment xmi:id="_IdQLAMarEeWjVKFatxSPjg" annotatedElement="_IZ8_YcarEeWjVKFatxSPjg">
+        <body>&lt;p>&#xD;
+    Inherit from this entity to make an element uniquely identifiable.&lt;br />&#xD;
+    Identifiers&amp;nbsp;are&amp;nbsp;not&amp;nbsp;fixed&amp;nbsp;to&amp;nbsp;one&amp;nbsp;realization.&lt;br />&#xD;
+    GUIDs&amp;nbsp;are&amp;nbsp;recommend.&amp;nbsp;GUIDs&amp;nbsp;are&amp;nbsp;described&amp;nbsp;in&amp;nbsp;their&amp;nbsp;own&amp;nbsp;model.&amp;nbsp;See&amp;nbsp;GUIDModel&amp;nbsp;(GUID.emx).&lt;br />&#xD;
+    Identifier&amp;nbsp;implementations&amp;nbsp;can&amp;nbsp;be&amp;nbsp;found&amp;nbsp;in&amp;nbsp;external&amp;nbsp;projects&amp;nbsp;only.&#xD;
+&lt;/p></body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_IZ8_YsarEeWjVKFatxSPjg" name="id" visibility="public">
+        <ownedComment xmi:id="_IdUccMarEeWjVKFatxSPjg" annotatedElement="_IZ8_YsarEeWjVKFatxSPjg">
+          <body>Identifier attribute, in the default PCM implementation, this field is filled with a randomly generated UUID value</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedAttribute>
+      <nestedClassifier xmi:type="uml:PrimitiveType" xmi:id="_IZ8_Y8arEeWjVKFatxSPjg" name="EMap_EJavaObject_EJavaObject">
+        <templateBinding xmi:id="_IZ8_ZMarEeWjVKFatxSPjg">
+          <signature xmi:type="uml:RedefinableTemplateSignature" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap-_ownedTemplateSignature"/>
+          <parameterSubstitution xmi:id="_IZ8_ZcarEeWjVKFatxSPjg">
+            <formal xmi:type="uml:ClassifierTemplateParameter" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap-_ownedTemplateSignature-_ownedParameter.0"/>
+            <actual xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EJavaObject"/>
+          </parameterSubstitution>
+          <parameterSubstitution xmi:id="_IZ8_ZsarEeWjVKFatxSPjg">
+            <formal xmi:type="uml:ClassifierTemplateParameter" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap-_ownedTemplateSignature-_ownedParameter.1"/>
+            <actual xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EJavaObject"/>
+          </parameterSubstitution>
+        </templateBinding>
+      </nestedClassifier>
+      <ownedOperation xmi:id="_IZ8_Z8arEeWjVKFatxSPjg" name="idHasToBeUnique" visibility="public">
+        <ownedComment xmi:id="_IdQyEcarEeWjVKFatxSPjg" annotatedElement="_IZ8_Z8arEeWjVKFatxSPjg">
+          <body>--self.allInstances()->isUnique(p | p.id)&#xD;
+Identifier.allInstances()->isUnique(p: Identifier | p.id)</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_IZ8_aMarEeWjVKFatxSPjg" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_IZ8_acarEeWjVKFatxSPjg"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_IZ8_asarEeWjVKFatxSPjg" name="diagnostics" isOrdered="true">
+          <ownedComment xmi:id="_IdSAMcarEeWjVKFatxSPjg" annotatedElement="_IZ8_asarEeWjVKFatxSPjg">
+            <body>The chain of diagnostics to which problems are to be appended.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDiagnosticChain"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_IZ8_a8arEeWjVKFatxSPjg"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_IZ8_bMarEeWjVKFatxSPjg" name="context" type="_IZ8_Y8arEeWjVKFatxSPjg" isOrdered="true">
+          <ownedComment xmi:id="_IdTOUcarEeWjVKFatxSPjg" annotatedElement="_IZ8_bMarEeWjVKFatxSPjg">
+            <body>The cache of context-specific information.</body>
+          </ownedComment>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_IZ8_bcarEeWjVKFatxSPjg"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <profileApplication xmi:id="_IZ8_bsarEeWjVKFatxSPjg">
+      <eAnnotations xmi:id="_IZ8_b8arEeWjVKFatxSPjg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Ecore.profile.uml#_0"/>
+    </profileApplication>
+    <profileApplication xmi:id="_IaX2IMarEeWjVKFatxSPjg">
+      <eAnnotations xmi:id="_IaX2IcarEeWjVKFatxSPjg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+    <profileApplication xmi:id="_IalRgMarEeWjVKFatxSPjg">
+      <eAnnotations xmi:id="_Ial4kMarEeWjVKFatxSPjg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="Default.profile.uml#_fNwoAAqoEd6-N_NOT9vsCA"/>
+      </eAnnotations>
+      <appliedProfile href="Default.profile.uml#_a_S3wNWLEdiy4IqP8whjFA"/>
+    </profileApplication>
+    <profileApplication xmi:id="_Ia6osMarEeWjVKFatxSPjg">
+      <eAnnotations xmi:id="_Ia6oscarEeWjVKFatxSPjg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="Deployment.profile.uml#_IrdAUMmBEdqBcN1R6EvWUw"/>
+      </eAnnotations>
+      <appliedProfile href="Deployment.profile.uml#_vjbuwOvHEdiDX5bji0iVSA"/>
+    </profileApplication>
+  </uml:Model>
+  <Ecore:EPackage xmi:id="_IZ8_cMarEeWjVKFatxSPjg" base_Package="_IZ8_YMarEeWjVKFatxSPjg" nsPrefix="identifier" nsURI="http://www.cactosfp7.eu/Identifier/1.0"/>
+  <Ecore:EClass xmi:id="_IZ8_ccarEeWjVKFatxSPjg" base_Class="_IZ8_YcarEeWjVKFatxSPjg"/>
+  <Ecore:EAttribute xmi:id="_IZ8_csarEeWjVKFatxSPjg" xmlNamespace="http://sdq.ipd.uka.de/Identifier/1.0" base_Property="_IZ8_YsarEeWjVKFatxSPjg" isID="true"/>
+  <Ecore:EGenericType xmi:id="_IZ8_c8arEeWjVKFatxSPjg" base_DataType="_IZ8_Y8arEeWjVKFatxSPjg"/>
+  <Ecore:EOperation xmi:id="_IZ8_dMarEeWjVKFatxSPjg" base_Operation="_IZ8_Z8arEeWjVKFatxSPjg"/>
+  <Ecore:EParameter xmi:id="_IZ8_dcarEeWjVKFatxSPjg" base_Parameter="_IZ8_asarEeWjVKFatxSPjg"/>
+  <Ecore:EParameter xmi:id="_IZ8_dsarEeWjVKFatxSPjg" base_Parameter="_IZ8_bMarEeWjVKFatxSPjg"/>
+  <Default:Documentation xmi:id="_IdPj8MarEeWjVKFatxSPjg" base_Comment="_Ia7PwMarEeWjVKFatxSPjg"/>
+  <Default:Documentation xmi:id="_IdQyEMarEeWjVKFatxSPjg" base_Comment="_IdQLAMarEeWjVKFatxSPjg"/>
+  <Default:Documentation xmi:id="_IdSAMMarEeWjVKFatxSPjg" base_Comment="_IdQyEcarEeWjVKFatxSPjg"/>
+  <Default:Documentation xmi:id="_IdTOUMarEeWjVKFatxSPjg" base_Comment="_IdSAMcarEeWjVKFatxSPjg"/>
+  <Default:Documentation xmi:id="_IdT1YMarEeWjVKFatxSPjg" base_Comment="_IdTOUcarEeWjVKFatxSPjg"/>
+  <Default:Documentation xmi:id="_IdVDgMarEeWjVKFatxSPjg" base_Comment="_IdUccMarEeWjVKFatxSPjg"/>
+</xmi:XMI>

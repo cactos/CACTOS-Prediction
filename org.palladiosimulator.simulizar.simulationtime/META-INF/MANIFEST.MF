@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.palladiosimulator.simulizar.simulationtime
+Bundle-SymbolicName: org.palladiosimulator.simulizar.simulationtime;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: CACTOS Consortium
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: org.palladiosimulator.simulizar.runtimemeasurement;bundle-version="2.0.0",
+ org.palladiosimulator.simulizar,
+ org.palladiosimulator.edp2.util,
+ org.palladiosimulator.recorderframework,
+ org.palladiosimulator.measurementframework,
+ org.palladiosimulator.probeframework,
+ de.uka.ipd.sdq.simucomframework,
+ de.uka.ipd.sdq.simulation.abstractsimengine
+Export-Package: org.palladiosimulator.simulizar.simulationtime

@@ -1,0 +1,264 @@
+import transforms.pcmHelperCore;
+import transforms.localstorage;
+import transforms.cactosAdaptationBehaviorHelper;
+import simulizar_qvto_helper.logHelper;
+import eu.cactosfp7.cactosim.placementconnector.PlacementConnectorUnit;
+import transforms.updateRuntimeCorrespondence;
+import cactosActionLibrary.loadBalancerHandling;
+
+modeltype CACT_LCORE uses 'http://www.cactosfp7.eu/LogicalDCModel/Core/1.0';
+modeltype CACT_LAPP uses 'http://www.cactosfp7.eu/LogicalDCModel/Application/1.0';
+modeltype CACT_PCORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype CACT_PCORR uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype CACT_LCORR uses 'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype PCM_COMP uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.1';
+modeltype PCM_ALLOC uses 'http://palladiosimulator.org/PalladioComponentModel/Allocation/5.1';
+modeltype PCM_STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+modeltype PCM_PARAM uses 'http://palladiosimulator.org/PalladioComponentModel/Parameter/5.1';
+modeltype PCM_REP uses 'http://palladiosimulator.org/PalladioComponentModel/Repository/5.1';
+modeltype PCM_SEFF uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/5.1';
+modeltype PCM_SYS uses 'http://palladiosimulator.org/PalladioComponentModel/System/5.1';
+modeltype PCM_RES_ENV uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1';
+modeltype PCM_RES_TYPE uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.1';
+modeltype PCM_CORE uses 'http://palladiosimulator.org/PalladioComponentModel/Core/5.1';
+modeltype PCM_CORE_ENTITY uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Entity/5.1';
+modeltype PCM_USAGE uses 'http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.1';
+modeltype ACTION_MAPPING uses 'http://simulizar.palladiosimulator.org/Actions/Mapping/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_PARAM uses 'http://simulizar.palladiosimulator.org/Actions/Parameter/1.1';
+modeltype ECORE uses 'http://www.eclipse.org/emf/2002/Ecore';
+modeltype STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+modeltype PLM uses 'http://www.cactosfp7.eu/CactosLoadModel/Physical/1.0';
+modeltype LLM uses 'http://www.cactosfp7.eu/CactosLoadModel/Logical/1.0';
+modeltype OPTIMISATION_PLAN uses 'http://www.cactosfp7.eu/OptimisationPlan/1.0';
+modeltype RUNTIMEMEASUREMENT uses 'http://simulizar.palladiosimulator.org/RuntimeMeasurement/1.0';
+modeltype MONITOR_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/Measurement/1.1';
+modeltype USAGEEVOLUTION uses "http://usageevolution/1.0";
+modeltype USAGESEQUENCE uses "http://www.cactosfp7.eu/CactoSim/UsageSequence/1.1";
+modeltype MONITORREPOSITORY uses "http://palladiosimulator.org/MonitorRepository/1.0";
+modeltype MEASURINGPOINT uses "http://palladiosimulator.org/EDP2/MeasuringPoint/1.0";
+modeltype PCMMEASURINGPOINT uses "http://palladiosimulator.org/PCM/MeasuringPoint/1.0";
+modeltype MONITOR_REPOSITORY uses "http://palladiosimulator.org/MonitorRepository/1.0";
+
+transformation stopVMAdaption(inout logicalCorrespondence: CACT_LCORR,
+									inout physicalCorrespondence : CACT_PCORR, 
+									inout logicaldc: CACT_LCORE,
+									in actionRoleSet : ACTION_INSTANCE,
+									inout repositories: PCM_REP,
+									inout systems: PCM_SYS,
+									inout allocations: PCM_ALLOC,
+									inout usagemodels: PCM_USAGE,
+									inout usageevolutions: USAGEEVOLUTION,
+									inout usagesequences: USAGESEQUENCE,
+									inout monitorrepository: MONITORREPOSITORY,
+									inout logicalload : LLM,
+									inout measurementcorrespondence : MONITOR_CORRESPONDENCE) {
+									
+											
+	main() {
+		var physicalCorrespondenceRepository : PhysicalCorrespondenceRepository = physicalCorrespondence.rootObjects()[PhysicalCorrespondenceRepository]->any(true);
+		var logicalCorrespondenceRepository : LogicalCorrespondenceRepository = logicalCorrespondence.rootObjects()[LogicalCorrespondenceRepository]->any(true);
+		
+		assert error (physicalCorrespondenceRepository != null) with log('Physical correspondence model must contain one Physical Correspondence Repository');
+		assert error (logicalCorrespondenceRepository != null) with log('Logical correspondence model must contain one Logical Correspondence Repository');
+		
+		var roleSet := actionRoleSet.rootObjects()[RoleSet]->any(true);
+		var stoppedVm := roleSet.roles->any(roleType.id=TVM_STOPPED_VM_ROLE_TYPE_ID).value.oclAsType(VirtualMachine);
+		
+		var composedVM := logicaldc.rootObjects()[LogicalDCModel].applicationInstances[WhiteBoxApplicationInstance].composedVMs
+			->any(virtualMachine.id = stoppedVm.id);
+		composedVM.map deleteAndClean(logicalCorrespondenceRepository, physicalCorrespondenceRepository);
+	}
+	
+	
+	mapping ComposedVM::deleteAndClean(inout logiCorr: LogicalCorrespondenceRepository, inout physiCorr: PhysicalCorrespondenceRepository) {
+	
+		logInfo("Removing Virtual Machine: " + self.virtualMachine.name + " (VM_#" + self.virtualMachine.id.toString() + ")");
+		self.map cleanUpLoadBalancers(logiCorr);
+		self.virtualMachine.map deleteAndCleanVirtualMachine(logiCorr, physiCorr);
+		logicaldc.removeElement(self);
+	}
+	
+	mapping inout VirtualMachine::deleteAndCleanVirtualMachine(inout logiCorr: LogicalCorrespondenceRepository, inout physiCorr: PhysicalCorrespondenceRepository) {
+		logDebug("VirtualMachine::deleteAndCleanVirtualMachine");
+		self.map cleanUpPalladioVMModels(logiCorr);
+		
+		logicalCorrespondence.rootObjects()[LogicalCorrespondenceRepository].providedServiceCorrespondences
+			->select(cactosVM = self)
+			->forEach(psc) {
+				logiCorr.arrivalRateMeasurementCorrespondences.serviceInstanceMeasurementCorrespondences
+					->select(cactosServiceCorrespondence = psc)
+					->forEach(simc) {
+						simc.serviceOperationInstanceCorrespondence
+							->forEach(soic) {
+								var measurementSpecs := measurementcorrespondence.rootObjects()[MonitorCorrespondenceRepository]
+									.monitoredCactosEntityToMonitorCorrespondences->select(cactos = soic);
+								measurementSpecs.palladio.monitor->asSet()->forEach(monitor) {
+									monitorrepository.removeElement(monitor);
+								};								
+								measurementSpecs->forEach(spec) {
+									logDebug("MeasurementCorrespondence removed");
+									measurementcorrespondence.removeElement(spec);
+								};
+								logDebug("ServiceOperationInstance " + soic.cactosServiceOperation.name + " removed");
+								logicalCorrespondence.removeElement(soic);
+							};
+						logDebug("ServiceMeasurementInstance " + simc.cactosServiceCorrespondence.cactosRole.serviceInterface.name + " removed");
+						logicalCorrespondence.removeElement(simc);
+					};
+				logDebug("Removed Provided Service Correspondence for IFace: " + psc.cactosRole.serviceInterface.name + " of VM: " + psc.cactosVM.name);
+				logicalCorrespondence.removeElement(psc);
+			};
+		logicalCorrespondence.rootObjects()[LogicalCorrespondenceRepository].requiredServiceCorrespondences
+			->select(cactosVM = self)
+			->forEach(vm) {
+				logDebug("Removed Required Service Correspondence IFace: " + vm.cactosRole.serviceInterface.name + " of VM: " + vm.cactosVM.name);
+				logicalCorrespondence.removeElement(vm);
+			};
+		
+		var vmCorrs := logiCorr.virtualMachineCorrespondences->select(cactos.id = self.id);
+		var vmImageInstCorrs := logiCorr.vmImageInstanceCorrespondences->select(cactos.id = self.vMImageInstance.id);
+		
+		
+		var oldHypervisorCorr := logiCorr.hypervisorCorrespondences->any(cactos.virtualMachines->exists(id = self.id));
+		var oldStorageLocationCorr := physiCorr.storageSpecificationCorrespondences->any(cactos.id = self.vMImageInstance.rootDisk.storageLocation.id);
+		
+		var rootDisk :VirtualDisk = self.vMImageInstance.rootDisk;
+		
+		logicaldc.removeElement(self);
+		
+		rootDisk.map cleanUpVirtualStorage();
+		
+		// Adapt the old hypervisors' storage access if necessary
+		oldHypervisorCorr.map updateOldStorage(logiCorr, physiCorr, oldStorageLocationCorr);
+		
+		vmCorrs->forEach(vmc) {logicalCorrespondence.removeElement(vmc)};
+		vmImageInstCorrs->forEach(vmic) {logicalCorrespondence.removeElement(vmic)};
+	}
+	
+	
+	mapping VirtualMachine::cleanUpPalladioVMModels( inout logiCorr: LogicalCorrespondenceRepository) {
+		logDebug("VirtualMachine::cleanUpPalladioModels");
+		var vmCorr := logiCorr.virtualMachineCorrespondences->any(cactos.id = self.id);
+		
+		logDebug("Remove Storage Connector: " + vmCorr.palladioStorageConnector.toString());
+		systems.removeElement(vmCorr.palladioStorageConnector);
+		
+		var assemblyContext: AssemblyContext := vmCorr.palladio.assemblyContext_AllocationContext;
+		var repoComponent: BasicComponent := assemblyContext.encapsulatedComponent__AssemblyContext.oclAsType(BasicComponent);
+		
+		logDebug("Remove Allocation Context: " + vmCorr.palladio.toString());
+		allocations.removeElement(vmCorr.palladio);
+		
+		logDebug("Remove Assembly Context: " + assemblyContext.toString());
+		systems.removeElement(assemblyContext);
+		logDebug("Remove Component: " + repoComponent.toString());
+		repositories.removeElement(repoComponent);
+	} 
+	
+	mapping ComposedVM::cleanUpLoadBalancers(inout logiCorr: LogicalCorrespondenceRepository) {
+		var applicationTemplate := self.applicationInstance.applicationTemplate.oclAsType(WhiteBoxApplicationTemplate);
+		var relevantConnectors := applicationTemplate.vmImageConnectors
+			->select(serviceProvidedRole.interfaceProvidingEntity = self.composedVMImage
+					or serviceRequiredRole.interfaceRequiringEntity = self.composedVMImage);
+		relevantConnectors->map cleanUpVMConnectors(self, logiCorr);
+	}
+	
+	mapping VMImageConnector::cleanUpVMConnectors(in vm: ComposedVM, inout logiCorr: LogicalCorrespondenceRepository) {
+		logInfo("Processing VM Connector: " + self.serviceRequiredRole.interfaceRequiringEntity.name + " --> " + self.serviceProvidedRole.interfaceProvidingEntity.name + ")");
+		var provRoles := logiCorr.providedServiceCorrespondences
+			->select(cactosRole.id = self.serviceProvidedRole.id and vm.virtualMachine = cactosVM).palladioRole;
+		var reqRoles := logiCorr.requiredServiceCorrespondences
+			->select(cactosRole.id = self.serviceRequiredRole.id and vm.virtualMachine = cactosVM).palladioRole;
+		systems.rootObjects()[System].connectors__ComposedStructure[AssemblyConnector]
+			->select(provRoles->includes(providedRole_AssemblyConnector)
+					or reqRoles->includes(requiredRole_AssemblyConnector))
+			->forEach(connector) {
+				logInfo("Removing VM Connector: " + connector.entityName);
+				systems.removeElement(connector);
+			};
+		self.map adaptLoadBalancerComponent(vm, logiCorr);	
+	}
+	
+	mapping VMImageConnector::adaptLoadBalancerComponent(in vm: ComposedVM, inout logiCorr: LogicalCorrespondenceRepository) {
+		// No action necessary for standard vm image connector 
+	}
+	
+	mapping ScalableVMImageConnector::adaptLoadBalancerComponent(in vm: ComposedVM, inout logiCorr: LogicalCorrespondenceRepository) {
+		logDebug("Adapt Loadbalancer for VM Connector: " + self.serviceRequiredRole.interfaceRequiringEntity.name + " --> " + self.serviceProvidedRole.interfaceProvidingEntity.name + ")");
+		
+		var connCorr := logiCorr.scalableConnectorCorrespondences->any(cactosApplicationInstance.id = vm.applicationInstance.id
+			and cactosConnector.id = self.id);
+		
+		// Remove excess load balancer components
+		// Theoretically only necessary for two scalable connectors in a row (Multi-Level Load Balancers)
+		systems.rootObjects()[System].assemblyContexts__ComposedStructure
+			->select(ctx | ctx.encapsulatedComponent__AssemblyContext = connCorr.palladio
+					and not systems.rootObjects()[System].connectors__ComposedStructure[AssemblyConnector]
+								->exists(providingAssemblyContext_AssemblyConnector = ctx))
+			->forEach(excessLoadBalancer) {
+				allocations.rootObjects()[Allocation].allocationContexts_Allocation
+					->select(assemblyContext_AllocationContext = excessLoadBalancer)
+					->collect(ctx | allocations.removeElement(ctx));
+				systems.rootObjects()[System].connectors__ComposedStructure[AssemblyConnector]
+					->select(requiringAssemblyContext_AssemblyConnector = excessLoadBalancer)
+					->collect(con | systems.removeElement(con));
+					
+				logInfo("Remove Loadbalancer for VM Connector: " + self.serviceRequiredRole.interfaceRequiringEntity.name + " --> " + self.serviceProvidedRole.interfaceProvidingEntity.name + ")");
+				systems.removeElement(excessLoadBalancer);
+			};
+		
+		//Remove unused role from load balancer
+		//Makes the assumption that assembly connectors are created in the same order (only important for Multi-Level Load Balancers)
+		//otherwise there is only one AssemblyConnector per OperationRequiredRole
+		
+		var lbRequiredRoles = connCorr.palladio.requiredRoles_InterfaceRequiringEntity[OperationRequiredRole];
+		var requiredConnectors := systems.rootObjects()[System].connectors__ComposedStructure[AssemblyConnector]
+				->select(lbRequiredRoles->includes(requiredRole_AssemblyConnector));
+		
+		var excessRequiredRoles := lbRequiredRoles 	
+			->select(role | not requiredConnectors->exists(requiredRole_AssemblyConnector = role))->asSet();
+				
+		assert fatal (excessRequiredRoles->size() = 1) with log ("Too many or too little excess required roles of the load balancer component. Future simulation results will probably be false.");
+		
+		connCorr.palladio.serviceEffectSpecifications__BasicComponent[ResourceDemandingSEFF]
+			->map adaptLoadBalancer(Set{}, excessRequiredRoles, self);
+		
+		excessRequiredRoles->collect(role | repositories.removeElement(role));
+	}
+	
+	mapping VirtualDisk::cleanUpVirtualStorage() {
+		logDebug("VirtualDisk::cleanUpVirtualStorage");
+		//TODO allign with RuntimeManagement as soon as disk management is supported
+		if (not self.referencedByVMOrTemplate()) {
+			logicalCorrespondence.rootObjects()[LogicalCorrespondenceRepository].vmImageCorrespondences
+					->select(cactos.id = self.id)
+					->forEach(corr) {
+				logDebug("Remove Virtual Disk: " + corr.toString());	
+				logicalCorrespondence.removeElement(corr);	
+			};
+			
+			if (self.parent <> null 
+				and not self.parentContainsOtherOverlays()
+				and not self.parent.referencedByVMOrTemplate()) {
+				
+				self.parent.map cleanUpVirtualStorage();
+				
+				
+			} else {
+				logDebug("Remove Virtual Disk: " + self.toString());
+				logicaldc.removeElement(self);
+			}
+		}
+	}
+	
+	query VirtualDisk::parentContainsOtherOverlays(): Boolean {
+		return self.parent.deltaOverlay->exists(id <> self.id);
+	}
+	
+	query VirtualDisk::referencedByVMOrTemplate() : Boolean {
+		return logicaldc[LogicalDCModel].allSubobjectsOfType(VMImageBehaviour).oclAsType(VMImageBehaviour)->exists(vmImage.id = self.id)
+			or logicaldc[LogicalDCModel].allSubobjectsOfType(VMImageInstance).oclAsType(VMImageInstance)->exists(rootDisk.id = self.id);
+	}
+}

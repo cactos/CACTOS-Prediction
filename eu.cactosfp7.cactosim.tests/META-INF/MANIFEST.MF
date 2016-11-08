@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tests
+Bundle-SymbolicName: eu.cactosfp7.cactosim.tests;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.eclipse.core.runtime,
+ org.junit,
+ eu.cactosfp7.cactosim
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-Vendor: CACTOS Consortium
+Export-Package: eu.cactosfp7.cactosim.tests

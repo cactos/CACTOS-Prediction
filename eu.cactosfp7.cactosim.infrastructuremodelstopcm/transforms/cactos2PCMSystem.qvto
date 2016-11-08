@@ -1,0 +1,596 @@
+import cactos2PCMRepository;
+import cactos2PCMShared;
+import logicalDCModelHelper;
+import localstorage;
+import pcmHelper;
+
+modeltype _physicaldc uses "http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0";
+modeltype _physicaldc_architecturetype uses "http://www.cactosfp7.eu/PhysicalDCModel/ArchitectureType/1.0";
+modeltype _logicaldc uses "http://www.cactosfp7.eu/LogicalDCModel/Core/1.0";
+modeltype _logicaldc_application uses "http://www.cactosfp7.eu/LogicalDCModel/Application/1.0";
+modeltype _lcorrespondence uses 'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype _pcorrespondence uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype _mcorrespondence uses 'http://www.cactosfp7.eu/Correspondence/Measurement/1.1';
+modeltype _pcmcore uses "http://palladiosimulator.org/PalladioComponentModel/Core/5.1";
+modeltype _pcmrepository uses "http://palladiosimulator.org/PalladioComponentModel/Repository/5.1";
+modeltype _pcmresourcetype uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.1';
+modeltype _pcmsystem uses 'http://palladiosimulator.org/PalladioComponentModel/System/5.1';
+modeltype _pcmcomposition uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.1';
+modeltype _pcm_seff uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/5.1';
+modeltype _pcm_seff_performance uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/SEFF_Performance/5.1';
+modeltype _pcm_parameter uses 'http://palladiosimulator.org/PalladioComponentModel/Parameter/5.1';
+modeltype _pcmusage uses 'http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.1';
+modeltype _pcmallocation uses 'http://palladiosimulator.org/PalladioComponentModel/Allocation/5.1';
+modeltype _pcmresourceenvironment uses "http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1";
+modeltype _pcm_stoex uses "http://sdq.ipd.uka.de/StochasticExpressions/2.2";
+modeltype _monitorrepository uses "http://palladiosimulator.org/MonitorRepository/1.0";
+modeltype _measuringpoint uses "http://palladiosimulator.org/PCM/MeasuringPoint/1.0";
+modeltype _metricspec uses "http://palladiosimulator.org/MetricSpec/1.0";
+modeltype _usageevolution uses "http://usageevolution/1.0";
+modeltype _loadmodel_logical uses "http://www.cactosfp7.eu/CactosLoadModel/Logical/1.0";
+modeltype _loadmodel_physical uses "http://www.cactosfp7.eu/CactosLoadModel/Physical/1.0";
+modeltype _usagesequencerepository uses "http://www.cactosfp7.eu/CactoSim/UsageSequence/1.1";
+modeltype _cactospowermodel uses 'http://www.cactosfp7.eu/PhysicalDCModel/Power/1.0';
+modeltype _cactospowerbinding uses 'http://www.cactosfp7.eu/PhysicalDCModel/Power/Binding/1.0';
+modeltype _cactospowerinfrastructure uses 'http://www.cactosfp7.eu/PhysicalDCModel/Power/Specification/1.0'; 
+modeltype _cactospowerspecification uses 'http://www.cactosfp7.eu/PhysicalDCModel/Power/Specification/1.0';
+modeltype _powerutil uses 'http://www.fzi.de/Power/Util/1.0';
+modeltype _powerbinding uses 'http://www.fzi.de/Power/Binding/1.0';
+modeltype _powerspecification uses 'http://www.fzi.de/Power/Specification/1.0';
+modeltype _powerinfrastructure uses 'http://www.fzi.de/Power/Infrastructure/1.0';
+modeltype _dlim uses "http://descartes.tools/dlim/0.1";
+modeltype _measuringpointEDP2 uses "http://palladiosimulator.org/EDP2/MeasuringPoint/1.0";
+modeltype _monitor_correspondence uses 'http://www.cactosfp7.eu/Correspondence/Measurement/1.1';
+
+transformation cactos2PCMSystem(in metricspec : _metricspec,
+								in resourcetypepcm : _pcmresourcetype,
+								in primitiveresourcetyperepo : _pcmrepository,
+								in logicaldc : _logicaldc,
+								inout lcorrespondence : _lcorrespondence,
+								inout pcorrespondence : _pcorrespondence,
+								inout pcmrepository : _pcmrepository,
+								inout pcmsystem : _pcmsystem,
+								inout usagesequence: _usagesequencerepository,
+								inout measuringpoint: _measuringpoint,
+								inout monitorrepository :_monitorrepository,
+								inout logicalload : _loadmodel_logical,
+								inout measurementcorrespondence : _monitor_correspondence) {
+	
+	mapping LogicalDCModel::logicalDCModelToSystem() : System @ pcmsystem {
+		entityName := "System representing the logical data centre model.";
+		assemblyContexts__ComposedStructure += self.hypervisors.virtualMachines->map toAssemblyContexts()->flatten();
+		assemblyContexts__ComposedStructure += self.applicationInstances[WhiteBoxApplicationInstance]->map toAssemblyContextOfLoadBalancerComponents()->flatten();
+		providedRoles_InterfaceProvidingEntity += self.applicationInstances->map toSystemProvidedRoles()->flatten();
+		connectors__ComposedStructure += self.applicationInstances->map toProvidedDelegationConnectors()->flatten();
+		self.applicationInstances[WhiteBoxApplicationInstance]->map toAssemblyConnectors(result);
+	}
+									
+	mapping ApplicationInstance::toSystemProvidedRoles(): Set(OperationProvidedRole) {
+		assert fatal(false) with log("Mapping operation applicationToProvidedSystemRoles for abstract super type ApplicationInstance called.")
+	}
+	
+	mapping BlackBoxApplicationInstance::toSystemProvidedRoles(): Set(OperationProvidedRole) {
+		init {
+			result := self.virtualMachine.map toSystemProvidedRoles();
+			result->collect(role | self.createApplicationProvidedServiceCorrespondence(null, role));
+		}
+	}
+
+	mapping GreyBoxApplicationInstance::toSystemProvidedRoles(): Set(OperationProvidedRole) {
+		init {
+			result := self.virtualMachine.map toSystemProvidedRoles();
+			result->collect(role | self.createApplicationProvidedServiceCorrespondence(null, role));
+		}
+	}	
+	
+	mapping WhiteBoxApplicationInstance::toSystemProvidedRoles(): Set(OperationProvidedRole) {
+		init {
+			result := Set {};
+			self.applicationTemplate[WhiteBoxApplicationTemplate].userFacingServices->forEach (ufs) {
+				var compRole := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].providedServiceCorrespondences
+					->any(cactosRole = ufs and self.composedVMs.virtualMachine->includes(cactosVM)).palladioRole;
+				var sysRole := compRole.providedInterface__OperationProvidedRole.createOperationProvidedRole(); 
+				result += sysRole;
+				self.createApplicationProvidedServiceCorrespondence(ufs, sysRole);
+			};
+		}
+	}
+	
+	helper ApplicationInstance::createApplicationProvidedServiceCorrespondence(role : ServiceProvidedRole, palladioRole: OperationProvidedRole) {
+		lcorrespondence.rootObjects()[LogicalCorrespondenceRepository]->any(true).applicationProvidedServiceCorrespondences
+			+= object ApplicationProvidedServiceCorrespondence {
+				cactosApplication := self;
+				palladioSystemRole := palladioRole;
+				if (role <> null) {
+					cactosRole := role;	
+				}
+			};		
+	}
+
+	query ComposedVMImage::getVirtualMachineForInstance(instance: WhiteBoxApplicationInstance): VirtualMachine {
+		return instance.composedVMs->any(composedVMImage.id = self.id).virtualMachine;
+	}
+	
+	mapping VirtualMachine::toSystemProvidedRoles()	: Set(OperationProvidedRole) {
+		init {
+			result := self.resolveProvidedOperationInterfaces().createOperationProvidedRole()->asSet();
+		}	
+	}
+	
+	helper OperationInterface::createOperationProvidedRole(): OperationProvidedRole {
+		return object OperationProvidedRole {
+			entityName := "SystemProvided_" + self.entityName;
+			providedInterface__OperationProvidedRole := self;			
+		};	
+	}
+	
+	mapping VirtualMachine::toAssemblyContexts() : Set(AssemblyContext) {
+		init {
+			result := self.resolveIn(VirtualMachine::toBasicComponents, Set(BasicComponent))->flatten()->collect(comp |
+				object AssemblyContext {
+					entityName := "Assembly_" + comp.entityName; 
+					encapsulatedComponent__AssemblyContext := comp;			
+				}
+			)->asSet();
+		}
+	}
+	
+	mapping WhiteBoxApplicationInstance::toAssemblyContextOfLoadBalancerComponents(): Set(AssemblyContext) {
+		init {
+			result := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].scalableConnectorCorrespondences
+				->select(cactosApplicationInstance = self)->map toAssemblyContextsOfLoadBalancerComponent()->asSet()->flatten();			
+		}
+	}
+	
+	mapping ScalableVMImageConnectorCorrespondence::toAssemblyContextsOfLoadBalancerComponent(): Set(AssemblyContext) {
+		init {
+			result := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].requiredServiceCorrespondences
+				->select(cactosRole = self.cactosConnector.serviceRequiredRole 
+					and self.cactosApplicationInstance.composedVMs.virtualMachine->includes(cactosVM)).cactosVM->asSet()
+							.createAssemblyContextsOfLoadBalancerComponentFor(self)->asSet();
+		}
+	}
+	
+	helper VirtualMachine::createAssemblyContextsOfLoadBalancerComponentFor(connector: ScalableVMImageConnectorCorrespondence): AssemblyContext {
+		return object AssemblyContext {
+			entityName := "Assembly of " + connector.palladio.entityName + " for " + self.name;
+			encapsulatedComponent__AssemblyContext := connector.palladio;
+		}
+	}
+	
+	mapping ApplicationInstance::toProvidedDelegationConnectors(): Set(ProvidedDelegationConnector) {
+		init {
+			result := Set {self.map blackAndGreyBoxApplicationToProvidedDelegationConnector()};
+		}
+	}
+	
+	mapping ApplicationInstance::blackAndGreyBoxApplicationToProvidedDelegationConnector(): ProvidedDelegationConnector {
+		var vm := self.oclAsType(BlackBoxApplicationInstance).virtualMachine;
+		if (vm = null or vm.oclIsUndefined()) {
+			vm := self.oclAsType(GreyBoxApplicationInstance).virtualMachine;
+		};
+		
+		var assemblyContexts := vm.resolveoneIn(VirtualMachine::toAssemblyContexts, Set(AssemblyContext));
+		if (assemblyContexts = null) {
+			assemblyContexts := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].virtualMachineCorrespondences->select(cactos = vm).palladio.assemblyContext_AllocationContext->asSet();
+		};
+		
+		assert fatal (assemblyContexts->size() = 1) with log ("Black and Grey Box Applications are only supported to have on component assembly");
+		
+		assemblyContext_ProvidedDelegationConnector := assemblyContexts->any(true);
+		outerProvidedRole_ProvidedDelegationConnector := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].applicationProvidedServiceCorrespondences
+			->any(cactosApplication = self).palladioSystemRole;
+		innerProvidedRole_ProvidedDelegationConnector := assemblyContext_ProvidedDelegationConnector.encapsulatedComponent__AssemblyContext
+			.providedRoles_InterfaceProvidingEntity[OperationProvidedRole]
+				->any(providedInterface__OperationProvidedRole = outerProvidedRole_ProvidedDelegationConnector.providedInterface__OperationProvidedRole);
+			
+		entityName := outerProvidedRole_ProvidedDelegationConnector.entityName + " ->" + innerProvidedRole_ProvidedDelegationConnector.entityName;		
+	}
+	
+	mapping WhiteBoxApplicationInstance::toProvidedDelegationConnectors(): Set(ProvidedDelegationConnector) {
+		init {
+			result := self.applicationTemplate[WhiteBoxApplicationTemplate].userFacingServices->collect(ufs | 
+				object ProvidedDelegationConnector {
+					innerProvidedRole_ProvidedDelegationConnector := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].providedServiceCorrespondences
+						->any(cactosRole = ufs and self.composedVMs.virtualMachine->includes(cactosVM)).palladioRole;
+					outerProvidedRole_ProvidedDelegationConnector := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].applicationProvidedServiceCorrespondences
+						->any(cactosApplication = self and cactosRole = ufs).palladioSystemRole;
+					var vm := self.composedVMs->any(composedVMImage = ufs.interfaceProvidingEntity).virtualMachine;
+					assemblyContext_ProvidedDelegationConnector := vm.retrieveAppropriateAssemblyContextFor(ufs);
+				})->asSet();
+		}
+	}
+	
+	mapping VirtualMachine::toProvidedDelegationConnectors() : Set(ProvidedDelegationConnector) {
+		init {
+			var res : Set(ProvidedDelegationConnector) := Set {};
+		
+			var assemblyContexts := self.resolveoneIn(VirtualMachine::toAssemblyContexts, Set(AssemblyContext));
+			if (assemblyContexts = null) {
+				assemblyContexts := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].virtualMachineCorrespondences->select(cactos.id = self.id).palladio.assemblyContext_AllocationContext->asSet();
+			};
+			
+			var sysProvRoles := self.resolveIn(VirtualMachine::toSystemProvidedRoles, Set(OperationProvidedRole))->asSet()->flatten();
+			if (self.runtimeApplicationModel.oclIsKindOf(WhiteBoxVMBehaviour)) {
+				var cvmi := self.runtimeApplicationModel.vmImageBehaviour.oclAsType(WhiteBoxVMImageBehaviour).composedVMImage; // .oclAsType(WhiteBoxVMBehaviour)
+				var appProvRoles := cvmi.applicationTemplate.userFacingServices;
+				appProvRoles->select(interfaceProvidingEntity = cvmi)->forEach (vmProvRole) {
+					var innerRole: OperationProvidedRole = lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].providedServiceCorrespondences
+						->any(cactosVM = self and cactosRole = vmProvRole).palladioRole;
+					var ctx: AssemblyContext := assemblyContexts->any(encapsulatedComponent__AssemblyContext.providedRoles_InterfaceProvidingEntity.id->includes(innerRole.id));
+					var outerRole: OperationProvidedRole;
+					res += outerRole.createProvidedDelegationConnector(innerRole, ctx); 
+				}
+			} else {
+				sysProvRoles := self.resolveIn(VirtualMachine::toSystemProvidedRoles, Set(OperationProvidedRole))->asSet()->flatten();
+			};
+			self.resolveIn(VirtualMachine::toOperationProvidedRoles, Set(OperationProvidedRole))->flatten()->forEach(opr) {
+
+				assert fatal(assemblyContexts->size() = 1) with log("There can only be one assembled VM component for Black and Grey Box Applications");
+				var outerRole := sysProvRoles->any(providedInterface__OperationProvidedRole = opr.providedInterface__OperationProvidedRole);
+				res += assemblyContexts->collect(ctx | outerRole.createProvidedDelegationConnector(opr, ctx));
+			};
+			result := res;
+		}
+	}
+	
+	helper OperationProvidedRole::createProvidedDelegationConnector(providingRole: OperationProvidedRole, providingContext: AssemblyContext): ProvidedDelegationConnector {
+		return object ProvidedDelegationConnector {
+			innerProvidedRole_ProvidedDelegationConnector := providingRole;
+			outerProvidedRole_ProvidedDelegationConnector := self;
+			assemblyContext_ProvidedDelegationConnector := providingContext;
+			entityName := outerProvidedRole_ProvidedDelegationConnector.entityName + " ->" + innerProvidedRole_ProvidedDelegationConnector.entityName;		
+		}
+	}
+	
+	mapping WhiteBoxApplicationInstance::toAssemblyConnectors(inout pcmSystem: System) {
+		self.applicationTemplate[WhiteBoxApplicationTemplate].vmImageConnectors.setUpAssemblyConnections(self, pcmSystem);
+		self.applicationTemplate[WhiteBoxApplicationTemplate].vmImageConnectors.createLoadMeasurementAndCorrespondencesFor(self);		
+	}
+	
+	helper VMImageConnector::setUpAssemblyConnections(application: WhiteBoxApplicationInstance, inout pcmSystem: System) {
+		var res := Set{};
+		
+		var providingCorr := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].providedServiceCorrespondences
+			->select(cactosRole = self.serviceProvidedRole and application.composedVMs.virtualMachine->includes(cactosVM));
+		
+		// Here we make the assumption that VMImageConnectors are only used in N:1 connections. We might later decide to allow
+		// N:N connections as well, but for the moment this is not valid.
+		assert warning(providingCorr->size() = 1) with log("(Non-scalable) VMImageConnector requires exactly one VM to provide the specified service");
+		
+		var requiringCorrs := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].requiredServiceCorrespondences
+			->select(cactosRole = self.serviceRequiredRole and application.composedVMs.virtualMachine->includes(cactosVM));
+		
+		pcmSystem.connectors__ComposedStructure += requiringCorrs.createAssemblyConnectionTo(providingCorr->any(true))->asSet();
+	}
+	
+	helper ScalableVMImageConnector::setUpAssemblyConnections(application: WhiteBoxApplicationInstance, inout pcmSystem: System) {
+		var providingCorrs := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].providedServiceCorrespondences
+			->select(cactosRole = self.serviceProvidedRole and application.composedVMs.virtualMachine->includes(cactosVM));
+		var providedRoles := providingCorrs.palladioRole->asSet();
+		
+		var repo := providedRoles.providingEntity_ProvidedRole[RepositoryComponent].repository__RepositoryComponent->any(true);
+		var loadBalancerComponent: BasicComponent;
+		var loadBalancerProvidedRole: OperationProvidedRole;
+		repo.components__Repository += loadBalancerComponent := object BasicComponent {
+			entityName := "LoadBalancer_" + self.serviceProvidedRole.name;
+			providedRoles_InterfaceProvidingEntity += loadBalancerProvidedRole := object OperationProvidedRole {
+				providedInterface__OperationProvidedRole := providedRoles.providedInterface__OperationProvidedRole->any(true);
+				entityName := "LoadBalancerProvidedRole_" + providedInterface__OperationProvidedRole.entityName;
+			};	
+		};
+		
+		var requiringVMs := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].requiredServiceCorrespondences
+			->select(cactosRole = self.serviceRequiredRole).cactosVM->asSet();
+		
+		requiringVMs->forEach(reqVM) {
+			var loadBalancerAssembly: AssemblyContext;
+			pcmSystem.assemblyContexts__ComposedStructure += loadBalancerAssembly := object AssemblyContext {
+				encapsulatedComponent__AssemblyContext := loadBalancerComponent;
+				entityName := "Assembly_" + encapsulatedComponent__AssemblyContext.entityName;
+			};
+			
+			pcmSystem.connectors__ComposedStructure += lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].requiredServiceCorrespondences
+				->select(cactosRole = self.serviceRequiredRole and cactosVM = reqVM).palladioRole->collect(reqRole |
+					object AssemblyConnector {
+						requiredRole_AssemblyConnector := reqRole;
+						requiringAssemblyContext_AssemblyConnector := reqVM.retrieveAppropriateAssemblyContextFor(reqRole);
+						providedRole_AssemblyConnector := loadBalancerProvidedRole;
+						providingAssemblyContext_AssemblyConnector := loadBalancerAssembly;
+						entityName := "LoadBalancerConnection: " + requiringAssemblyContext_AssemblyConnector.entityName + " --> " + providingAssemblyContext_AssemblyConnector.entityName;
+					}
+				);
+		};
+		
+		var counter := 1;
+		providingCorrs->forEach(providingCorr) {
+			var requiredRole := object OperationRequiredRole {
+				requiredInterface__OperationRequiredRole := providingCorr.palladioRole.providedInterface__OperationProvidedRole;
+				entityName := "RequiredRole_" + requiredInterface__OperationRequiredRole.entityName + "_" + counter.toString();
+			};
+			loadBalancerComponent.requiredRoles_InterfaceRequiringEntity += requiredRole;
+			pcmSystem.connectors__ComposedStructure += pcmSystem.assemblyContexts__ComposedStructure
+				->select(encapsulatedComponent__AssemblyContext = loadBalancerComponent)
+				->collect(reqCtx |
+					object AssemblyConnector {
+						requiringAssemblyContext_AssemblyConnector := reqCtx;
+						requiredRole_AssemblyConnector := requiredRole;
+						providedRole_AssemblyConnector := providingCorr.palladioRole;
+						providingAssemblyContext_AssemblyConnector := providingCorr.cactosVM.retrieveAppropriateAssemblyContextFor(providingCorr.cactosRole);
+						entityName := "Scalable Service Connection: " + requiringAssemblyContext_AssemblyConnector.entityName + " --> " + providingAssemblyContext_AssemblyConnector.entityName;
+					} 
+				);
+			counter := counter + 1;	
+		};
+		
+		self.configureLoadBalacer(loadBalancerComponent, application);
+	}
+	
+	helper ScalableVMImageConnector::configureLoadBalacer(inout lbComponent: BasicComponent, application: WhiteBoxApplicationInstance) {
+		if (self.loadBalancingPolicy = LoadBalancingPolicy::RoundRobin) {
+			lbComponent.serviceEffectSpecifications__BasicComponent := 
+				self.serviceRequiredRole.serviceInterface.serviceOperations->map toLoadBalancerSEFF(lbComponent, self);
+		} else {
+			lbComponent.serviceEffectSpecifications__BasicComponent := 
+				self.serviceRequiredRole.serviceInterface.serviceOperations->map toLoadBalancerSEFF(lbComponent, self);
+		};
+		lcorrespondence.rootObjects()[LogicalCorrespondenceRepository]->any(true).scalableConnectorCorrespondences +=
+			object ScalableVMImageConnectorCorrespondence {
+				cactosConnector := self;
+				cactosApplicationInstance := application;
+				palladio := lbComponent;
+				maximumInstanceNumber := lbComponent.requiredRoles_InterfaceRequiringEntity[OperationRequiredRole]->size();
+			};
+	}
+	
+	helper VMImageConnector::createLoadMeasurementAndCorrespondencesFor(instance: WhiteBoxApplicationInstance) {
+		var providingCorrs := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].providedServiceCorrespondences
+			->select(cactosRole = self.serviceProvidedRole and instance.composedVMs.virtualMachine->includes(cactosVM));
+		
+		var logiCorr := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository]->any(true);
+		var logicalLoad := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].logicalLoadModel->any(true);
+		
+		var requestMeasurement : RequestArrivalRateMeasurement := logicalLoad.requestArrivalRateMeasurement
+			->any(observedVmImageConnector = self and observedWhiteBoxApplicationInstance = instance);
+		var requestMCorr : RequestArrivalRateMeasurementCorrespondence;
+		if (requestMeasurement = null) {
+			logicalLoad.requestArrivalRateMeasurement += requestMeasurement := object RequestArrivalRateMeasurement {
+				observedVmImageConnector := self;
+				observedWhiteBoxApplicationInstance := instance;
+			};
+			logiCorr.arrivalRateMeasurementCorrespondences += requestMCorr := object RequestArrivalRateMeasurementCorrespondence {
+				requestArrivalRateMeasurement := requestMeasurement;
+			};
+		} else {
+			requestMCorr := logiCorr.arrivalRateMeasurementCorrespondences[RequestArrivalRateMeasurementCorrespondence]
+				->any(requestArrivalRateMeasurement = requestMeasurement);
+		};
+		requestMCorr.serviceInstanceMeasurementCorrespondences += providingCorrs->
+			select(corr | 
+				not requestMCorr.serviceInstanceMeasurementCorrespondences.cactosServiceCorrespondence->includes(corr))
+				->map createMeasuringPointsAndMonitorsForRequests();
+		
+		var responseMeasurement : ResponseArrivalRateMeasurement := logicalLoad.responseArrivalRateMeasurement
+			->any(observedVmImageConnector = self and observedWhiteBoxApplicationInstance = instance);
+		var responseMCorr : ResponseArrivalRateMeasurementCorrespondence;
+		if (responseMeasurement = null) {
+			logicalLoad.responseArrivalRateMeasurement += responseMeasurement := object ResponseArrivalRateMeasurement {
+				observedVmImageConnector := self;
+				observedWhiteBoxApplicationInstance := instance;
+			};
+			logiCorr.arrivalRateMeasurementCorrespondences += responseMCorr := object ResponseArrivalRateMeasurementCorrespondence {
+				responseArrivalRateMeasurement := responseMeasurement;
+			};
+		} else {
+			responseMCorr := logiCorr.arrivalRateMeasurementCorrespondences[ResponseArrivalRateMeasurementCorrespondence]
+				->any(responseArrivalRateMeasurement = responseMeasurement);
+		};
+		responseMCorr.serviceInstanceMeasurementCorrespondences += providingCorrs->
+			select(corr | 
+				not lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].arrivalRateMeasurementCorrespondences[ResponseArrivalRateMeasurementCorrespondence]
+					.serviceInstanceMeasurementCorrespondences.cactosServiceCorrespondence->includes(corr))
+				->map createMeasuringPointsAndMonitorsForResponses();
+		
+	}
+	
+	mapping ProvidedServiceCorrespondence::createMeasuringPointsAndMonitorsForRequests(): ServiceInstanceArrivalRateMeasurementCorrespondence {
+		cactosServiceCorrespondence := self;
+		
+		serviceOperationInstanceCorrespondence += 
+			self.palladioRole.providedInterface__OperationProvidedRole.signatures__OperationInterface
+				.createMeasuringPointsAndMonitorsForOperation(
+					getMetricDescriptionResponseArrivalRateTuple(), //Switched response and request arrival rate to comply with CactoOpt's interpretation
+					self.cactosVM.retrieveAppropriateAssemblyContextFor(self.cactosRole), self.palladioRole);
+	}
+	
+	mapping ProvidedServiceCorrespondence::createMeasuringPointsAndMonitorsForResponses(): ServiceInstanceArrivalRateMeasurementCorrespondence {
+		cactosServiceCorrespondence := self;
+		
+		serviceOperationInstanceCorrespondence += 
+			self.palladioRole.providedInterface__OperationProvidedRole.signatures__OperationInterface
+				.createMeasuringPointsAndMonitorsForOperation(
+					getMetricDescriptionRequestArrivalRateTuple(), //Switched response and request arrival rate to comply with CactoOpt's interpretation
+					self.cactosVM.retrieveAppropriateAssemblyContextFor(self.cactosRole), self.palladioRole);
+	}
+	
+	query VirtualMachine::retrieveAppropriateAssemblyContextFor(role:ServiceProvidedRole): AssemblyContext {
+		var assemblyContexts := self.resolveoneIn(VirtualMachine::toAssemblyContexts, Set(AssemblyContext));
+		if (assemblyContexts = null) {
+			assemblyContexts := Set {}; 
+		};
+		assemblyContexts += lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].virtualMachineCorrespondences
+			->select(cactos = self).palladio.assemblyContext_AllocationContext;
+		var palladioRole := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].providedServiceCorrespondences
+			->any(cactosVM = self and cactosRole = role).palladioRole;
+		return assemblyContexts->any(encapsulatedComponent__AssemblyContext.providedRoles_InterfaceProvidingEntity->includes(palladioRole));
+	}
+	
+	query VirtualMachine::retrieveAppropriateAssemblyContexts(): Set(AssemblyContext) {
+		var assemblyContexts := self.resolveoneIn(VirtualMachine::toAssemblyContexts, Set(AssemblyContext));
+		if (assemblyContexts = null) {
+			assemblyContexts := Set {}; 
+		};
+		assemblyContexts += lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].virtualMachineCorrespondences
+			->select(cactos = self).palladio.assemblyContext_AllocationContext;
+		return assemblyContexts;
+	}
+	
+	query VirtualMachine::retrieveAppropriateAssemblyContextFor(palladioRole:OperationRequiredRole): AssemblyContext {
+		
+		return self.retrieveAppropriateAssemblyContexts()->any(encapsulatedComponent__AssemblyContext.requiredRoles_InterfaceRequiringEntity->includes(palladioRole));
+	}
+	
+	helper OperationSignature::createMeasuringPointsAndMonitorsForOperation(metric: MetricDescription, context: AssemblyContext, opRole: Role): ServiceOperationInstanceArrivalRateMeasurementCorrespondence {
+		var mPoint := getOrCreateAssemblyProvidedOperationMeasuringPoint(context, opRole, self); 
+			
+		var measurementSpec : MeasurementSpecification;
+		getOrCreateMonitor(mPoint).measurementSpecifications += measurementSpec := object MeasurementSpecification {
+			metricDescription := metric;
+			processingType := object TimeDriven {
+				windowLength := getAmountInMultiplesOfReferenceAmount(ARRIVAL_RATE_WINDOW_LENGTH, SIMULATION_STEP_DURATION_AMOUNT);
+				windowIncrement := getAmountInMultiplesOfReferenceAmount(ARRIVAL_RATE_WINDOW_INCREMENT, SIMULATION_STEP_DURATION_AMOUNT);
+			};
+		};
+		var res := object ServiceOperationInstanceArrivalRateMeasurementCorrespondence {
+			cactosServiceOperation := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].serviceOperationCorrespondences->any(palladio.id = self.id).cactos;
+		};	
+		measurementcorrespondence.rootObjects()[MonitorCorrespondenceRepository]->any(true).monitoredCactosEntityToMonitorCorrespondences +=
+			object MonitoredCactosEntityToMonitorCorrespondence {
+				cactos := res;
+				palladio := measurementSpec;
+			};
+		return res;
+	}
+	
+	
+	helper RequiredServiceCorrespondence::createAssemblyConnectionTo(providedCorr: ProvidedServiceCorrespondence): AssemblyConnector {
+		return object AssemblyConnector {
+			requiredRole_AssemblyConnector := self.palladioRole;
+			requiringAssemblyContext_AssemblyConnector := self.cactosVM.retrieveAppropriateAssemblyContextFor(requiredRole_AssemblyConnector);
+			providedRole_AssemblyConnector := providedCorr.palladioRole;
+			providingAssemblyContext_AssemblyConnector := providedCorr.cactosVM.retrieveAppropriateAssemblyContextFor(providedCorr.cactosRole);
+			entityName := "Service Connection: " + requiringAssemblyContext_AssemblyConnector.entityName + " --> " + providingAssemblyContext_AssemblyConnector.entityName	
+		}
+	}
+	
+	helper getOrCreateAssemblyProvidedOperationMeasuringPoint(assemblyCtx: AssemblyContext, opRole: Role, signature: OperationSignature): AssemblyOperationMeasuringPoint {
+		var mpr := getOrCreateMeasuringPointRepository();
+		var mp := mpr.measuringPoints[AssemblyOperationMeasuringPoint]->any(
+			assembly.id = assemblyCtx.id and role.id = opRole.id and operationSignature.id = signature.id);
+		if (mp.oclIsUndefined() or mp = null) {
+			mpr.measuringPoints += mp := object AssemblyOperationMeasuringPoint {
+				assembly := assemblyCtx;
+				operationSignature := signature;
+				role := opRole;
+			};
+		};
+		return mp;
+	}
+	
+	helper getOrCreateMonitor(mp : AssemblyOperationMeasuringPoint): Monitor {
+		var mr := getOrCreateMonitorRepository();
+		var m := mr.monitors->any(measuringPoint.oclIsKindOf(AssemblyOperationMeasuringPoint)
+			and measuringPoint.oclAsType(AssemblyOperationMeasuringPoint).assembly.id = mp.assembly.id
+			and measuringPoint.oclAsType(AssemblyOperationMeasuringPoint).role.id = mp.role.id
+			and measuringPoint.oclAsType(AssemblyOperationMeasuringPoint).operationSignature.id = mp.operationSignature.id);
+		if (m.oclIsUndefined() or m = null) {
+			mr.monitors += m := object Monitor {
+				entityName := "Service Call Arrival Time Monitor for " + mp.assembly.entityName + "." + mp.operationSignature.entityName;
+				measuringPoint := mp;
+			}
+		};
+		return m;
+	}
+
+	mapping Hypervisor::linkStorageRoleWithComponent(in storageAssembly : AssemblyContext) : AssemblyInfrastructureConnector {
+		init {
+			var assemblyContext : AssemblyContext := self.resolveone(AssemblyContext);
+			if (assemblyContext = null) {
+				assemblyContext := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].hypervisorCorrespondences
+					->any(cactos.id = self.id).palladio.assemblyContext_AllocationContext;
+			};
+			result := storageAssembly.map linkStorageRoleWithComponent(assemblyContext);
+		}
+	}
+	
+	mapping NetworkAttachedStorage::linkStorageRoleWithComponent(in storageAssembly : AssemblyContext) : AssemblyInfrastructureConnector {
+		init {
+			var assemblyContext : AssemblyContext := self.resolveone(AssemblyContext);
+			if (assemblyContext = null) {
+				assemblyContext := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].networkAttachedStorageCorrespondences
+					->any(cactos.id = self.id).palladio.assemblyContext_AllocationContext;
+			};
+			result := storageAssembly.map linkStorageRoleWithComponent(assemblyContext);
+		}
+	}
+										
+	mapping LogicalCorrespondenceRepository::linkVmsToLocalStorageAccess(inout system : System) {
+		system.connectors__ComposedStructure += self.virtualMachineCorrespondences.map linkVmToLocalStorageAccess(self);
+	}
+	
+	mapping inout VirtualMachineCorrespondence::linkVmToLocalStorageAccess(in lc : LogicalCorrespondenceRepository) : AssemblyInfrastructureConnector {	
+		var vmAssembly := self.palladio.assemblyContext_AllocationContext;
+		var vm := vmAssembly.encapsulatedComponent__AssemblyContext;
+		var requiredRole : InfrastructureRequiredRole := vm.requiredRoles_InterfaceRequiringEntity[InfrastructureRequiredRole]->any(true);
+		var storageAssembly := lc.hypervisorCorrespondences->any(h | h.cactos.id = self.cactos.hypervisor.id)
+			.palladio.assemblyContext_AllocationContext->any(true);
+		var providedRole : InfrastructureProvidedRole := storageAssembly.encapsulatedComponent__AssemblyContext.providedRoles_InterfaceProvidingEntity[InfrastructureProvidedRole]->any(true);
+		entityName := "From " + vmAssembly.entityName + " to " + storageAssembly.entityName;
+		requiredRole__AssemblyInfrastructureConnector := requiredRole;
+		providedRole__AssemblyInfrastructureConnector := providedRole;
+		requiringAssemblyContext__AssemblyInfrastructureConnector := vmAssembly;
+		providingAssemblyContext__AssemblyInfrastructureConnector := storageAssembly;
+		self.palladioStorageConnector := result;
+	}
+	
+	mapping BasicComponent::createStorageAssembly() : AssemblyContext {
+		entityName := "Assembly of " + self.entityName;
+		encapsulatedComponent__AssemblyContext := self;
+	}
+	
+	mapping Hypervisor::createStorageAssembly() : AssemblyContext {
+		init {
+			var comp := self.resolveone(BasicComponent);
+			if (comp = null) {
+				comp := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].hypervisorCorrespondences
+					->any(cactos.id = self.id).palladio.assemblyContext_AllocationContext.encapsulatedComponent__AssemblyContext.oclAsType(BasicComponent);
+			};
+			result := comp.map createStorageAssembly();
+		}
+	}
+	
+	mapping NetworkAttachedStorage::createStorageAssembly() : AssemblyContext {
+		init {
+			var comp := self.resolveone(BasicComponent);
+			if (comp = null) {
+				comp := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].networkAttachedStorageCorrespondences
+					->any(cactos.id = self.id).palladio.assemblyContext_AllocationContext.encapsulatedComponent__AssemblyContext.oclAsType(BasicComponent);
+			};
+			result := comp.map createStorageAssembly();
+		}
+	}
+	
+	query VirtualMachine::resolveProvidedOperationInterfaces(): Set(OperationInterface) {
+		var res : Set(OperationInterface) := self.resolveIn(VirtualMachine::toProvidedOperationInterfaces, Set(OperationInterface))->flatten()->asSet();
+		res += lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].virtualMachineCorrespondences->select(cactos = self)
+			.palladio.assemblyContext_AllocationContext.encapsulatedComponent__AssemblyContext.providedRoles_InterfaceProvidingEntity[OperationProvidedRole].providedInterface__OperationProvidedRole->asSet();
+		return res;
+	}	
+	
+	mapping Hypervisor::linkStorageAssemblyWithStorageAssemblies(inout lc : LogicalCorrespondenceRepository, inout system : System, in storageInterface : InfrastructureInterface) {
+		var storageAssembly : AssemblyContext := self.resolveone(AssemblyContext);
+			if (storageAssembly = null) {
+				storageAssembly := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].hypervisorCorrespondences
+					->any(cactos.id = self.id).palladio.assemblyContext_AllocationContext;
+			};
+		// TODO verify this selection
+		var nodeCandidates : Set(AbstractNode) := lc.virtualMachineCorrespondences.cactos->select(c | c.hypervisor.id = self.id).vMImageInstance.rootDisk.storageLocation.node->select(s | s.id <> self.node.id)->asSet();
+		if (self.rootVolume.storageLocation.node <> self.node) {
+			nodeCandidates += self.rootVolume.storageLocation.node;
+		};	
+		var linkedHypervisors : Set(Hypervisor) := lc.hypervisorCorrespondences.cactos->select(h | nodeCandidates->includes(h.node))->asSet();
+		var linkedNAS : Set(NetworkAttachedStorageCorrespondence) := lc.networkAttachedStorageCorrespondences->select(n | nodeCandidates->includes(n.cactos))->asSet();
+		system.connectors__ComposedStructure += linkedHypervisors.map linkStorageRoleWithComponent(storageAssembly);
+		system.connectors__ComposedStructure += linkedNAS.cactos.map linkStorageRoleWithComponent(storageAssembly);
+	}
+}

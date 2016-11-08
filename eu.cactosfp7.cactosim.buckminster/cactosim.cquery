@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><cq:componentQuery xmlns:cq="http://www.eclipse.org/buckminster/CQuery-1.0" resourceMap="cactosim.rmap">
+    <cq:rootRequest name="eu.cactosfp7.cactosim.buckminster" componentType="eclipse.feature"/>
+    <cq:property key="pass" value="fA8qXqNwNQLoLuc6"/>
+    <cq:property key="user" value="cactosbuild"/>
+    <cq:advisorNode namePattern="^eu\.cactosfp7\.cactosim.*" sourceLevel="REQUIRE" useWorkspace="false"/>
+    <cq:advisorNode namePattern="^org\.palladiosimulator\.simulizar\.simulationtime.*" sourceLevel="REQUIRE" useWorkspace="false"/>
+    <cq:advisorNode namePattern="^org\.palladiosimulator\.simulizar\.arrivalrate.*" sourceLevel="REQUIRE" useWorkspace="false"/>
+    <cq:advisorNode namePattern="^org\.palladiosimulator\.simulizar\.responsetimemonitor.*" sourceLevel="REQUIRE" useWorkspace="false"/>
+    <cq:advisorNode namePattern="^org\.palladiosimulator\.license$" sourceLevel="REQUIRE" useWorkspace="false"/>
+    <cq:advisorNode namePattern="^org\.palladiosimulator\.branding$" sourceLevel="REQUIRE" useWorkspace="false"/>
+    <cq:advisorNode namePattern="^org\.palladiosimulator.*" sourceLevel="REJECT" useWorkspace="false"/>
+    <cq:advisorNode namePattern="^de\.uka\.ipd\.sdq.*" sourceLevel="REJECT" useWorkspace="false"/>
+    <cq:advisorNode namePattern=".*" sourceLevel="AVOID"/>
+</cq:componentQuery>

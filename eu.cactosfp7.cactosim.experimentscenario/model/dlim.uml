@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/5" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Ecore/5 pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA">
+  <uml:Model xmi:id="_YnCNIP-ZEeSlOqptyl-aPA" name="dlim">
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnCNIf-ZEeSlOqptyl-aPA" name="Sequence">
+      <generalization xmi:id="_YnCNIv-ZEeSlOqptyl-aPA" general="_YnCNQv-ZEeSlOqptyl-aPA"/>
+      <ownedAttribute xmi:id="_YnCNI_-ZEeSlOqptyl-aPA" name="name" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNJP-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnCNJf-ZEeSlOqptyl-aPA" name="terminateAfterTime" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNJv-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnCNJ_-ZEeSlOqptyl-aPA" name="referenceClock" type="_YnCNUv-ZEeSlOqptyl-aPA" isOrdered="true" aggregation="composite" association="_YnCNWf-ZEeSlOqptyl-aPA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNKP-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnCNKf-ZEeSlOqptyl-aPA" name="sequenceFunctionContainers" type="_YnCNW_-ZEeSlOqptyl-aPA" isOrdered="true" aggregation="composite" association="_YnCNjf-ZEeSlOqptyl-aPA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_YnCNKv-ZEeSlOqptyl-aPA" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnCNK_-ZEeSlOqptyl-aPA" name="terminateAfterLoops" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNLP-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnCNLf-ZEeSlOqptyl-aPA" name="firstIterationStart" visibility="public" isOrdered="true" isDerived="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNLv-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnCNL_-ZEeSlOqptyl-aPA" name="firstIterationEnd" visibility="public" isOrdered="true" isDerived="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNMP-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnCNMf-ZEeSlOqptyl-aPA" name="loopDuration" visibility="public" isOrdered="true" isDerived="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNMv-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnCNM_-ZEeSlOqptyl-aPA" name="finalDuration" visibility="public" isOrdered="true" isDerived="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNNP-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <nestedClassifier xmi:type="uml:Class" xmi:id="_YnCNNf-ZEeSlOqptyl-aPA" name="Wildcard"/>
+      <nestedClassifier xmi:type="uml:Class" xmi:id="_YnCNNv-ZEeSlOqptyl-aPA" name="Wildcard"/>
+      <nestedClassifier xmi:type="uml:PrimitiveType" xmi:id="_YnCNN_-ZEeSlOqptyl-aPA" name="EMap_Wildcard_Wildcard">
+        <templateBinding xmi:id="_YnCNOP-ZEeSlOqptyl-aPA">
+          <signature xmi:type="uml:RedefinableTemplateSignature" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap-_ownedTemplateSignature"/>
+          <parameterSubstitution xmi:id="_YnCNOf-ZEeSlOqptyl-aPA" actual="_YnCNNf-ZEeSlOqptyl-aPA">
+            <formal xmi:type="uml:ClassifierTemplateParameter" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap-_ownedTemplateSignature-_ownedParameter.0"/>
+          </parameterSubstitution>
+          <parameterSubstitution xmi:id="_YnCNOv-ZEeSlOqptyl-aPA" actual="_YnCNNv-ZEeSlOqptyl-aPA">
+            <formal xmi:type="uml:ClassifierTemplateParameter" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap-_ownedTemplateSignature-_ownedParameter.1"/>
+          </parameterSubstitution>
+        </templateBinding>
+      </nestedClassifier>
+      <ownedOperation xmi:id="_YnCNO_-ZEeSlOqptyl-aPA" name="durationDefined" visibility="public">
+        <ownedParameter xmi:id="_YnCNPP-ZEeSlOqptyl-aPA" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNPf-ZEeSlOqptyl-aPA"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_YnCNPv-ZEeSlOqptyl-aPA" name="chain" isOrdered="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDiagnosticChain"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNP_-ZEeSlOqptyl-aPA"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_YnCNQP-ZEeSlOqptyl-aPA" name="context" type="_YnCNN_-ZEeSlOqptyl-aPA" isOrdered="true">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNQf-ZEeSlOqptyl-aPA"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnCNQv-ZEeSlOqptyl-aPA" name="Function" isAbstract="true">
+      <ownedAttribute xmi:id="_YnCNQ_-ZEeSlOqptyl-aPA" name="combine" type="_YnCNRv-ZEeSlOqptyl-aPA" isOrdered="true" aggregation="composite" association="_YnCNUP-ZEeSlOqptyl-aPA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_YnCNRP-ZEeSlOqptyl-aPA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNRf-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnCNRv-ZEeSlOqptyl-aPA" name="Combinator">
+      <ownedAttribute xmi:id="_YnCNR_-ZEeSlOqptyl-aPA" name="operator" visibility="public" type="_YnCNSv-ZEeSlOqptyl-aPA" isOrdered="true">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNSP-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnCNSf-ZEeSlOqptyl-aPA" name="function" type="_YnCNQv-ZEeSlOqptyl-aPA" isOrdered="true" aggregation="composite" association="_YnCNTv-ZEeSlOqptyl-aPA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_YnCNSv-ZEeSlOqptyl-aPA" name="Operator">
+      <ownedLiteral xmi:id="_YnCNS_-ZEeSlOqptyl-aPA" name="add"/>
+      <ownedLiteral xmi:id="_YnCNTP-ZEeSlOqptyl-aPA" name="subtract"/>
+      <ownedLiteral xmi:id="_YnCNTf-ZEeSlOqptyl-aPA" name="mult"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_YnCNTv-ZEeSlOqptyl-aPA" memberEnd="_YnCNSf-ZEeSlOqptyl-aPA _YnCNT_-ZEeSlOqptyl-aPA">
+      <ownedEnd xmi:id="_YnCNT_-ZEeSlOqptyl-aPA" type="_YnCNRv-ZEeSlOqptyl-aPA" association="_YnCNTv-ZEeSlOqptyl-aPA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_YnCNUP-ZEeSlOqptyl-aPA" memberEnd="_YnCNQ_-ZEeSlOqptyl-aPA _YnCNUf-ZEeSlOqptyl-aPA">
+      <ownedEnd xmi:id="_YnCNUf-ZEeSlOqptyl-aPA" type="_YnCNQv-ZEeSlOqptyl-aPA" association="_YnCNUP-ZEeSlOqptyl-aPA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnCNUv-ZEeSlOqptyl-aPA" name="ReferenceClockObject">
+      <ownedAttribute xmi:id="_YnCNU_-ZEeSlOqptyl-aPA" name="name" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNVP-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnCNVf-ZEeSlOqptyl-aPA" name="loopTime" visibility="public" isOrdered="true" isDerived="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNVv-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnCNV_-ZEeSlOqptyl-aPA" name="seqTime" visibility="public" isOrdered="true" isDerived="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNWP-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_YnCNWf-ZEeSlOqptyl-aPA" memberEnd="_YnCNJ_-ZEeSlOqptyl-aPA _YnCNWv-ZEeSlOqptyl-aPA">
+      <ownedEnd xmi:id="_YnCNWv-ZEeSlOqptyl-aPA" type="_YnCNIf-ZEeSlOqptyl-aPA" association="_YnCNWf-ZEeSlOqptyl-aPA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnCNW_-ZEeSlOqptyl-aPA" name="TimeDependentFunctionContainer">
+      <ownedAttribute xmi:id="_YnCNXP-ZEeSlOqptyl-aPA" name="name" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNXf-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnCNXv-ZEeSlOqptyl-aPA" name="duration" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNX_-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnCNYP-ZEeSlOqptyl-aPA" name="firstIterationStart" visibility="public" isOrdered="true" isDerived="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNYf-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnCNYv-ZEeSlOqptyl-aPA" name="firstIterationEnd" visibility="public" isOrdered="true" isDerived="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNY_-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnCNZP-ZEeSlOqptyl-aPA" name="function" type="_YnCNQv-ZEeSlOqptyl-aPA" isOrdered="true" aggregation="composite" association="_YnCNhP-ZEeSlOqptyl-aPA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNZf-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnCNZv-ZEeSlOqptyl-aPA" name="pointOfReferenceClockObject" type="_YnCNUv-ZEeSlOqptyl-aPA" isOrdered="true" association="_YnCNhv-ZEeSlOqptyl-aPA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNZ_-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnCNaP-ZEeSlOqptyl-aPA" name="pointOfReferenceClockType" visibility="public" type="_YnCNiP-ZEeSlOqptyl-aPA" isOrdered="true">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNaf-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <nestedClassifier xmi:type="uml:Class" xmi:id="_YnCNav-ZEeSlOqptyl-aPA" name="Wildcard"/>
+      <nestedClassifier xmi:type="uml:Class" xmi:id="_YnCNa_-ZEeSlOqptyl-aPA" name="Wildcard"/>
+      <nestedClassifier xmi:type="uml:PrimitiveType" xmi:id="_YnCNbP-ZEeSlOqptyl-aPA" name="EMap_Wildcard_Wildcard">
+        <templateBinding xmi:id="_YnCNbf-ZEeSlOqptyl-aPA">
+          <signature xmi:type="uml:RedefinableTemplateSignature" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap-_ownedTemplateSignature"/>
+          <parameterSubstitution xmi:id="_YnCNbv-ZEeSlOqptyl-aPA" actual="_YnCNav-ZEeSlOqptyl-aPA">
+            <formal xmi:type="uml:ClassifierTemplateParameter" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap-_ownedTemplateSignature-_ownedParameter.0"/>
+          </parameterSubstitution>
+          <parameterSubstitution xmi:id="_YnCNb_-ZEeSlOqptyl-aPA" actual="_YnCNa_-ZEeSlOqptyl-aPA">
+            <formal xmi:type="uml:ClassifierTemplateParameter" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap-_ownedTemplateSignature-_ownedParameter.1"/>
+          </parameterSubstitution>
+        </templateBinding>
+      </nestedClassifier>
+      <nestedClassifier xmi:type="uml:Class" xmi:id="_YnCNcP-ZEeSlOqptyl-aPA" name="Wildcard"/>
+      <nestedClassifier xmi:type="uml:Class" xmi:id="_YnCNcf-ZEeSlOqptyl-aPA" name="Wildcard"/>
+      <nestedClassifier xmi:type="uml:PrimitiveType" xmi:id="_YnCNcv-ZEeSlOqptyl-aPA" name="EMap_Wildcard_Wildcard">
+        <templateBinding xmi:id="_YnCNc_-ZEeSlOqptyl-aPA">
+          <signature xmi:type="uml:RedefinableTemplateSignature" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap-_ownedTemplateSignature"/>
+          <parameterSubstitution xmi:id="_YnCNdP-ZEeSlOqptyl-aPA" actual="_YnCNcP-ZEeSlOqptyl-aPA">
+            <formal xmi:type="uml:ClassifierTemplateParameter" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap-_ownedTemplateSignature-_ownedParameter.0"/>
+          </parameterSubstitution>
+          <parameterSubstitution xmi:id="_YnCNdf-ZEeSlOqptyl-aPA" actual="_YnCNcf-ZEeSlOqptyl-aPA">
+            <formal xmi:type="uml:ClassifierTemplateParameter" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap-_ownedTemplateSignature-_ownedParameter.1"/>
+          </parameterSubstitution>
+        </templateBinding>
+      </nestedClassifier>
+      <ownedOperation xmi:id="_YnCNdv-ZEeSlOqptyl-aPA" name="durationGreaterZero" visibility="public">
+        <ownedParameter xmi:id="_YnCNd_-ZEeSlOqptyl-aPA" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNeP-ZEeSlOqptyl-aPA"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_YnCNef-ZEeSlOqptyl-aPA" name="chain" isOrdered="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDiagnosticChain"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNev-ZEeSlOqptyl-aPA"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_YnCNe_-ZEeSlOqptyl-aPA" name="context" type="_YnCNbP-ZEeSlOqptyl-aPA" isOrdered="true">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNfP-ZEeSlOqptyl-aPA"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_YnCNff-ZEeSlOqptyl-aPA" name="referenceClockInTreeNode" visibility="public">
+        <ownedParameter xmi:id="_YnCNfv-ZEeSlOqptyl-aPA" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNf_-ZEeSlOqptyl-aPA"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_YnCNgP-ZEeSlOqptyl-aPA" name="chain" isOrdered="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDiagnosticChain"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNgf-ZEeSlOqptyl-aPA"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_YnCNgv-ZEeSlOqptyl-aPA" name="context" type="_YnCNcv-ZEeSlOqptyl-aPA" isOrdered="true">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNg_-ZEeSlOqptyl-aPA"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_YnCNhP-ZEeSlOqptyl-aPA" memberEnd="_YnCNZP-ZEeSlOqptyl-aPA _YnCNhf-ZEeSlOqptyl-aPA">
+      <ownedEnd xmi:id="_YnCNhf-ZEeSlOqptyl-aPA" type="_YnCNW_-ZEeSlOqptyl-aPA" association="_YnCNhP-ZEeSlOqptyl-aPA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_YnCNhv-ZEeSlOqptyl-aPA" memberEnd="_YnCNZv-ZEeSlOqptyl-aPA _YnCNh_-ZEeSlOqptyl-aPA">
+      <ownedEnd xmi:id="_YnCNh_-ZEeSlOqptyl-aPA" type="_YnCNW_-ZEeSlOqptyl-aPA" association="_YnCNhv-ZEeSlOqptyl-aPA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_YnCNiP-ZEeSlOqptyl-aPA" name="ClockType">
+      <ownedLiteral xmi:id="_YnCNif-ZEeSlOqptyl-aPA" name="RootClock"/>
+      <ownedLiteral xmi:id="_YnCNiv-ZEeSlOqptyl-aPA" name="ContainerClock"/>
+      <ownedLiteral xmi:id="_YnCNi_-ZEeSlOqptyl-aPA" name="SequenceClock"/>
+      <ownedLiteral xmi:id="_YnCNjP-ZEeSlOqptyl-aPA" name="LoopClock"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_YnCNjf-ZEeSlOqptyl-aPA" memberEnd="_YnCNKf-ZEeSlOqptyl-aPA _YnCNjv-ZEeSlOqptyl-aPA">
+      <ownedEnd xmi:id="_YnCNjv-ZEeSlOqptyl-aPA" type="_YnCNIf-ZEeSlOqptyl-aPA" association="_YnCNjf-ZEeSlOqptyl-aPA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnCNj_-ZEeSlOqptyl-aPA" name="Seasonal" isAbstract="true">
+      <generalization xmi:id="_YnCNkP-ZEeSlOqptyl-aPA" general="_YnCNQv-ZEeSlOqptyl-aPA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnCNkf-ZEeSlOqptyl-aPA" name="Noise" isAbstract="true">
+      <generalization xmi:id="_YnCNkv-ZEeSlOqptyl-aPA" general="_YnCNQv-ZEeSlOqptyl-aPA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnCNk_-ZEeSlOqptyl-aPA" name="UniformNoise">
+      <generalization xmi:id="_YnCNlP-ZEeSlOqptyl-aPA" general="_YnCNkf-ZEeSlOqptyl-aPA"/>
+      <ownedAttribute xmi:id="_YnCNlf-ZEeSlOqptyl-aPA" name="min" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNlv-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnCNl_-ZEeSlOqptyl-aPA" name="max" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNmP-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnCNmf-ZEeSlOqptyl-aPA" name="NormalNoise">
+      <generalization xmi:id="_YnCNmv-ZEeSlOqptyl-aPA" general="_YnCNkf-ZEeSlOqptyl-aPA"/>
+      <ownedAttribute xmi:id="_YnCNm_-ZEeSlOqptyl-aPA" name="mean" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNnP-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnCNnf-ZEeSlOqptyl-aPA" name="standardDeviation" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNnv-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnCNn_-ZEeSlOqptyl-aPA" name="Burst" isAbstract="true">
+      <generalization xmi:id="_YnCNoP-ZEeSlOqptyl-aPA" general="_YnCNQv-ZEeSlOqptyl-aPA"/>
+      <ownedAttribute xmi:id="_YnCNof-ZEeSlOqptyl-aPA" name="peak" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNov-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnCNo_-ZEeSlOqptyl-aPA" name="base" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNpP-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnCNpf-ZEeSlOqptyl-aPA" name="peakTime" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNpv-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <nestedClassifier xmi:type="uml:Class" xmi:id="_YnCNp_-ZEeSlOqptyl-aPA" name="Wildcard"/>
+      <nestedClassifier xmi:type="uml:Class" xmi:id="_YnCNqP-ZEeSlOqptyl-aPA" name="Wildcard"/>
+      <nestedClassifier xmi:type="uml:PrimitiveType" xmi:id="_YnCNqf-ZEeSlOqptyl-aPA" name="EMap_Wildcard_Wildcard">
+        <templateBinding xmi:id="_YnCNqv-ZEeSlOqptyl-aPA">
+          <signature xmi:type="uml:RedefinableTemplateSignature" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap-_ownedTemplateSignature"/>
+          <parameterSubstitution xmi:id="_YnCNq_-ZEeSlOqptyl-aPA" actual="_YnCNp_-ZEeSlOqptyl-aPA">
+            <formal xmi:type="uml:ClassifierTemplateParameter" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap-_ownedTemplateSignature-_ownedParameter.0"/>
+          </parameterSubstitution>
+          <parameterSubstitution xmi:id="_YnCNrP-ZEeSlOqptyl-aPA" actual="_YnCNqP-ZEeSlOqptyl-aPA">
+            <formal xmi:type="uml:ClassifierTemplateParameter" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap-_ownedTemplateSignature-_ownedParameter.1"/>
+          </parameterSubstitution>
+        </templateBinding>
+      </nestedClassifier>
+      <ownedOperation xmi:id="_YnCNrf-ZEeSlOqptyl-aPA" name="peakTimeGreaterZero" visibility="public">
+        <ownedParameter xmi:id="_YnCNrv-ZEeSlOqptyl-aPA" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNr_-ZEeSlOqptyl-aPA"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_YnCNsP-ZEeSlOqptyl-aPA" name="chain" isOrdered="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDiagnosticChain"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNsf-ZEeSlOqptyl-aPA"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_YnCNsv-ZEeSlOqptyl-aPA" name="context" type="_YnCNqf-ZEeSlOqptyl-aPA" isOrdered="true">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNs_-ZEeSlOqptyl-aPA"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnCNtP-ZEeSlOqptyl-aPA" name="Trend" isAbstract="true">
+      <generalization xmi:id="_YnCNtf-ZEeSlOqptyl-aPA" general="_YnCNQv-ZEeSlOqptyl-aPA"/>
+      <ownedAttribute xmi:id="_YnCNtv-ZEeSlOqptyl-aPA" name="functionOutputAtStart" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNt_-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnCNuP-ZEeSlOqptyl-aPA" name="functionOutputAtEnd" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnCNuf-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnC0MP-ZEeSlOqptyl-aPA" name="Constant">
+      <generalization xmi:id="_YnC0Mf-ZEeSlOqptyl-aPA" general="_YnCNj_-ZEeSlOqptyl-aPA"/>
+      <ownedAttribute xmi:id="_YnC0Mv-ZEeSlOqptyl-aPA" name="constant" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnC0M_-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnC0NP-ZEeSlOqptyl-aPA" name="Sin">
+      <generalization xmi:id="_YnC0Nf-ZEeSlOqptyl-aPA" general="_YnCNj_-ZEeSlOqptyl-aPA"/>
+      <ownedAttribute xmi:id="_YnC0Nv-ZEeSlOqptyl-aPA" name="min" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnC0N_-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnC0OP-ZEeSlOqptyl-aPA" name="max" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnC0Of-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnC0Ov-ZEeSlOqptyl-aPA" name="period" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnC0O_-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnC0PP-ZEeSlOqptyl-aPA" name="phase" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnC0Pf-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnC0Pv-ZEeSlOqptyl-aPA" name="ExponentialIncreaseAndDecline">
+      <generalization xmi:id="_YnC0P_-ZEeSlOqptyl-aPA" general="_YnCNn_-ZEeSlOqptyl-aPA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnC0QP-ZEeSlOqptyl-aPA" name="ExponentialIncreaseLogarithmicDecline">
+      <generalization xmi:id="_YnC0Qf-ZEeSlOqptyl-aPA" general="_YnCNn_-ZEeSlOqptyl-aPA"/>
+      <ownedAttribute xmi:id="_YnC0Qv-ZEeSlOqptyl-aPA" name="logarithmicOrder" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnC0Q_-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnC0RP-ZEeSlOqptyl-aPA" name="LinearIncreaseAndDecline">
+      <generalization xmi:id="_YnC0Rf-ZEeSlOqptyl-aPA" general="_YnCNn_-ZEeSlOqptyl-aPA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnC0Rv-ZEeSlOqptyl-aPA" name="AbsoluteSin">
+      <generalization xmi:id="_YnC0R_-ZEeSlOqptyl-aPA" general="_YnC0NP-ZEeSlOqptyl-aPA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnC0SP-ZEeSlOqptyl-aPA" name="LinearTrend">
+      <generalization xmi:id="_YnC0Sf-ZEeSlOqptyl-aPA" general="_YnCNtP-ZEeSlOqptyl-aPA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnC0Sv-ZEeSlOqptyl-aPA" name="ExponentialTrend">
+      <generalization xmi:id="_YnC0S_-ZEeSlOqptyl-aPA" general="_YnCNtP-ZEeSlOqptyl-aPA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnC0TP-ZEeSlOqptyl-aPA" name="LogarithmicTrend">
+      <generalization xmi:id="_YnC0Tf-ZEeSlOqptyl-aPA" general="_YnCNtP-ZEeSlOqptyl-aPA"/>
+      <ownedAttribute xmi:id="_YnC0Tv-ZEeSlOqptyl-aPA" name="order" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnC0T_-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnC0UP-ZEeSlOqptyl-aPA" name="SinTrend">
+      <generalization xmi:id="_YnC0Uf-ZEeSlOqptyl-aPA" general="_YnCNtP-ZEeSlOqptyl-aPA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnC0Uv-ZEeSlOqptyl-aPA" name="ArrivalRatesFromFile">
+      <generalization xmi:id="_YnC0U_-ZEeSlOqptyl-aPA" general="_YnCNQv-ZEeSlOqptyl-aPA"/>
+      <ownedAttribute xmi:id="_YnC0VP-ZEeSlOqptyl-aPA" name="filePath" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnC0Vf-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="_YnC0Vv-ZEeSlOqptyl-aPA" name="getArrivalRate" visibility="public">
+        <ownedParameter xmi:id="_YnC0V_-ZEeSlOqptyl-aPA" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnC0WP-ZEeSlOqptyl-aPA"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_YnC0Wf-ZEeSlOqptyl-aPA" name="x" isOrdered="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnC0Wv-ZEeSlOqptyl-aPA"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_YnC0W_-ZEeSlOqptyl-aPA" name="readFile" visibility="public">
+        <ownedParameter xmi:id="_YnC0XP-ZEeSlOqptyl-aPA" isOrdered="true" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnC0Xf-ZEeSlOqptyl-aPA"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnC0Xv-ZEeSlOqptyl-aPA" name="AbsoluteValueFunction">
+      <generalization xmi:id="_YnC0X_-ZEeSlOqptyl-aPA" general="_YnC0YP-ZEeSlOqptyl-aPA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnC0YP-ZEeSlOqptyl-aPA" name="UnivariateFunction" isAbstract="true">
+      <generalization xmi:id="_YnC0Yf-ZEeSlOqptyl-aPA" general="_YnCNQv-ZEeSlOqptyl-aPA"/>
+      <ownedAttribute xmi:id="_YnC0Yv-ZEeSlOqptyl-aPA" name="function" type="_YnCNQv-ZEeSlOqptyl-aPA" isOrdered="true" aggregation="composite" association="_YnC0Y_-ZEeSlOqptyl-aPA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_YnC0Y_-ZEeSlOqptyl-aPA" memberEnd="_YnC0Yv-ZEeSlOqptyl-aPA _YnC0ZP-ZEeSlOqptyl-aPA">
+      <ownedEnd xmi:id="_YnC0ZP-ZEeSlOqptyl-aPA" type="_YnC0YP-ZEeSlOqptyl-aPA" association="_YnC0Y_-ZEeSlOqptyl-aPA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnC0Zf-ZEeSlOqptyl-aPA" name="Polynomial">
+      <generalization xmi:id="_YnC0Zv-ZEeSlOqptyl-aPA" general="_YnCNQv-ZEeSlOqptyl-aPA"/>
+      <ownedAttribute xmi:id="_YnC0Z_-ZEeSlOqptyl-aPA" name="factors" type="_YnC0af-ZEeSlOqptyl-aPA" isOrdered="true" aggregation="composite" association="_YnC0bv-ZEeSlOqptyl-aPA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_YnC0aP-ZEeSlOqptyl-aPA" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YnC0af-ZEeSlOqptyl-aPA" name="PolynomialFactor">
+      <ownedAttribute xmi:id="_YnC0av-ZEeSlOqptyl-aPA" name="factor" visibility="public" isOrdered="true" isDerived="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnC0a_-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YnC0bP-ZEeSlOqptyl-aPA" name="offset" visibility="public" isOrdered="true" isDerived="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YnC0bf-ZEeSlOqptyl-aPA"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_YnC0bv-ZEeSlOqptyl-aPA" memberEnd="_YnC0Z_-ZEeSlOqptyl-aPA _YnC0b_-ZEeSlOqptyl-aPA">
+      <ownedEnd xmi:id="_YnC0b_-ZEeSlOqptyl-aPA" type="_YnC0Zf-ZEeSlOqptyl-aPA" association="_YnC0bv-ZEeSlOqptyl-aPA"/>
+    </packagedElement>
+    <profileApplication xmi:id="_YnC0cP-ZEeSlOqptyl-aPA">
+      <eAnnotations xmi:id="_YnC0cf-ZEeSlOqptyl-aPA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Ecore.profile.uml#_0"/>
+    </profileApplication>
+    <profileApplication xmi:id="_YnuwsP-ZEeSlOqptyl-aPA">
+      <eAnnotations xmi:id="_Ynuwsf-ZEeSlOqptyl-aPA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+    <profileApplication xmi:id="_YoBroP-ZEeSlOqptyl-aPA">
+      <eAnnotations xmi:id="_YoCSsP-ZEeSlOqptyl-aPA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="Default.profile.uml#_fNwoAAqoEd6-N_NOT9vsCA"/>
+      </eAnnotations>
+      <appliedProfile href="Default.profile.uml#_a_S3wNWLEdiy4IqP8whjFA"/>
+    </profileApplication>
+    <profileApplication xmi:id="_YoflsP-ZEeSlOqptyl-aPA">
+      <eAnnotations xmi:id="_Yoflsf-ZEeSlOqptyl-aPA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="Deployment.profile.uml#_IrdAUMmBEdqBcN1R6EvWUw"/>
+      </eAnnotations>
+      <appliedProfile href="Deployment.profile.uml#_vjbuwOvHEdiDX5bji0iVSA"/>
+    </profileApplication>
+  </uml:Model>
+  <Ecore:EPackage xmi:id="_YnECUP-ZEeSlOqptyl-aPA" base_Package="_YnCNIP-ZEeSlOqptyl-aPA" nsPrefix="tools.descartes.dlim" nsURI="http://descartes.tools/dlim/0.1"/>
+  <Ecore:EClass xmi:id="_YnECUf-ZEeSlOqptyl-aPA" base_Class="_YnCNIf-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnECUv-ZEeSlOqptyl-aPA" base_Property="_YnCNI_-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnECU_-ZEeSlOqptyl-aPA" base_Property="_YnCNJf-ZEeSlOqptyl-aPA"/>
+  <Ecore:EReference xmi:id="_YnECVP-ZEeSlOqptyl-aPA" base_Property="_YnCNJ_-ZEeSlOqptyl-aPA"/>
+  <Ecore:EReference xmi:id="_YnECVf-ZEeSlOqptyl-aPA" base_Property="_YnCNKf-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnEpYP-ZEeSlOqptyl-aPA" base_Property="_YnCNK_-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnEpYf-ZEeSlOqptyl-aPA" base_Property="_YnCNLf-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnEpYv-ZEeSlOqptyl-aPA" base_Property="_YnCNL_-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnEpY_-ZEeSlOqptyl-aPA" base_Property="_YnCNMf-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnEpZP-ZEeSlOqptyl-aPA" base_Property="_YnCNM_-ZEeSlOqptyl-aPA"/>
+  <Ecore:EGenericType xmi:id="_YnEpZf-ZEeSlOqptyl-aPA" base_Class="_YnCNNf-ZEeSlOqptyl-aPA"/>
+  <Ecore:EGenericType xmi:id="_YnEpZv-ZEeSlOqptyl-aPA" base_Class="_YnCNNv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EGenericType xmi:id="_YnEpZ_-ZEeSlOqptyl-aPA" base_DataType="_YnCNN_-ZEeSlOqptyl-aPA"/>
+  <Ecore:EOperation xmi:id="_YnEpaP-ZEeSlOqptyl-aPA" base_Operation="_YnCNO_-ZEeSlOqptyl-aPA"/>
+  <Ecore:EParameter xmi:id="_YnEpaf-ZEeSlOqptyl-aPA" base_Parameter="_YnCNPv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EParameter xmi:id="_YnEpav-ZEeSlOqptyl-aPA" base_Parameter="_YnCNQP-ZEeSlOqptyl-aPA"/>
+  <Ecore:EClass xmi:id="_YnEpa_-ZEeSlOqptyl-aPA" base_Class="_YnCNQv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EReference xmi:id="_YnEpbP-ZEeSlOqptyl-aPA" base_Property="_YnCNQ_-ZEeSlOqptyl-aPA"/>
+  <Ecore:EClass xmi:id="_YnEpbf-ZEeSlOqptyl-aPA" base_Class="_YnCNRv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnEpbv-ZEeSlOqptyl-aPA" base_Property="_YnCNR_-ZEeSlOqptyl-aPA"/>
+  <Ecore:EReference xmi:id="_YnEpb_-ZEeSlOqptyl-aPA" base_Property="_YnCNSf-ZEeSlOqptyl-aPA"/>
+  <Ecore:EEnum xmi:id="_YnEpcP-ZEeSlOqptyl-aPA" base_Enumeration="_YnCNSv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EEnumLiteral xmi:id="_YnEpcf-ZEeSlOqptyl-aPA" base_EnumerationLiteral="_YnCNS_-ZEeSlOqptyl-aPA" literal="ADD"/>
+  <Ecore:EEnumLiteral xmi:id="_YnEpcv-ZEeSlOqptyl-aPA" base_EnumerationLiteral="_YnCNTP-ZEeSlOqptyl-aPA" literal="SUB"/>
+  <Ecore:EEnumLiteral xmi:id="_YnEpc_-ZEeSlOqptyl-aPA" base_EnumerationLiteral="_YnCNTf-ZEeSlOqptyl-aPA" literal="MULT"/>
+  <Ecore:EClass xmi:id="_YnFQcP-ZEeSlOqptyl-aPA" base_Class="_YnCNUv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnFQcf-ZEeSlOqptyl-aPA" base_Property="_YnCNU_-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnFQcv-ZEeSlOqptyl-aPA" base_Property="_YnCNVf-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnFQc_-ZEeSlOqptyl-aPA" base_Property="_YnCNV_-ZEeSlOqptyl-aPA"/>
+  <Ecore:EClass xmi:id="_YnFQdP-ZEeSlOqptyl-aPA" base_Class="_YnCNW_-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnFQdf-ZEeSlOqptyl-aPA" base_Property="_YnCNXP-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnFQdv-ZEeSlOqptyl-aPA" base_Property="_YnCNXv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnFQd_-ZEeSlOqptyl-aPA" base_Property="_YnCNYP-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnFQeP-ZEeSlOqptyl-aPA" base_Property="_YnCNYv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EReference xmi:id="_YnFQef-ZEeSlOqptyl-aPA" base_Property="_YnCNZP-ZEeSlOqptyl-aPA"/>
+  <Ecore:EReference xmi:id="_YnFQev-ZEeSlOqptyl-aPA" base_Property="_YnCNZv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnFQe_-ZEeSlOqptyl-aPA" base_Property="_YnCNaP-ZEeSlOqptyl-aPA"/>
+  <Ecore:EGenericType xmi:id="_YnFQfP-ZEeSlOqptyl-aPA" base_Class="_YnCNav-ZEeSlOqptyl-aPA"/>
+  <Ecore:EGenericType xmi:id="_YnFQff-ZEeSlOqptyl-aPA" base_Class="_YnCNa_-ZEeSlOqptyl-aPA"/>
+  <Ecore:EGenericType xmi:id="_YnFQfv-ZEeSlOqptyl-aPA" base_DataType="_YnCNbP-ZEeSlOqptyl-aPA"/>
+  <Ecore:EGenericType xmi:id="_YnFQf_-ZEeSlOqptyl-aPA" base_Class="_YnCNcP-ZEeSlOqptyl-aPA"/>
+  <Ecore:EGenericType xmi:id="_YnFQgP-ZEeSlOqptyl-aPA" base_Class="_YnCNcf-ZEeSlOqptyl-aPA"/>
+  <Ecore:EGenericType xmi:id="_YnFQgf-ZEeSlOqptyl-aPA" base_DataType="_YnCNcv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EOperation xmi:id="_YnFQgv-ZEeSlOqptyl-aPA" base_Operation="_YnCNdv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EParameter xmi:id="_YnFQg_-ZEeSlOqptyl-aPA" base_Parameter="_YnCNef-ZEeSlOqptyl-aPA"/>
+  <Ecore:EParameter xmi:id="_YnFQhP-ZEeSlOqptyl-aPA" base_Parameter="_YnCNe_-ZEeSlOqptyl-aPA"/>
+  <Ecore:EOperation xmi:id="_YnF3gP-ZEeSlOqptyl-aPA" base_Operation="_YnCNff-ZEeSlOqptyl-aPA"/>
+  <Ecore:EParameter xmi:id="_YnF3gf-ZEeSlOqptyl-aPA" base_Parameter="_YnCNgP-ZEeSlOqptyl-aPA"/>
+  <Ecore:EParameter xmi:id="_YnF3gv-ZEeSlOqptyl-aPA" base_Parameter="_YnCNgv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EEnum xmi:id="_YnF3g_-ZEeSlOqptyl-aPA" base_Enumeration="_YnCNiP-ZEeSlOqptyl-aPA"/>
+  <Ecore:EEnumLiteral xmi:id="_YnF3hP-ZEeSlOqptyl-aPA" base_EnumerationLiteral="_YnCNif-ZEeSlOqptyl-aPA" literal="ROOTCLOCK"/>
+  <Ecore:EEnumLiteral xmi:id="_YnF3hf-ZEeSlOqptyl-aPA" base_EnumerationLiteral="_YnCNiv-ZEeSlOqptyl-aPA" literal="CONTAINERCLOCK"/>
+  <Ecore:EEnumLiteral xmi:id="_YnF3hv-ZEeSlOqptyl-aPA" base_EnumerationLiteral="_YnCNi_-ZEeSlOqptyl-aPA" literal="SEQCLOCK"/>
+  <Ecore:EEnumLiteral xmi:id="_YnF3h_-ZEeSlOqptyl-aPA" base_EnumerationLiteral="_YnCNjP-ZEeSlOqptyl-aPA" literal="LOOPCLOCK"/>
+  <Ecore:EClass xmi:id="_YnF3iP-ZEeSlOqptyl-aPA" base_Class="_YnCNj_-ZEeSlOqptyl-aPA"/>
+  <Ecore:EClass xmi:id="_YnF3if-ZEeSlOqptyl-aPA" base_Class="_YnCNkf-ZEeSlOqptyl-aPA"/>
+  <Ecore:EClass xmi:id="_YnF3iv-ZEeSlOqptyl-aPA" base_Class="_YnCNk_-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnF3i_-ZEeSlOqptyl-aPA" base_Property="_YnCNlf-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnF3jP-ZEeSlOqptyl-aPA" base_Property="_YnCNl_-ZEeSlOqptyl-aPA"/>
+  <Ecore:EClass xmi:id="_YnF3jf-ZEeSlOqptyl-aPA" base_Class="_YnCNmf-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnF3jv-ZEeSlOqptyl-aPA" base_Property="_YnCNm_-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnF3j_-ZEeSlOqptyl-aPA" base_Property="_YnCNnf-ZEeSlOqptyl-aPA"/>
+  <Ecore:EClass xmi:id="_YnF3kP-ZEeSlOqptyl-aPA" base_Class="_YnCNn_-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnF3kf-ZEeSlOqptyl-aPA" base_Property="_YnCNof-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnF3kv-ZEeSlOqptyl-aPA" base_Property="_YnCNo_-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnF3k_-ZEeSlOqptyl-aPA" base_Property="_YnCNpf-ZEeSlOqptyl-aPA"/>
+  <Ecore:EGenericType xmi:id="_YnF3lP-ZEeSlOqptyl-aPA" base_Class="_YnCNp_-ZEeSlOqptyl-aPA"/>
+  <Ecore:EGenericType xmi:id="_YnGekP-ZEeSlOqptyl-aPA" base_Class="_YnCNqP-ZEeSlOqptyl-aPA"/>
+  <Ecore:EGenericType xmi:id="_YnGekf-ZEeSlOqptyl-aPA" base_DataType="_YnCNqf-ZEeSlOqptyl-aPA"/>
+  <Ecore:EOperation xmi:id="_YnGekv-ZEeSlOqptyl-aPA" base_Operation="_YnCNrf-ZEeSlOqptyl-aPA"/>
+  <Ecore:EParameter xmi:id="_YnGek_-ZEeSlOqptyl-aPA" base_Parameter="_YnCNsP-ZEeSlOqptyl-aPA"/>
+  <Ecore:EParameter xmi:id="_YnGelP-ZEeSlOqptyl-aPA" base_Parameter="_YnCNsv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EClass xmi:id="_YnGelf-ZEeSlOqptyl-aPA" base_Class="_YnCNtP-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnGelv-ZEeSlOqptyl-aPA" base_Property="_YnCNtv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnGel_-ZEeSlOqptyl-aPA" base_Property="_YnCNuP-ZEeSlOqptyl-aPA"/>
+  <Ecore:EClass xmi:id="_YnGemP-ZEeSlOqptyl-aPA" base_Class="_YnC0MP-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnGemf-ZEeSlOqptyl-aPA" base_Property="_YnC0Mv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EClass xmi:id="_YnGemv-ZEeSlOqptyl-aPA" base_Class="_YnC0NP-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnGem_-ZEeSlOqptyl-aPA" base_Property="_YnC0Nv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnGenP-ZEeSlOqptyl-aPA" base_Property="_YnC0OP-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnGenf-ZEeSlOqptyl-aPA" base_Property="_YnC0Ov-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnGenv-ZEeSlOqptyl-aPA" base_Property="_YnC0PP-ZEeSlOqptyl-aPA"/>
+  <Ecore:EClass xmi:id="_YnGen_-ZEeSlOqptyl-aPA" base_Class="_YnC0Pv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EClass xmi:id="_YnGeoP-ZEeSlOqptyl-aPA" base_Class="_YnC0QP-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnGeof-ZEeSlOqptyl-aPA" base_Property="_YnC0Qv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EClass xmi:id="_YnGeov-ZEeSlOqptyl-aPA" base_Class="_YnC0RP-ZEeSlOqptyl-aPA"/>
+  <Ecore:EClass xmi:id="_YnGeo_-ZEeSlOqptyl-aPA" base_Class="_YnC0Rv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EClass xmi:id="_YnGepP-ZEeSlOqptyl-aPA" base_Class="_YnC0SP-ZEeSlOqptyl-aPA"/>
+  <Ecore:EClass xmi:id="_YnHFoP-ZEeSlOqptyl-aPA" base_Class="_YnC0Sv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EClass xmi:id="_YnHFof-ZEeSlOqptyl-aPA" base_Class="_YnC0TP-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnHFov-ZEeSlOqptyl-aPA" base_Property="_YnC0Tv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EClass xmi:id="_YnHFo_-ZEeSlOqptyl-aPA" base_Class="_YnC0UP-ZEeSlOqptyl-aPA"/>
+  <Ecore:EClass xmi:id="_YnHFpP-ZEeSlOqptyl-aPA" base_Class="_YnC0Uv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnHFpf-ZEeSlOqptyl-aPA" base_Property="_YnC0VP-ZEeSlOqptyl-aPA"/>
+  <Ecore:EOperation xmi:id="_YnHFpv-ZEeSlOqptyl-aPA" base_Operation="_YnC0Vv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EParameter xmi:id="_YnHFp_-ZEeSlOqptyl-aPA" base_Parameter="_YnC0Wf-ZEeSlOqptyl-aPA"/>
+  <Ecore:EOperation xmi:id="_YnHFqP-ZEeSlOqptyl-aPA" base_Operation="_YnC0W_-ZEeSlOqptyl-aPA"/>
+  <Ecore:EClass xmi:id="_YnHFqf-ZEeSlOqptyl-aPA" base_Class="_YnC0Xv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EClass xmi:id="_YnHFqv-ZEeSlOqptyl-aPA" base_Class="_YnC0YP-ZEeSlOqptyl-aPA"/>
+  <Ecore:EReference xmi:id="_YnHFq_-ZEeSlOqptyl-aPA" base_Property="_YnC0Yv-ZEeSlOqptyl-aPA"/>
+  <Ecore:EClass xmi:id="_YnHFrP-ZEeSlOqptyl-aPA" base_Class="_YnC0Zf-ZEeSlOqptyl-aPA"/>
+  <Ecore:EReference xmi:id="_YnHFrf-ZEeSlOqptyl-aPA" base_Property="_YnC0Z_-ZEeSlOqptyl-aPA"/>
+  <Ecore:EClass xmi:id="_YnHFrv-ZEeSlOqptyl-aPA" base_Class="_YnC0af-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnHFr_-ZEeSlOqptyl-aPA" base_Property="_YnC0av-ZEeSlOqptyl-aPA"/>
+  <Ecore:EAttribute xmi:id="_YnHFsP-ZEeSlOqptyl-aPA" base_Property="_YnC0bP-ZEeSlOqptyl-aPA"/>
+</xmi:XMI>

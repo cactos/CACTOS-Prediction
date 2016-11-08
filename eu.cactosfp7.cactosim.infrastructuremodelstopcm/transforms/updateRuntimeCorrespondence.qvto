@@ -1,0 +1,140 @@
+import m2m.qvt.oml.JScience;
+import simulizar_qvto_helper.logHelper;
+
+modeltype ECORE uses 'http://www.eclipse.org/emf/2002/Ecore';
+modeltype PHYSICAL_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype LOGICAL_CORRESPONDENCE uses  'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype PHYSICAL_CORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype PHYSICAL_UTIL uses 'http://www.cactosfp7.eu/PhysicalDCModel/Util/1.0';
+modeltype LOGICAL_CORE uses 'http://www.cactosfp7.eu/LogicalDCModel/Core/1.0';
+modeltype LOGICAL_LOAD uses "http://www.cactosfp7.eu/CactosLoadModel/Logical/1.0";
+modeltype LOGICAL_APPLICATION uses 'http://www.cactosfp7.eu/LogicalDCModel/Application/1.0';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype XMLTYPE uses 'http://www.eclipse.org/emf/2003/XMLType';
+modeltype ACTION_PARAM uses 'http://simulizar.palladiosimulator.org/Actions/Parameter/1.1';
+modeltype RUNTIMEMEASUREMENT uses 'http://simulizar.palladiosimulator.org/RuntimeMeasurement/1.0';
+modeltype MONITOR_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/Measurement/1.1';
+
+transformation updateRuntimeCorrespondence(  inout physicalCorrespondence : PHYSICAL_CORRESPONDENCE,  
+									inout logicalCorrespondence : LOGICAL_CORRESPONDENCE,
+									in measurementCorrespondence : MONITOR_CORRESPONDENCE,
+									in runtimeMeasurement : RUNTIMEMEASUREMENT) {
+									
+	main() {
+	
+		var physicalCorrespondenceRepository : PhysicalCorrespondenceRepository = physicalCorrespondence.rootObjects()[PhysicalCorrespondenceRepository]->any(true);
+		var logicalCorrespondenceRepository : LogicalCorrespondenceRepository = logicalCorrespondence.rootObjects()[LogicalCorrespondenceRepository]->any(true);
+		
+		if ((not physicalCorrespondenceRepository.correspondenceEstablished) or (not logicalCorrespondenceRepository.correspondenceEstablished)) {
+			logInfo("Update Measurement Correspondences");
+			var monitorCorrespondenceRepository : MonitorCorrespondenceRepository := measurementCorrespondence.rootObjects()[MonitorCorrespondenceRepository]->any(true);
+			runtimeMeasurement.rootObjects()[RuntimeMeasurement].map establishLoadCorrespondence(physicalCorrespondenceRepository, logicalCorrespondenceRepository, monitorCorrespondenceRepository);
+			physicalCorrespondenceRepository.correspondenceEstablished := true;
+			logicalCorrespondenceRepository.correspondenceEstablished := true;
+		};
+		
+		physicalCorrespondenceRepository.puMeasurementCorrespondences->forEach(it){
+			if (it.cactos.observedPu.node.state <> NodeState::OFF) {
+				it.cactos.utilization.value:=createUtilAmount(it.palladio.measuringValue)
+			} 
+				
+		};
+		physicalCorrespondenceRepository.powerConsumingEntityMeasurementCorrespondences->forEach(it){
+			if (it.cactos.powerConsumingEntity.oclIsKindOf(AbstractNode)
+				and it.cactos.powerConsumingEntity.oclAsType(AbstractNode).state <> NodeState::OFF) {
+				it.cactos.currentConsumption:=createConsumptionAmount(it.palladio.measuringValue);
+			}
+		};
+		physicalCorrespondenceRepository.memoryMeasurementCorrespondences->forEach(it){
+			it.cactos.utilization.value:=createUtilAmount(it.palladio.measuringValue)
+		};
+		physicalCorrespondenceRepository.storageMeasurementCorrespondences->forEach(it){
+			it.cactos.storageUtilization.value:=createUtilAmount(it.palladio.measuringValue)
+		};
+		physicalCorrespondenceRepository.interconnectMeasurementCorrespondences->forEach(it){
+			it.cactos.measuredThroughput:=createUtilAmount(it.palladio.measuringValue)
+		};
+		/* No need to update structural relationships: 
+		 * switchCorrespondence
+		 * rackCorrespondence
+		 * abstractNodeCorrespondence
+		 * memorySpecificationCorrespondence
+		 * storageSpecificationCorrespondence
+		 * networkInterconnectCorrespondence
+		 * processingUnitSpecificationCorrespondence
+		 */
+		
+		// logical repository
+		logicalCorrespondenceRepository.virtualMemoryMeasurementCorrespondences->forEach(it){
+			it.cactos.utilization.value:=createUtilAmount(it.palladio.measuringValue)
+		};
+		logicalCorrespondenceRepository.virtualNetworkInterconnectMeasurementCorrespondences->forEach(it){it.cactos.utilization.value:=createUtilAmount(it.palladio.measuringValue)};
+		logicalCorrespondenceRepository.virtualProcessingUnitMeasurementCorrespondences->forEach(it){it.cactos.utilization.value:=createUtilAmount(it.palladio.measuringValue)};
+		logicalCorrespondenceRepository.volumeMeasurementCorrespondences->forEach(it){it.cactos.writeThroughput:=createDataRateAmount(it.palladio.measuringValue)};
+		
+		logicalCorrespondenceRepository.arrivalRateMeasurementCorrespondences[RequestArrivalRateMeasurementCorrespondence]->forEach(it) {
+			it.requestArrivalRateMeasurement.arrivalRate := it.determineSumOfNestedArrivalRates();	
+		};
+		logicalCorrespondenceRepository.arrivalRateMeasurementCorrespondences[ResponseArrivalRateMeasurementCorrespondence]->forEach(it) {
+			it.responseArrivalRateMeasurement.arrivalRate := it.determineSumOfNestedArrivalRates();
+		};
+		
+		/* No need to update structural relationships: 
+		 * logicalCorrespondenceRepository.virtualNetworkInterconnects
+		 * logicalCorrespondenceRepository.vmImageCorrespondences
+		 * logicalCorrespondenceRepository.vmImageInstanceCorrespondences
+		 * logicalCorrespondenceRepository.virtualMachineCorrespondences
+		 */
+	 }
+
+
+	mapping RuntimeMeasurement::establishLoadCorrespondence(inout physicalCorrespondenceRepository : PhysicalCorrespondenceRepository, inout logicalCorrespondenceRepository : LogicalCorrespondenceRepository, in monitorCorrespondenceRepository : MonitorCorrespondenceRepository) {
+		var cactosEntity := monitorCorrespondenceRepository.monitoredCactosEntityToMonitorCorrespondences->any(s | s.palladio.id = self.measurementSpecification.id).cactos;
+		
+		if (cactosEntity <> null) {
+			logDebug("Establishing correspondence for " + self.measurementSpecification.metricDescription.name + " @ "+ self.measurementSpecification.monitor.measuringPoint.toString() + " " + self.measurementSpecification.name + " for " + cactosEntity.id);
+		};
+		
+		var storageMeasurementCorrespondence := physicalCorrespondenceRepository.storageMeasurementCorrespondences->any(s | s.cactos.observedStorage.id = cactosEntity.id);
+		if(storageMeasurementCorrespondence <> null) {
+			storageMeasurementCorrespondence.palladio := self;
+		} else {
+			var puMeasurementCorrespondence := physicalCorrespondenceRepository.puMeasurementCorrespondences->any(s | s.cactos.observedPu.id = cactosEntity.id);
+			if(puMeasurementCorrespondence <> null) {
+				puMeasurementCorrespondence.palladio := self;
+			} else {
+				var powerMeasurementCorrespondence := physicalCorrespondenceRepository.powerConsumingEntityMeasurementCorrespondences->any(s | s.cactos.powerConsumingEntity.id = cactosEntity.id and self.measurementSpecification.metricDescription.id = '_EZBPQV91EeSUTcC2MkYv_Q');
+				if (powerMeasurementCorrespondence <> null) {
+					powerMeasurementCorrespondence.palladio := self;
+				} else {
+					var nicMeasurementCorrespondence := physicalCorrespondenceRepository.interconnectMeasurementCorrespondences->any(s | s.cactos.observedInterconnect.id = cactosEntity.id);							
+					if (nicMeasurementCorrespondence <> null) {
+						nicMeasurementCorrespondence.palladio := self;					
+					} else {
+						if (self.measurementSpecification.metricDescription.id = "_j8UvEQYAEeaz8bKeq_K-2w"
+							or self.measurementSpecification.metricDescription.id = "_wyMOQQYAEeaz8bKeq_K-2w") {
+							cactosEntity.oclAsType(ServiceOperationInstanceArrivalRateMeasurementCorrespondence).palladio := self;
+						};
+					}
+				}
+			}
+		}
+	}
+	
+	query ArrivalRateMeasurementCorrespondence::determineSumOfNestedArrivalRates(): Amount {
+		var res := 0.0;
+		self.serviceInstanceMeasurementCorrespondences->forEach(serviceInstance) {
+			serviceInstance.serviceOperationInstanceCorrespondence->forEach(serviceOperation) {
+				if (serviceOperation.palladio <> null) {
+					res := res + serviceOperation.palladio.measuringValue;
+				 } else {
+					log("No Measuring Value for: " + serviceOperation.cactosServiceOperation.name + " of " +
+						serviceOperation.cactosServiceOperation.serviceInterface.name + " in " + serviceOperation.id);
+				}
+			}
+		};
+		return createAmount(res, getUnitHertz());
+	}
+}
+

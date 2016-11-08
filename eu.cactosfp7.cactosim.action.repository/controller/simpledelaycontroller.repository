@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.1" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.1" id="_lE7cIOCAEeWaP9YO-O9pYg" entityName="SimpleDelayControllerRepository">
+  <components__Repository xsi:type="repository:BasicComponent" id="_RlcvMOCBEeWaP9YO-O9pYg" entityName="SimpleDelayController">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_Yjth0OCBEeWaP9YO-O9pYg" entityName="Provided_INodeStateChange_NodeStateChangeController" providedInterface__OperationProvidedRole="_tzDp5-CAEeWaP9YO-O9pYg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_Yj7kQOCBEeWaP9YO-O9pYg" describedService__SEFF="_GJm-AOCBEeWaP9YO-O9pYg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_Yj8LUOCBEeWaP9YO-O9pYg" entityName="start" successor_AbstractAction="_gxk7IOCBEeWaP9YO-O9pYg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_Yj8yYOCBEeWaP9YO-O9pYg" entityName="stop" predecessor_AbstractAction="_gxk7IOCBEeWaP9YO-O9pYg"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_gxk7IOCBEeWaP9YO-O9pYg" entityName="NodeStateChangeDelay" predecessor_AbstractAction="_Yj8LUOCBEeWaP9YO-O9pYg" successor_AbstractAction="_Yj8yYOCBEeWaP9YO-O9pYg">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="delay.VALUE"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_nvHX4KkREdyEA_b89s7q9w"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_tzDp5-CAEeWaP9YO-O9pYg" entityName="IDelayCausingAction">
+    <signatures__OperationInterface id="_GJm-AOCBEeWaP9YO-O9pYg" entityName="issueDelay">
+      <parameters__OperationSignature parameterName="delay" modifier__Parameter="in">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+      </parameters__OperationSignature>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+</repository:Repository>

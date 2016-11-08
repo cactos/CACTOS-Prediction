@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.m2m.qvt.oml.javaBlackboxUnits">
+      <unit
+            name="OptimisationConnectorUnit"
+            namespace="eu.cactosfp7.cactosim.optimisationconnector">
+         <library
+               class="eu.cactosfp7.cactosim.optimisationconnector.OptimisationConnector"
+               name="OptimisationConnector">
+            <metamodel
+                  nsURI="http://www.cactosfp7.eu/OptimisationPlan/1.0">
+            </metamodel>
+            <metamodel
+                  nsURI="http://www.cactosfp7.eu/CactosLoadModel/Logical/1.0">
+            </metamodel>
+            <metamodel
+                  nsURI="http://www.cactosfp7.eu/CactosLoadModel/Physical/1.0">
+            </metamodel>
+            <metamodel
+                  nsURI="http://www.cactosfp7.eu/LogicalDCModel/Core/1.0">
+            </metamodel>
+            <metamodel
+                  nsURI="http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0">
+            </metamodel>
+         </library>
+      </unit>
+      <unit
+            name="SimulationStateUnit"
+            namespace="eu.cactosfp7.cactosim.optimisationconnector">
+         <library
+               class="eu.cactosfp7.cactosim.optimisationconnector.SimulationStateLibrary"
+               name="SimulationStateLibrary">
+            <metamodel
+                  nsURI="http://www.eclipse.org/emf/2002/Ecore">
+            </metamodel>
+            <metamodel
+                  nsURI="http://www.cactosfp7.eu/PhysicalDCModel/Util/1.0">
+            </metamodel>
+         </library>
+      </unit>
+   </extension>
+   <extension
+         point="org.palladiosimulator.simulizar.runtimestate.runtimestateaccessor">
+      <runtimeStateAccessor
+            accessor="eu.cactosfp7.cactosim.optimisationconnector.SimulationRuntimeStateAccessor">
+      </runtimeStateAccessor>
+   </extension>
+
+</plugin>

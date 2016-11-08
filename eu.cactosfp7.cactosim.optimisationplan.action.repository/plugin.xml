@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+  <extension
+         point="org.eclipse.m2m.qvt.oml.javaBlackboxUnits">
+      <unit
+            name="CactosOptimisationPlanActionBlackboxUnit"
+            namespace="eu.cactosfp7.cactosim.optimisationplan.action.repository.black">
+         <library
+               class="eu.cactosfp7.cactosim.optimisationplan.action.repository.black.CactosOptimisationPlanActionBlackBoxLibrary"
+               name="CactosOptimisationPlanActionBlackboxLibrary">
+            <metamodel
+                  nsURI="http://simulizar.palladiosimulator.org/Actions/Context/1.1">
+            </metamodel>
+            <metamodel
+                  nsURI="http://www.cactosfp7.eu/PhysicalDCModel/Util/1.0">
+            </metamodel>
+            <metamodel
+                  nsURI="http://www.cactosfp7.eu/OptimisationPlan/1.0">
+            </metamodel>
+         </library>
+      </unit>
+   </extension>
+</plugin>

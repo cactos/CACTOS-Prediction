@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:PhysicalDCModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0" id="_TW8bkE8aEea91_JDf85RTg">
+  <switches id="_TYX-8E8aEea91_JDf85RTg" name="Single Switch Layout" networkInterconnects="_TYWw0E8aEea91_JDf85RTg"/>
+  <racks id="_TW_e4E8aEea91_JDf85RTg" name="Dell 08-15" powerSupplies="_TW-QwE8aEea91_JDf85RTg">
+    <nodes xsi:type="core:ComputeNode" id="_TYDO0E8aEea91_JDf85RTg" name="Compute Node 0" powerProvidingEntities="_TW-QwE8aEea91_JDf85RTg" powerConsumingEntities="_TYFEAE8aEea91_JDf85RTg _TYG5ME8aEea91_JDf85RTg _TYJVcE8aEea91_JDf85RTg" networkInterconnects="_TYWw0E8aEea91_JDf85RTg">
+      <cpuSpecifications id="_TYFEAE8aEea91_JDf85RTg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_TYDO0E8aEea91_JDf85RTg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_TW5YQE8aEea91_JDf85RTg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_TYG5ME8aEea91_JDf85RTg" name="Local HDD #0" powerProvidingEntities="_TYDO0E8aEea91_JDf85RTg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_TYJVcE8aEea91_JDf85RTg" name="DDR-RAM" powerProvidingEntities="_TYDO0E8aEea91_JDf85RTg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_TYesoE8aEea91_JDf85RTg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_TYJ8gE8aEea91_JDf85RTg" name="Compute Node 1" powerProvidingEntities="_TW-QwE8aEea91_JDf85RTg" powerConsumingEntities="_TYJ8gU8aEea91_JDf85RTg _TYJ8gk8aEea91_JDf85RTg _TYJ8g08aEea91_JDf85RTg" networkInterconnects="_TYWw0E8aEea91_JDf85RTg">
+      <cpuSpecifications id="_TYJ8gU8aEea91_JDf85RTg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_TYJ8gE8aEea91_JDf85RTg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_TW5YQE8aEea91_JDf85RTg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_TYJ8gk8aEea91_JDf85RTg" name="Local HDD #1" powerProvidingEntities="_TYJ8gE8aEea91_JDf85RTg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_TYJ8g08aEea91_JDf85RTg" name="DDR-RAM" powerProvidingEntities="_TYJ8gE8aEea91_JDf85RTg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_TYf6wE8aEea91_JDf85RTg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_TYKjkE8aEea91_JDf85RTg" name="Compute Node 2" powerProvidingEntities="_TW-QwE8aEea91_JDf85RTg" powerConsumingEntities="_TYKjkU8aEea91_JDf85RTg _TYKjkk8aEea91_JDf85RTg _TYKjk08aEea91_JDf85RTg" networkInterconnects="_TYWw0E8aEea91_JDf85RTg">
+      <cpuSpecifications id="_TYKjkU8aEea91_JDf85RTg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_TYKjkE8aEea91_JDf85RTg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_TW5YQE8aEea91_JDf85RTg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_TYKjkk8aEea91_JDf85RTg" name="Local HDD #2" powerProvidingEntities="_TYKjkE8aEea91_JDf85RTg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_TYKjk08aEea91_JDf85RTg" name="DDR-RAM" powerProvidingEntities="_TYKjkE8aEea91_JDf85RTg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_TYf6wk8aEea91_JDf85RTg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_TYKjlE8aEea91_JDf85RTg" name="Compute Node 3" powerProvidingEntities="_TW-QwE8aEea91_JDf85RTg" powerConsumingEntities="_TYKjlU8aEea91_JDf85RTg _TYKjlk8aEea91_JDf85RTg _TYKjl08aEea91_JDf85RTg" networkInterconnects="_TYWw0E8aEea91_JDf85RTg">
+      <cpuSpecifications id="_TYKjlU8aEea91_JDf85RTg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_TYKjlE8aEea91_JDf85RTg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_TW5YQE8aEea91_JDf85RTg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_TYKjlk8aEea91_JDf85RTg" name="Local HDD #3" powerProvidingEntities="_TYKjlE8aEea91_JDf85RTg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_TYKjl08aEea91_JDf85RTg" name="DDR-RAM" powerProvidingEntities="_TYKjlE8aEea91_JDf85RTg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_TYf6xE8aEea91_JDf85RTg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_TYKjmE8aEea91_JDf85RTg" name="Compute Node 4" powerProvidingEntities="_TW-QwE8aEea91_JDf85RTg" powerConsumingEntities="_TYKjmU8aEea91_JDf85RTg _TYKjmk8aEea91_JDf85RTg _TYKjm08aEea91_JDf85RTg" networkInterconnects="_TYWw0E8aEea91_JDf85RTg">
+      <cpuSpecifications id="_TYKjmU8aEea91_JDf85RTg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_TYKjmE8aEea91_JDf85RTg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_TW5YQE8aEea91_JDf85RTg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_TYKjmk8aEea91_JDf85RTg" name="Local HDD #4" powerProvidingEntities="_TYKjmE8aEea91_JDf85RTg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_TYKjm08aEea91_JDf85RTg" name="DDR-RAM" powerProvidingEntities="_TYKjmE8aEea91_JDf85RTg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_TYf6xk8aEea91_JDf85RTg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_TYKjnE8aEea91_JDf85RTg" name="Compute Node 5" powerProvidingEntities="_TW-QwE8aEea91_JDf85RTg" powerConsumingEntities="_TYKjnU8aEea91_JDf85RTg _TYLKoE8aEea91_JDf85RTg _TYLKoU8aEea91_JDf85RTg" networkInterconnects="_TYWw0E8aEea91_JDf85RTg">
+      <cpuSpecifications id="_TYKjnU8aEea91_JDf85RTg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_TYKjnE8aEea91_JDf85RTg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_TW5YQE8aEea91_JDf85RTg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_TYLKoE8aEea91_JDf85RTg" name="Local HDD #5" powerProvidingEntities="_TYKjnE8aEea91_JDf85RTg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_TYLKoU8aEea91_JDf85RTg" name="DDR-RAM" powerProvidingEntities="_TYKjnE8aEea91_JDf85RTg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_TYf6yE8aEea91_JDf85RTg"/>
+    </nodes>
+  </racks>
+  <racks id="_TXAF8E8aEea91_JDf85RTg" name="Dell 08-15" powerSupplies="_TW-QwU8aEea91_JDf85RTg">
+    <nodes xsi:type="core:ComputeNode" id="_TYLKok8aEea91_JDf85RTg" name="Compute Node 6" powerProvidingEntities="_TW-QwU8aEea91_JDf85RTg" powerConsumingEntities="_TYLKo08aEea91_JDf85RTg _TYLKpE8aEea91_JDf85RTg _TYLKpU8aEea91_JDf85RTg">
+      <cpuSpecifications id="_TYLKo08aEea91_JDf85RTg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_TYLKok8aEea91_JDf85RTg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_TW5YQE8aEea91_JDf85RTg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_TYLKpE8aEea91_JDf85RTg" name="Local HDD #6" powerProvidingEntities="_TYLKok8aEea91_JDf85RTg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_TYLKpU8aEea91_JDf85RTg" name="DDR-RAM" powerProvidingEntities="_TYLKok8aEea91_JDf85RTg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_TYf6yk8aEea91_JDf85RTg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_TYLKpk8aEea91_JDf85RTg" name="Compute Node 7" powerProvidingEntities="_TW-QwU8aEea91_JDf85RTg" powerConsumingEntities="_TYLKp08aEea91_JDf85RTg _TYLKqE8aEea91_JDf85RTg _TYLKqU8aEea91_JDf85RTg">
+      <cpuSpecifications id="_TYLKp08aEea91_JDf85RTg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_TYLKpk8aEea91_JDf85RTg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_TW5YQE8aEea91_JDf85RTg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_TYLKqE8aEea91_JDf85RTg" name="Local HDD #7" powerProvidingEntities="_TYLKpk8aEea91_JDf85RTg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_TYLKqU8aEea91_JDf85RTg" name="DDR-RAM" powerProvidingEntities="_TYLKpk8aEea91_JDf85RTg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_TYf6zE8aEea91_JDf85RTg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_TYLKqk8aEea91_JDf85RTg" name="Compute Node 8" powerProvidingEntities="_TW-QwU8aEea91_JDf85RTg" powerConsumingEntities="_TYLKq08aEea91_JDf85RTg _TYLKrE8aEea91_JDf85RTg _TYLKrU8aEea91_JDf85RTg">
+      <cpuSpecifications id="_TYLKq08aEea91_JDf85RTg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_TYLKqk8aEea91_JDf85RTg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_TW5YQE8aEea91_JDf85RTg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_TYLKrE8aEea91_JDf85RTg" name="Local HDD #8" powerProvidingEntities="_TYLKqk8aEea91_JDf85RTg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_TYLKrU8aEea91_JDf85RTg" name="DDR-RAM" powerProvidingEntities="_TYLKqk8aEea91_JDf85RTg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_TYf6zk8aEea91_JDf85RTg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_TYLxsE8aEea91_JDf85RTg" name="Compute Node 9" powerProvidingEntities="_TW-QwU8aEea91_JDf85RTg" powerConsumingEntities="_TYLxsU8aEea91_JDf85RTg _TYLxsk8aEea91_JDf85RTg _TYLxs08aEea91_JDf85RTg">
+      <cpuSpecifications id="_TYLxsU8aEea91_JDf85RTg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_TYLxsE8aEea91_JDf85RTg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_TW5YQE8aEea91_JDf85RTg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_TYLxsk8aEea91_JDf85RTg" name="Local HDD #9" powerProvidingEntities="_TYLxsE8aEea91_JDf85RTg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_TYLxs08aEea91_JDf85RTg" name="DDR-RAM" powerProvidingEntities="_TYLxsE8aEea91_JDf85RTg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_TYf60E8aEea91_JDf85RTg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_TYLxtE8aEea91_JDf85RTg" name="Compute Node 10" powerProvidingEntities="_TW-QwU8aEea91_JDf85RTg" powerConsumingEntities="_TYLxtU8aEea91_JDf85RTg _TYLxtk8aEea91_JDf85RTg _TYLxt08aEea91_JDf85RTg">
+      <cpuSpecifications id="_TYLxtU8aEea91_JDf85RTg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_TYLxtE8aEea91_JDf85RTg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_TW5YQE8aEea91_JDf85RTg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_TYLxtk8aEea91_JDf85RTg" name="Local HDD #10" powerProvidingEntities="_TYLxtE8aEea91_JDf85RTg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_TYLxt08aEea91_JDf85RTg" name="DDR-RAM" powerProvidingEntities="_TYLxtE8aEea91_JDf85RTg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_TYgh0E8aEea91_JDf85RTg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_TYLxuE8aEea91_JDf85RTg" name="Compute Node 11" powerProvidingEntities="_TW-QwU8aEea91_JDf85RTg" powerConsumingEntities="_TYLxuU8aEea91_JDf85RTg _TYLxuk8aEea91_JDf85RTg _TYLxu08aEea91_JDf85RTg">
+      <cpuSpecifications id="_TYLxuU8aEea91_JDf85RTg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_TYLxuE8aEea91_JDf85RTg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_TW5YQE8aEea91_JDf85RTg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_TYLxuk8aEea91_JDf85RTg" name="Local HDD #11" powerProvidingEntities="_TYLxuE8aEea91_JDf85RTg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_TYLxu08aEea91_JDf85RTg" name="DDR-RAM" powerProvidingEntities="_TYLxuE8aEea91_JDf85RTg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_TYgh0k8aEea91_JDf85RTg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_TYLxvE8aEea91_JDf85RTg" name="Compute Node 12" powerProvidingEntities="_TW-QwU8aEea91_JDf85RTg" powerConsumingEntities="_TYLxvU8aEea91_JDf85RTg _TYLxvk8aEea91_JDf85RTg _TYMYwE8aEea91_JDf85RTg">
+      <cpuSpecifications id="_TYLxvU8aEea91_JDf85RTg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_TYLxvE8aEea91_JDf85RTg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_TW5YQE8aEea91_JDf85RTg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_TYLxvk8aEea91_JDf85RTg" name="Local HDD #12" powerProvidingEntities="_TYLxvE8aEea91_JDf85RTg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_TYMYwE8aEea91_JDf85RTg" name="DDR-RAM" powerProvidingEntities="_TYLxvE8aEea91_JDf85RTg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_TYgh1E8aEea91_JDf85RTg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_TYMYwU8aEea91_JDf85RTg" name="Compute Node 13" powerProvidingEntities="_TW-QwU8aEea91_JDf85RTg" powerConsumingEntities="_TYMYwk8aEea91_JDf85RTg _TYMYw08aEea91_JDf85RTg _TYMYxE8aEea91_JDf85RTg">
+      <cpuSpecifications id="_TYMYwk8aEea91_JDf85RTg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_TYMYwU8aEea91_JDf85RTg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_TW5YQE8aEea91_JDf85RTg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_TYMYw08aEea91_JDf85RTg" name="Local HDD #13" powerProvidingEntities="_TYMYwU8aEea91_JDf85RTg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_TYMYxE8aEea91_JDf85RTg" name="DDR-RAM" powerProvidingEntities="_TYMYwU8aEea91_JDf85RTg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_TYgh1k8aEea91_JDf85RTg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_TYMYxU8aEea91_JDf85RTg" name="Compute Node 14" powerProvidingEntities="_TW-QwU8aEea91_JDf85RTg" powerConsumingEntities="_TYMYxk8aEea91_JDf85RTg _TYMYx08aEea91_JDf85RTg _TYMYyE8aEea91_JDf85RTg">
+      <cpuSpecifications id="_TYMYxk8aEea91_JDf85RTg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_TYMYxU8aEea91_JDf85RTg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_TW5YQE8aEea91_JDf85RTg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_TYMYx08aEea91_JDf85RTg" name="Local HDD #14" powerProvidingEntities="_TYMYxU8aEea91_JDf85RTg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_TYMYyE8aEea91_JDf85RTg" name="DDR-RAM" powerProvidingEntities="_TYMYxU8aEea91_JDf85RTg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_TYgh2E8aEea91_JDf85RTg"/>
+    </nodes>
+    <nodes xsi:type="core:ComputeNode" id="_TYMYyU8aEea91_JDf85RTg" name="Compute Node 15" powerProvidingEntities="_TW-QwU8aEea91_JDf85RTg" powerConsumingEntities="_TYMYyk8aEea91_JDf85RTg _TYMYy08aEea91_JDf85RTg _TYMYzE8aEea91_JDf85RTg">
+      <cpuSpecifications id="_TYMYyk8aEea91_JDf85RTg" name="CPU Intel x86_64 Rev. D" powerProvidingEntities="_TYMYyU8aEea91_JDf85RTg" frequency="2.5999999999999996GHz" numberOfCores="16" supportsTurboMode="false">
+        <powerModelBinding href="demoModel.pdcbinding#_TW5YQE8aEea91_JDf85RTg"/>
+        <architectureType href="demoModel.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+      </cpuSpecifications>
+      <storageSpecifications id="_TYMYy08aEea91_JDf85RTg" name="Local HDD #15" powerProvidingEntities="_TYMYyU8aEea91_JDf85RTg" size="1.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="280.0(bit/s)*1000000"/>
+        <writeBandwidth value="280.0(bit/s)*1000000"/>
+      </storageSpecifications>
+      <memorySpecifications id="_TYMYzE8aEea91_JDf85RTg" name="DDR-RAM" powerProvidingEntities="_TYMYyU8aEea91_JDf85RTg" size="128.0GB">
+        <bandwidthWrite value="140.32(bit/s)*1000000000"/>
+        <bandwidthRead value="140.32(bit/s)*1000000000"/>
+      </memorySpecifications>
+      <hypervisor href="demoModel.logical#_TYgh2k8aEea91_JDf85RTg"/>
+    </nodes>
+    <nodes xsi:type="core:NetworkAttachedStorage" id="_TYM_0E8aEea91_JDf85RTg" name="Main" powerProvidingEntities="_TW-QwU8aEea91_JDf85RTg">
+      <storageSpecifications id="_TYNm4E8aEea91_JDf85RTg" name="NAS (Virtual) HDD" size="500.0TB" readDelay="0.0s" writeDelay="0.0s">
+        <readBandwidth value="960.0(bit/s)*1000000"/>
+        <writeBandwidth value="960.0(bit/s)*1000000"/>
+      </storageSpecifications>
+    </nodes>
+  </racks>
+  <powerSupplies id="_TW9psE8aEea91_JDf85RTg" name="Main PDU" powerCap="3.0kW" powerConsumingEntities="_TW-QwE8aEea91_JDf85RTg _TW-QwU8aEea91_JDf85RTg" suppliablePeakPower="3.2kW"/>
+  <powerSupplies id="_TW-QwE8aEea91_JDf85RTg" name="Rack 1 PDU" powerProvidingEntities="_TW9psE8aEea91_JDf85RTg" powerCap="2.0kW" powerConsumingEntities="_TYDO0E8aEea91_JDf85RTg _TYJ8gE8aEea91_JDf85RTg _TYKjkE8aEea91_JDf85RTg _TYKjlE8aEea91_JDf85RTg _TYKjmE8aEea91_JDf85RTg _TYKjnE8aEea91_JDf85RTg" suppliablePeakPower="2.0kW" hostedIn="_TW_e4E8aEea91_JDf85RTg"/>
+  <powerSupplies id="_TW-QwU8aEea91_JDf85RTg" name="Rack 2 PDU" powerProvidingEntities="_TW9psE8aEea91_JDf85RTg" powerCap="2.0kW" powerConsumingEntities="_TYLKok8aEea91_JDf85RTg _TYLKpk8aEea91_JDf85RTg _TYLKqk8aEea91_JDf85RTg _TYLxsE8aEea91_JDf85RTg _TYLxtE8aEea91_JDf85RTg _TYLxuE8aEea91_JDf85RTg _TYLxvE8aEea91_JDf85RTg _TYMYwU8aEea91_JDf85RTg _TYMYxU8aEea91_JDf85RTg _TYMYyU8aEea91_JDf85RTg _TYM_0E8aEea91_JDf85RTg" suppliablePeakPower="2.0kW" hostedIn="_TXAF8E8aEea91_JDf85RTg"/>
+  <clusters id="_TYYmAE8aEea91_JDf85RTg" name="Single Cluster Layout" clusterId="1" containedNodes="_TYDO0E8aEea91_JDf85RTg _TYJ8gE8aEea91_JDf85RTg _TYKjkE8aEea91_JDf85RTg _TYKjlE8aEea91_JDf85RTg _TYKjmE8aEea91_JDf85RTg _TYKjnE8aEea91_JDf85RTg"/>
+  <networkInterconnects id="_TYWw0E8aEea91_JDf85RTg" name="Single NIC Layout" connectedEntities="_TYDO0E8aEea91_JDf85RTg _TYJ8gE8aEea91_JDf85RTg _TYKjkE8aEea91_JDf85RTg _TYKjlE8aEea91_JDf85RTg _TYKjmE8aEea91_JDf85RTg _TYKjnE8aEea91_JDf85RTg _TYX-8E8aEea91_JDf85RTg">
+    <bandwidth value="1.0(bit/s)*1000000000"/>
+  </networkInterconnects>
+</core:PhysicalDCModel>

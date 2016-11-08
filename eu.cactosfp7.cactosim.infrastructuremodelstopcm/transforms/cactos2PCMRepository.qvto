@@ -1,0 +1,764 @@
+import cactos2PCMShared;
+import logicalDCModelHelper;
+import pcmHelper;
+
+modeltype _physicaldc uses "http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0";
+modeltype _physicaldc_architecturetype uses "http://www.cactosfp7.eu/PhysicalDCModel/ArchitectureType/1.0";
+modeltype _logicaldc uses "http://www.cactosfp7.eu/LogicalDCModel/Core/1.0";
+modeltype _logicaldc_application uses "http://www.cactosfp7.eu/LogicalDCModel/Application/1.0";
+modeltype _lcorrespondence uses 'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype _pcorrespondence uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype _mcorrespondence uses 'http://www.cactosfp7.eu/Correspondence/Measurement/1.1';
+modeltype _pcmcore uses "http://palladiosimulator.org/PalladioComponentModel/Core/5.1";
+modeltype _pcmcore_entity uses "http://palladiosimulator.org/PalladioComponentModel/Core/Entity/5.1";
+modeltype _pcmrepository uses "http://palladiosimulator.org/PalladioComponentModel/Repository/5.1";
+modeltype _pcmresourcetype uses 'http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.1';
+modeltype _pcmsystem uses 'http://palladiosimulator.org/PalladioComponentModel/System/5.1';
+modeltype _pcmcomposition uses 'http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.1';
+modeltype _pcm_seff uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/5.1';
+modeltype _pcm_seff_performance uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/SEFF_Performance/5.1';
+modeltype _pcm_parameter uses 'http://palladiosimulator.org/PalladioComponentModel/Parameter/5.1';
+modeltype _pcmusage uses 'http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.1';
+modeltype _pcmallocation uses 'http://palladiosimulator.org/PalladioComponentModel/Allocation/5.1';
+modeltype _pcmresourceenvironment uses "http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1";
+modeltype _pcm_stoex uses "http://sdq.ipd.uka.de/StochasticExpressions/2.2";
+modeltype _monitorrepository uses "http://palladiosimulator.org/MonitorRepository/1.0";
+modeltype _measuringpoint uses "http://palladiosimulator.org/PCM/MeasuringPoint/1.0";
+modeltype _metricspec uses "http://palladiosimulator.org/MetricSpec/1.0";
+modeltype _usageevolution uses "http://usageevolution/1.0";
+modeltype _loadmodel_logical uses "http://www.cactosfp7.eu/CactosLoadModel/Logical/1.0";
+modeltype _loadmodel_physical uses "http://www.cactosfp7.eu/CactosLoadModel/Physical/1.0";
+modeltype _usagesequencerepository uses "http://www.cactosfp7.eu/CactoSim/UsageSequence/1.1";
+modeltype _cactospowermodel uses 'http://www.cactosfp7.eu/PhysicalDCModel/Power/1.0';
+modeltype _cactospowerbinding uses 'http://www.cactosfp7.eu/PhysicalDCModel/Power/Binding/1.0';
+modeltype _cactospowerinfrastructure uses 'http://www.cactosfp7.eu/PhysicalDCModel/Power/Specification/1.0'; 
+modeltype _cactospowerspecification uses 'http://www.cactosfp7.eu/PhysicalDCModel/Power/Specification/1.0';
+modeltype _powerutil uses 'http://www.fzi.de/Power/Util/1.0';
+modeltype _powerbinding uses 'http://www.fzi.de/Power/Binding/1.0';
+modeltype _powerspecification uses 'http://www.fzi.de/Power/Specification/1.0';
+modeltype _powerinfrastructure uses 'http://www.fzi.de/Power/Infrastructure/1.0';
+modeltype _dlim uses "http://descartes.tools/dlim/0.1";
+modeltype _measuringpointEDP2 uses "http://palladiosimulator.org/EDP2/MeasuringPoint/1.0";
+modeltype _resourceenvironment uses "http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1";
+modeltype _pcm_usagemodel uses "http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.1";
+modeltype _pcmseff uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/5.1';
+modeltype _pcmseffperformance uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/SEFF_Performance/5.1';
+
+transformation cactos2PCMRepository(in resourcetypepcm : _pcmresourcetype,
+									in primitiveresourcetyperepo : _pcmrepository,
+									in logicaldc : _logicaldc,
+									inout lcorrespondence : _lcorrespondence,
+									inout pcorrespondence : _pcorrespondence,
+									inout pcmrepository : _pcmrepository,
+									inout usagesequence: _usagesequencerepository,
+									inout measuringpoint: _measuringpoint,
+									inout monitorrepository :_monitorrepository) {
+			
+	mapping ApplicationInstance::toOperationInterfaces(inout repository: Repository) : Set(OperationInterface) {
+		assert warning (false) with log('Unknown application type. Operation interface cannot be generated. The simulation result might be wrong.');
+	}	
+	
+	mapping ApplicationInstance::toBasicComponents(inout repository: Repository) : Set(BasicComponent) {
+		assert warning (false) with log('Unknown application type. Basic components cannot be generated. The simulation result might be wrong.');
+	}
+	
+	mapping VMBehaviour::toRDSEFFs(storageRequiredRole: InfrastructureRequiredRole, repository: Repository) : Set(ResourceDemandingSEFF) {
+		assert warning (false) with log('Unknown VM Behaviour. Resource demanding behaviour cannot be generated. The simulation result might be wrong.');
+	}
+	
+
+//
+//
+// Black-Box VM specific operations
+//
+//
+
+	mapping BlackBoxApplicationInstance::toBasicComponents(inout repository: Repository) : Set(BasicComponent) {
+		init {
+			result := self.virtualMachine.map toBasicComponents(repository);
+		}	
+	}
+	
+	mapping BlackBoxApplicationInstance::toOperationInterfaces(inout repository: Repository): Set(OperationInterface) {
+		init {
+			result := self.virtualMachine.map toProvidedOperationInterfaces(repository);
+		}
+	}
+	
+	mapping BlackBoxVMBehaviour::blackBoxApplicationToOperationInterface(inout repository: Repository) : OperationInterface {
+		var storageIface = repository.map getOrCreateStorageAccessInterface();
+		
+		entityName := BLACK_BOX_VM_INTERFACE_NAME;
+		signatures__OperationInterface += object OperationSignature {
+			entityName := "transmitResourceDemand";
+			parameters__OperationSignature += self.blackBoxWorkloads.map blackBoxWorkloadToParameter(storageIface);
+			// no return type
+		};
+	}
+
+	mapping BlackBoxVMBehaviour::toRDSEFFs(storageRequiredRole: InfrastructureRequiredRole, repository: Repository) : Set(ResourceDemandingSEFF) {
+		init {
+			result := Set {self.map toRDSEFF(storageRequiredRole, repository)};
+		}	
+	}
+	
+	mapping BlackBoxVMBehaviour::toRDSEFF(storageRequiredRole: InfrastructureRequiredRole, repository: Repository) : ResourceDemandingSEFF {
+		var issueRD := object InternalAction {
+			entityName := "Issue incoming resource demand to resources";
+			resourceDemand_Action += self.blackBoxWorkloads->select(onResource.oclIsKindOf(ProcessingUnitSpecification)).map blackBoxWorkloadToParametricResourceDemand();
+			infrastructureCall__Action += self.blackBoxWorkloads->select(onResource.oclIsKindOf(StorageSpecification)).map blackBoxWorkloadStorageAccess(storageRequiredRole);
+		};
+		updateScaffoldRDSEFF(result, self.resolveone(OperationInterface).signatures__OperationInterface->any(true), issueRD);
+	}
+	
+	mapping BlackBoxWorkload::blackBoxWorkloadToParametricResourceDemand() : ParametricResourceDemand {
+		if(self.onResource.oclIsTypeOf(StorageSpecification)) {
+			specification_ParametericResourceDemand := createPcmRandomVariable(self.resolveone(Parameter).parameterName + ".BYTESIZE*" + getAmountInIntegerMultiplesOfReferenceAmount(BLACK_BOX_APPLICATION_WORKLOAD_UPDATE_INTERVAL, SIMULATION_STEP_DURATION_AMOUNT).toString());		
+		} else {
+			specification_ParametericResourceDemand := createPcmRandomVariable(self.resolveone(Parameter).parameterName + ".VALUE*" + getAmountInMultiplesOfReferenceAmount(BLACK_BOX_APPLICATION_WORKLOAD_UPDATE_INTERVAL, SIMULATION_STEP_DURATION_AMOUNT).toString());
+		};
+		//TODO refactor to recalculate demand based on specification matching from virtual to real
+		requiredResource_ParametricResourceDemand := getProcessingResourceTypeSpecification(self.onResource);
+	}
+	
+	mapping BlackBoxWorkload::blackBoxWorkloadStorageAccess(storageRequiredRole: InfrastructureRequiredRole) : InfrastructureCall {
+		entityName := "Storage Access for " + self.name;
+		numberOfCalls__InfrastructureCall := createPcmRandomVariable("1");
+		requiredRole__InfrastructureCall := storageRequiredRole;
+		signature__InfrastructureCall :=  storageRequiredRole.requiredInterface__InfrastructureRequiredRole.infrastructureSignatures__InfrastructureInterface->any(true);
+		var parameter : Parameter := storageRequiredRole
+				.requiredInterface__InfrastructureRequiredRole.infrastructureSignatures__InfrastructureInterface
+				.parameters__InfrastructureSignature->any(true);
+		inputVariableUsages__CallAction += object VariableUsage {
+			variableCharacterisation_VariableUsage += object VariableCharacterisation {
+				type := VariableCharacterisationType::BYTESIZE;
+				specification_VariableCharacterisation := createPcmRandomVariable(parameter.parameterName + ".BYTESIZE*" + getAmountInIntegerMultiplesOfReferenceAmount(BLACK_BOX_APPLICATION_WORKLOAD_UPDATE_INTERVAL, SIMULATION_STEP_DURATION_AMOUNT).toString());			
+			};
+			// Pass the used resource for use in selecting the used remote storage.
+			variableCharacterisation_VariableUsage += object VariableCharacterisation {
+							type := VariableCharacterisationType::VALUE;
+				var vm : VirtualMachine := self.blackBoxBehaviour.oclAsType(BlackBoxVMBehaviour).virtualMachine;
+				var cactosStorage : StorageSpecification = vm.vMImageInstance.rootDisk.storageLocation;
+				var pcmStorage : ProcessingResourceSpecification := pcorrespondence.rootObjects()[PhysicalCorrespondenceRepository]
+					->any(true).storageSpecificationCorrespondences->any(cactos.id = cactosStorage.id).palladio;
+				specification_VariableCharacterisation := createPcmRandomVariable("\"" + convertToASCII(pcmStorage.id) + "\"");
+			};
+			namedReference__VariableUsage := object VariableReference {
+				referenceName := parameter.parameterName;
+			}
+		}
+	}
+	 
+	mapping BlackBoxWorkload::blackBoxWorkloadToParameter(storageInterface : InfrastructureInterface) : Parameter {
+		/*TODO recalculate resource demand based on conversion between self.resourceSpecification
+		parameterName := getName(self.resourceSpecification);
+		*/
+		
+		parameterName := self.getBlackBoxWorkloadParameterName(storageInterface);
+		dataType__Parameter := getPrimitiveDataTypeDouble();
+	}
+	
+	query BlackBoxWorkload::getBlackBoxWorkloadParameterName(storageInterface : InfrastructureInterface): String {
+		if(self.onResource.oclIsTypeOf(StorageSpecification)) {
+			return storageInterface.infrastructureSignatures__InfrastructureInterface.parameters__InfrastructureSignature->any(true).parameterName;
+		}; 
+		return getName(self.blackBoxBehaviour.oclAsType(BlackBoxVMBehaviour).virtualMachine.hypervisor.node.cpuSpecifications->any(true));	
+	}
+
+//
+//
+// Grey-Box VM specific operations
+//
+//		
+
+	mapping GreyBoxApplicationInstance::toOperationInterfaces(inout repository: Repository): Set(OperationInterface) {
+		init {
+			if (self.virtualMachine.runtimeApplicationModel = null) {
+				result := Set {repository.map getOrCreateGenericApplicationInterface()};
+			} else if (self.virtualMachine.runtimeApplicationModel.oclIsTypeOf(GreyBoxBehaviour)) {
+				result := Set {repository.map getOrCreateGreyBoxApplicationInterface()};
+			};
+		}
+	}
+	
+	mapping GreyBoxApplicationInstance::toBasicComponents(inout repository: Repository) : Set(BasicComponent) {
+		init {
+			result := self.virtualMachine.map toBasicComponents(repository);
+		}	
+	}
+	
+	mapping GreyBoxVMBehaviour::toRDSEFFs(storageRequiredRole: InfrastructureRequiredRole, repository: Repository) : Set(ResourceDemandingSEFF) {
+		init {
+			result := Set {self.map toRDSEFF(storageRequiredRole, repository)};
+		}	
+	}
+	
+	mapping GreyBoxVMBehaviour::toRDSEFF(storageRequiredRole: InfrastructureRequiredRole, repository: Repository) : ResourceDemandingSEFF {
+		describedService__SEFF := repository.map getOrCreateGreyBoxApplicationInterface().signatures__OperationInterface->any(true);
+		
+		var action : AbstractAction;
+		steps_Behaviour += action := object seff::StartAction {
+			entityName := "Start";
+		};
+		self.workloadPhases->forEach(phase) {
+			steps_Behaviour += action := phase.map workloadPhaseToForkAction(action, storageRequiredRole);
+		};
+		steps_Behaviour += object seff::StopAction {
+			entityName := "Stop";
+			predecessor_AbstractAction := action;
+		};
+	}
+	
+	mapping WorkloadPhase::workloadPhaseToForkAction(predecessorAction : AbstractAction, storageRequiredRole : InfrastructureRequiredRole) : ForkAction {
+		entityName := "Workload Phase: " + self.name;
+		predecessor_AbstractAction := predecessorAction;
+		synchronisingBehaviours_ForkAction := object SynchronisationPoint {
+			synchronousForkedBehaviours_SynchronisationPoint += self.resourceDemands->select(onResource.oclIsTypeOf(ProcessingUnitSpecification))
+																	.map resourceDemandToForkedBehaviour();
+			synchronousForkedBehaviours_SynchronisationPoint += self.resourceDemands->select(onResource.oclIsTypeOf(StorageSpecification))
+																	.map storageAccessForkedBehaviour(storageRequiredRole);
+		};
+	}
+	
+	mapping ResourceDemand::resourceDemandToForkedBehaviour() : ForkedBehaviour {
+		var action : AbstractAction;
+		steps_Behaviour += action := object seff::StartAction {
+			entityName := "Start";
+		};
+		steps_Behaviour += action := object InternalAction {
+			predecessor_AbstractAction := action;
+			resourceDemand_Action += self.map resourceDemandToParametricResourceDemand();
+		};
+		steps_Behaviour += object seff::StopAction {
+			entityName := "Stop";
+			predecessor_AbstractAction := action;
+		};
+	}
+	
+	mapping ResourceDemand::storageAccessForkedBehaviour(infrastructureRequiredRole : InfrastructureRequiredRole) : ForkedBehaviour {
+		var action : AbstractAction;
+		steps_Behaviour += action := object seff::StartAction {
+			entityName := "Start";
+		};
+		steps_Behaviour += action := object InternalAction {
+			predecessor_AbstractAction := action;
+			infrastructureCall__Action := self.map resourceDemandToInfrastructureCall(infrastructureRequiredRole);
+		};
+		steps_Behaviour += object seff::StopAction {
+			entityName := "Stop";
+			predecessor_AbstractAction := action;
+		};
+	}
+	
+	mapping ResourceDemand::resourceDemandToInfrastructureCall(storageRequiredRole : InfrastructureRequiredRole) : InfrastructureCall {
+		entityName := storageRequiredRole.entityName;
+		numberOfCalls__InfrastructureCall := createPcmRandomVariable("1");
+		requiredRole__InfrastructureCall := storageRequiredRole;
+		signature__InfrastructureCall := requiredRole__InfrastructureCall.requiredInterface__InfrastructureRequiredRole
+			.infrastructureSignatures__InfrastructureInterface->any(true);
+		inputVariableUsages__CallAction += object VariableUsage {
+			variableCharacterisation_VariableUsage += object VariableCharacterisation {
+				type := VariableCharacterisationType::BYTESIZE;
+				specification_VariableCharacterisation := createPcmRandomVariable(getSpecificationResourceDemand(self.onResource, self));			
+			};
+			// Pass the used resource for use in selecting the used remote storage.
+			variableCharacterisation_VariableUsage += object VariableCharacterisation {
+							type := VariableCharacterisationType::VALUE;
+				var pcmStorage : ProcessingResourceSpecification := pcorrespondence.rootObjects()[PhysicalCorrespondenceRepository]
+					->any(true).storageSpecificationCorrespondences->any(cactos.id = self.workloadPhase.greyBoxBehaviour.oclAsType(GreyBoxVMBehaviour)
+					.virtualMachine.vMImageInstance.rootDisk.storageLocation.id).palladio;
+				specification_VariableCharacterisation := createPcmRandomVariable("\"" + convertToASCII(pcmStorage.id) + "\"");	
+			};
+			var parameter : Parameter := signature__InfrastructureCall.parameters__InfrastructureSignature->any(true);
+			namedReference__VariableUsage := object VariableReference {
+				referenceName := parameter.parameterName;
+			};
+		}
+	}
+	
+	mapping ResourceDemand::resourceDemandToParametricResourceDemand() : ParametricResourceDemand {
+		/* Assumptions and Limitations
+			ProcessingResourceSpecification is currently only considered for created CPUs (PUSpec) 
+			and local HDDs (Storage contained in AbstractNode)
+		*/
+		specification_ParametericResourceDemand := createPcmRandomVariable(getSpecificationResourceDemand(self.onResource, self));
+		requiredResource_ParametricResourceDemand := getProcessingResourceTypeSpecification(self.onResource);
+	}
+	
+	
+//
+//
+// White-Box VM specific operations
+//
+//
+
+	mapping WhiteBoxApplicationInstance::toOperationInterfaces(inout repository: Repository): Set(OperationInterface) {
+		init {
+			result := self.composedVMs.virtualMachine->map toProvidedOperationInterfaces(repository)->flatten()->asSet();
+		}
+	}
+	
+	mapping WhiteBoxApplicationInstance::toBasicComponents(inout repository: Repository): Set(BasicComponent) {
+		init {
+			result := Set {};
+			result += self.composedVMs->map toBasicComponent(repository)->flatten()->asSet();
+			/*result += self.applicationTemplate[WhiteBoxApplicationTemplate].vmImageConnectors[ScalableVMImageConnector].createLoadBalancerComponent(self);*/
+		}
+	}
+	
+	mapping ComposedVM::toBasicComponent(inout repository: Repository): Set(BasicComponent) {
+		init {
+			result := self.virtualMachine.map toBasicComponents(repository);
+		}
+	}
+
+	mapping ServiceInterface::toOperationInterface(inout repository: Repository): OperationInterface {
+		init {
+			var corr := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].serviceOperationCorrespondences
+				->any(cactos.serviceInterface = self); 
+			result := corr.palladio.interface__OperationSignature;
+		}
+		if (corr = null) {
+			entityName := self.name;
+			signatures__OperationInterface += self.serviceOperations->map toOperationSignature(repository);
+		};
+	}
+	
+	mapping ServiceOperation::toOperationSignature(inout repository: Repository): OperationSignature {
+		init {
+			var corr := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].serviceOperationCorrespondences
+				->any(cactos = self);
+			result := corr.palladio
+		}
+		if (corr = null) {
+			entityName := self.name;
+			parameters__OperationSignature += object Parameter {
+				parameterName := "request";
+				dataType__Parameter := repository.map getOrCreateWhiteBoxDataType();
+			};
+			
+			returnType__OperationSignature := repository.map getOrCreateWhiteBoxDataType();
+			lcorrespondence.rootObjects()[LogicalCorrespondenceRepository]->any(true).serviceOperationCorrespondences += object ServiceOperationCorrespondence {
+				cactos := self;
+				palladio := result;
+			}
+		}
+	}
+	
+	mapping WhiteBoxVMBehaviour::toRDSEFFs(limitToProvidedRoles: Set(ServiceProvidedRole), storageRequiredRole: InfrastructureRequiredRole, repository: Repository) : Set(ResourceDemandingSEFF) {
+		assert fatal(false) with log("Should not have been called; toRDSEFF is supposed to be called directly from toBasicComponent Mapping");
+	}
+	
+	mapping ServiceEffect::toRDSEFF(containingComponent: BasicComponent, storageRequiredRole: InfrastructureRequiredRole, repository: Repository) : ResourceDemandingSEFF {
+		describedService__SEFF := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].serviceOperationCorrespondences->any(cactos = self.forServiceOperation).palladio;
+		
+		var action := self.controlFlowActions[application::StartAction]->any(true).map toAbstractAction(containingComponent, storageRequiredRole, Dict {});
+		while (action <> null) {
+			steps_Behaviour += action;
+			action := action.successor_AbstractAction;
+		};
+		
+		result.map adaptWithPassiveResourcesForContention(containingComponent);
+	}
+	
+	mapping inout ResourceDemandingSEFF::adaptWithPassiveResourcesForContention(containingComponent: BasicComponent) {
+		var action : AbstractAction = self.steps_Behaviour[seff::StartAction]->any(true);
+		while (not (action.oclIsKindOf(seff::StopAction) or action.oclIsKindOf(seff::ExternalCallAction))) {
+			action := action.successor_AbstractAction;
+		};
+		
+		var beforeRelease := action.predecessor_AbstractAction;
+		var afterRelease := action;
+		
+		//Initial acquire created by mapping of StartAction
+		//TODO: Reaquire resource if multiple ServiceCalls
+		var releaseAction := object ReleaseAction {
+			passiveResource_ReleaseAction := containingComponent.passiveResource_BasicComponent->any(true);
+		};
+		self.steps_Behaviour += releaseAction; 
+		beforeRelease.successor_AbstractAction := releaseAction;  
+		afterRelease.predecessor_AbstractAction := releaseAction; 
+	}
+
+	mapping ControlFlowAction::toAbstractAction(containingComponent: BasicComponent, storageRequiredRole: InfrastructureRequiredRole, inout variables: Dict (ControlFlowVariable, String)): AbstractAction {
+		init{
+			assert fatal(false) with log("Mapping operation toUserAction called for abstract super type ControlFlowAction");
+			result := null;
+		}
+		
+	}
+		
+	mapping application::StartAction::toAbstractAction(containingComponent: BasicComponent, storageRequiredRole: InfrastructureRequiredRole, inout variables: Dict (ControlFlowVariable, String)): AbstractAction {
+		init{
+			result := object seff::StartAction {};			
+		}		
+		successor_AbstractAction := self.map toAquireAction(containingComponent);
+		successor_AbstractAction.successor_AbstractAction := self.successingControlFlowAction.map toAbstractAction(containingComponent, storageRequiredRole, variables);		
+	}
+	
+	mapping application::StartAction::toAquireAction(containingComponent: BasicComponent): AcquireAction {
+		passiveresource_AcquireAction := containingComponent.passiveResource_BasicComponent->any(true);
+	}
+	
+	mapping application::StopAction::toAbstractAction(containingComponent: BasicComponent, storageRequiredRole: InfrastructureRequiredRole, inout variables: Dict (ControlFlowVariable, String)): AbstractAction  {
+		init{
+			result := object seff::StopAction {};
+		}
+	}
+	
+	mapping application::ResourceDemandAction::toAbstractAction(containingComponent: BasicComponent, storageRequiredRole: InfrastructureRequiredRole, inout variables: Dict (ControlFlowVariable, String)): AbstractAction {
+		init{
+			result := self.map toForkAction(storageRequiredRole);
+		}
+		
+		successor_AbstractAction := self.successingControlFlowAction.map toAbstractAction(containingComponent, storageRequiredRole, variables);
+	}
+	
+	mapping application::ResourceDemandAction::toForkAction(storageRequiredRole: InfrastructureRequiredRole): ForkAction {
+		entityName := "WhiteBoxApplicationResourceDemand: " + self.id.toString();
+		
+		synchronisingBehaviours_ForkAction := object SynchronisationPoint {
+			synchronousForkedBehaviours_SynchronisationPoint += self.resourceDemands.map toForkedBehaviour(storageRequiredRole);
+		}
+	}
+	
+	mapping VariableResourceDemand::toForkedBehaviour(storageRequiredRole: InfrastructureRequiredRole) : ForkedBehaviour {
+		var action : AbstractAction;
+		steps_Behaviour += action := object seff::StartAction {
+			entityName := "Start";
+		};
+		steps_Behaviour += action := object InternalAction {
+			predecessor_AbstractAction := action;
+			if (self.onResource.oclIsTypeOf(StorageSpecification)) {
+				infrastructureCall__Action := self.map toInfrastructureCall(storageRequiredRole);	
+			} else {
+				resourceDemand_Action += self.map toParametricResourceDemand();
+			}
+		};
+		steps_Behaviour += object seff::StopAction {
+			entityName := "Stop";
+			predecessor_AbstractAction := action;
+		};
+	}
+	
+	mapping VariableResourceDemand::toInfrastructureCall(storageRequiredRole : InfrastructureRequiredRole) : InfrastructureCall {
+		entityName := storageRequiredRole.entityName;
+		numberOfCalls__InfrastructureCall := createPcmRandomVariable("1");
+		requiredRole__InfrastructureCall := storageRequiredRole;
+		signature__InfrastructureCall := requiredRole__InfrastructureCall.requiredInterface__InfrastructureRequiredRole
+			.infrastructureSignatures__InfrastructureInterface->any(true);
+		inputVariableUsages__CallAction += object VariableUsage {
+			variableCharacterisation_VariableUsage += object VariableCharacterisation {
+				type := VariableCharacterisationType::BYTESIZE;
+				specification_VariableCharacterisation := createPcmRandomVariable(self.getSpecificationVariableResourceDemand());			
+			};
+			// Pass the used resource for use in selecting the used remote storage.
+			variableCharacterisation_VariableUsage += object VariableCharacterisation {
+							type := VariableCharacterisationType::VALUE;
+				var pcmStorage : ProcessingResourceSpecification := pcorrespondence.rootObjects()[PhysicalCorrespondenceRepository]
+					.storageSpecificationCorrespondences
+					->any(cactos.id = self.resourceDemandAction.serviceEffect.whiteBoxBehaviour.oclAsType(WhiteBoxVMBehaviour)
+						.virtualMachine.vMImageInstance.rootDisk.storageLocation.id)
+					.palladio;
+				specification_VariableCharacterisation := createPcmRandomVariable("\"" + convertToASCII(pcmStorage.id) + "\"");	
+			};
+			var parameter : Parameter := signature__InfrastructureCall.parameters__InfrastructureSignature->any(true);
+			namedReference__VariableUsage := object VariableReference {
+				referenceName := parameter.parameterName;
+			};
+		}
+	}
+	
+	mapping VariableResourceDemand::toParametricResourceDemand() : ParametricResourceDemand {
+		/* Assumptions and Limitations
+			ProcessingResourceSpecification is currently only considered for created CPUs (PUSpec) 
+			and local HDDs (Storage contained in AbstractNode)
+		*/
+		specification_ParametericResourceDemand := createPcmRandomVariable(self.getSpecificationVariableResourceDemand());
+		requiredResource_ParametricResourceDemand := getProcessingResourceTypeSpecification(self.onResource);
+	}
+	
+	mapping application::ServiceOperationCallAction::toAbstractAction(containingComponent: BasicComponent, storageRequiredRole: InfrastructureRequiredRole, inout variables: Dict (ControlFlowVariable, String)): AbstractAction {
+		init{
+			result := object seff::ExternalCallAction {
+				role_ExternalService := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].requiredServiceCorrespondences
+					->any(cactosVM.id = self.serviceEffect.whiteBoxBehaviour.oclAsType(WhiteBoxVMBehaviour).virtualMachine.id
+						and cactosRole.id = self.serviceRequiredRole.id
+						and containingComponent.requiredRoles_InterfaceRequiringEntity->includes(palladioRole)).palladioRole;	
+				calledService_ExternalService := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].serviceOperationCorrespondences
+					->any(cactos = self.serviceOperationOfRequiredRole).palladio;
+				inputVariableUsages__CallAction := createInputVariableUsagesFromDict(variables, true);
+				
+			};
+		}
+		successor_AbstractAction := self.successingControlFlowAction.map toAbstractAction(containingComponent, storageRequiredRole, variables);		
+	}
+	
+	mapping application::SetVariableAction::toAbstractAction(containingComponent: BasicComponent, storageRequiredRole: InfrastructureRequiredRole, inout variables: Dict (ControlFlowVariable, String)): AbstractAction {
+		init { 
+			self.variableAssignments->forEach(assignment) {
+				variables->put(assignment.variable, assignment.value);
+			};
+			result := self.successingControlFlowAction.map toAbstractAction(containingComponent, storageRequiredRole, variables);
+		}
+	}
+	
+	mapping ServiceOperation::toLoadBalancerSEFF(component: InterfaceProvidingRequiringEntity, connector: ScalableVMImageConnector): ResourceDemandingSEFF {
+		var palladioSignature : OperationSignature := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].serviceOperationCorrespondences->any(cactos.id = self.id).palladio; 
+		describedService__SEFF := palladioSignature;
+
+		var startAction : AbstractAction;
+		steps_Behaviour += startAction := object seff::StartAction {
+			entityName := "Start";
+		};
+		var balancerAction : AbstractAction := startAction;
+		if (connector.loadBalancingPolicy = LoadBalancingPolicy::RoundRobin) {
+			steps_Behaviour += balancerAction := palladioSignature.map toRoundRobinLoadBalancerAction(component);
+		} else {
+			steps_Behaviour += balancerAction := palladioSignature.map toHashBasedLoadBalancerAction(component);	
+		};
+		balancerAction.predecessor_AbstractAction := startAction;
+		steps_Behaviour += object seff::StopAction {
+			entityName := "Stop";
+			predecessor_AbstractAction := balancerAction;
+		};
+	}
+	
+	mapping OperationSignature::toRoundRobinLoadBalancerAction(component: InterfaceProvidingRequiringEntity): BranchAction {
+		var amountBranches := component.requiredRoles_InterfaceRequiringEntity[OperationRequiredRole]
+			->select(requiredInterface__OperationRequiredRole.id = self.interface__OperationSignature.id)->size();
+		branches_Branch += component.requiredRoles_InterfaceRequiringEntity[OperationRequiredRole]
+			->select(requiredInterface__OperationRequiredRole.id = self.interface__OperationSignature.id)
+				->map toProbabilisticBranchTransition(self, amountBranches);
+	}
+	
+	mapping OperationRequiredRole::toProbabilisticBranchTransition(operation: OperationSignature, amountBranches: Integer) : ProbabilisticBranchTransition {
+		branchProbability := 1.0 / amountBranches;
+		branchBehaviour_BranchTransition := operation.createLoadBalancedDelegatingCall(self);
+	}
+
+	
+	mapping OperationSignature::toHashBasedLoadBalancerAction(component: InterfaceProvidingRequiringEntity): BranchAction {
+		var amountBranches := component.requiredRoles_InterfaceRequiringEntity[OperationRequiredRole]
+				->select(requiredInterface__OperationRequiredRole.id = self.interface__OperationSignature.id)->size();
+		var noBranch := 0;
+		component.requiredRoles_InterfaceRequiringEntity[OperationRequiredRole]
+			->select(requiredInterface__OperationRequiredRole.id = self.interface__OperationSignature.id)
+				->forEach(requiredRole) {
+					branches_Branch += requiredRole.map toGuardedBranchTransition(self, amountBranches, noBranch);
+					noBranch := noBranch + 1;
+				};
+	}
+	
+	mapping OperationRequiredRole::toGuardedBranchTransition(operation: OperationSignature, amountBranches: Integer, noBranch: Integer): GuardedBranchTransition {
+		branchCondition_GuardedBranchTransition := createHashBasedBranchCondition("REQUEST_HASH.VALUE", amountBranches, noBranch);
+		branchBehaviour_BranchTransition := operation.createLoadBalancedDelegatingCall(self);
+	}
+	
+	query ScalableVMImageConnector::getCurrentAmountOfInstances(instance: WhiteBoxApplicationInstance): Integer {
+		return lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].providedServiceCorrespondences
+			->select(cactosRole.id = self.serviceProvidedRole.id and 
+					instance.composedVMs.virtualMachine->exists(id = cactosVM.id))->size();
+	}
+	
+	helper createHashBasedBranchCondition(element : String, count: Integer, number: Integer): PCMRandomVariable {
+		return createPcmRandomVariable(element + " % " + count.toString() + " == " + number.toString());
+	}
+	
+	helper OperationSignature::createLoadBalancedDelegatingCall(requiredRole: OperationRequiredRole): ResourceDemandingBehaviour {
+		
+		return object ResourceDemandingBehaviour {
+			var action: AbstractAction;
+			steps_Behaviour += action := object seff::StartAction {
+				entityName := "Start";
+			};
+			steps_Behaviour += action := object ExternalCallAction {
+				predecessor_AbstractAction := action;
+				retryCount := 0;
+				calledService_ExternalService := self; 
+				role_ExternalService := requiredRole;
+				inputVariableUsages__CallAction := createInputVariableUsagesFromDict(Dict{}, true);
+			};
+			steps_Behaviour += object seff::StopAction {
+				entityName := "Stop";
+				predecessor_AbstractAction := action;
+			};
+		}
+	}
+
+	
+//
+//
+// Helper operations
+//
+//		
+	
+	mapping VirtualMachine::toOperationProvidedRoles(inout repository: Repository): Set(OperationProvidedRole) {
+		init {
+			var vmName := "VM: " + self.name + " (#" + self.id + ")";
+			if (self.runtimeApplicationModel.oclIsTypeOf(WhiteBoxVMBehaviour)) {
+				var composedVM := logicaldc.rootObjects()[LogicalDCModel].applicationInstances[WhiteBoxApplicationInstance].composedVMs
+					->any(virtualMachine.id = self.id);
+				result := composedVM.composedVMImage.providedRoles[ServiceProvidedRole]->collect(role |
+						role.createOperationProvidedRole(role.name + "_(" + vmName + ")", self, repository))->asSet();
+			} else {	
+				result := self.map toProvidedOperationInterfaces(repository).createOperationProvidedRole(vmName)->asSet();
+			}
+		}
+	}
+	
+	helper ServiceProvidedRole::createOperationProvidedRole(componentEntityName: String, vm : VirtualMachine, inout repository: Repository): OperationProvidedRole {
+		var psc : ProvidedServiceCorrespondence;
+		lcorrespondence.rootObjects()[LogicalCorrespondenceRepository]->any(true).providedServiceCorrespondences += psc := object ProvidedServiceCorrespondence {
+			cactosRole := self;
+			cactosVM := vm;
+			palladioRole := self.serviceInterface
+				.map toOperationInterface(repository).createOperationProvidedRole(componentEntityName);
+		};
+		psc.palladioRole.entityName := self.name + "_" + componentEntityName;
+		return psc.palladioRole;
+	}
+	
+	helper OperationInterface::createOperationProvidedRole(roleName: String): OperationProvidedRole {
+		return object OperationProvidedRole {
+			entityName := roleName + "_(Provided_" + self.entityName + ")";
+			providedInterface__OperationProvidedRole := self;
+		};
+	}
+	
+	helper VirtualMachine::createOperationRequiredRoles(inout repository: Repository, componentEntityName: String): Set(OperationRequiredRole) {
+		var vmName := "VM: " + self.name + " (#" + self.id + ")";
+		var composedVM := logicaldc.rootObjects()[LogicalDCModel].applicationInstances[WhiteBoxApplicationInstance].composedVMs
+			->any(virtualMachine.id = self.id);
+		return composedVM.composedVMImage.requiredRoles[ServiceRequiredRole]->collect(role |
+				role.createOperationRequiredRole(role.name + "_(" + vmName + ")", self, repository))->asSet();
+	}
+	
+	helper ServiceRequiredRole::createOperationRequiredRole(componentEntityName: String, vm : VirtualMachine, inout repository: Repository): OperationRequiredRole {
+		var rsc : RequiredServiceCorrespondence;
+		lcorrespondence.rootObjects()[LogicalCorrespondenceRepository]->any(true).requiredServiceCorrespondences += rsc := object RequiredServiceCorrespondence {
+			cactosRole := self;
+			cactosVM := vm;
+			palladioRole := self.serviceInterface
+				.map toOperationInterface(repository).createOperationRequiredRole(componentEntityName);
+		};
+		return rsc.palladioRole;
+	}
+	
+	helper OperationInterface::createOperationRequiredRole(roleName: String): OperationRequiredRole {
+		return object OperationRequiredRole {
+			entityName := roleName + "_(Required_" + self.entityName + ")";
+			requiredInterface__OperationRequiredRole := self;
+		}
+	}
+	
+	helper VirtualMachine::createStorageRequiredRole(inout repository: Repository, componentEntityName: String): InfrastructureRequiredRole {
+		return object InfrastructureRequiredRole {
+			var iface := repository.map getOrCreateStorageAccessInterface();
+			entityName := "Required_" + iface.entityName + "_" + componentEntityName;
+			requiredInterface__InfrastructureRequiredRole := iface;
+		}
+	}
+	
+	mapping VirtualMachine::toProvidedOperationInterfaces(inout repository: Repository) : Set(OperationInterface) {
+		init {
+			if (self.runtimeApplicationModel = null) {
+				result := Set {repository.map getOrCreateGenericApplicationInterface()};
+			} else {
+				if (self.runtimeApplicationModel.oclIsTypeOf(BlackBoxVMBehaviour)) {
+					result := Set {self.runtimeApplicationModel.oclAsType(BlackBoxVMBehaviour).map blackBoxApplicationToOperationInterface(repository)};
+				} else if (self.runtimeApplicationModel.oclIsTypeOf(GreyBoxVMBehaviour)) {
+					result := Set {repository.map getOrCreateGreyBoxApplicationInterface()};
+				} else if (self.runtimeApplicationModel.oclIsTypeOf(WhiteBoxVMBehaviour)) {
+					result := self.runtimeApplicationModel.oclAsType(WhiteBoxVMBehaviour)
+						.serviceEffects.getServiceInterface()->map toOperationInterface(repository)->asSet();
+				} else {
+					assert error (false) with log('Unknown Application Behaviour experienced: ' + self.runtimeApplicationModel.metaClassName() + '. Fix the model or extend the transformation.');
+				}				
+			};
+		}		
+	}
+	
+	mapping VirtualMachine::toBasicComponents(repository: Repository) : Set(BasicComponent) {
+		init {
+			result := self.map toOperationProvidedRoles(repository)->map toBasicComponentFor(self, repository)->asSet();
+		}
+	}
+	
+	mapping inout OperationProvidedRole::toBasicComponentFor(vm: VirtualMachine, repository: Repository) : BasicComponent {
+		entityName := "VM: " + vm.name + " (#" + vm.id + ")";
+		providedRoles_InterfaceProvidingEntity += self;
+		requiredRoles_InterfaceRequiringEntity += vm.createOperationRequiredRoles(repository, entityName);
+		
+		if (vm.runtimeApplicationModel.oclIsKindOf(WhiteBoxVMBehaviour)) {
+			passiveResource_BasicComponent := vm.createPassiveResourceForContention();
+		};
+		
+		var storageRequiredRole := vm.createStorageRequiredRole(repository, entityName);
+		requiredRoles_InterfaceRequiringEntity += storageRequiredRole;
+		
+		if (vm.runtimeApplicationModel<>null) {			
+			if (vm.runtimeApplicationModel.oclIsKindOf(WhiteBoxVMBehaviour)) {
+				var cactosRole := lcorrespondence.rootObjects()[LogicalCorrespondenceRepository].providedServiceCorrespondences->any(palladioRole = self).cactosRole;
+				serviceEffectSpecifications__BasicComponent += vm.runtimeApplicationModel.oclAsType(WhiteBoxBehaviour).serviceEffects
+					->select(forServiceProvidedRole = cactosRole)
+						->map toRDSEFF(result, storageRequiredRole, repository)->asSet();	
+			} else {
+				serviceEffectSpecifications__BasicComponent += vm.runtimeApplicationModel.map toRDSEFFs(storageRequiredRole, repository);
+			}
+			
+		} else {
+			serviceEffectSpecifications__BasicComponent += createGenericSeff(
+				repository.map getOrCreateGenericApplicationInterface().signatures__OperationInterface->any(true));
+		};
+	}
+	
+	helper VirtualMachine::createPassiveResourceForContention() : PassiveResource {
+		return object PassiveResource {
+			capacity_PassiveResource := createPcmRandomVariable(self.virtualProcessingUnits->any(true).virtualCores.toString())
+		}
+	}
+	
+	
+	helper createGenericSeff(signature : OperationSignature) : ResourceDemandingSEFF {
+		var action : AbstractAction;
+		return object ResourceDemandingSEFF {
+			describedService__SEFF := signature;
+			steps_Behaviour += action := object _pcmseff::StartAction {
+				entityName := "Start";
+			};
+			steps_Behaviour += action := generateInternalActionRD(createPcmRandomVariable("IntPMF[(225000;0.1)(330000;0.5)(375000;0.3)(390000;0.1)]"), getResourceTypeCPU(), action);
+			steps_Behaviour += action := generateInternalActionRD(createPcmRandomVariable("IntPMF[(14000;0.1)(20000;0.5)(22000;0.3)(23000;0.1)]"), getResourceTypeHDD(), action);
+			steps_Behaviour += object _pcmseff::StopAction {
+				entityName := "Stop";
+				predecessor_AbstractAction := action;
+			};
+		}; 
+	}
+	
+	helper generateInternalActionRD(demand : PCMRandomVariable, type : ProcessingResourceType, predecessingAction : AbstractAction) : InternalAction {
+		return object InternalAction {
+			entityName := "InternalAction";
+			predecessor_AbstractAction := predecessingAction;
+			resourceDemand_Action += object ParametricResourceDemand {
+				specification_ParametericResourceDemand := demand;
+				requiredResource_ParametricResourceDemand := type;
+			};
+		};
+	}
+	
+	helper updateScaffoldRDSEFF(inout rdseff : ResourceDemandingSEFF, signature : OperationSignature, inout mainAction : AbstractAction) {
+		var action : AbstractAction;
+		rdseff.describedService__SEFF := signature;
+		rdseff.steps_Behaviour := action := object _pcmseff::StartAction {
+			entityName := "Start";
+		};
+		mainAction.predecessor_AbstractAction := action;
+		rdseff.steps_Behaviour += action := mainAction;
+		rdseff.steps_Behaviour += object _pcmseff::StopAction {
+			entityName := "Stop";
+			predecessor_AbstractAction := action;
+		};
+	}
+
+}

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated experimentscenario -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="eu.cactosfp7.cactosim.experimentscenario.presentation.ExperimentscenarioModelWizardID"
+            name="%_UI_ExperimentscenarioModelWizard_label"
+            class="eu.cactosfp7.cactosim.experimentscenario.presentation.ExperimentscenarioModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/ExperimentscenarioModelFile.gif">
+         <description>%_UI_ExperimentscenarioModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated experimentscenario -->
+      <editor
+            id="eu.cactosfp7.cactosim.experimentscenario.presentation.ExperimentscenarioEditorID"
+            name="%_UI_ExperimentscenarioEditor_label"
+            icon="icons/full/obj16/ExperimentscenarioModelFile.gif"
+            extensions="experimentscenario"
+            class="eu.cactosfp7.cactosim.experimentscenario.presentation.ExperimentscenarioEditor"
+            contributorClass="eu.cactosfp7.cactosim.experimentscenario.presentation.ExperimentscenarioActionBarContributor">
+      </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated experimentscenario -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="eu.cactosfp7.cactosim.experimentscenario.request.presentation.RequestModelWizardID"
+            name="%_UI_RequestModelWizard_label"
+            class="eu.cactosfp7.cactosim.experimentscenario.request.presentation.RequestModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/RequestModelFile.gif">
+         <description>%_UI_RequestModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated experimentscenario -->
+      <editor
+            id="eu.cactosfp7.cactosim.experimentscenario.request.presentation.RequestEditorID"
+            name="%_UI_RequestEditor_label"
+            icon="icons/full/obj16/RequestModelFile.gif"
+            extensions="request"
+            class="eu.cactosfp7.cactosim.experimentscenario.request.presentation.RequestEditor"
+            contributorClass="eu.cactosfp7.cactosim.experimentscenario.request.presentation.RequestActionBarContributor">
+      </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated experimentscenario -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="eu.cactosfp7.cactosim.experimentscenario.selector.presentation.SelectorModelWizardID"
+            name="%_UI_SelectorModelWizard_label"
+            class="eu.cactosfp7.cactosim.experimentscenario.selector.presentation.SelectorModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/SelectorModelFile.gif">
+         <description>%_UI_SelectorModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated experimentscenario -->
+      <editor
+            id="eu.cactosfp7.cactosim.experimentscenario.selector.presentation.SelectorEditorID"
+            name="%_UI_SelectorEditor_label"
+            icon="icons/full/obj16/SelectorModelFile.gif"
+            extensions="selector"
+            class="eu.cactosfp7.cactosim.experimentscenario.selector.presentation.SelectorEditor"
+            contributorClass="eu.cactosfp7.cactosim.experimentscenario.selector.presentation.SelectorActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

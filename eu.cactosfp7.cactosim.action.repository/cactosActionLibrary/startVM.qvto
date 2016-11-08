@@ -1,0 +1,83 @@
+import m2m.qvt.oml.JScience;
+import transforms.cactosAdaptationBehaviorHelper;
+import simulizar_qvto_helper.logHelper;
+
+modeltype CACT_LCORE uses 'http://www.cactosfp7.eu/LogicalDCModel/Core/1.0';
+modeltype CACT_APP uses 'http://www.cactosfp7.eu/LogicalDCModel/Application/1.0';
+modeltype CACT_PCORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype CACT_PCORR uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype CACT_LCORR uses  'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype EXPERIMENT_SCENARIO uses 'http://www.cactosfp7.eu/ExperimentScenarioModel/1.0';
+modeltype EXPERIMENT_SCENARIO_REQUEST uses 'http://www.cactosfp7.eu/ExperimentScenarioModel/Request/1.0';
+modeltype EXPERIMENT_SCENARIO_SELECTOR uses 'http://www.cactosfp7.eu/ExperimentScenarioModel/Selector/1.0';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype ACTION_PARAM uses 'http://simulizar.palladiosimulator.org/Actions/Parameter/1.1';
+modeltype ACTION_CONTEXT uses 'http://simulizar.palladiosimulator.org/Actions/Context/1.1';
+modeltype PCM_CORE uses 'http://palladiosimulator.org/PalladioComponentModel/Core/5.1';
+modeltype PCM_PARAM uses 'http://palladiosimulator.org/PalladioComponentModel/Parameter/5.1';
+modeltype PCM_STOEX uses 'http://sdq.ipd.uka.de/StochasticExpressions/2.2';
+modeltype OPTIMISATION_PLAN uses 'http://www.cactosfp7.eu/OptimisationPlan/1.0';
+modeltype CACT_PUTIL uses 'http://www.cactosfp7.eu/PhysicalDCModel/Util/1.0';
+
+transformation startVM (inout logicalDC: CACT_LCORE,
+						inout actionCore : ACTION_CORE,
+						inout logicalCorrespondence : CACT_LCORR,
+						inout physicalCorrespondence : CACT_PCORR,
+						inout actionRoleSet : ACTION_INSTANCE,
+						in actionContext : ACTION_CONTEXT) {
+	mapping inout ApplicationInstance::startUnassignedVirtualMachines(inout steps: ParallelSteps) {
+		assert fatal(false) with log("Unknown ApplicationInstance: This should not have been called.")
+	}
+	
+	mapping inout BlackBoxApplicationInstance::startUnassignedVirtualMachines(inout steps: ParallelSteps) {
+		if (self.virtualMachine.state = VM_State::UNASSIGNED) {
+			steps.optimisationSteps[SequentialSteps]->any(optimisationSteps[VmPlacementAction]->exists(unassignedVirtualMachine = self.virtualMachine))
+				.optimisationSteps += object StartVmAction {
+					startedVm := self.virtualMachine;
+				}; 
+		};
+	}
+	
+	mapping inout GreyBoxApplicationInstance::startUnassignedVirtualMachines(inout steps: ParallelSteps) {
+		if (self.virtualMachine.state = VM_State::UNASSIGNED) {
+			steps.optimisationSteps[SequentialSteps]->any(optimisationSteps[VmPlacementAction]->exists(unassignedVirtualMachine = self.virtualMachine))
+				.optimisationSteps += object StartVmAction {
+					startedVm := self.virtualMachine;
+				}; 
+		};
+	}
+	
+	mapping inout WhiteBoxApplicationInstance::startUnassignedVirtualMachines(inout steps: ParallelSteps) {
+		self.composedVMs.virtualMachine->select(state = VM_State::UNASSIGNED)->forEach(vm) {
+			steps.optimisationSteps[SequentialSteps]->any(optimisationSteps[VmPlacementAction]->exists(unassignedVirtualMachine = vm))
+				.optimisationSteps += object StartVmAction {
+					startedVm := vm;
+				};
+		}
+		
+	}
+	
+	
+	mapping VirtualMachine::createVariableUsageForBootUp(): ControllerCallInputVariableUsageCollection  {
+		var spec := self.vMImageInstance.rootDisk.getStartUpSpecificationForNode(self.hypervisor.node);
+		controllerCallInputVariableUsages += object ControllerCallInputVariableUsage {
+			variableUsage := object VariableUsage {
+				variableCharacterisation_VariableUsage := object VariableCharacterisation {
+					type := VariableCharacterisationType::VALUE;
+					specification_VariableCharacterisation := object PCMRandomVariable {
+						if (not spec.oclIsInvalid() and spec <> null) {
+							specification := spec.duration;						
+						} else {
+							specification := "0";
+						}
+					};
+				};
+				namedReference__VariableUsage := object VariableReference {
+					referenceName := SVM_START_UP_DELAY_CALL_PARAMETER_ID;
+				}
+			};
+			correspondingControllerCall := actionCore.objectsOfType(ControllerCall)->any(id = SVM_START_UP_DELAY_CALL_ID);
+		};
+	}
+}

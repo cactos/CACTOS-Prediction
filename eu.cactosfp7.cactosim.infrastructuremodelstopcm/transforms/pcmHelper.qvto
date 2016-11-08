@@ -1,0 +1,112 @@
+import eu.cactosfp7.cactosim.pcmblackbox.JScienceLibPalladio;
+import pcmHelperCore;
+
+modeltype _resourceenvironment uses "http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.1";
+modeltype _pcm_usagemodel uses "http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.1";
+modeltype _pcmcore uses "http://palladiosimulator.org/PalladioComponentModel/Core/5.1";
+modeltype _pcmresourcetype uses "http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.1";
+modeltype _pcmrepository uses "http://palladiosimulator.org/PalladioComponentModel/Repository/5.1";
+modeltype _pcmseff uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/5.1';
+modeltype _pcmseffperformance uses 'http://palladiosimulator.org/PalladioComponentModel/SEFF/SEFF_Performance/5.1';
+modeltype _metricspec uses "http://palladiosimulator.org/MetricSpec/1.0";
+
+transformation pcmHelper(
+		in resourcetypepcm : _pcmresourcetype,
+		in metricspec : _metricspec,
+		in primitiveresourcetyperepo : _pcmrepository) extends transformation pcmHelperCore();
+
+helper getResourceTypeCPU() : ProcessingResourceType {
+	return resourcetypepcm.rootObjects()[ResourceRepository].availableResourceTypes_ResourceRepository[ProcessingResourceType]->any(id='_oro4gG3fEdy4YaaT-RYrLQ');
+}
+
+helper getResourceTypeHDD() : ProcessingResourceType {
+	return resourcetypepcm.rootObjects()[ResourceRepository].availableResourceTypes_ResourceRepository[ProcessingResourceType]->any(id='_BIjHoQ3KEdyouMqirZIhzQ');
+}
+
+helper getResourceTypeDelay() : ProcessingResourceType {
+	return resourcetypepcm.rootObjects()[ResourceRepository].availableResourceTypes_ResourceRepository[ProcessingResourceType]->any(id='_nvHX4KkREdyEA_b89s7q9w');
+}
+
+helper getResourceTypeLAN() : CommunicationLinkResourceType {
+	return resourcetypepcm.rootObjects()[ResourceRepository].availableResourceTypes_ResourceRepository[CommunicationLinkResourceType]->any(id='_o3sScH2AEdyH8uerKnHYug');
+}
+
+helper getResourceInterfaceCPU() : ResourceInterface {
+	return resourcetypepcm.rootObjects()[ResourceRepository].resourceInterfaces__ResourceRepository->any(id='_tw_Q8E5CEeCUKeckjJ_n-w');
+}
+
+helper getSchedulingPolicyDelay() : SchedulingPolicy {
+	return resourcetypepcm.rootObjects()[ResourceRepository].schedulingPolicies__ResourceRepository->any(id='Delay');
+}
+
+helper getSchedulingPolicyProcessorSharing() : SchedulingPolicy {
+	return resourcetypepcm.rootObjects()[ResourceRepository].schedulingPolicies__ResourceRepository->any(id='ProcessorSharing');
+}
+
+helper getSchedulingPolicyFCFS() : SchedulingPolicy {
+	return resourcetypepcm.rootObjects()[ResourceRepository].schedulingPolicies__ResourceRepository->any(id='FCFS');
+}
+
+helper getMetricDescriptionPointInTime() : MetricDescription {
+	return metricspec.rootObjects()[MetricDescriptionRepository].metricDescriptions[MetricDescription]->any(id="_NCRBos7pEeOX_4BzImuHbA");
+}
+
+helper getMetricDescriptionStateOfActiveResource() : NumericalBaseMetricDescription {
+	return metricspec.rootObjects()[MetricDescriptionRepository].metricDescriptions[NumericalBaseMetricDescription]->any(id="_paDhIs7qEeOX_4BzImuHbA");
+}
+
+helper getMetricDescriptionUtilization() : NumericalBaseMetricDescription {
+	return metricspec.rootObjects()[MetricDescriptionRepository].metricDescriptions[NumericalBaseMetricDescription]->any(id="_QIb6cikUEeSuf8LV7cHLgA");
+}
+
+helper getMetricDescriptionUtilizationTuple() : MetricSetDescription {
+	return metricspec.rootObjects()[MetricDescriptionRepository].metricDescriptions[MetricSetDescription]->any(id="_mhws4SkUEeSuf8LV7cHLgA");
+}
+
+helper getMetricDescriptionResponseTime() : MetricDescription {
+	return metricspec.rootObjects()[MetricDescriptionRepository].metricDescriptions[MetricDescription]->any(id="_6rYmYs7nEeOX_4BzImuHbA");
+}
+
+helper getMetricDescriptionPower() : NumericalBaseMetricDescription {
+	return metricspec.rootObjects()[MetricDescriptionRepository].metricDescriptions[NumericalBaseMetricDescription]->any(id="_NbIowlt_EeS0LdH-diVVEQ");
+}
+
+helper getMetricDescriptionTimePowerTuple() : MetricSetDescription {
+	return metricspec.rootObjects()[MetricDescriptionRepository].metricDescriptions[MetricSetDescription]->any(id="_EZBPQV91EeSUTcC2MkYv_Q");
+}
+
+helper getMetricDescriptionOptimisationTimeOverTime() : MetricSetDescription {
+	return metricspec.rootObjects()[MetricDescriptionRepository].metricDescriptions[MetricSetDescription]->any(id="_O4Yb0XMvEeWcDbSj7t-_fg");
+}
+
+helper getMetricDescriptionExperimentScenarioEventStart() : NumericalBaseMetricDescription {
+	return metricspec.rootObjects()[MetricDescriptionRepository].metricDescriptions[NumericalBaseMetricDescription]->any(id="_cstc8snXEeWQ7JWjPeXsEQ");
+}
+
+helper getMetricDescriptionNumberOfConcurrentlyExecutingTuple() : MetricSetDescription {
+	return metricspec.rootObjects()[MetricDescriptionRepository].metricDescriptions[MetricSetDescription]->any(id="_k20WwQVjEeadKqaUdKaaNQ");
+}
+
+helper getMetricDescriptionRequestArrivalRateTuple() : MetricSetDescription {
+	return metricspec.rootObjects()[MetricDescriptionRepository].metricDescriptions[MetricSetDescription]->any(id="_j8UvEQYAEeaz8bKeq_K-2w");
+}
+
+helper getMetricDescriptionResponseArrivalRateTuple() : MetricSetDescription {
+	return metricspec.rootObjects()[MetricDescriptionRepository].metricDescriptions[MetricSetDescription]->any(id="_wyMOQQYAEeaz8bKeq_K-2w");
+}
+
+helper getPrimitiveDataTypeDouble() : PrimitiveDataType {
+	return primitiveresourcetyperepo.rootObjects()[Repository].dataTypes__Repository[PrimitiveDataType]->any(type=PrimitiveTypeEnum::DOUBLE);
+}
+
+helper getPrimitiveDataTypeInteger() : PrimitiveDataType {
+	return primitiveresourcetyperepo.rootObjects()[Repository].dataTypes__Repository[PrimitiveDataType]->any(type=PrimitiveTypeEnum::INT);
+}
+
+helper getMetricTypeForUnitString(metricRepo : MetricDescriptionRepository, name : String) : NumericalBaseMetricDescription {
+	var metricTypes := metricRepo.metricDescriptions->selectByType(NumericalBaseMetricDescription)->select(s | isCompatibleWith(s.defaultUnit, name));
+	if(metricTypes->size() > 1) {
+		return metricTypes->any(s | s.id = "_QIb6cikUEeSuf8LV7cHLgA");
+	};
+	return metricTypes->any(true);
+}

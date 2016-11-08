@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/eu.cactosfp7.cactosim.correspondence/src" modelPluginID="eu.cactosfp7.cactosim.correspondence"
+    modelName="Correspondence" rootExtendsInterface="org.eclipse.emf.cdo.CDOObject"
+    rootExtendsClass="org.eclipse.emf.internal.cdo.CDOObjectImpl" importerID="org.eclipse.emf.importer.ecore"
+    featureDelegation="Dynamic" complianceLevel="7.0" copyrightFields="false" providerRootExtendsClass="org.eclipse.emf.cdo.edit.CDOItemProviderAdapter"
+    runtimeVersion="2.10" usedGenPackages="../../tools.descartes.dlim.generator/src/tools/descartes/dlim/model/dlim.genmodel#//dlim ../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.palladiosimulator.edp2/model/EDP2.genmodel#//models ../../de.uka.ipd.sdq.identifier/model/identifier.genmodel#//identifier ../../eu.cactosfp7.identifier/model/identifier.genmodel#//identifier ../../eu.cactosfp7.infrastructuremodels/model/infrastructuremodels.genmodel#//load ../../eu.cactosfp7.infrastructuremodels/model/infrastructuremodels.genmodel#//physicaldc ../../eu.cactosfp7.infrastructuremodels/model/infrastructuremodels.genmodel#//logicaldc ../../org.palladiosimulator.metricspec/model/metricspec.genmodel#//metricspec ../../org.palladiosimulator.monitorrepository/model/monitorrepository.genmodel#//monitorrepository ../../eu.cactosfp7.optimisationplan/model/optimisationplan.genmodel#//optimisationplan ../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm ../../de.fzi.power/model/power.genmodel#//power ../../de.uka.ipd.sdq.probfunction/model/ProbabilityFunction.genmodel#//probfunction ../../org.palladiosimulator.simulizar.runtimemeasurement/model/runtimemeasurement.genmodel#//runtimemeasurement ../../de.uka.ipd.sdq.stoex/model/stoex.genmodel#//stoex ../../de.uka.ipd.sdq.units/model/Units.genmodel#//units ../../org.scaledl.usageevolution/model/usageevolution.genmodel#//usageevolution"
+    importOrganizing="true">
+  <foreignModel>correspondence.ecore</foreignModel>
+  <modelPluginVariables>CDO=org.eclipse.emf.cdo</modelPluginVariables>
+  <genPackages prefix="Correspondence" basePackage="eu.cactosfp7.cactosim" resource="XMI"
+      disposableProviderFactory="true" ecorePackage="correspondence.ecore#/">
+    <genClasses image="false" ecoreClass="correspondence.ecore#//LoadCorrespondence">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference correspondence.ecore#//LoadCorrespondence/palladio"/>
+    </genClasses>
+    <nestedGenPackages prefix="Physicalcorrespondence" basePackage="eu.cactosfp7.cactosim.correspondence"
+        resource="XMI" disposableProviderFactory="true" ecorePackage="correspondence.ecore#//physicalcorrespondence">
+      <genClasses ecoreClass="correspondence.ecore#//physicalcorrespondence/PuMeasurementCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PuMeasurementCorrespondence/cactos"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PuMeasurementCorrespondence/physicalCorrespondenceRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//physicalcorrespondence/MemoryMeasurementCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/MemoryMeasurementCorrespondence/cactos"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/MemoryMeasurementCorrespondence/physicalCorrespondenceRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//physicalcorrespondence/StorageMeasurementCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/StorageMeasurementCorrespondence/cactos"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/StorageMeasurementCorrespondence/physicalCorrespondenceRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//physicalcorrespondence/InterconnectMeasurementCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/InterconnectMeasurementCorrespondence/cactos"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/InterconnectMeasurementCorrespondence/physicalCorrespondenceRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//physicalcorrespondence/PhysicalCorrespondenceRepository">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute correspondence.ecore#//physicalcorrespondence/PhysicalCorrespondenceRepository/correspondenceEstablished"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PhysicalCorrespondenceRepository/puMeasurementCorrespondences"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PhysicalCorrespondenceRepository/memoryMeasurementCorrespondences"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PhysicalCorrespondenceRepository/storageMeasurementCorrespondences"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PhysicalCorrespondenceRepository/interconnectMeasurementCorrespondences"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PhysicalCorrespondenceRepository/switchCorrespondences"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PhysicalCorrespondenceRepository/rackCorrespondences"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PhysicalCorrespondenceRepository/abstractNodeCorrespondences"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PhysicalCorrespondenceRepository/memorySpecificationCorrespondences"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PhysicalCorrespondenceRepository/storageSpecificationCorrespondences"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PhysicalCorrespondenceRepository/networkInterconnectCorrespondences"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PhysicalCorrespondenceRepository/processingUnitSpecificationCorrespondences"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PhysicalCorrespondenceRepository/physicalDcModel"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PhysicalCorrespondenceRepository/physicalLoadModel"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PhysicalCorrespondenceRepository/powerConsumingEntityMeasurementCorrespondences"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PhysicalCorrespondenceRepository/powerProvidingEntityCorrespondences"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PhysicalCorrespondenceRepository/powerConsumingResourceCorrespondences"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PhysicalCorrespondenceRepository/architectureTypeCorrespondences"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//physicalcorrespondence/SwitchCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/SwitchCorrespondence/cactos"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/SwitchCorrespondence/palladio"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/SwitchCorrespondence/physicalCorrespondenceRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//physicalcorrespondence/RackCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/RackCorrespondence/cactos"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/RackCorrespondence/palladio"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/RackCorrespondence/physicalCorrespondenceRepository"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="correspondence.ecore#//physicalcorrespondence/AbstractNodeCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/AbstractNodeCorrespondence/cactos"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/AbstractNodeCorrespondence/palladio"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/AbstractNodeCorrespondence/physicalCorrespondenceRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//physicalcorrespondence/MemorySpecificationCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/MemorySpecificationCorrespondence/cactos"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/MemorySpecificationCorrespondence/palladio"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/MemorySpecificationCorrespondence/physicalCorrespondenceRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//physicalcorrespondence/StorageSpecificationCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/StorageSpecificationCorrespondence/cactos"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/StorageSpecificationCorrespondence/palladio"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/StorageSpecificationCorrespondence/physicalCorrespondenceRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//physicalcorrespondence/NetworkInterconnectCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/NetworkInterconnectCorrespondence/cactos"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/NetworkInterconnectCorrespondence/palladio"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/NetworkInterconnectCorrespondence/physicalCorrespondenceRepository"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/NetworkInterconnectCorrespondence/reconfigurationController"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//physicalcorrespondence/ProcessingUnitSpecificationCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/ProcessingUnitSpecificationCorrespondence/cactos"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/ProcessingUnitSpecificationCorrespondence/palladio"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/ProcessingUnitSpecificationCorrespondence/physicalCorrespondenceRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//physicalcorrespondence/PowerConsumingEntityMeasurementCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PowerConsumingEntityMeasurementCorrespondence/cactos"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PowerConsumingEntityMeasurementCorrespondence/physicalCorrespondenceRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//physicalcorrespondence/PowerProvidingEntityCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PowerProvidingEntityCorrespondence/cactos"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PowerProvidingEntityCorrespondence/palladio"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PowerProvidingEntityCorrespondence/physicalCorrespondenceRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//physicalcorrespondence/PowerConsumingResourceCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PowerConsumingResourceCorrespondence/cactos"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PowerConsumingResourceCorrespondence/palladio"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/PowerConsumingResourceCorrespondence/physicalCorrespondenceRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//physicalcorrespondence/ArchitectureTypeCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/ArchitectureTypeCorrespondence/cactos"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/ArchitectureTypeCorrespondence/palladio"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference correspondence.ecore#//physicalcorrespondence/ArchitectureTypeCorrespondence/physicalCorrespondenceRepository"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Logicalcorrespondence" basePackage="eu.cactosfp7.cactosim.correspondence"
+        resource="XMI" disposableProviderFactory="true" ecorePackage="correspondence.ecore#//logicalcorrespondence">
+      <genClasses ecoreClass="correspondence.ecore#//logicalcorrespondence/VirtualMemoryMeasurementCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/VirtualMemoryMeasurementCorrespondence/cactos"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/VirtualMemoryMeasurementCorrespondence/logicalCorrespondenceRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//logicalcorrespondence/VirtualNetworkInterconnectMeasurementCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/VirtualNetworkInterconnectMeasurementCorrespondence/cactos"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/VirtualNetworkInterconnectMeasurementCorrespondence/logicalCorrespondenceRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//logicalcorrespondence/VirtualProcessingUnitMeasurementCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/VirtualProcessingUnitMeasurementCorrespondence/cactos"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/VirtualProcessingUnitMeasurementCorrespondence/logicalCorrespondenceRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//logicalcorrespondence/LogicalDiskReadMeasurementCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/LogicalDiskReadMeasurementCorrespondence/cactos"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/LogicalDiskReadMeasurementCorrespondence/logicalCorrespondenceRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//logicalcorrespondence/LogicalDiskWriteMeasurementCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/LogicalDiskWriteMeasurementCorrespondence/cactos"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/LogicalDiskWriteMeasurementCorrespondence/logicalCorrespondenceRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//logicalcorrespondence/LogicalCorrespondenceRepository">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/LogicalCorrespondenceRepository/virtualMemoryMeasurementCorrespondences"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/LogicalCorrespondenceRepository/virtualNetworkInterconnectMeasurementCorrespondences"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/LogicalCorrespondenceRepository/virtualProcessingUnitMeasurementCorrespondences"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/LogicalCorrespondenceRepository/volumeMeasurementCorrespondences"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/LogicalCorrespondenceRepository/virtualNetworkInterconnects"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/LogicalCorrespondenceRepository/vmImageCorrespondences"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/LogicalCorrespondenceRepository/vmImageInstanceCorrespondences"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/LogicalCorrespondenceRepository/virtualMachineCorrespondences"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/LogicalCorrespondenceRepository/hypervisorCorrespondences"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/LogicalCorrespondenceRepository/networkAttachedStorageCorrespondences"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/LogicalCorrespondenceRepository/logicalDcModel"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/LogicalCorrespondenceRepository/logicalLoadModel"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute correspondence.ecore#//logicalcorrespondence/LogicalCorrespondenceRepository/correspondenceEstablished"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/LogicalCorrespondenceRepository/optimisationPlanCorrespondence"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//logicalcorrespondence/VMImageInstanceCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/VMImageInstanceCorrespondence/cactos"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/VMImageInstanceCorrespondence/palladio"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/VMImageInstanceCorrespondence/logicalCorrespondenceRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//logicalcorrespondence/VMImageCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/VMImageCorrespondence/cactos"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/VMImageCorrespondence/palladio"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/VMImageCorrespondence/logicalCorrespondenceRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//logicalcorrespondence/VirtualNetworkInterconnectCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/VirtualNetworkInterconnectCorrespondence/cactos"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/VirtualNetworkInterconnectCorrespondence/palladio"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/VirtualNetworkInterconnectCorrespondence/logicalCorrespondenceRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//logicalcorrespondence/VirtualMachineCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/VirtualMachineCorrespondence/cactos"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/VirtualMachineCorrespondence/palladio"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/VirtualMachineCorrespondence/logicalCorrespondenceRepository"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/VirtualMachineCorrespondence/palladioStorageConnector"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/VirtualMachineCorrespondence/palladioUsage"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//logicalcorrespondence/HypervisorCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/HypervisorCorrespondence/cactos"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/HypervisorCorrespondence/palladio"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/HypervisorCorrespondence/logicalCorrespondenceRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//logicalcorrespondence/NetworkAttachedStorageCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/NetworkAttachedStorageCorrespondence/cactos"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/NetworkAttachedStorageCorrespondence/palladio"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/NetworkAttachedStorageCorrespondence/logicalCorrespondenceRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//logicalcorrespondence/OptimisationPlanCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/OptimisationPlanCorrespondence/lastOptimisationPlan"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference correspondence.ecore#//logicalcorrespondence/OptimisationPlanCorrespondence/logicalCorrespondenceRepository"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Measurementcorrespondence" basePackage="eu.cactosfp7.cactosim.correspondence"
+        disposableProviderFactory="true" ecorePackage="correspondence.ecore#//measurementcorrespondence">
+      <genClasses ecoreClass="correspondence.ecore#//measurementcorrespondence/MonitoredCactosEntityToMonitorCorrespondence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//measurementcorrespondence/MonitoredCactosEntityToMonitorCorrespondence/cactos"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//measurementcorrespondence/MonitoredCactosEntityToMonitorCorrespondence/palladio"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference correspondence.ecore#//measurementcorrespondence/MonitoredCactosEntityToMonitorCorrespondence/monitorCorrespondenceRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="correspondence.ecore#//measurementcorrespondence/MonitorCorrespondenceRepository">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference correspondence.ecore#//measurementcorrespondence/MonitorCorrespondenceRepository/monitoredCactosEntityToMonitorCorrespondences"/>
+      </genClasses>
+    </nestedGenPackages>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated correspondence -->
+      <package
+            uri="http://www.cactosfp7.eu/Correspondence/1.1"
+            class="eu.cactosfp7.cactosim.correspondence.CorrespondencePackage"
+            genModel="model/correspondence.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated correspondence -->
+      <parser
+            type="correspondence"
+            class="eu.cactosfp7.cactosim.correspondence.util.CorrespondenceResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated correspondence -->
+      <package
+            uri="http://www.cactosfp7.eu/Correspondence/Physical/1.1"
+            class="eu.cactosfp7.cactosim.correspondence.physicalcorrespondence.PhysicalcorrespondencePackage"
+            genModel="model/correspondence.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated correspondence -->
+      <parser
+            type="physicalcorrespondence"
+            class="eu.cactosfp7.cactosim.correspondence.physicalcorrespondence.util.PhysicalcorrespondenceResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated correspondence -->
+      <package
+            uri="http://www.cactosfp7.eu/Correspondence/Logical/1.1"
+            class="eu.cactosfp7.cactosim.correspondence.logicalcorrespondence.LogicalcorrespondencePackage"
+            genModel="model/correspondence.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated correspondence -->
+      <parser
+            type="logicalcorrespondence"
+            class="eu.cactosfp7.cactosim.correspondence.logicalcorrespondence.util.LogicalcorrespondenceResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated correspondence -->
+      <package
+            uri="http://www.cactosfp7.eu/Correspondence/Measurement/1.1"
+            class="eu.cactosfp7.cactosim.correspondence.measurementcorrespondence.MeasurementcorrespondencePackage"
+            genModel="model/correspondence.genmodel"/>
+   </extension>
+
+</plugin>

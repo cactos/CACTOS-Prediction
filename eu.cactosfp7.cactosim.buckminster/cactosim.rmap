@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rm:rmap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0" xmlns:maven="http://www.eclipse.org/buckminster/MavenProvider-1.0" xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0">
+  <rm:property key="resolveFrom" value="release"/>
+  <rm:locator pattern="^JScience.*" searchPathRef="CactosModels" failOnError="false"/>
+  <rm:locator pattern="^eu\.cactosfp7\.cactosim.*" searchPathRef="CactoSimSVN"/>
+  <rm:locator pattern="^eu\.cactosfp7\.infrastructuremodels\.util\.blackbox.*" searchPathRef="CactoSimSVN"/>
+  <rm:locator pattern="^eu\.cactosfp7\.infrastructuremodelstopcm.*" searchPathRef="Integration"/>
+  <rm:locator pattern="^eu\.cactosfp7\.cdosession.*" searchPathRef="Integration"/>
+  <rm:locator pattern="^eu\.cactosfp7\.infrastructuremodels\.*" searchPathRef="CactosModels"/>
+  <rm:locator pattern="^eu\.cactosfp7\.identifier\.*" searchPathRef="CactosModels"/>  
+  <rm:locator pattern="^eu\.cactosfp7\.optimisationplan.*" searchPathRef="OptimisationPlan"/>
+  <rm:locator pattern="^eu\.cactosfp7\.identifier*" searchPathRef="Integration" failOnError="false"/>
+  <rm:locator pattern="^HBaseClient.*" searchPathRef="CactoScale" failOnError="false"/>
+  <rm:locator pattern="^org\.eclipse\.m2m\.qvt\.oml\.jscience.*" searchPathRef="Integration"/>
+  <rm:locator pattern="^slf4j(\..+)?" searchPathRef="maven"/>
+  <rm:locator pattern="^org\.apache\.felix.*" searchPathRef="ApacheFelix"/>
+  <rm:locator pattern="^com\.google\.guava.*" searchPathRef="ApacheFelix"/>
+  <rm:locator pattern="^de\.fzi\.power.*" searchPathRef="Power"/>
+  <rm:locator pattern="^org\.palladiosimulator\.simulizar\.power.*" searchPathRef="SimuLizarPower"/>
+  <rm:locator pattern="^org\.palladiosimulator\.simulizar\.slidingwindow.*" searchPathRef="SimuLizarPower"/>
+  <rm:locator pattern="^org\.palladiosimulator\.simulizar\.utilization.*" searchPathRef="SimuLizarPower"/>
+  <rm:locator pattern="^org\.palladiosimulator\.simulizar\.simulationtime.*" searchPathRef="CactoSimSVN"/>
+  <rm:locator pattern="^org\.palladiosimulator\.simulizar\.arrivalrate.*" searchPathRef="CactoSimSVN"/>
+  <rm:locator pattern="^org\.palladiosimulator\.simulizar\.responsetimemonitor.*" searchPathRef="CactoSimSVN"/>
+  <rm:locator pattern="^org\.palladiosimulator\.experimentanalysis.*" searchPathRef="ExperimentAnalysis"/>
+  <rm:locator pattern="^org\.apache\.log4j*" searchPathRef="mwe"/>
+  <rm:locator pattern="^eu\.cactosfp7\.toolkit.*" searchPathRef="CactoOpt"/>
+  <rm:locator pattern="^eu\.cactosfp7\.cactoopt.*" searchPathRef="CactoOpt"/>
+  <rm:locator pattern="^LIMBO.*" searchPathRef="Limbo"/>
+  <rm:locator pattern="^org\.eclipse\core.*" searchPathRef="EclipseUI"/>
+  <rm:locator pattern="^org\.codehouse\.stax.*" searchPathRef="Power" failOnError="false"/>
+  <rm:locator pattern="^org\.vedantatree\.expressionoasis.*" searchPathRef="Power" failOnError="false"/>
+  <rm:locator pattern="^org\.simpleframework.*" searchPathRef="Power" failOnError="false"/>
+  <rm:locator pattern="^org\.eclipse\.m2m\.qvt\.oml.*" searchPathRef="QVTo" failOnError="false"/>
+  <rm:redirect pattern="^de\.uka\.ipd\.sdq\.pcm\.gmf.*" href="https://raw.githubusercontent.com/PalladioSimulator/Palladio-Core-Editors/master/org.palladiosimulator.editors.buckminster/editors.rmap"/>
+  <rm:redirect pattern="^org\.palladiosimulator\.editors.*" href="https://raw.githubusercontent.com/PalladioSimulator/Palladio-Editors-Tree/master/org.palladiosimulator.editors.tree.buckminster/tree.rmap"/>
+  <rm:redirect pattern="^org\.palladiosimulator\.pcm\.editor.*" href="https://raw.githubusercontent.com/PalladioSimulator/Palladio-Editors-Tree/master/org.palladiosimulator.editors.tree.buckminster/tree.rmap"/>
+  <rm:redirect pattern="^org\.palladiosimulator\.architecturaltemplates.*" href="https://raw.githubusercontent.com/PalladioSimulator/Architectural-Templates/master/org.palladiosimulator.architecturaltemplates.buckminster/architecturaltemplates.rmap" />
+  <rm:redirect pattern="^org\.palladiosimulator\.solver.*" href="https://anonymous:anonymous@svnserver.informatik.kit.edu/i43/svn/code/Palladio/Analyzer/Solver/trunk/org.palladiosimulator.solver.buckminster/solver.rmap"/>
+  <rm:redirect pattern=".*" href="https://anonymous:anonymous@svnserver.informatik.kit.edu/i43/svn/code/Palladio/Incubation/SimuLizar/trunk/org.palladiosimulator.simulizar.buckminster/simulizar.rmap"/>
+  <rm:searchPath name="CactoSimSVN">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="svn">
+      <rm:uri format="https://cactosbuild:fA8qXqNwNQLoLuc6@svn.fzi.de/svn/cactos/code/sim/trunk/{0}">
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="Editors">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2">
+      <rm:uri format="https://sdqweb.ipd.kit.edu/eclipse/palladio/core/editors/releases/4.0.0/"/>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="ExperimentAnalysis">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2">
+      <rm:uri format="https://sdqweb.ipd.kit.edu/eclipse/palladio/addons/experimentanalysis/nightly/"/>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="QVTo">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2">
+      <rm:uri format="http://download.eclipse.org/mmt/qvto/updates/releases"/>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="Integration">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="svn">
+      <rm:uri format="https://cactosbuild:fA8qXqNwNQLoLuc6@svn.fzi.de/svn/cactos/code/integration/trunk/{0}">
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="CactosModels">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2">
+      <rm:uri format="https://sdqweb.ipd.kit.edu/eclipse/cactos/infrastructuremodels/nightly/"/>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="OptimisationPlan">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2">
+      <rm:uri format="https://sdqweb.ipd.kit.edu/eclipse/cactos/optimisationplan/nightly/"/>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="CactoOpt">
+    <rm:provider componentTypes="buckminster,osgi.bundle,eclipse.feature" readerType="svn">
+      <rm:uri format="https://cactosbuild:fA8qXqNwNQLoLuc6@svn.fzi.de/svn/cactos/code/opt/trunk#{0}">
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="Limbo">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="http://se2.informatik.uni-wuerzburg.de/eclipse/limbo/"/>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="Eclipse">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="http://download.eclipse.org/releases/mars"/>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="EclipseUI">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="http://download.eclipse.org/eclipse/updates/4.5"/>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="EclipseCore">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="http://eclipse.org/eclipse/platform-core/updates"/>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="Power">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="https://sdqweb.ipd.kit.edu/eclipse/palladio/addons/power/nightly/"/>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="SimuLizarPower">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="https://sdqweb.ipd.kit.edu/eclipse/simulizarpower/nightly/"/>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="ExperimentAnalysis">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="https://sdqweb.ipd.kit.edu/eclipse/palladio/addons/experimentanalysis/nightly/"/>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="ApacheFelix">
+    <rm:provider componentTypes="osgi.bundle" readerType="maven2" source="false" mutable="false" xsi:type="maven:MavenProvider">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="http://repo1.maven.org/maven2/"/>
+      <maven:mappings>
+        <maven:entry artifactId="org.apache.felix.metatype" groupId="org.apache.felix" name="org.apache.felix.metatype"/>
+        <maven:entry artifactId="guava" groupId="com.google.guava" name="com.google.guava"/>
+        <maven:entry artifactId="org.apache.felix.gogo.command" groupId="org.apache.felix" name="org.apache.felix.gogo.command"/>
+        <maven:entry artifactId="component org.apache.felix.gogo.shell" groupId="org.apache.felix" name="component org.apache.felix.gogo.shell"/>
+        <maven:entry artifactId="org.apache.felix.gogo.runtime" groupId="org.apache.felix" name="org.apache.felix.gogo.runtime"/>
+        <maven:entry artifactId="org.apache.felix.gogo.shell" groupId="org.apache.felix" name="org.apache.felix.gogo.shell"/>
+        <maven:entry artifactId="org.apache.felix.fileinstall" groupId="org.apache.felix" name="org.apache.felix.fileinstall"/>
+      </maven:mappings>
+    </rm:provider>
+  </rm:searchPath>
+    <rm:searchPath name="mwe">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="http://download.eclipse.org/tools/orbit/downloads/drops/R20150124073747/repository/"/>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="CactoScale">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="svn">
+      <rm:uri format="https://cactosbuild:fA8qXqNwNQLoLuc6@svn.fzi.de/svn/cactos/code/scale/trunk#{0}">
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+</rm:rmap>

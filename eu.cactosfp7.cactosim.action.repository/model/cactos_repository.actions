@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.palladiosimulator.action:AdaptationBehaviorRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.palladiosimulator.action="http://simulizar.palladiosimulator.org/Actions/Core/1.1" id="_Z0H-oMp5EeW4EYpxKkq5Gw" entityName="Cactos Adaptation Behavior Repository">
+  <actions id="_OuuM0A3rEeavzNf6FhjogQ" entityName="MigrateVMDemandEstimation">
+    <adaptationActions xsi:type="org.palladiosimulator.action:GuardedAction" id="_OBaMQ8p-EeW4EYpxKkq5Gw" entityName="VM Migration Guarded Action">
+      <guardedTransitions id="_GMvj0MqDEeW4EYpxKkq5Gw" entityName="VM Migration IFF VM Not Already in Optimization " conditionURI="platform:/plugin/eu.cactosfp7.cactosim.action.repository/precondition/migrateVM_noConflictingOptimisation.qvto">
+        <nestedAdaptationBehavior id="_MscLIMqDEeW4EYpxKkq5Gw" entityName="Migrate VM Behavior">
+          <adaptationActions xsi:type="org.palladiosimulator.action:EnactAdaptationAction" id="_dw_5MQ3rEeavzNf6FhjogQ" adaptationStepURI="platform:/plugin/eu.cactosfp7.cactosim.action.repository/adaptation/migrateVM_demandEstimationRelay.qvto"/>
+        </nestedAdaptationBehavior>
+      </guardedTransitions>
+    </adaptationActions>
+    <involvedRoles id="_WoBrZA3rEeavzNf6FhjogQ" entityName="VirtualMachine">
+      <type href="../../../plugin/eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//core/VirtualMachine"/>
+    </involvedRoles>
+    <involvedRoles id="_ZYfA1A3rEeavzNf6FhjogQ" entityName="TargetNode">
+      <type href="../../../plugin/eu.cactosfp7.infrastructuremodels/model/physicaldcmodel.ecore#//core/ComputeNode"/>
+    </involvedRoles>
+  </actions>
+  <actions id="_7x-SQMp7EeW4EYpxKkq5Gw" entityName="MigrateVM">
+    <adaptationActions xsi:type="org.palladiosimulator.action:ResourceDemandingAction" id="_4nuZAOp9EeS7J-g-NrN0TQ" entityName="Migrate Controller Completion" controllerCompletionURI="platform:/plugin/eu.cactosfp7.cactosim.action.repository/controllercompletions/migrateVM_controllercompletion.qvto">
+      <controllerCalls id="_PPtigOw_EeSZKvpqmLO3MQ" entityName="migrateVm">
+        <component href="../controller/migrationcontroller.repository#_63lUEOqDEeS1xrjFer2CUg"/>
+        <calledSignature href="../controller/migrationcontroller.repository#_zm-xEOp_EeS1xrjFer2CUg"/>
+      </controllerCalls>
+    </adaptationActions>
+    <adaptationActions xsi:type="org.palladiosimulator.action:EnactAdaptationAction" id="_NMpVMcqDEeW4EYpxKkq5Gw" entityName="MigrateVM " adaptationStepURI="platform:/plugin/eu.cactosfp7.cactosim.action.repository/adaptation/migrateVM_adaptation.qvto"/>
+    <involvedRoles id="_kPTj0OztEeSasuhUPGMaRg" entityName="MigratedVM">
+      <type href="http://www.cactosfp7.eu/LogicalDCModel/Core/1.0#//VirtualMachine"/>
+    </involvedRoles>
+    <involvedRoles id="_or2AkeztEeSasuhUPGMaRg" entityName="TargetNodeCorrespondence">
+      <type href="../../../plugin/eu.cactosfp7.cactosim.correspondence/model/correspondence.ecore#//physicalcorrespondence/AbstractNodeCorrespondence"/>
+    </involvedRoles>
+    <transientStateProfile href="../transientstates/cactosOptimisationInProgress.emfprofile_diagram#_horSUPh-EeSxfcKkGEX99A"/>
+  </actions>
+  <actions id="_3ARh4A3nEeavzNf6FhjogQ" entityName="SetPhysicalNodeStateDemandEstimation">
+    <adaptationActions xsi:type="org.palladiosimulator.action:GuardedAction" id="_nED-8_syEeWYt9SA8hyaGA" entityName="CanNodeStateBeChangedWithoutConflict">
+      <guardedTransitions id="_n7HiwPsyEeWYt9SA8hyaGA" entityName="CheckIfThereIsNoConflictingOptimisation" conditionURI="platform:/plugin/eu.cactosfp7.cactosim.action.repository/precondition/nodestatechangeprecondition.qvto">
+        <nestedAdaptationBehavior id="_oWnL8PsyEeWYt9SA8hyaGA" entityName="NoConflictingOptimisationRunning">
+          <adaptationActions xsi:type="org.palladiosimulator.action:EnactAdaptationAction" id="_OMUKsQ3oEeavzNf6FhjogQ" entityName="EstimateDemandAndExecuteAction" adaptationStepURI="platform:/plugin/eu.cactosfp7.cactosim.action.repository/adaptation/setPhysicalNodeState_demandEstimationRelay.qvto"/>
+        </nestedAdaptationBehavior>
+      </guardedTransitions>
+    </adaptationActions>
+    <involvedRoles id="_CHBM1A3oEeavzNf6FhjogQ" entityName="TargetNode">
+      <type href="http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0#//AbstractNode"/>
+    </involvedRoles>
+    <involvedRoles id="_D7-jVA3oEeavzNf6FhjogQ" entityName="TargetNodeState">
+      <type href="../../../plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//SimpleAnyType"/>
+    </involvedRoles>
+  </actions>
+  <actions id="_hhs44OBzEeW80IRue7ekzA" entityName="SetPhysicalNodeState">
+    <adaptationActions xsi:type="org.palladiosimulator.action:EnactAdaptationAction" id="_WzH2MfplEeWK4trVmuBwCA" entityName="SetNodeStateToOnToCause PowerConsumptionDuringDelay" adaptationStepURI="platform:/plugin/eu.cactosfp7.cactosim.action.repository/adaptation/setPhysicalNodeState_adaptationBeforeDelay.qvto"/>
+    <adaptationActions xsi:type="org.palladiosimulator.action:GuardedAction" id="_G7MgE-COEeWaP9YO-O9pYg" entityName="CheckIfNodeStateChangeCausesDelay">
+      <guardedTransitions id="_IAf7QOCOEeWaP9YO-O9pYg" entityName="CheckIfNodeStateJustifiesResourceDemand" conditionURI="platform:/plugin/eu.cactosfp7.cactosim.action.repository/precondition/nodestatechangejustifiesresourcedemand.qvto">
+        <nestedAdaptationBehavior id="_IktbkOCOEeWaP9YO-O9pYg" entityName="CauseDelayForNodeChange">
+          <adaptationActions xsi:type="org.palladiosimulator.action:ResourceDemandingAction" id="_I9RFguCOEeWaP9YO-O9pYg" entityName="AddOrIdentifyDelayController" controllerCompletionURI="platform:/plugin/eu.cactosfp7.cactosim.action.repository/controllercompletions/nodestatecontrollercompletion.qvto">
+            <controllerCalls id="_JTBTEOCOEeWaP9YO-O9pYg" entityName="IssueDemand">
+              <component href="../controller/simpledelaycontroller.repository#_RlcvMOCBEeWaP9YO-O9pYg"/>
+              <calledSignature href="../controller/simpledelaycontroller.repository#_GJm-AOCBEeWaP9YO-O9pYg"/>
+            </controllerCalls>
+          </adaptationActions>
+        </nestedAdaptationBehavior>
+      </guardedTransitions>
+    </adaptationActions>
+    <adaptationActions xsi:type="org.palladiosimulator.action:EnactAdaptationAction" id="_n5kZ4eBzEeW80IRue7ekzA" entityName="SetPhysicalNodeStateFinally" adaptationStepURI="platform:/plugin/eu.cactosfp7.cactosim.action.repository/adaptation/setPhysicalNodeState_adaptationAfterDelay.qvto"/>
+    <involvedRoles id="_a4Wv5OB_EeWaP9YO-O9pYg" entityName="TargetNodeCorrespondence">
+      <type href="../../../plugin/eu.cactosfp7.cactosim.correspondence/model/correspondence.ecore#//physicalcorrespondence/AbstractNodeCorrespondence"/>
+    </involvedRoles>
+    <involvedRoles id="_fbMB5OB_EeWaP9YO-O9pYg" entityName="TargetNodeState">
+      <type href="../../../plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//SimpleAnyType"/>
+    </involvedRoles>
+    <transientStateProfile href="../transientstates/cactosOptimisationInProgress.emfprofile_diagram#_horSUPh-EeSxfcKkGEX99A"/>
+  </actions>
+  <actions id="_dkQlUOFXEeWepYHdROCUIA" entityName="StartApplication">
+    <adaptationActions xsi:type="org.palladiosimulator.action:EnactAdaptationAction" id="_qZiDQfAsEeWxro1EI_RTNg" entityName="startApplicationAdaptation" adaptationStepURI="platform:/plugin/eu.cactosfp7.cactosim.action.repository/adaptation/startApplication_adaptation.qvto"/>
+    <involvedRoles id="_ojqi1OH_EeW3h_nhVNagRA" entityName="ApplicationTemplate">
+      <type href="../../../plugin/eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/ApplicationTemplate"/>
+    </involvedRoles>
+    <involvedRoles id="_pTUeJOH_EeW3h_nhVNagRA" entityName="VMFlavour">
+      <type href="../../../plugin/eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//core/Flavour"/>
+    </involvedRoles>
+    <involvedRoles id="_KoLxFOIAEeW3h_nhVNagRA" entityName="UserBehaviorTemplate">
+      <type href="../../../plugin/eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/WhiteBoxUserBehaviourTemplate"/>
+    </involvedRoles>
+    <involvedRoles id="_ZadjBO0LEeWwk45MX11cig" entityName="StartApplicationRequest">
+      <type href="../../eu.cactosfp7.cactosim.experimentscenario/model/experimentscenario.ecore#//request/StartApplicationRequest"/>
+    </involvedRoles>
+    <transientStateProfile href="../transientstates/cactosOptimisationInProgress.emfprofile_diagram#_horSUPh-EeSxfcKkGEX99A"/>
+  </actions>
+  <actions id="_sJXexvArEeWxro1EI_RTNg" entityName="StartVM">
+    <adaptationActions xsi:type="org.palladiosimulator.action:ResourceDemandingAction" id="_5iS1IvALEeWZobkupPLe3A" entityName="StartVMControllerCompletion" controllerCompletionURI="platform:/plugin/eu.cactosfp7.cactosim.action.repository/controllercompletions/startvmcontrollercompletion.qvto">
+      <controllerCalls id="_DI8mUPAMEeWZobkupPLe3A" entityName="IssueDelayDemand">
+        <component href="../controller/simpledelaycontroller.repository#_RlcvMOCBEeWaP9YO-O9pYg"/>
+        <calledSignature href="../controller/simpledelaycontroller.repository#_GJm-AOCBEeWaP9YO-O9pYg"/>
+      </controllerCalls>
+    </adaptationActions>
+    <adaptationActions xsi:type="org.palladiosimulator.action:EnactAdaptationAction" id="_691ioeIAEeW3h_nhVNagRA" entityName="VMStartedAdaptation" adaptationStepURI="platform:/plugin/eu.cactosfp7.cactosim.action.repository/adaptation/startVM_adaptation.qvto"/>
+    <involvedRoles id="_1lbJZPArEeWxro1EI_RTNg" entityName="VirtualMachine">
+      <type href="../../../plugin/eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//core/VirtualMachine"/>
+    </involvedRoles>
+    <transientStateProfile href="../transientstates/cactosOptimisationInProgress.emfprofile_diagram#_horSUPh-EeSxfcKkGEX99A"/>
+  </actions>
+  <actions id="_lXV24OxqEeW_CvI9eaHGOA" entityName="StopApplication">
+    <adaptationActions xsi:type="org.palladiosimulator.action:GuardedAction" id="_ujy_Y-xqEeW_CvI9eaHGOA" entityName="TerminationPossible">
+      <guardedTransitions id="_wf4RkOxqEeW_CvI9eaHGOA" entityName="IsTerminationPossible" conditionURI="platform:/plugin/eu.cactosfp7.cactosim.action.repository/precondition/stopApplication_waitForOptimisationTermination.qvto">
+        <nestedAdaptationBehavior id="_5V4B4OxqEeW_CvI9eaHGOA">
+          <adaptationActions xsi:type="org.palladiosimulator.action:EnactAdaptationAction" id="_5liOgexqEeW_CvI9eaHGOA" entityName="ApplicationStoppedAdaptation" adaptationStepURI="platform:/plugin/eu.cactosfp7.cactosim.action.repository/adaptation/stopApplication_adaptation.qvto"/>
+        </nestedAdaptationBehavior>
+      </guardedTransitions>
+    </adaptationActions>
+    <involvedRoles id="_pJmAhOxqEeW_CvI9eaHGOA" entityName="ApplicationInstance">
+      <type href="../../../plugin/eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/ApplicationInstance"/>
+    </involvedRoles>
+    <transientStateProfile href="../transientstates/cactosOptimisationInProgress.emfprofile_diagram#_horSUPh-EeSxfcKkGEX99A"/>
+  </actions>
+  <actions id="_DGwpsBj4EeaXJrUi8zbK0g" entityName="StopVM">
+    <adaptationActions xsi:type="org.palladiosimulator.action:EnactAdaptationAction" id="_dLIxkRj4EeaXJrUi8zbK0g" entityName="EnactVMStop" adaptationStepURI="platform:/plugin/eu.cactosfp7.cactosim.action.repository/adaptation/stopVM_adaptation.qvto"/>
+    <involvedRoles id="_dliOlBj4EeaXJrUi8zbK0g" entityName="stoppedVM">
+      <type href="http://www.cactosfp7.eu/LogicalDCModel/Core/1.0#//VirtualMachine"/>
+    </involvedRoles>
+  </actions>
+  <actions id="_Q_sn0AiDEea2K8AVNJxydg" entityName="ConductPlacement">
+    <adaptationActions xsi:type="org.palladiosimulator.action:GuardedAction" id="_WqH0AwiDEea2K8AVNJxydg" entityName="VMCopyNecessary">
+      <guardedTransitions id="_Q5yckOIBEeW3h_nhVNagRA" entityName="CopyingOfVMIsImageRequired" conditionURI="platform:/plugin/eu.cactosfp7.cactosim.action.repository/precondition/conductPlacement_isImageCopyNecessary.qvto">
+        <nestedAdaptationBehavior id="_XPlhAOIBEeW3h_nhVNagRA" entityName="ExecuteIfCopyingOfVMIsImageRequired">
+          <adaptationActions xsi:type="org.palladiosimulator.action:ResourceDemandingAction" id="_Ilsw8vEfEeW24e2jO-Tyeg" entityName="CopyVMControllerCompletion" controllerCompletionURI="platform:/plugin/eu.cactosfp7.cactosim.action.repository/controllercompletions/copyvmcontrollercompletion.qvto">
+            <controllerCalls id="_Vl_rIPGmEeWH3dYYnJ_SlA" entityName="IssueNetworkDataTransfer">
+              <component href="../controller/networkcopycontroller.repository#_g6P58PEfEeW24e2jO-Tyeg"/>
+              <calledSignature href="../controller/networkcopycontroller.repository#_oSRQYPEfEeW24e2jO-Tyeg"/>
+            </controllerCalls>
+          </adaptationActions>
+        </nestedAdaptationBehavior>
+      </guardedTransitions>
+    </adaptationActions>
+    <adaptationActions xsi:type="org.palladiosimulator.action:EnactAdaptationAction" id="_nAC5kQiDEea2K8AVNJxydg" entityName="ConductPlacement" adaptationStepURI="platform:/plugin/eu.cactosfp7.cactosim.action.repository/adaptation/conductPlacement_adaptation.qvto"/>
+    <involvedRoles id="_SflGOgiDEea2K8AVNJxydg" entityName="placementActions">
+      <type href="../../../plugin/eu.cactosfp7.optimisationplan/model/optimisationplan.ecore#//VmPlacementAction"/>
+    </involvedRoles>
+  </actions>
+  <actions id="_xzF7gA1cEeamz_F62Ko1Pw" entityName="ConnectVMs">
+    <adaptationActions xsi:type="org.palladiosimulator.action:EnactAdaptationAction" id="_8hZ4UQ1cEeamz_F62Ko1Pw" entityName="ExecuteConnectVMs" adaptationStepURI="platform:/plugin/eu.cactosfp7.cactosim.action.repository/adaptation/connectVMs_adaptation.qvto"/>
+    <involvedRoles id="_zUWS5A1cEeamz_F62Ko1Pw" entityName="ConnectVMActions">
+      <type href="../../../plugin/eu.cactosfp7.optimisationplan/model/optimisationplan.ecore#//ParallelSteps"/>
+    </involvedRoles>
+  </actions>
+  <actions id="_JiriEBjpEeaes76hTFA7_A" entityName="ScaleIn">
+    <adaptationActions xsi:type="org.palladiosimulator.action:GuardedAction" id="_RU9R4yEIEeaj9eKxwXP00A" entityName="ScaleInAllowed">
+      <guardedTransitions id="_S6GDsCEIEeaj9eKxwXP00A" entityName="IsScaleInAllowed" conditionURI="platform:/plugin/eu.cactosfp7.cactosim.action.repository/precondition/scaleIn_scaleInPossible.qvto">
+        <nestedAdaptationBehavior id="_afqt8CEIEeaj9eKxwXP00A" entityName="ScaleInIsAllowed">
+          <adaptationActions xsi:type="org.palladiosimulator.action:EnactAdaptationAction" id="_aI2DERjpEeaes76hTFA7_A" entityName="EnactScaleIn" adaptationStepURI="platform:/plugin/eu.cactosfp7.cactosim.action.repository/adaptation/scaleIn_adaptation.qvto"/>
+        </nestedAdaptationBehavior>
+      </guardedTransitions>
+    </adaptationActions>
+    <involvedRoles id="_MxzwhBjpEeaes76hTFA7_A" entityName="LoadBalancerVM">
+      <type href="http://www.cactosfp7.eu/LogicalDCModel/Application/1.0#//ComposedVM"/>
+    </involvedRoles>
+    <involvedRoles id="_NQBWhBjpEeaes76hTFA7_A" entityName="ScaledVM">
+      <type href="http://www.cactosfp7.eu/LogicalDCModel/Application/1.0#//ComposedVM"/>
+    </involvedRoles>
+  </actions>
+  <actions id="_KQBJMBjpEeaes76hTFA7_A" entityName="ScaleOut">
+    <adaptationActions xsi:type="org.palladiosimulator.action:EnactAdaptationAction" id="_dujlgRjpEeaes76hTFA7_A" entityName="EnactScaleOut" adaptationStepURI="platform:/plugin/eu.cactosfp7.cactosim.action.repository/adaptation/scaleOut_adaptation.qvto"/>
+    <involvedRoles id="_Rk2BtBjpEeaes76hTFA7_A" entityName="ScalableConnector">
+      <type href="../../../plugin/eu.cactosfp7.infrastructuremodels/model/logicaldcmodel.ecore#//application/ScalableVMImageConnector"/>
+    </involvedRoles>
+    <involvedRoles id="_XFhcBBjpEeaes76hTFA7_A" entityName="LoadBalancerVM">
+      <type href="http://www.cactosfp7.eu/LogicalDCModel/Application/1.0#//ComposedVM"/>
+    </involvedRoles>
+  </actions>
+</org.palladiosimulator.action:AdaptationBehaviorRepository>

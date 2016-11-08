@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: CactoSim Perspective
+Bundle-SymbolicName: eu.cactosfp7.cactosim.ui.perspective;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: eu.cactosfp7.cactosim.ui.perspective.Activator
+Bundle-Vendor: CACTOS
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui.workbench,
+ org.eclipse.ui.navigator;bundle-version="3.6.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: CactoSim Model Extractor
+Bundle-SymbolicName: eu.cactosfp7.cactosim.modelextractor
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: eu.cactosfp7.cactosim.modelextractor.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.osgi.services,
+ HBaseClient,
+ eu.cactosfp7.infrastructuremodels;visibility:=reexport,
+ JScience;visibility:=reexport,
+ eu.cactosfp7.infrastructuremodels.editor;bundle-version="1.0.0",
+ org.vedantatree.expressionoasis;bundle-version="1.0.0";visibility:=reexport,
+ org.apache.commons.math,
+ eu.cactosfp7.cactosim.experimentscenario,
+ eu.cactosfp7.cactosim.regression;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Service-Component: OSGI-INF/component.xml
+Export-Package: eu.cactosfp7.cactosim.modelextractor.connection,
+ eu.cactosfp7.cactosim.modelextractor.queries,
+ eu.cactosfp7.cactosim.modelextractor.settings,
+ eu.cactosfp7.cactosim.modelextractor.util

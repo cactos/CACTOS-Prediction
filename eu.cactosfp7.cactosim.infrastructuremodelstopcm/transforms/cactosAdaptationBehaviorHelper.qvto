@@ -1,0 +1,468 @@
+import simulizar_qvto_helper.logHelper;
+
+modeltype ECORE uses 'http://www.eclipse.org/emf/2002/Ecore';
+modeltype PHYSICAL_CORRESPONDENCE uses 'http://www.cactosfp7.eu/Correspondence/Physical/1.1';
+modeltype LOGICAL_CORRESPONDENCE uses  'http://www.cactosfp7.eu/Correspondence/Logical/1.1';
+modeltype PHYSICAL_CORE uses 'http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0';
+modeltype PHYSICAL_UTIL uses 'http://www.cactosfp7.eu/PhysicalDCModel/Util/1.0';
+modeltype LOGICAL_CORE uses 'http://www.cactosfp7.eu/LogicalDCModel/Core/1.0';
+modeltype LOGICAL_APPLICATION uses 'http://www.cactosfp7.eu/LogicalDCModel/Application/1.0';
+modeltype ACTION_CORE uses 'http://simulizar.palladiosimulator.org/Actions/Core/1.1';
+modeltype ACTION_INSTANCE uses 'http://simulizar.palladiosimulator.org/Actions/Instance/1.1';
+modeltype XMLTYPE uses 'http://www.eclipse.org/emf/2003/XMLType';
+modeltype ACTION_PARAM uses 'http://simulizar.palladiosimulator.org/Actions/Parameter/1.1';
+modeltype EXPERIMENT_SCENARIO uses 'http://www.cactosfp7.eu/ExperimentScenarioModel/1.0';
+modeltype EXPERIMENT_SCENARIO_REQUEST uses 'http://www.cactosfp7.eu/ExperimentScenarioModel/Request/1.0';
+modeltype EXPERIMENT_SCENARIO_SELECTOR uses 'http://www.cactosfp7.eu/ExperimentScenarioModel/Selector/1.0';
+modeltype OPTIMISATION_PLAN uses 'http://www.cactosfp7.eu/OptimisationPlan/1.0';
+
+
+transformation cactosAdaptationBehaviorHelper(in physicalCorrespondence : PHYSICAL_CORRESPONDENCE,  
+											  in logicalCorrespondence : LOGICAL_CORRESPONDENCE,
+											  inout actionRepositories : ACTION_CORE) {
+	
+	property OPTIMISATION_IN_PROGRESS_STEREOTYPE_NAME = "CactosEntityInOptimisation";
+	
+	property CONDUCT_VM_PLACEMENT_ACTION_ID = '_Q_sn0AiDEea2K8AVNJxydg';
+	property CVMP_VM_PLACEMENT_ACTION_ROLE_TYPE_ID = '_SflGOgiDEea2K8AVNJxydg';
+	property CVMP_TRANSFER_VM_TO_TARGET_CALL_ID = '_Vl_rIPGmEeWH3dYYnJ_SlA';
+	property CVMP_TRANSFER_VM_TO_TARGET_CALL_PARAMETER_ID = 'bytesize';
+	
+	property CONNECT_VMS_ACTION_ID = '_xzF7gA1cEeamz_F62Ko1Pw';
+	property CVM_CONNECT_VM_ACTIONS_ROLE_TYPE_ID = '_zUWS5A1cEeamz_F62Ko1Pw';
+								
+	property EXECUTE_OPTIMISATION_PLAN_ACTION_ID = '_x7dpYPfcEeWBd5TSpv9xog';
+	property EOP_OPTIMISATION_PLAN_ROLE_TYPE_ID = '_ycw_pPfcEeWBd5TSpv9xog';
+	property EOP_OPTIMISATION_STEP_ROLE_TYPE_ID = '_cz3vJPfdEeWBd5TSpv9xog';
+	
+	property MIGRATE_VM_ACTION_ID  = '_OuuM0A3rEeavzNf6FhjogQ';
+	property MVA_TARGET_NODE_ROLE_TYPE_ID = '_ZYfA1A3rEeavzNf6FhjogQ';
+	property MVA_MIGRATED_VM_ROLE_TYPE_ID = '_WoBrZA3rEeavzNf6FhjogQ';
+	
+	property MIGRATE_VM_INTERNAL_ACTION_ID  = '_7x-SQMp7EeW4EYpxKkq5Gw';
+	property MVI_TARGET_NODE_CORRESPONDENCE_TYPE_ID = '_or2AkeztEeSasuhUPGMaRg';
+	property MVI_MIGRATED_VM_TYPE_ID = '_kPTj0OztEeSasuhUPGMaRg';
+	property MVI_MIGRATION_CONTROLLER_CALL_ID = '_PPtigOw_EeSZKvpqmLO3MQ';
+	property MVI_MIGRATION_CONTROLLER_CALL_DELAY_PARAMETER_ID = 'delay';
+	property MVI_MIGRATION_CONTROLLER_CALL_CPU_PARAMETER_ID = 'cpuDemand';
+	property MVI_MIGRATION_CONTROLLER_CALL_BYTESIZE_PARAMETER_ID = 'bytesize';
+	
+	property SCALE_IN_ACTION_ID = '_JiriEBjpEeaes76hTFA7_A';
+	property SI_LOAD_BALANCER_VM_ROLE_TYPE_ID = '_MxzwhBjpEeaes76hTFA7_A';
+	property SI_SCALED_VM_ROLE_TYPE_ID = '_NQBWhBjpEeaes76hTFA7_A';
+	
+	property SCALE_OUT_ACTION_ID = '_KQBJMBjpEeaes76hTFA7_A';
+	property SO_LOAD_BALANCER_VM_ROLE_TYPE_ID = '_XFhcBBjpEeaes76hTFA7_A';
+	property SO_SCALABLE_CONNECTOR_ROLE_TYPE_ID = '_Rk2BtBjpEeaes76hTFA7_A';
+	
+	property SET_PHYSICAL_NODE_STATE_ACTION_ID = '_3ARh4A3nEeavzNf6FhjogQ';
+	property SPNS_TARGET_NODE_ROLE_TYPE_ID = '_CHBM1A3oEeavzNf6FhjogQ';
+	property SPNS_TARGET_NODE_STATE_ROLE_TYPE_ID = '_D7-jVA3oEeavzNf6FhjogQ';
+	
+	property NODE_STATE_CHANGE_ACTION_ID  = '_hhs44OBzEeW80IRue7ekzA';
+	property NSC_TARGET_NODE_CORRESPONDENCE_TYPE_ID = '_a4Wv5OB_EeWaP9YO-O9pYg';
+	property NSC_TARGET_NODE_STATE_TYPE_ID = '_fbMB5OB_EeWaP9YO-O9pYg';
+	property NSC_NODE_STATE_CHANGE_CALL_ID = '_JTBTEOCOEeWaP9YO-O9pYg';
+	property NSC_NODE_STATE_CHANGE_CALL_PARAMETER_ID = 'delay';
+	
+	property START_APPLICATION_ACTION_ID  = '_dkQlUOFXEeWepYHdROCUIA';
+	property SAA_APPLICATION_TEMPLATE_ROLE_TYPE_ID = '_ojqi1OH_EeW3h_nhVNagRA';
+	property SAA_VM_FLAVOUR_ROLE_TYPE_ID = '_pTUeJOH_EeW3h_nhVNagRA';
+	property SAA_WHITE_BOX_USER_BEHAVIOUR_TEMPLATE_ROLE_TYPE_ID = '_KoLxFOIAEeW3h_nhVNagRA';
+	property SAA_START_APPLICATION_REQUEST_ROLE_TYPE_ID = '_ZadjBO0LEeWwk45MX11cig';
+	property SAA_VM_PLACEMENT_ACTION_ROLE_TYPE_ID = "_uJ3khPAwEeWxro1EI_RTNg";
+	
+	property START_VIRTUAL_MACHINE_ACTION_ID  = '_sJXexvArEeWxro1EI_RTNg';
+	property SVM_VIRTUAL_MACHINE_ROLE_TYPE_ID = '_1lbJZPArEeWxro1EI_RTNg';
+	property SVM_START_UP_DELAY_CALL_ID = '_DI8mUPAMEeWZobkupPLe3A';
+	property SVM_START_UP_DELAY_CALL_PARAMETER_ID = 'delay';
+	
+	property TERMINATE_APPLICATION_ACTION_ID  = '_lXV24OxqEeW_CvI9eaHGOA';
+	property TAA_APPLICATION_INSTANCE_ROLE_TYPE_ID = '_pJmAhOxqEeW_CvI9eaHGOA';
+	
+	property TERMINATE_VM_ACTION_ID = "_DGwpsBj4EeaXJrUi8zbK0g";
+	property TVM_STOPPED_VM_ROLE_TYPE_ID = "_dliOlBj4EeaXJrUi8zbK0g";
+	
+	
+	query selectScaleInAction(): AdaptationBehavior {
+		return lookupAdaptationBehaviorInSet(SCALE_IN_ACTION_ID);
+	}
+	
+	query selectScaleOutAction(): AdaptationBehavior {
+		return lookupAdaptationBehaviorInSet(SCALE_OUT_ACTION_ID);
+	}
+	
+	query selectMigrateVMAction(): AdaptationBehavior {
+		return lookupAdaptationBehaviorInSet(MIGRATE_VM_ACTION_ID);
+	}
+	
+	query selectMigrateVMInternalAction(): AdaptationBehavior {
+		return lookupAdaptationBehaviorInSet(MIGRATE_VM_INTERNAL_ACTION_ID);
+	}
+	
+	query selectChangeNodeStateAction(): AdaptationBehavior {
+		return lookupAdaptationBehaviorInSet(NODE_STATE_CHANGE_ACTION_ID);
+	}
+	
+	query selectStartApplicationAction(): AdaptationBehavior {
+		return lookupAdaptationBehaviorInSet(START_APPLICATION_ACTION_ID);
+	}
+	
+	query selectStartVirtualMachineAction(): AdaptationBehavior {
+		return lookupAdaptationBehaviorInSet(START_VIRTUAL_MACHINE_ACTION_ID);
+	}
+	
+	query selectTerminateApplicationAction(): AdaptationBehavior {
+		return lookupAdaptationBehaviorInSet(TERMINATE_APPLICATION_ACTION_ID);
+	}
+	
+	query selectTerminateVMAction(): AdaptationBehavior {
+		return lookupAdaptationBehaviorInSet(TERMINATE_VM_ACTION_ID);
+	}
+	
+	query selectExecuteOptimisationPlanAction(): AdaptationBehavior {
+		return lookupAdaptationBehaviorInSet(EXECUTE_OPTIMISATION_PLAN_ACTION_ID);
+	}
+	
+	query selectConductVMPlacementAction(): AdaptationBehavior {
+		return lookupAdaptationBehaviorInSet(CONDUCT_VM_PLACEMENT_ACTION_ID);
+	}
+	
+	query selectConnectVMsAction(): AdaptationBehavior {
+		return lookupAdaptationBehaviorInSet(CONNECT_VMS_ACTION_ID);
+	}
+	
+	query selectSetPhysicalNodeStateAction(): AdaptationBehavior {
+		return lookupAdaptationBehaviorInSet(SET_PHYSICAL_NODE_STATE_ACTION_ID);
+	}
+	
+	query AdaptationBehavior::createMigrateVMInternalRoleSet(in targetPhysicalNode: AbstractNode,
+								  in virtualMachine: VirtualMachine): RoleSet {
+		
+		var target_node_correspondence := physicalCorrespondence.rootObjects()[PhysicalCorrespondenceRepository].abstractNodeCorrespondences->any(node | node.cactos.id = targetPhysicalNode.id);
+		var res := object ACTION_INSTANCE::RoleSet {
+			roles += object ACTION_INSTANCE::Role {
+				roleType := self.involvedRoles->select(r | r.id = MVI_TARGET_NODE_CORRESPONDENCE_TYPE_ID)->any(true);
+				value := target_node_correspondence.oclAsType(EObject);
+			};
+			roles += object ACTION_INSTANCE::Role {
+				roleType := self.involvedRoles->select(r | r.id = MVI_MIGRATED_VM_TYPE_ID)->any(true);
+				value := virtualMachine.oclAsType(EObject);
+			};
+		};
+		
+		return res;
+	}
+	
+	query AdaptationBehavior::createMigrateVMRoleSet(in targetPhysicalNode: AbstractNode,
+								  in virtualMachine: VirtualMachine): RoleSet {
+		
+		var res := object ACTION_INSTANCE::RoleSet {
+			roles += object ACTION_INSTANCE::Role {
+				roleType := self.involvedRoles->select(r | r.id = MVA_TARGET_NODE_ROLE_TYPE_ID)->any(true);
+				value := targetPhysicalNode.oclAsType(EObject);
+			};
+			roles += object ACTION_INSTANCE::Role {
+				roleType := self.involvedRoles->select(r | r.id = MVA_MIGRATED_VM_ROLE_TYPE_ID)->any(true);
+				value := virtualMachine.oclAsType(EObject);
+			};
+		};
+		
+		return res;
+	}
+	
+	query AdaptationBehavior::createNodeStateChangeRoleSet(in targetPhysicalNode: AbstractNode, in nodeState: NodeState): RoleSet {
+		
+		var target_node_correspondence := physicalCorrespondence.rootObjects()[PhysicalCorrespondenceRepository].abstractNodeCorrespondences->any(node | node.cactos.id = targetPhysicalNode.id);
+		
+		var nodeStateWrapper := object SimpleAnyType {
+			instanceType := PHYSICAL_CORE::NodeState.oclAsType(EDataType);
+			rawValue := nodeState.toString();
+		};
+		
+		var res := object ACTION_INSTANCE::RoleSet {
+			roles += object ACTION_INSTANCE::Role {
+				roleType := self.involvedRoles->any(id = NSC_TARGET_NODE_CORRESPONDENCE_TYPE_ID);
+				value := target_node_correspondence.oclAsType(EObject);
+			};
+			roles += object ACTION_INSTANCE::Role {
+				roleType := self.involvedRoles->any(id = NSC_TARGET_NODE_STATE_TYPE_ID);
+				value := nodeStateWrapper.oclAsType(EObject);
+			};
+		};
+		
+		return res;
+	}
+	
+	query AdaptationBehavior::createStartApplicationRoleSet(in applicationTemplate: ApplicationTemplate, in vmFlavour: Flavour,
+								  in whiteBoxUserBehaviourTemplate: WhiteBoxUserBehaviourTemplate, in request: StartApplicationRequest): RoleSet {
+		
+		var res := object ACTION_INSTANCE::RoleSet {
+			roles += object ACTION_INSTANCE::Role {
+				roleType := self.involvedRoles->any(id = SAA_APPLICATION_TEMPLATE_ROLE_TYPE_ID);
+				value := applicationTemplate.oclAsType(EObject);
+			};
+			roles += object ACTION_INSTANCE::Role {
+				roleType := self.involvedRoles->any(id = SAA_VM_FLAVOUR_ROLE_TYPE_ID);
+				value := vmFlavour.oclAsType(EObject);
+			};
+			roles += object ACTION_INSTANCE::Role {
+				roleType := self.involvedRoles->any(id = SAA_WHITE_BOX_USER_BEHAVIOUR_TEMPLATE_ROLE_TYPE_ID);
+				value := whiteBoxUserBehaviourTemplate.oclAsType(EObject);
+			};
+			roles += object ACTION_INSTANCE::Role {
+				roleType := self.involvedRoles->any(id = SAA_START_APPLICATION_REQUEST_ROLE_TYPE_ID);
+				value := request.oclAsType(EObject);
+			};
+			roles += object ACTION_INSTANCE::Role {
+				roleType := self.involvedRoles->any(id = SAA_VM_PLACEMENT_ACTION_ROLE_TYPE_ID);
+				value := null;
+			};
+		};
+		
+		return res;
+	}
+	
+	query AdaptationBehavior::createScaleInRoleSet(in loadBalancerVM: ComposedVM, in scaledVM: ComposedVM): RoleSet {
+		var res := object ACTION_INSTANCE::RoleSet {
+			roles += object ACTION_INSTANCE::Role {
+				roleType := self.involvedRoles->any(id = SI_LOAD_BALANCER_VM_ROLE_TYPE_ID);
+				value := loadBalancerVM.oclAsType(EObject);
+			};
+			roles += object ACTION_INSTANCE::Role {
+				roleType := self.involvedRoles->any(id = SI_SCALED_VM_ROLE_TYPE_ID);
+				value := scaledVM.oclAsType(EObject);
+			};
+		};
+		return res;
+	}
+	
+	query AdaptationBehavior::createScaleOutRoleSet(in loadBalancerVM: ComposedVM, in scalableConnector: ScalableVMImageConnector): RoleSet {
+		var res := object ACTION_INSTANCE::RoleSet {
+			roles += object ACTION_INSTANCE::Role {
+				roleType := self.involvedRoles->any(id = SO_LOAD_BALANCER_VM_ROLE_TYPE_ID);
+				value := loadBalancerVM.oclAsType(EObject);
+			};
+			roles += object ACTION_INSTANCE::Role {
+				roleType := self.involvedRoles->any(id = SO_SCALABLE_CONNECTOR_ROLE_TYPE_ID);
+				value := scalableConnector.oclAsType(EObject);
+			};
+		};
+		return res;
+	}
+	
+	query AdaptationBehavior::createStartVirtualMachineRoleSet(in vm: VirtualMachine): RoleSet {
+		
+		var res := object ACTION_INSTANCE::RoleSet {
+			roles += object ACTION_INSTANCE::Role {
+				roleType := self.involvedRoles->any(id = SVM_VIRTUAL_MACHINE_ROLE_TYPE_ID);
+				value := vm.oclAsType(EObject);
+			};
+		};
+		
+		return res;
+	}
+	
+	query AdaptationBehavior::createTerminateApplicationRoleSet(in applicationInstance: ApplicationInstance): RoleSet {
+		
+		var res := object ACTION_INSTANCE::RoleSet {
+			roles += object ACTION_INSTANCE::Role {
+				roleType := self.involvedRoles->any(id = TAA_APPLICATION_INSTANCE_ROLE_TYPE_ID);
+				value := applicationInstance.oclAsType(EObject);
+			};
+		};
+		
+		return res;
+	}
+	
+	query AdaptationBehavior::createTerminateVMRoleSet(in stoppedVM: VirtualMachine): RoleSet {
+		
+		var res := object ACTION_INSTANCE::RoleSet {
+			roles += object ACTION_INSTANCE::Role {
+				roleType := self.involvedRoles->any(id = TVM_STOPPED_VM_ROLE_TYPE_ID);
+				value := stoppedVM.oclAsType(EObject);
+			};
+		};
+		
+		return res;
+	}
+	query AdaptationBehavior::createExecuteOptimisationPlanRoleSet(in optimisationPlan: OptimisationPlan): RoleSet {
+		return object ACTION_INSTANCE::RoleSet {
+			roles += object ACTION_INSTANCE::Role {
+				roleType := self.involvedRoles->any(id = EOP_OPTIMISATION_PLAN_ROLE_TYPE_ID);
+				value := optimisationPlan.oclAsType(EObject);
+			};
+		};
+	}
+	
+	query AdaptationBehavior::createExecuteOptimisationStepRoleSet(in optimisationStep: OptimisationStep): RoleSet {
+		return object ACTION_INSTANCE::RoleSet {
+			roles += object ACTION_INSTANCE::Role {
+				roleType := self.involvedRoles->any(id = EOP_OPTIMISATION_STEP_ROLE_TYPE_ID);
+				value := optimisationStep.oclAsType(EObject);
+			};
+		};
+	}
+	
+	query AdaptationBehavior::createConductVMPlacementActionRoleSet(in placementAction: VmPlacementAction): RoleSet {
+		return object ACTION_INSTANCE::RoleSet {
+			roles += object ACTION_INSTANCE::Role {
+				roleType := self.involvedRoles->any(id = CVMP_VM_PLACEMENT_ACTION_ROLE_TYPE_ID);
+				value := placementAction.oclAsType(EObject);
+			};
+		};
+	}
+	
+	query AdaptationBehavior::createConnectVMsActionRoleSet(in connectActions : ParallelSteps): RoleSet {
+		return object ACTION_INSTANCE::RoleSet {
+			roles += object ACTION_INSTANCE::Role {
+				roleType := self.involvedRoles->any(id = CVM_CONNECT_VM_ACTIONS_ROLE_TYPE_ID);
+				value := connectActions.oclAsType(EObject);
+			};
+		};
+	}
+	
+	query AdaptationBehavior::createSetPhysicalNodeStateRoleSet(in targetPhysicalNode: AbstractNode, in nodeState: NodeState): RoleSet {
+		
+		var nodeStateWrapper := object SimpleAnyType {
+			instanceType := PHYSICAL_CORE::NodeState.oclAsType(EDataType);
+			rawValue := nodeState.toString();
+		};
+		
+		var res := object ACTION_INSTANCE::RoleSet {
+			roles += object ACTION_INSTANCE::Role {
+				roleType := self.involvedRoles->any(id = SPNS_TARGET_NODE_ROLE_TYPE_ID);
+				value := targetPhysicalNode.oclAsType(EObject);
+			};
+			roles += object ACTION_INSTANCE::Role {
+				roleType := self.involvedRoles->any(id = SPNS_TARGET_NODE_STATE_ROLE_TYPE_ID);
+				value := nodeStateWrapper.oclAsType(EObject);
+			};
+		};
+		
+		return res;
+	}
+	
+	query lookupAdaptationBehaviorInSet(id: String): AdaptationBehavior {
+		var visited: List(AdaptationBehaviorRepository);
+		var res: AdaptationBehavior = null;
+		actionRepositories.rootObjects()[AdaptationBehaviorRepository]->forEach(repo) {
+			if (not visited->includes(repo)) {
+				res := repo.lookupAdaptationBehavior(id, visited);
+				if (not (res = null)) break;
+			};
+		};
+		return res;
+	}
+	
+	query AdaptationBehaviorRepository::lookupAdaptationBehavior(id: String): AdaptationBehavior {
+		return self.lookupAdaptationBehavior(id, List {self}); 
+	}
+	
+	query AdaptationBehaviorRepository::lookupAdaptationBehavior(id: String, inout visited: List(AdaptationBehaviorRepository)): AdaptationBehavior {
+		var action := self.actions->any(a : AdaptationBehavior | a.id = id);
+		if (not ((action = null) or action.oclIsUndefined() or action.oclIsInvalid())) then {
+			return action
+		} endif;
+		self.includedRepositories->forEach(repo) {
+			if (not visited->includes(repo)) then {
+				visited += self;
+				repo.lookupAdaptationBehavior(id, visited);
+			} endif;
+		};
+		return null;
+	}
+	
+	// Can be simplified when I figure out how realize a "getter" method in OCL
+	// Furthermore the ugly ocl casts are used instead of polymorphism due to 
+	// QVTos limited expressiveness regarding type parameters. 
+	query ApplicationInstanceSelector::retrieveApplicationInstance(): ApplicationInstance {
+		if (self.oclIsKindOf(InitiallyRunningInstanceSelector)) {
+			return self.oclAsType(InitiallyRunningInstanceSelector).applicationInstance;
+		} else if (self.oclIsKindOf(PreviouslyStartedApplicationSelector)) {
+			var request := self.oclAsType(PreviouslyStartedApplicationSelector).startApplicationRequest;
+			if (request <> null and not request.oclIsInvalid()) {
+				if (request.timelineEvent.eventStatus = EventStatus::PROCESSED_SUCCESS) { 
+					return request.applicationInstance;
+				} else if (request.timelineEvent.eventStatus = EventStatus::PROCESSED_FAILURE) {
+					logWarn("Application instance could not be retrieved as application start failed");
+				} else if (Set{EventStatus::PENDING, EventStatus::SCHEDULED}->includes(request.timelineEvent.eventStatus)) {
+					logWarn("Application instance could not be retrieved as application start did not yet execute");
+				} else if (request.timelineEvent.eventStatus = EventStatus::IN_EXECUTION) {
+					logWarn("Application instance could not be retrieved as application is currently starting");
+				} else {
+					logError("ApplicationInstanceSelector should not have been called: " + self.toString());
+				}
+			}
+		} else {
+			logError("ApplicationInstanceSelector should not have been called: " + self.toString());
+		};
+		return null; 
+	} 
+	
+	query ApplicationInstance::toReferencedVM(): VirtualMachine {
+		assert fatal(false) with log('Unknown ApplicationInstance encountered. No VMs are retrieved.'); 
+		logError("ApplicationInstance should not have been called: " + self.toString());
+		return null;		
+	}
+	
+	query GreyBoxApplicationInstance::toReferencedVM(): VirtualMachine {
+		return self.virtualMachine;
+	}
+	
+	query BlackBoxApplicationInstance::toReferencedVM(): VirtualMachine {
+		return self.virtualMachine;
+	}
+	
+	query AbstractNode::getStartUpSpecification():StartupTime {
+		return null;
+	}
+	
+	query ComputeNode::getStartUpSpecification():StartupTime {
+		return self.hypervisor.getStartUpSpecificationForNode(self);
+	}
+	
+	query Hypervisor::getStartUpSpecificationForNode(node: ComputeNode):StartupTime {
+		var startUp := self.startupTimes->any(onNode.id = node.id);
+		if (startUp <> null) return startUp;
+		startUp := self.rootVolume.getStartUpSpecificationForNode(node);
+		if (startUp <> null) return startUp;
+		startUp := self.startupTimes->any(true);
+		if (startUp <> null) return startUp;
+		startUp := self.rootVolume.getAnyStartUpSpecification();
+		if (startUp <> null) return startUp;
+		return null;
+	}
+	
+	
+	query VirtualDisk::getStartUpSpecification(forNode: ComputeNode):StartupTime {
+		var startUp := self.getStartUpSpecificationForNode(forNode);
+		if (startUp <> null) return startUp;
+		return self.getAnyStartUpSpecification();
+	}
+	
+	query VirtualDisk::getStartUpSpecificationForNode(node: ComputeNode):StartupTime {
+		var disk := self;
+		while (disk <> null) {
+			if (disk.oclIsTypeOf(VMImage)) {
+				var startUp := disk.oclAsType(VMImage).startupTimes->any(onNode.id = node.id);
+				if (startUp <> null) return startUp;
+			};
+			disk := disk.parent;
+		};
+		return null;
+	}
+	
+	query VirtualDisk::getAnyStartUpSpecification():StartupTime {
+		var disk := self;
+		while (disk <> null) {
+			if (disk.oclIsTypeOf(VMImage)) {
+				var startUp := disk.oclAsType(VMImage).startupTimes->any(true);
+				if (startUp <> null) return startUp;
+			};
+			disk := disk.parent;
+		};
+		return null;
+	}
+
+}
